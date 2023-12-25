@@ -1,0 +1,44 @@
+@font-face {
+  font-family: "iconfont"; /* Project id 3254757 */
+  src: url('../assets/fonts/iconfont.woff2') format('woff2'),
+        url('../assets/fonts/iconfont.woff') format('woff'),
+        url('../assets/fonts/iconfont.ttf') format('truetype');
+}
+@font-face {
+  font-family:"pingfang";
+  src: url(../assets/fonts/PingFang.ttf);
+}
+*{
+  margin:0;
+  padding:0;
+  font-family: "pingfang";
+  box-sizing: border-box;
+}
+.d-f{
+  display: flex;
+}
+.j-c-c{
+  justify-content: center;
+}
+.j-c-s{
+  justify-content: space-around;
+}
+.j-c-sb{
+  justify-content: space-between;
+}
+.j-c-se{
+  justify-content: space-evenly;
+}
+.a-i-c{
+  align-items: center;
+}
+.f-d-c{
+  flex-direction: column;
+}
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
