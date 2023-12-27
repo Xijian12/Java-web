@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shu.mapper.AdminMapper">
+
+    <update id="updateAdminInformation">
+        UPDATE admin
+        <set>
+            <if test="account!=null">
+                admin_account=#{admin_account},
+            </if>
+            <if test="password!=null">
+                admin_password=#{admin_password},
+            </if>
+        </set>
+    </update>
+
+    <update id="updateUserInformation">
+        UPDATE user
+        <set>
+            <if test="account != null">
+                user_account = #{user_account},
+            </if>
+            <if test="password != null">
+                user_password = #{user_password},
+            </if>
+            <if test="nickname != null">
+                nickname = #{nickname},
+            </if>
+            <if test="points != null">
+                points = #{points},
+            </if>
+            <if test="email != null">
+                email = #{email},
+            </if>
+        </set>
+    </update>
+
+    <select id="findByAccount" resultType="com.shu.pojo.Admin">
+        SELECT * FROM Admin WHERE admin_account=#{admin_account}
+    </select>
+
+    <insert id="add" parameterType="com.shu.pojo.Admin">
+        INSERT INTO admin(admin_account, admin_password)
+        VALUES(#{admin_account}, #{admin_password})
+    </insert>
+
+    <delete id="deleteUserByEmail" parameterType="com.shu.pojo.User">
+        DELETE FROM user WHERE email=#{email}
+    </delete>
+
+    <delete id="deleteAdminByAccount" parameterType="com.shu.pojo.Admin">
+        DELETE FROM admin WHERE admin_account=#{admin_account}
+    </delete>
+
+</mapper>
