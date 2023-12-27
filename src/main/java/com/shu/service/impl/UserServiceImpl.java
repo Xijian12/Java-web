@@ -19,10 +19,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void register(String user_account,String user_password,String nickname, Integer points,String email) {
+    public void register(String userAccount,String userPassword,String nickName, Integer points,String email) {
         //加密处理
-        String md5String= Md5Util.getMD5String(user_password);
+        String md5String= Md5Util.getMD5String(userPassword);
         //添加
-        userMapper.add(user_account, user_password, nickname, points, email);
+        userMapper.add(userAccount, userPassword,nickName, points, email);
     }
 }

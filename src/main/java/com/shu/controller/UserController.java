@@ -14,13 +14,13 @@ public class UserController {
     @Autowired
     private UserService userService;
     @PostMapping("/register")
-    public Result register(String user_account, String user_password, String nickname, String email){
+    public Result register(String userAccount, String userPassword, String nickName, String email){
             //查询用户
             User u=userService.findByEmail(email);
             if(u==null){
                 // 设置point默认值为1
                 Integer points = 1;
-                userService.register(user_account, user_password, nickname, points,email);//没有占用
+                userService.register(userAccount, userPassword, nickName, points,email);//没有占用
                 System.out.println("查询成功");
                 return Result.success();
             }

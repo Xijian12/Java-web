@@ -16,24 +16,38 @@ public class AdminServiceImpl implements AdminService {
     private AdminMapper adminMapper;
 
     @Override
-    public Admin findAdminByAccount(String account) {
-        Admin admin = adminMapper.findByAccount(account);
+    public Admin findAdminByAccount(String adminAccount) {
+        Admin admin = adminMapper.findByAccount(adminAccount);
+        System.out.println(admin.getAdminAccount());
+        System.out.println(admin.getAdminPassword());
         return admin;
     }
     @Override
-    public void setAdmin(String account, String password) {
+    public void setAdmin(String adminAccount, String adminPassword) {
 
     }
     @Override
-    public void addAdmin(String account, String password) {
-        String md5String= Md5Util.getMD5String(password);
-        adminMapper.add(account,password);
+    public void addAdmin(String adminAccount, String adminPassword) {
+        String md5String= Md5Util.getMD5String(adminPassword);
+        adminMapper.add(adminAccount,md5String);
     }
 
     @Override
-    public void register(String account, String password) {
-        String md5String= Md5Util.getMD5String(password);
-        adminMapper.add(account,password);
+    public void register(String adminAccount, String adminPassword) {
+        String md5String= Md5Util.getMD5String(adminPassword);
+        adminMapper.add(adminAccount,md5String);
+    }
+
+    @Override
+    public String findByAccount(String adminAccount) {
+        return adminMapper.findByAccountString(adminAccount);
+    }
+
+    @Override
+    public void add(String adminAccount, String adminPassword) {
+        String md5String= Md5Util.getMD5String(adminPassword);
+        adminMapper.add(adminAccount,md5String);
+
     }
 
 

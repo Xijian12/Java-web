@@ -13,7 +13,7 @@
 <!--    </insert>-->
     <insert id="add" parameterType="com.shu.pojo.User">
         Insert into user(user_account, user_password, nickname, points, email)
-        values(#{user_account}, #{user_password}, #{nickname}, #{points, jdbcType=INTEGER}, #{email})
+        values(#{userAccount}, #{userPassword}, #{nickName}, #{points, jdbcType=INTEGER}, #{email})
     </insert>
 
 </mapper>

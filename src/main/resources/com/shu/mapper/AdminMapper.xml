@@ -8,10 +8,10 @@
         UPDATE admin
         <set>
             <if test="account!=null">
-                admin_account=#{admin_account},
+                admin_account=#{adminAccount},
             </if>
             <if test="password!=null">
-                admin_password=#{admin_password},
+                admin_password=#{adminPassword},
             </if>
         </set>
     </update>
@@ -20,13 +20,13 @@
         UPDATE user
         <set>
             <if test="account != null">
-                user_account = #{user_account},
+                user_account = #{userAccount},
             </if>
             <if test="password != null">
-                user_password = #{user_password},
+                user_password = #{userPassword},
             </if>
             <if test="nickname != null">
-                nickname = #{nickname},
+                nickname = #{nickName},
             </if>
             <if test="points != null">
                 points = #{points},
@@ -38,12 +38,16 @@
     </update>
 
     <select id="findByAccount" resultType="com.shu.pojo.Admin">
-        SELECT * FROM Admin WHERE admin_account=#{admin_account}
+        SELECT admin_account, admin_password FROM admin WHERE admin_account=#{admin_account}
     </select>
+    <select id="findByAccountString" resultType="java.lang.String">
+        Select  admin_account from admin where admin_account=#{admin_account};
+    </select>
+
 
     <insert id="add" parameterType="com.shu.pojo.Admin">
         INSERT INTO admin(admin_account, admin_password)
-        VALUES(#{admin_account}, #{admin_password})
+        VALUES(#{adminAccount}, #{adminPassword})
     </insert>
 
     <delete id="deleteUserByEmail" parameterType="com.shu.pojo.User">
@@ -51,7 +55,7 @@
     </delete>
 
     <delete id="deleteAdminByAccount" parameterType="com.shu.pojo.Admin">
-        DELETE FROM admin WHERE admin_account=#{admin_account}
+        DELETE FROM admin WHERE admin_account=#{adminAccount}
     </delete>
 
 </mapper>

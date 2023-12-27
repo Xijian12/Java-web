@@ -7,5 +7,5 @@ public interface UserService {
     User findByEmail(String email);
 
     //注册
-    void register(String user_account, String user_password, String nickname, Integer points, String email);
+    void register(String userAccount, String userPassword, String nickName, Integer points, String email);
 }
