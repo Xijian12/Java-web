@@ -26,4 +26,6 @@ public interface UserMapper {
 //    User findByEmail(@Param("email")String email);
 
     User findByEmail(@Param("email")String email);//查找用户
+
+
 }

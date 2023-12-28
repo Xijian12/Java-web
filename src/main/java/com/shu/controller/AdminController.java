@@ -29,6 +29,7 @@ public class AdminController {
             return AdminResult.error("管理员已经存在");
         }
     }
-    
+
+
 
 }

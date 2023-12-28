@@ -23,6 +23,16 @@ public class UserServiceImpl implements UserService {
         //加密处理
         String md5String= Md5Util.getMD5String(userPassword);
         //添加
-        userMapper.add(userAccount, userPassword,nickName, points, email);
+        userMapper.add(userAccount, md5String,nickName, points, email);
+    }
+
+    @Override
+    public void updatePassword(String userPassword) {
+
+    }
+
+    @Override
+    public void updateInformaation(String userPassword, String nickName, String email) {
+
     }
 }
