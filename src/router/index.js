@@ -1,6 +1,14 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { unauthorized } from "@/net";
 
+import Login from '@/components/Login.vue'
+import Register from '@/components/Register.vue'
+import Home from '@/components/Home.vue'
+import ItemList from '@/components/ItemList.vue'
+import Cart from '@/components/Cart.vue'
+import Personal from '@/components/Personal.vue'
+import store from "@/store";
+
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes: [
@@ -23,10 +31,39 @@ const router = createRouter({
                     component: () => import('@/views/welcome/ForgetPage.vue')
                 }
             ]
-        }, {
-            path: '/index',
-            name: 'index',
-            component: () => import('@/views/IndexView.vue'),
+        }, 
+        {
+            name:"login",
+            path:'/login',
+            component:Login
+        },
+        {
+            name:"register",
+            path:'/register',
+            component:Register
+        },
+        {
+            name:"home",
+            path: '/home',
+            component: Home,
+        },
+        {
+            name:'cart',
+            path: '/cart',
+            component: Cart,
+            meta:{isAuth:true}
+        },
+        {
+            name:"itemList",
+            path:'/itemList',
+            component:ItemList,
+            meta:{title:"itemList",isAuth:true}
+        },
+        {
+            name:"personal",
+            path:'/personal',
+            component:Personal,
+            meta:{isAuth:true}
         }
     ]
 })
@@ -34,8 +71,8 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
     const isUnauthorized = unauthorized()
     if(to.name.startsWith('welcome') && !isUnauthorized) {
-        next('/index')
-    } else if(to.fullPath.startsWith('/index') && isUnauthorized) {
+        next('/home')
+    } else if(to.fullPath.startsWith('/home') && isUnauthorized) {
         next('/')
     } else {
         next()
