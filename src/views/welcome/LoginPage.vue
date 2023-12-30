@@ -49,11 +49,12 @@
 </template>
 
 <script setup>
-import {User, Lock} from '@element-plus/icons-vue'
+import {useStore} from 'vuex';
 import router from "@/router";
 import {reactive, ref} from "vue";
-import {login} from '@/net'
+import {login} from '@/net';
 
+const store = useStore();
 const formRef = ref()
 const form = reactive({
   username: '',
@@ -73,7 +74,10 @@ const rules = {
 function userLogin() {
   formRef.value.validate((isValid) => {
     if(isValid) {
-      login(form.username, form.password, form.remember, () => router.push("/home"))
+      login(form.username, form.password, form.remember, (res) =>{
+        store.dispatch('addID',res.data)
+        router.push("/home")     
+      })
     }
   });
 }
