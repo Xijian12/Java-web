@@ -1,0 +1,72 @@
+2024-01-02 15:43:43.460  INFO 30540 --- [main] (system) c.example.MyProjectBackendApplication    : Starting MyProjectBackendApplication using Java 17.0.9 with PID 30540 (C:\Users\85131\Desktop\java\SpringBoot-Vue-Template-Jwt-main\my-project-backend\target\classes started by 85131 in C:\Users\85131\Desktop\java\SpringBoot-Vue-Template-Jwt-main\my-project-backend)
+2024-01-02 15:43:43.462  INFO 30540 --- [main] (system) c.example.MyProjectBackendApplication    : The following 1 profile is active: "dev"
+2024-01-02 15:43:44.273  INFO 30540 --- [main] (system) .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-01-02 15:43:44.276  INFO 30540 --- [main] (system) .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-01-02 15:43:44.310  INFO 30540 --- [main] (system) .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 12 ms. Found 0 Redis repository interfaces.
+2024-01-02 15:43:44.776 ERROR 30540 --- [main] (system) o.a.catalina.core.AprLifecycleListener   : An incompatible version [1.2.23] of the Apache Tomcat Native library is installed, while Tomcat requires version [1.2.34]
+2024-01-02 15:43:44.961  INFO 30540 --- [main] (system) o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2024-01-02 15:43:44.970  INFO 30540 --- [main] (system) o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-01-02 15:43:44.970  INFO 30540 --- [main] (system) o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.11]
+2024-01-02 15:43:45.091  INFO 30540 --- [main] (system) o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-01-02 15:43:45.092  INFO 30540 --- [main] (system) w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1586 ms
+2024-01-02 15:43:46.268  INFO 30540 --- [main] (system) o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@3bb4c2b2, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@4fbc516f, org.springframework.security.web.context.SecurityContextHolderFilter@c7673ae, org.springframework.security.web.header.HeaderWriterFilter@5cc075da, org.springframework.security.web.authentication.logout.LogoutFilter@1f57666b, com.example.filter.JwtAuthenticationFilter@1a10c47e, com.example.filter.RequestLogFilter@1d2def55, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@1700d089, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@7be859de, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@352e4b6d, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@1acc768, org.springframework.security.web.session.SessionManagementFilter@64ef2719, org.springframework.security.web.access.ExceptionTranslationFilter@118e2487, org.springframework.security.web.access.intercept.AuthorizationFilter@30ed4034]
+2024-01-02 15:43:46.582  WARN 30540 --- [main] (system) ocalVariableTableParameterNameDiscoverer : Using deprecated '-debug' fallback for parameter name resolution. Compile the affected code with '-parameters' instead or avoid its introspection: org.springframework.amqp.rabbit.core.RabbitAdmin
+2024-01-02 15:43:46.617  WARN 30540 --- [main] (system) ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+2024-01-02 15:43:46.631  INFO 30540 --- [main] (system) o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2024-01-02 15:43:46.642  INFO 30540 --- [main] (system) .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2024-01-02 15:43:46.657 ERROR 30540 --- [main] (system) o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8080 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8080 or configure this application to listen on another port.
+
+2024-01-02 15:51:14.928  INFO 37468 --- [main] (system) c.example.MyProjectBackendApplication    : Starting MyProjectBackendApplication using Java 17.0.9 with PID 37468 (C:\Users\85131\Desktop\java\SpringBoot-Vue-Template-Jwt-main\my-project-backend\target\classes started by 85131 in C:\Users\85131\Desktop\java\SpringBoot-Vue-Template-Jwt-main\my-project-backend)
+2024-01-02 15:51:14.931  INFO 37468 --- [main] (system) c.example.MyProjectBackendApplication    : The following 1 profile is active: "dev"
+2024-01-02 15:55:40.614  INFO 2620 --- [main] (system) c.example.MyProjectBackendApplication    : Starting MyProjectBackendApplication using Java 17.0.9 with PID 2620 (C:\Users\85131\Desktop\java\SpringBoot-Vue-Template-Jwt-main\my-project-backend\target\classes started by 85131 in C:\Users\85131\Desktop\java\SpringBoot-Vue-Template-Jwt-main\my-project-backend)
+2024-01-02 15:55:40.616  INFO 2620 --- [main] (system) c.example.MyProjectBackendApplication    : The following 1 profile is active: "dev"
+2024-01-02 15:55:41.313  INFO 2620 --- [main] (system) .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-01-02 15:55:41.317  INFO 2620 --- [main] (system) .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-01-02 15:55:41.339  INFO 2620 --- [main] (system) .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 10 ms. Found 0 Redis repository interfaces.
+2024-01-02 15:55:41.709 ERROR 2620 --- [main] (system) o.a.catalina.core.AprLifecycleListener   : An incompatible version [1.2.23] of the Apache Tomcat Native library is installed, while Tomcat requires version [1.2.34]
+2024-01-02 15:55:41.863  INFO 2620 --- [main] (system) o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2024-01-02 15:55:41.870  INFO 2620 --- [main] (system) o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-01-02 15:55:41.870  INFO 2620 --- [main] (system) o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.11]
+2024-01-02 15:55:41.971  INFO 2620 --- [main] (system) o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-01-02 15:55:41.973  INFO 2620 --- [main] (system) w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1324 ms
+2024-01-02 15:55:42.984  INFO 2620 --- [main] (system) o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@15d0b458, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@72a0a60d, org.springframework.security.web.context.SecurityContextHolderFilter@cb1c58c, org.springframework.security.web.header.HeaderWriterFilter@c7673ae, org.springframework.security.web.authentication.logout.LogoutFilter@4153a832, com.example.filter.JwtAuthenticationFilter@674184d, com.example.filter.RequestLogFilter@15d88c10, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@4fbc516f, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@10a064bd, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@7b5c9412, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@65930e02, org.springframework.security.web.session.SessionManagementFilter@7be859de, org.springframework.security.web.access.ExceptionTranslationFilter@7b423f90, org.springframework.security.web.access.intercept.AuthorizationFilter@3bb4c2b2]
+2024-01-02 15:55:43.243  WARN 2620 --- [main] (system) ocalVariableTableParameterNameDiscoverer : Using deprecated '-debug' fallback for parameter name resolution. Compile the affected code with '-parameters' instead or avoid its introspection: org.springframework.amqp.rabbit.core.RabbitAdmin
+2024-01-02 15:55:43.291  INFO 2620 --- [main] (system) o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2024-01-02 15:55:43.293  INFO 2620 --- [main] (system) o.s.a.r.c.CachingConnectionFactory       : Attempting to connect to: [localhost:5672]
+2024-01-02 15:55:43.344  INFO 2620 --- [main] (system) o.s.a.r.c.CachingConnectionFactory       : Created new connection: rabbitConnectionFactory#3f9f8d23:0/SimpleConnection@13e0f380 [delegate=amqp://guest@127.0.0.1:5672/, localPort=2539]
+2024-01-02 15:55:43.381  INFO 2620 --- [main] (system) c.example.MyProjectBackendApplication    : Started MyProjectBackendApplication in 3.197 seconds (process running for 3.881)
+2024-01-02 15:55:49.368  INFO 2620 --- [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-2] (system) o.s.a.r.l.SimpleMessageListenerContainer : Waiting for workers to finish.
+2024-01-02 15:55:49.435  INFO 2620 --- [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-2] (system) o.s.a.r.l.SimpleMessageListenerContainer : Successfully waited for workers to finish.
+2024-01-02 16:34:03.843  INFO 25760 --- [main] (system) c.example.MyProjectBackendApplication    : Starting MyProjectBackendApplication using Java 17.0.9 with PID 25760 (C:\Users\85131\Desktop\java\SpringBoot-Vue-Template-Jwt-main\my-project-backend\target\classes started by 85131 in C:\Users\85131\Desktop\java\SpringBoot-Vue-Template-Jwt-main\my-project-backend)
+2024-01-02 16:34:03.845  INFO 25760 --- [main] (system) c.example.MyProjectBackendApplication    : The following 1 profile is active: "dev"
+2024-01-02 16:34:04.729  INFO 25760 --- [main] (system) .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-01-02 16:34:04.733  INFO 25760 --- [main] (system) .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-01-02 16:34:04.770  INFO 25760 --- [main] (system) .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 12 ms. Found 0 Redis repository interfaces.
+2024-01-02 16:34:05.292 ERROR 25760 --- [main] (system) o.a.catalina.core.AprLifecycleListener   : An incompatible version [1.2.23] of the Apache Tomcat Native library is installed, while Tomcat requires version [1.2.34]
+2024-01-02 16:34:05.470  INFO 25760 --- [main] (system) o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2024-01-02 16:34:05.478  INFO 25760 --- [main] (system) o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-01-02 16:34:05.478  INFO 25760 --- [main] (system) o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.11]
+2024-01-02 16:34:05.596  INFO 25760 --- [main] (system) o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-01-02 16:34:05.597  INFO 25760 --- [main] (system) w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1708 ms
+2024-01-02 16:34:06.729  INFO 25760 --- [main] (system) o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@1ed12d10, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@4153a832, org.springframework.security.web.context.SecurityContextHolderFilter@644e6a8e, org.springframework.security.web.header.HeaderWriterFilter@1ead3c67, org.springframework.security.web.authentication.logout.LogoutFilter@23c00420, com.example.filter.JwtAuthenticationFilter@5885e231, com.example.filter.RequestLogFilter@5896cb9c, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@1f57666b, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@37ade216, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@4258106, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@4a2dbcfc, org.springframework.security.web.session.SessionManagementFilter@ba87c11, org.springframework.security.web.access.ExceptionTranslationFilter@6516181f, org.springframework.security.web.access.intercept.AuthorizationFilter@583030bd]
+2024-01-02 16:34:07.020  WARN 25760 --- [main] (system) ocalVariableTableParameterNameDiscoverer : Using deprecated '-debug' fallback for parameter name resolution. Compile the affected code with '-parameters' instead or avoid its introspection: org.springframework.amqp.rabbit.core.RabbitAdmin
+2024-01-02 16:34:07.067  INFO 25760 --- [main] (system) o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2024-01-02 16:34:07.069  INFO 25760 --- [main] (system) o.s.a.r.c.CachingConnectionFactory       : Attempting to connect to: [localhost:5672]
+2024-01-02 16:34:07.117  INFO 25760 --- [main] (system) o.s.a.r.c.CachingConnectionFactory       : Created new connection: rabbitConnectionFactory#1b60d324:0/SimpleConnection@402676e3 [delegate=amqp://guest@127.0.0.1:5672/, localPort=8692]
+2024-01-02 16:34:07.157  INFO 25760 --- [main] (system) c.example.MyProjectBackendApplication    : Started MyProjectBackendApplication in 3.856 seconds (process running for 4.578)
+2024-01-02 16:34:11.139  INFO 25760 --- [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-2] (system) o.s.a.r.l.SimpleMessageListenerContainer : Waiting for workers to finish.
+2024-01-02 16:34:11.199  INFO 25760 --- [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-2] (system) o.s.a.r.l.SimpleMessageListenerContainer : Successfully waited for workers to finish.
