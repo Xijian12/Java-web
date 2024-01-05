@@ -39,3 +39,20 @@ spring:
       origin: '*'
       credentials: false
       methods: '*'
+  #   文件上传的配置
+  servlet:
+    multipart:
+      max-request-size: 1000MB
+      max-file-size: 100MB
+
+# 阿里云OSS
+aliyun:
+  oss:
+    endpoint: https://oss-cn-shanghai.aliyuncs.com
+    accessKeyId: LTAI5tShHvTghSGiteidgrZi
+    accessKeySecret: wNufqd8fJNuu70d1nF5PR1QtAebBfx
+    bucketName: xiao-shu-shu
+    catalogueBookCover: BookCover/
+    catalogueAvatar: Avatar/
+    catalogueBooks: Books/
+    catalogueMaterial: Material/

@@ -61,6 +61,7 @@ public class SecurityConfiguration {
                         .requestMatchers("/admin/updateUserInfo").permitAll() // 添加这一行
                         .requestMatchers("/admin/updateAvatar").permitAll() // 添加这一行
                         .requestMatchers("/admin/showAllAccounts").permitAll() // 添加这一行
+                        .requestMatchers("/upload/avatar").permitAll() // 添加这一行
                         .anyRequest().hasAnyRole(Const.ROLE_DEFAULT)
                 )
                 .formLogin(conf -> conf

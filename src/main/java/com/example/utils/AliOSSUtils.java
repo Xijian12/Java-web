@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -37,8 +38,9 @@ public class AliOSSUtils {
         InputStream inputStream = file.getInputStream();
 
         // 避免文件覆盖
+        String catalogueAvatar =aliOSSPropreties.getCatalogueAvatar();
         String originalFilename = file.getOriginalFilename();
-        String newfileName = UUID.randomUUID().toString() + originalFilename.substring(originalFilename.lastIndexOf("."));
+        String newfileName = catalogueAvatar+ UUID.randomUUID().toString() + originalFilename.substring(originalFilename.lastIndexOf("."));
 
         //创建请求类
         PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, newfileName, inputStream);
@@ -56,7 +58,7 @@ public class AliOSSUtils {
         // 关闭ossClient
         ossClient.shutdown();
 
-        List<String> UrlAndUUID = null;
+        List<String> UrlAndUUID = new ArrayList<>();
         UrlAndUUID.add(url);
         UrlAndUUID.add(newfileName);
 
@@ -77,8 +79,9 @@ public class AliOSSUtils {
         InputStream inputStream = file.getInputStream();
 
         // 避免文件覆盖
+        String catalogueBookCover = aliOSSPropreties.getCatalogueBookCover();
         String originalFilename = file.getOriginalFilename();
-        String newfileName = UUID.randomUUID().toString() + originalFilename.substring(originalFilename.lastIndexOf("."));
+        String newfileName = catalogueBookCover + UUID.randomUUID().toString() + originalFilename.substring(originalFilename.lastIndexOf("."));
 
         //创建请求类
         PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, newfileName, inputStream);
@@ -96,7 +99,7 @@ public class AliOSSUtils {
         // 关闭ossClient
         ossClient.shutdown();
 
-        List<String> UrlAndUUID = null;
+        List<String> UrlAndUUID = new ArrayList<>();
         UrlAndUUID.add(url);
         UrlAndUUID.add(newfileName);
 

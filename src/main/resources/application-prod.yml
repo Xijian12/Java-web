@@ -7,6 +7,7 @@ springdoc:
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
 spring:
   mail:
     host: smtp.163.com
@@ -20,7 +21,7 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/operator
     username: root
-    password: 5201314Eminem
+    password: "021012"
     driver-class-name: com.mysql.cj.jdbc.Driver
   security:
     jwt:
