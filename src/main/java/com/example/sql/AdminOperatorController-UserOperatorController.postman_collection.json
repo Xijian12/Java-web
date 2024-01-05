@@ -1,0 +1,98 @@
+{
+	"info": {
+		"_postman_id": "5b732a9a-e5ef-4a1b-8b4b-25598998fc22",
+		"name": "AdminOperatorController/UserOperatorController",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31674650",
+		"_collection_link": "https://www.postman.com/flight-explorer-32622565/workspace/bookmanage/collection/31674650-5b732a9a-e5ef-4a1b-8b4b-25598998fc22?action=share&source=collection_link&creator=31674650"
+	},
+	"item": [
+		{
+			"name": "用户查看用户信息",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "查看管理员信息",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "管理员查看用户信息",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "显示所有用户和管理员",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "修改头像",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "修改用户信息",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/admin/updateUserInfo?oldUserName=原神&newUserName=马英华&newPassword=123456789&points=100",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"admin",
+						"updateUserInfo"
+					],
+					"query": [
+						{
+							"key": "oldUserName",
+							"value": "原神"
+						},
+						{
+							"key": "newUserName",
+							"value": "马英华"
+						},
+						{
+							"key": "newPassword",
+							"value": "123456789"
+						},
+						{
+							"key": "points",
+							"value": "100"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

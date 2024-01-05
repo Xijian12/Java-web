@@ -1,0 +1,27 @@
+{
+	"info": {
+		"_postman_id": "866e66fd-b758-4e68-a8f1-f122d7db19c1",
+		"name": "UploadController",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31674650",
+		"_collection_link": "https://www.postman.com/flight-explorer-32622565/workspace/bookmanage/collection/31674650-866e66fd-b758-4e68-a8f1-f122d7db19c1?action=share&source=collection_link&creator=31674650"
+	},
+	"item": [
+		{
+			"name": "更新头像",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "上传头像",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}

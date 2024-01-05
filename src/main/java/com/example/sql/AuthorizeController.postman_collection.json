@@ -1,0 +1,51 @@
+{
+	"info": {
+		"_postman_id": "058a19de-29bb-4c73-b5d6-4e475842f994",
+		"name": "AuthorizeController",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31674650",
+		"_collection_link": "https://www.postman.com/flight-explorer-32622565/workspace/bookmanage/collection/31674650-058a19de-29bb-4c73-b5d6-4e475842f994?action=share&source=collection_link&creator=31674650"
+	},
+	"item": [
+		{
+			"name": "测试请求邮件验证码注册",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "测试用户注册",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "测试密码重置确认",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "测试密码重置操作",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "测试请求邮箱验证码重置",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}
