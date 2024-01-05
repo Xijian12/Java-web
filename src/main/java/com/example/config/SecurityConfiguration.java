@@ -57,6 +57,10 @@ public class SecurityConfiguration {
                         .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
                         .requestMatchers("/admin/userInfo").permitAll() // 添加这一行
                         .requestMatchers("/user/userInfo").permitAll() // 添加这一行
+                        .requestMatchers("/admin/adminInfo").permitAll() // 添加这一行
+                        .requestMatchers("/admin/updateUserInfo").permitAll() // 添加这一行
+                        .requestMatchers("/admin/updateAvatar").permitAll() // 添加这一行
+                        .requestMatchers("/admin/showAllAccounts").permitAll() // 添加这一行
                         .anyRequest().hasAnyRole(Const.ROLE_DEFAULT)
                 )
                 .formLogin(conf -> conf

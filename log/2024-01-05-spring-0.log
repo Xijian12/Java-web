@@ -1,0 +1,252 @@
+2024-01-05 13:03:21.470  INFO 29472 --- [main] (system) c.example.MyProjectBackendApplication    : Starting MyProjectBackendApplication using Java 17.0.9 with PID 29472 (C:\Users\85131\Desktop\doucment\java\test\target\classes started by 85131 in C:\Users\85131\Desktop\doucment\java\test)
+2024-01-05 13:03:21.473  INFO 29472 --- [main] (system) c.example.MyProjectBackendApplication    : The following 1 profile is active: "dev"
+2024-01-05 13:03:22.871  INFO 29472 --- [main] (system) .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-01-05 13:03:22.876  INFO 29472 --- [main] (system) .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-01-05 13:03:22.929  INFO 29472 --- [main] (system) .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 25 ms. Found 0 Redis repository interfaces.
+2024-01-05 13:03:23.853 ERROR 29472 --- [main] (system) o.a.catalina.core.AprLifecycleListener   : An incompatible version [1.2.23] of the Apache Tomcat Native library is installed, while Tomcat requires version [1.2.34]
+2024-01-05 13:03:24.217  INFO 29472 --- [main] (system) o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2024-01-05 13:03:24.242  INFO 29472 --- [main] (system) o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-01-05 13:03:24.243  INFO 29472 --- [main] (system) o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.11]
+2024-01-05 13:03:24.495  INFO 29472 --- [main] (system) o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-01-05 13:03:24.496  INFO 29472 --- [main] (system) w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2964 ms
+2024-01-05 13:03:27.076  INFO 29472 --- [main] (system) o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@694b1ddb, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@5690c2a8, org.springframework.security.web.context.SecurityContextHolderFilter@671f545b, org.springframework.security.web.header.HeaderWriterFilter@78508e6b, org.springframework.security.web.authentication.logout.LogoutFilter@320fc4b0, com.example.filter.JwtAuthenticationFilter@20864cd1, com.example.filter.RequestLogFilter@76b305e1, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@8ecc457, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@75c8d8e7, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@342dc040, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@17e2835c, org.springframework.security.web.session.SessionManagementFilter@2cc97e47, org.springframework.security.web.access.ExceptionTranslationFilter@43de9fc9, org.springframework.security.web.access.intercept.AuthorizationFilter@6cc44207]
+2024-01-05 13:03:27.850  WARN 29472 --- [main] (system) ocalVariableTableParameterNameDiscoverer : Using deprecated '-debug' fallback for parameter name resolution. Compile the affected code with '-parameters' instead or avoid its introspection: org.springframework.amqp.rabbit.core.RabbitAdmin
+2024-01-05 13:03:27.926  INFO 29472 --- [main] (system) o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2024-01-05 13:03:27.932  INFO 29472 --- [main] (system) o.s.a.r.c.CachingConnectionFactory       : Attempting to connect to: [localhost:5672]
+2024-01-05 13:03:28.012  INFO 29472 --- [main] (system) o.s.a.r.c.CachingConnectionFactory       : Created new connection: rabbitConnectionFactory#359865a2:0/SimpleConnection@6055e899 [delegate=amqp://guest@127.0.0.1:5672/, localPort=1884]
+2024-01-05 13:03:28.126  INFO 29472 --- [main] (system) c.example.MyProjectBackendApplication    : Started MyProjectBackendApplication in 7.687 seconds (process running for 10.367)
+2024-01-05 13:04:05.402  INFO 29472 --- [http-nio-8080-exec-5] (system) o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-01-05 13:04:05.403  INFO 29472 --- [http-nio-8080-exec-5] (system) o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-01-05 13:04:05.405  INFO 29472 --- [http-nio-8080-exec-5] (system) o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2024-01-05 13:04:06.249  INFO 29472 --- [http-nio-8080-exec-5] (55965168873639936) com.example.filter.RequestLogFilter      : 请求URL: "/user/userInfo" (GET) | 远程IP地址: 0:0:0:0:0:0:0:1 │ 身份: 未验证 | 请求参数列表: {"username":"马英九"}
+2024-01-05 13:04:06.731  INFO 29472 --- [http-nio-8080-exec-5] (55965168873639936) com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-01-05 13:04:07.183  INFO 29472 --- [http-nio-8080-exec-5] (55965168873639936) com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@4412eaad
+2024-01-05 13:04:07.186  INFO 29472 --- [http-nio-8080-exec-5] (55965168873639936) com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-01-05 13:04:07.340 ERROR 29472 --- [http-nio-8080-exec-5] (55965168873639936) o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: org.springframework.jdbc.BadSqlGrammarException: 
+### Error querying database.  Cause: java.sql.SQLSyntaxErrorException: Unknown column 'picture_url' in 'field list'
+### The error may exist in com/example/mapper/AccountMapper.java (best guess)
+### The error may involve defaultParameterMap
+### The error occurred while setting parameters
+### SQL: SELECT  id,username,password,email,role,register_time,points,picture_url  FROM db_account     WHERE (username = ? OR email = ?)
+### Cause: java.sql.SQLSyntaxErrorException: Unknown column 'picture_url' in 'field list'
+; bad SQL grammar []] with root cause
+
+java.sql.SQLSyntaxErrorException: Unknown column 'picture_url' in 'field list'
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:121)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeInternal(ClientPreparedStatement.java:916)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.execute(ClientPreparedStatement.java:354)
+	at com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.execute(HikariProxyPreparedStatement.java)
+	at org.apache.ibatis.executor.statement.PreparedStatementHandler.query(PreparedStatementHandler.java:64)
+	at org.apache.ibatis.executor.statement.RoutingStatementHandler.query(RoutingStatementHandler.java:79)
+	at org.apache.ibatis.executor.SimpleExecutor.doQuery(SimpleExecutor.java:63)
+	at org.apache.ibatis.executor.BaseExecutor.queryFromDatabase(BaseExecutor.java:325)
+	at org.apache.ibatis.executor.BaseExecutor.query(BaseExecutor.java:156)
+	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:109)
+	at org.apache.ibatis.executor.CachingExecutor.query(CachingExecutor.java:89)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:151)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:145)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:140)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:427)
+	at jdk.proxy2/jdk.proxy2.$Proxy96.selectList(Unknown Source)
+	at org.mybatis.spring.SqlSessionTemplate.selectList(SqlSessionTemplate.java:224)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperMethod.executeForMany(MybatisMapperMethod.java:166)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperMethod.execute(MybatisMapperMethod.java:77)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy$PlainMethodInvoker.invoke(MybatisMapperProxy.java:148)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy.invoke(MybatisMapperProxy.java:89)
+	at jdk.proxy2/jdk.proxy2.$Proxy100.selectList(Unknown Source)
+	at com.baomidou.mybatisplus.core.mapper.BaseMapper.selectOne(BaseMapper.java:172)
+	at java.base/java.lang.invoke.MethodHandle.invokeWithArguments(MethodHandle.java:732)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy$DefaultMethodInvoker.invoke(MybatisMapperProxy.java:162)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy.invoke(MybatisMapperProxy.java:89)
+	at jdk.proxy2/jdk.proxy2.$Proxy100.selectOne(Unknown Source)
+	at com.baomidou.mybatisplus.extension.conditions.query.ChainQuery.lambda$one$cd9f9c92$1(ChainQuery.java:48)
+	at com.baomidou.mybatisplus.extension.conditions.ChainWrapper.execute(ChainWrapper.java:63)
+	at com.baomidou.mybatisplus.extension.conditions.query.ChainQuery.one(ChainQuery.java:48)
+	at com.example.service.impl.AccountServiceImpl.findAccountByNameOrEmail(AccountServiceImpl.java:219)
+	at com.example.service.impl.AccountServiceImpl.userInfoByName(AccountServiceImpl.java:169)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:343)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:704)
+	at com.example.service.impl.AccountServiceImpl$$SpringCGLIB$$0.userInfoByName(<generated>)
+	at com.example.controller.AccountOperatorController.lambda$getUserInfo$0(AccountOperatorController.java:30)
+	at com.example.controller.AccountOperatorController.messageHandle(AccountOperatorController.java:40)
+	at com.example.controller.AccountOperatorController.getUserInfo(AccountOperatorController.java:29)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:343)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:756)
+	at org.springframework.validation.beanvalidation.MethodValidationInterceptor.invoke(MethodValidationInterceptor.java:141)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:756)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:708)
+	at com.example.controller.AccountOperatorController$$SpringCGLIB$$0.getUserInfo(<generated>)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:205)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:150)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:884)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:797)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1081)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:974)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1011)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:903)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:205)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:110)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:110)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(FilterChainProxy.java:231)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:365)
+	at org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:100)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:126)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:120)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:131)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:85)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:227)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:221)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at com.example.filter.RequestLogFilter.doFilterInternal(RequestLogFilter.java:42)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at com.example.filter.JwtAuthenticationFilter.doFilterInternal(JwtAuthenticationFilter.java:44)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:352)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:268)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at com.example.filter.FlowLimitingFilter.doFilter(FlowLimitingFilter.java:51)
+	at jakarta.servlet.http.HttpFilter.doFilter(HttpFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at com.example.filter.CorsFilter.doFilter(CorsFilter.java:34)
+	at jakarta.servlet.http.HttpFilter.doFilter(HttpFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:166)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:341)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:391)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:894)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1740)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+
+2024-01-05 13:04:49.401  INFO 29472 --- [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-2] (system) o.s.a.r.l.SimpleMessageListenerContainer : Waiting for workers to finish.
+2024-01-05 13:04:49.831  INFO 29472 --- [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-2] (system) o.s.a.r.l.SimpleMessageListenerContainer : Successfully waited for workers to finish.
+2024-01-05 13:04:49.949  INFO 29472 --- [SpringApplicationShutdownHook] (system) com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-01-05 13:04:49.972  INFO 29472 --- [SpringApplicationShutdownHook] (system) com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-01-05 13:22:46.340  INFO 53540 --- [main] (system) c.example.MyProjectBackendApplication    : Starting MyProjectBackendApplication using Java 17.0.9 with PID 53540 (C:\Users\85131\Desktop\doucment\java\test\target\classes started by 85131 in C:\Users\85131\Desktop\doucment\java\test)
+2024-01-05 13:22:46.345  INFO 53540 --- [main] (system) c.example.MyProjectBackendApplication    : The following 1 profile is active: "dev"
+2024-01-05 13:22:48.023  INFO 53540 --- [main] (system) .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-01-05 13:22:48.026  INFO 53540 --- [main] (system) .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-01-05 13:22:48.068  INFO 53540 --- [main] (system) .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 16 ms. Found 0 Redis repository interfaces.
+2024-01-05 13:22:48.855 ERROR 53540 --- [main] (system) o.a.catalina.core.AprLifecycleListener   : An incompatible version [1.2.23] of the Apache Tomcat Native library is installed, while Tomcat requires version [1.2.34]
+2024-01-05 13:22:49.204  INFO 53540 --- [main] (system) o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2024-01-05 13:22:49.217  INFO 53540 --- [main] (system) o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-01-05 13:22:49.217  INFO 53540 --- [main] (system) o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.11]
+2024-01-05 13:22:49.479  INFO 53540 --- [main] (system) o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-01-05 13:22:49.480  INFO 53540 --- [main] (system) w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 3075 ms
+2024-01-05 13:22:51.676  INFO 53540 --- [main] (system) o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@3a5e4f32, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@2b0494a8, org.springframework.security.web.context.SecurityContextHolderFilter@5cd6719d, org.springframework.security.web.header.HeaderWriterFilter@1a85e86e, org.springframework.security.web.authentication.logout.LogoutFilter@70819ba8, com.example.filter.JwtAuthenticationFilter@e07b4db, com.example.filter.RequestLogFilter@efe49ab, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@4e9bd2c8, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@61b0af9f, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@8ecc457, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@17c34e62, org.springframework.security.web.session.SessionManagementFilter@10724a72, org.springframework.security.web.access.ExceptionTranslationFilter@d65e744, org.springframework.security.web.access.intercept.AuthorizationFilter@59929ac]
+2024-01-05 13:22:52.291  WARN 53540 --- [main] (system) ocalVariableTableParameterNameDiscoverer : Using deprecated '-debug' fallback for parameter name resolution. Compile the affected code with '-parameters' instead or avoid its introspection: org.springframework.amqp.rabbit.core.RabbitAdmin
+2024-01-05 13:22:52.374  INFO 53540 --- [main] (system) o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2024-01-05 13:22:52.382  INFO 53540 --- [main] (system) o.s.a.r.c.CachingConnectionFactory       : Attempting to connect to: [localhost:5672]
+2024-01-05 13:22:52.471  INFO 53540 --- [main] (system) o.s.a.r.c.CachingConnectionFactory       : Created new connection: rabbitConnectionFactory#22cd8ec2:0/SimpleConnection@7a600e21 [delegate=amqp://guest@127.0.0.1:5672/, localPort=4611]
+2024-01-05 13:22:52.535  INFO 53540 --- [main] (system) c.example.MyProjectBackendApplication    : Started MyProjectBackendApplication in 7.462 seconds (process running for 8.78)
+2024-01-05 13:23:02.415  INFO 53540 --- [http-nio-8080-exec-2] (system) o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-01-05 13:23:02.415  INFO 53540 --- [http-nio-8080-exec-2] (system) o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-01-05 13:23:02.416  INFO 53540 --- [http-nio-8080-exec-2] (system) o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2024-01-05 13:23:03.199  INFO 53540 --- [http-nio-8080-exec-2] (55969937595961344) com.example.filter.RequestLogFilter      : 请求URL: "/user/userInfo" (GET) | 远程IP地址: 0:0:0:0:0:0:0:1 │ 身份: 未验证 | 请求参数列表: {"username":"马英九"}
+2024-01-05 13:23:03.623  INFO 53540 --- [http-nio-8080-exec-2] (55969937595961344) com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-01-05 13:23:04.078  INFO 53540 --- [http-nio-8080-exec-2] (55969937595961344) com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@79de290
+2024-01-05 13:23:04.083  INFO 53540 --- [http-nio-8080-exec-2] (55969937595961344) com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-01-05 13:23:04.328  INFO 53540 --- [http-nio-8080-exec-2] (55969937595961344) com.example.filter.RequestLogFilter      : 请求处理耗时: 1132ms | 响应结果: {"id":55969937595961344,"code":200,"data":"email='2323223@qq.com', id='9', username='马英九', role='user', points=5, avatarUrl='null', avatarUUID='null'}","message":"请求成功"}
+2024-01-05 13:23:52.564  INFO 53540 --- [http-nio-8080-exec-3] (55970144660361216) com.example.filter.RequestLogFilter      : 请求URL: "/user/userInfo" (GET) | 远程IP地址: 0:0:0:0:0:0:0:1 │ 身份: 未验证 | 请求参数列表: {"username":"马英九"}
+2024-01-05 13:23:52.584  INFO 53540 --- [http-nio-8080-exec-3] (55970144660361216) com.example.filter.RequestLogFilter      : 请求处理耗时: 20ms | 响应结果: {"id":55970144660361216,"code":200,"data":"email='2323223@qq.com', id='9', username='马英九', role='user', points=5, avatarUrl='null', avatarUUID='null'}","message":"请求成功"}
+2024-01-05 13:23:56.956  INFO 53540 --- [http-nio-8080-exec-4] (55970163077550080) com.example.filter.RequestLogFilter      : 请求URL: "/admin/adminInfo" (GET) | 远程IP地址: 0:0:0:0:0:0:0:1 │ 身份: 未验证 | 请求参数列表: {"username":"马英九"}
+2024-01-05 13:23:57.006  INFO 53540 --- [http-nio-8080-exec-4] (55970163077550080) com.example.filter.RequestLogFilter      : 请求处理耗时: 51ms | 响应结果: {"id":55970163077550080,"code":200,"data":"email='2323223@qq.com', id='9', username='马英九', role='user', points=5, avatarUrl='null', avatarUUID='null'}","message":"请求成功"}
+2024-01-05 13:24:00.925  INFO 53540 --- [http-nio-8080-exec-5] (55970179728936960) com.example.filter.RequestLogFilter      : 请求URL: "/admin/userInfo" (GET) | 远程IP地址: 0:0:0:0:0:0:0:1 │ 身份: 未验证 | 请求参数列表: {"username":"马英九"}
+2024-01-05 13:24:00.934  INFO 53540 --- [http-nio-8080-exec-5] (55970179728936960) com.example.filter.RequestLogFilter      : 请求处理耗时: 9ms | 响应结果: {"id":55970179728936960,"code":200,"data":"email='2323223@qq.com', id='9', username='马英九', role='user', points=5, avatarUrl='null', avatarUUID='null'}","message":"请求成功"}
+2024-01-05 13:24:05.117  INFO 53540 --- [http-nio-8080-exec-6] (55970197311459328) com.example.filter.RequestLogFilter      : 请求URL: "/admin/showAllAccounts" (GET) | 远程IP地址: 0:0:0:0:0:0:0:1 │ 身份: 未验证 | 请求参数列表: {}
+2024-01-05 13:24:05.141  INFO 53540 --- [http-nio-8080-exec-6] (55970197311459328) com.example.filter.RequestLogFilter      : 请求处理耗时: 23ms | 响应结果: {"id":55970197311459328,"code":200,"data":[{"email":"yhempr@gmail.com","id":"8","username":"yhempr","role":"user","points":5,"avatarUrl":null,"avatarUuid":null},{"email":"2323223@qq.com","id":"9","username":"马英九","role":"user","points":5,"avatarUrl":null,"avatarUuid":null},{"email":"2031282938@qq.com","id":"10","username":"马英华","role":"user","points":100,"avatarUrl":"https://ys.mihoyo.com/","avatarUuid":"21"},{"email":"myhsnd666@gmail.com","id":"11","username":"jocker","role":"user","points":5,"avatarUrl":null,"avatarUuid":null},{"email":"851314610@qq.com","id":"12","username":"小丑","role":"user","points":5,"avatarUrl":null,"avatarUuid":null}],"message":"请求成功"}
+2024-01-05 13:24:13.709  INFO 53540 --- [http-nio-8080-exec-7] (55970233348919296) com.example.filter.RequestLogFilter      : 请求URL: "/admin/updateAvatar" (POST) | 远程IP地址: 0:0:0:0:0:0:0:1 │ 身份: 未验证 | 请求参数列表: {}
+2024-01-05 13:24:13.804  INFO 53540 --- [http-nio-8080-exec-7] (55970233348919296) com.example.filter.RequestLogFilter      : 请求处理耗时: 95ms | 响应结果: {"id":55970233348919296,"code":200,"data":"成功修改用户头像","message":"请求成功"}
+2024-01-05 13:24:24.060  INFO 53540 --- [http-nio-8080-exec-8] (55970276764160000) com.example.filter.RequestLogFilter      : 请求URL: "/admin/updateUserInfo" (POST) | 远程IP地址: 0:0:0:0:0:0:0:1 │ 身份: 未验证 | 请求参数列表: {"oldUserName":"原神","newUserName":"马英华","newPassword":"123456789","points":"100"}
+2024-01-05 13:24:24.072  INFO 53540 --- [http-nio-8080-exec-8] (55970276764160000) com.example.filter.RequestLogFilter      : 请求处理耗时: 12ms | 响应结果: {"id":55970276764160000,"code":200,"data":"成功修改用户信息","message":"请求成功"}
+2024-01-05 13:24:56.590  INFO 53540 --- [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-2] (system) o.s.a.r.l.SimpleMessageListenerContainer : Waiting for workers to finish.
+2024-01-05 13:24:56.611  INFO 53540 --- [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-2] (system) o.s.a.r.l.SimpleMessageListenerContainer : Successfully waited for workers to finish.
+2024-01-05 13:24:56.704  INFO 53540 --- [SpringApplicationShutdownHook] (system) com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-01-05 13:24:56.722  INFO 53540 --- [SpringApplicationShutdownHook] (system) com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

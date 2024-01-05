@@ -1,11 +1,11 @@
 package com.example.controller;
 
 import com.example.entity.RestBean;
+import com.example.entity.vo.response.DisplayAccountByUserVO;
 import com.example.service.AccountService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
-import jakarta.validation.Valid;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,18 +16,20 @@ import java.util.function.Supplier;
 @RestController
 @RequestMapping("/user")
 @Tag(name = "用户管理员相关操作", description = "包括用户管理员相关信息修改等操作。")
-public class AccountOperatorController {
+public class UserOperatorController {
     @Resource
     AccountService accountService;
     /**
      * 用户查看个人信息
+     *
      * @return 用户信息
      */
     @GetMapping("/userInfo")
     @Operation(summary = "查看用户信息")
-    public RestBean<Void> getUserInfo(@RequestParam String username){
-        return this.messageHandle(() ->
-                accountService.userInfoByName(username));
+    public RestBean<String> getUserInfo(@RequestParam String username){
+        DisplayAccountByUserVO userVo=accountService.userInfo(username);
+        System.out.println(userVo);
+        return RestBean.success(userVo.toString());
     }
 
     /**

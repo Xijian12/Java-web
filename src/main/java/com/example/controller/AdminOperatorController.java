@@ -1,6 +1,8 @@
 package com.example.controller;
 
 import com.example.entity.RestBean;
+import com.example.entity.dto.Account;
+import com.example.entity.vo.request.UpdateAvatarVO;
 import com.example.entity.vo.response.DisplayAccountByAdminVO;
 import com.example.entity.vo.response.DisplayAccountByUserVO;
 import com.example.service.AccountService;
@@ -8,9 +10,11 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
 import jakarta.validation.Valid;
+import org.springframework.security.core.parameters.P;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.function.Supplier;
 
 
@@ -29,9 +33,9 @@ public class AdminOperatorController {
      */
     @GetMapping("/userInfo")
     @Operation(summary = "查看用户信息")
-    public RestBean<DisplayAccountByUserVO> getUserInfo(@RequestParam String username){
-        return this.messageHandle(() ->
-                accountService.userInfo(username));
+    public RestBean<String> getUserInfo(@RequestParam String username){
+        String userVo= accountService.userInfo(username).toString();
+        return RestBean.success(userVo);
     }
     /**
      * 管理员查看用户个人信息
@@ -40,9 +44,36 @@ public class AdminOperatorController {
      */
     @GetMapping("/adminInfo")
     @Operation(summary = "查看管理员信息")
-    public RestBean<DisplayAccountByAdminVO> getAdminInfo(@RequestParam String username){
-        return this.messageHandle(() ->
-                accountService.adminInfo(username));
+    public RestBean<String> getAdminInfo(@RequestParam String username){
+        String adminVo= accountService.adminInfo(username).toString();
+        return RestBean.success(adminVo);
+    }
+
+    @PostMapping("/updateUserInfo")
+    @Operation(summary = "修改用户信息")
+    public RestBean<String> updateUserInfo(@RequestParam String oldUserName, @RequestParam String newUserName,
+                                           @RequestParam String newPassword, @RequestParam Integer points){
+        String newUserInfo=accountService.updateUserInfo(oldUserName,newUserName,newPassword,points);
+        return RestBean.success("成功修改用户信息");
+    }
+
+    @PostMapping("/updateAvatar")
+    @Operation(summary = "修改头像")
+    public RestBean<String> updateAvatar(@RequestBody @Valid UpdateAvatarVO updateAvatarVO) {
+        boolean isSuccess = accountService.updateAvatar(updateAvatarVO.getUsername(),
+                updateAvatarVO.getNewAvatarUrl(),updateAvatarVO.getNewAvatorUuid());
+        if (isSuccess) {
+            return RestBean.success("成功修改用户头像");
+        } else {
+            return RestBean.failure(400,"修改头像失败");
+        }
+    }
+
+    @GetMapping("/showAllAccounts")
+    @Operation(summary = "显示所有用户和管理员")
+    public RestBean<List<DisplayAccountByAdminVO>> showAllAcount(){
+        List<DisplayAccountByAdminVO> accounts = accountService.getAllAccounts();
+        return RestBean.success(accounts);
     }
     /**
      * 针对于返回值为String作为错误信息的方法进行统一处理
@@ -50,11 +81,11 @@ public class AdminOperatorController {
      * @return 响应结果
      * @param <T> 响应结果类型
      */
-    private <T> RestBean<T> messageHandle(Supplier<T> action){
-        T result= action.get();
-        if(result == null)
-            return RestBean.success(result);
+    private <T> RestBean<T> messageHandle(Supplier<String> action){
+        String message = action.get();
+        if(message == null)
+            return RestBean.success();
         else
-            return RestBean.failure(400, "未找到相关信息");
+            return RestBean.failure(400, message);
     }
 }

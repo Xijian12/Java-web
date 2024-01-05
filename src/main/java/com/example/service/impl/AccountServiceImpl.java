@@ -1,9 +1,12 @@
 package com.example.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.entity.dto.Account;
-import com.example.entity.vo.request.*;
+import com.example.entity.vo.request.ConfirmResetVO;
+import com.example.entity.vo.request.EmailRegisterVO;
+import com.example.entity.vo.request.EmailResetVO;
 import com.example.entity.vo.response.DisplayAccountByAdminVO;
 import com.example.entity.vo.response.DisplayAccountByUserVO;
 import com.example.mapper.AccountMapper;
@@ -12,6 +15,7 @@ import com.example.utils.Const;
 import com.example.utils.FlowUtils;
 import jakarta.annotation.Resource;
 import org.springframework.amqp.core.AmqpTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.core.userdetails.User;
@@ -21,9 +25,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 /**
  * 账户信息处理相关服务
@@ -46,6 +52,9 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
 
     @Resource
     FlowUtils flow;
+
+    @Autowired
+    private AccountMapper accountMapper;
 
     /**
      * 从数据库中通过用户名或邮箱查找用户详细信息
@@ -148,34 +157,87 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
     @Override
     public DisplayAccountByUserVO userInfo(String username) throws UsernameNotFoundException  {
         Account account = this.findAccountByNameOrEmail(username);
-        if(account == null)
-            throw new UsernameNotFoundException("用户名或密码错误");
-        // 创建 DisplayAccountByUserVO 对象并返回
+        if(account == null){
+            throw new UsernameNotFoundException("用户名或密码错误");}
+        // 创建 DisplayAccountByAdminVO 对象并返回
         return new DisplayAccountByUserVO(account);
     }
 
     @Override
     public DisplayAccountByAdminVO adminInfo(String username) throws UsernameNotFoundException {
         Account account = this.findAccountByNameOrEmail(username);
-        System.out.println(username);
-        if(account == null)
-            throw new UsernameNotFoundException("用户名或密码错误");
-        // 创建 DisplayAccountByAdminVO 对象并返回
+        if(account == null){
+            throw new UsernameNotFoundException("用户名或密码错误");}
         return new DisplayAccountByAdminVO(account);
     }
+
 
     @Override
     public String userInfoByName(String username) {
         Account account = this.findAccountByNameOrEmail(username);
-        System.out.println(account.getUsername());
         if(account == null)
             throw new UsernameNotFoundException("用户名或密码错误");
-        return "用户名: " + account.getUsername() +
-                ", 邮件: " + account.getEmail() +
-                ", 密码: " + account.getPassword() +
-                ", 注册时间: " + account.getRegisterTime()+
-                ", 积分" +account.getPoints()+
-                ", 头像url"+ account.getPictureUrl();
+        return "用户名或密码错误";
+    }
+
+
+    @Override
+    public String updateUserInfo(String oldUserName, String newUserName, String newPassword, Integer points) {
+        // 检查旧用户名是否存在
+        Account account = this.findAccountByNameOrEmail(oldUserName);
+        if (account == null) {
+            return "用户名或邮箱错误";
+        }
+        // 使用 UpdateWrapper 构建动态更新条件
+        UpdateWrapper<Account> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.eq("username", oldUserName); // 设置更新条件为旧用户名
+
+        // 根据传入的参数动态设置更新字段
+        boolean updateNeeded = false;
+        if (newUserName != null && !newUserName.isEmpty() && !newUserName.equals(oldUserName)) {
+            updateWrapper.set("username", newUserName);
+            updateNeeded = true;
+        }
+        if (newPassword != null && !newPassword.isEmpty()) {
+            updateWrapper.set("password", passwordEncoder.encode(newPassword));
+            updateNeeded = true;
+        }
+        if (points != null) {
+            updateWrapper.set("points", points);
+            updateNeeded = true;
+        }
+
+        // 执行更新操作
+        if (updateNeeded) {
+            int result = accountMapper.update(null, updateWrapper);
+            if (result > 0) {
+                return "更新成功";
+            } else {
+                return "更新失败";
+            }
+        } else {
+            return "无需更新";
+        }
+    }
+
+
+    public List<DisplayAccountByAdminVO> getAllAccounts() {
+        List<Account> accounts = accountMapper.selectList(null); // 检索所有账户
+        return accounts.stream()
+                .map(DisplayAccountByAdminVO::new) // 将每个 Account 转换为 DisplayAccountByAdminVO
+                .collect(Collectors.toList());
+    }
+
+    public boolean updateAvatar(String username, String newAvatarUrl,String newAvatarUuid) {
+        // 查找用户，此处假设有一个方法来根据用户名获取用户实体
+        Account account = this.findAccountByNameOrEmail(username);
+        if (account != null) {
+            account.setAvatarUrl(newAvatarUrl);
+            account.setAvatarUuid(newAvatarUuid);
+            // 更新用户信息
+            return accountMapper.updateById(account) > 0;
+        }
+        return false;
     }
 
     /**

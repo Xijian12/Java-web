@@ -26,7 +26,8 @@ public class Account implements BaseData {
     String role;
     Date registerTime;
     Integer points;
-    String pictureUrl;
+    String avatarUrl;
+    String avatarUuid;
 
     public Account(Integer id, String username, String password, String email, String role, Date registerTime) {
         this.id = id;
@@ -36,8 +37,9 @@ public class Account implements BaseData {
         this.role = role;
         this.registerTime = registerTime;
         // 默认值或null初始化
-        this.points = 5; // 或者null，取决于您的业务需求
-        this.pictureUrl = null; // 或者任何默认URL
+        this.points = 5;
+        this.avatarUrl = null; // 或者任何默认URL
+        this.avatarUuid= null; // 或者任何默认UUID
     }
 
     public Account(Account another) {
@@ -48,8 +50,9 @@ public class Account implements BaseData {
         this.role = another.role;
         this.registerTime = another.registerTime;
         // 对于没有的字段，可以选择默认值或者直接使用null
-        this.points = another.points != null ? another.points : 5; // 或者null
-        this.pictureUrl = another.pictureUrl != null ? another.pictureUrl : null; // 或者默认URL
+        this.points = another.points != null ? another.points : 5;
+        this.avatarUrl = another.avatarUrl!= null ? another.avatarUrl : null; // 或者默认URL
+        this.avatarUuid = another.avatarUuid!= null ? another.avatarUuid : null; // 或者默认URL
     }
 
 

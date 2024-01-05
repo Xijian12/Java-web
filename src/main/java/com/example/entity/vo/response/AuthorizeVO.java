@@ -6,6 +6,7 @@ import java.util.Date;
 
 /**
  * 登录验证成功的用户信息响应
+ * @author 85131
  */
 @Data
 public class AuthorizeVO {
