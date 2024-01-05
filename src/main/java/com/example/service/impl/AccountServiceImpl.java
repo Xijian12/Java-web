@@ -24,6 +24,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.xml.transform.Source;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -234,6 +235,8 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
         if (account != null) {
             account.setAvatarUrl(newAvatarUrl);
             account.setAvatarUuid(newAvatarUuid);
+            System.out.println(newAvatarUrl);
+            System.out.println(newAvatarUuid);
             // 更新用户信息
             return accountMapper.updateById(account) > 0;
         }

@@ -553,3 +553,378 @@ java.lang.NullPointerException: Cannot invoke "java.util.List.add(Object)" becau
 2024-01-05 13:59:55.187  INFO 16872 --- [http-nio-8080-exec-2] (55979213043404800) com.example.filter.RequestLogFilter      : 请求处理耗时: 552ms | 响应结果: {"code":1,"msg":"success","data":["https://xiao-shu-shu.oss-cn-shanghai.aliyuncs.com/Avatar/41e3e1db-2960-4480-a360-3bbfb7aad149.jpg","Avatar/41e3e1db-2960-4480-a360-3bbfb7aad149.jpg"]}
 2024-01-05 14:00:07.372  INFO 16872 --- [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-2] (system) o.s.a.r.l.SimpleMessageListenerContainer : Waiting for workers to finish.
 2024-01-05 14:00:07.421  INFO 16872 --- [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-2] (system) o.s.a.r.l.SimpleMessageListenerContainer : Successfully waited for workers to finish.
+2024-01-05 14:13:25.237  INFO 13440 --- [main] (system) c.example.MyProjectBackendApplication    : Starting MyProjectBackendApplication using Java 17.0.9 with PID 13440 (C:\Users\85131\Desktop\doucment\java\test\target\classes started by 85131 in C:\Users\85131\Desktop\doucment\java\test)
+2024-01-05 14:13:25.240  INFO 13440 --- [main] (system) c.example.MyProjectBackendApplication    : The following 1 profile is active: "dev"
+2024-01-05 14:13:26.002  INFO 13440 --- [main] (system) .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-01-05 14:13:26.006  INFO 13440 --- [main] (system) .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-01-05 14:13:26.037  INFO 13440 --- [main] (system) .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 11 ms. Found 0 Redis repository interfaces.
+2024-01-05 14:13:26.500 ERROR 13440 --- [main] (system) o.a.catalina.core.AprLifecycleListener   : An incompatible version [1.2.23] of the Apache Tomcat Native library is installed, while Tomcat requires version [1.2.34]
+2024-01-05 14:13:26.675  INFO 13440 --- [main] (system) o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2024-01-05 14:13:26.683  INFO 13440 --- [main] (system) o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-01-05 14:13:26.684  INFO 13440 --- [main] (system) o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.11]
+2024-01-05 14:13:26.804  INFO 13440 --- [main] (system) o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-01-05 14:13:26.805  INFO 13440 --- [main] (system) w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1527 ms
+2024-01-05 14:13:27.903  INFO 13440 --- [main] (system) o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@3c17794e, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@414d2821, org.springframework.security.web.context.SecurityContextHolderFilter@694b1ddb, org.springframework.security.web.header.HeaderWriterFilter@6cc44207, org.springframework.security.web.authentication.logout.LogoutFilter@4e9bd2c8, com.example.filter.JwtAuthenticationFilter@38022758, com.example.filter.RequestLogFilter@782cc5fa, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@696105c4, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@17e2835c, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2f112ade, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@7378c4a4, org.springframework.security.web.session.SessionManagementFilter@21d3d6ec, org.springframework.security.web.access.ExceptionTranslationFilter@71fb1da3, org.springframework.security.web.access.intercept.AuthorizationFilter@64dcf763]
+2024-01-05 14:13:28.189  WARN 13440 --- [main] (system) ocalVariableTableParameterNameDiscoverer : Using deprecated '-debug' fallback for parameter name resolution. Compile the affected code with '-parameters' instead or avoid its introspection: org.springframework.amqp.rabbit.core.RabbitAdmin
+2024-01-05 14:13:28.232  INFO 13440 --- [main] (system) o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2024-01-05 14:13:28.235  INFO 13440 --- [main] (system) o.s.a.r.c.CachingConnectionFactory       : Attempting to connect to: [localhost:5672]
+2024-01-05 14:13:28.285  INFO 13440 --- [main] (system) o.s.a.r.c.CachingConnectionFactory       : Created new connection: rabbitConnectionFactory#340c57e0:0/SimpleConnection@3b0c38f2 [delegate=amqp://guest@127.0.0.1:5672/, localPort=5202]
+2024-01-05 14:13:28.323  INFO 13440 --- [main] (system) c.example.MyProjectBackendApplication    : Started MyProjectBackendApplication in 3.581 seconds (process running for 4.321)
+2024-01-05 14:32:26.427  WARN 13440 --- [AMQP Connection 127.0.0.1:5672] (system) c.r.c.impl.ForgivingExceptionHandler     : An unexpected connection driver error occurred (Exception message: Connection reset)
+2024-01-05 14:32:27.414  INFO 13440 --- [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-1] (system) o.s.a.r.l.SimpleMessageListenerContainer : Restarting Consumer@c14bbab: tags=[[amq.ctag-pODKpgSMp4kaa2kioe25SA]], channel=Cached Rabbit Channel: AMQChannel(amqp://guest@127.0.0.1:5672/,1), conn: Proxy@39fb5ddf Shared Rabbit Connection: SimpleConnection@3b0c38f2 [delegate=amqp://guest@127.0.0.1:5672/, localPort=5202], acknowledgeMode=AUTO local queue size=0
+2024-01-05 14:32:27.426  INFO 13440 --- [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-2] (system) o.s.a.r.c.CachingConnectionFactory       : Attempting to connect to: [localhost:5672]
+2024-01-05 14:32:27.450  INFO 13440 --- [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-2] (system) o.s.a.r.c.CachingConnectionFactory       : Created new connection: rabbitConnectionFactory#340c57e0:1/SimpleConnection@87ead5d [delegate=amqp://guest@127.0.0.1:5672/, localPort=6426]
+2024-01-05 14:50:43.841  INFO 13440 --- [http-nio-8080-exec-9] (system) o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-01-05 14:50:43.842  INFO 13440 --- [http-nio-8080-exec-9] (system) o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-01-05 14:50:43.843  INFO 13440 --- [http-nio-8080-exec-9] (system) o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2024-01-05 14:50:44.378  INFO 13440 --- [http-nio-8080-exec-9] (55992004210987008) com.example.filter.RequestLogFilter      : 请求URL: "/upload/avatar" (POST) | 远程IP地址: 0:0:0:0:0:0:0:1 │ 身份: 未验证 | 请求参数列表: {}
+2024-01-05 14:50:44.524  INFO 13440 --- [http-nio-8080-exec-9] (55992004210987008) c.example.controller.UploadController    : 图片上传，头像名为：
+2024-01-05 14:50:46.189  INFO 13440 --- [http-nio-8080-exec-9] (55992004210987008) c.example.controller.UploadController    : 图片上传URL为：
+2024-01-05 14:50:46.189  INFO 13440 --- [http-nio-8080-exec-9] (55992004210987008) c.example.controller.UploadController    : 图片上传的名字为：
+2024-01-05 14:50:46.246  INFO 13440 --- [http-nio-8080-exec-9] (55992004210987008) com.example.filter.RequestLogFilter      : 请求处理耗时: 1959ms | 响应结果: {"code":1,"msg":"success","data":["https://xiao-shu-shu.oss-cn-shanghai.aliyuncs.com/Avatar/0fd778f9-fc2f-44e1-8812-0138fc2c7fc7.png","Avatar/0fd778f9-fc2f-44e1-8812-0138fc2c7fc7.png"]}
+2024-01-05 14:53:53.025  INFO 13440 --- [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-3] (system) o.s.a.r.l.SimpleMessageListenerContainer : Waiting for workers to finish.
+2024-01-05 14:53:54.006  INFO 13440 --- [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-3] (system) o.s.a.r.l.SimpleMessageListenerContainer : Successfully waited for workers to finish.
+2024-01-05 14:53:59.115  INFO 18936 --- [main] (system) c.example.MyProjectBackendApplication    : Starting MyProjectBackendApplication using Java 17.0.9 with PID 18936 (C:\Users\85131\Desktop\doucment\java\test\target\classes started by 85131 in C:\Users\85131\Desktop\doucment\java\test)
+2024-01-05 14:53:59.117  INFO 18936 --- [main] (system) c.example.MyProjectBackendApplication    : The following 1 profile is active: "dev"
+2024-01-05 14:53:59.775  INFO 18936 --- [main] (system) .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-01-05 14:53:59.778  INFO 18936 --- [main] (system) .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-01-05 14:53:59.801  INFO 18936 --- [main] (system) .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 11 ms. Found 0 Redis repository interfaces.
+2024-01-05 14:54:00.196 ERROR 18936 --- [main] (system) o.a.catalina.core.AprLifecycleListener   : An incompatible version [1.2.23] of the Apache Tomcat Native library is installed, while Tomcat requires version [1.2.34]
+2024-01-05 14:54:00.347  INFO 18936 --- [main] (system) o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2024-01-05 14:54:00.355  INFO 18936 --- [main] (system) o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-01-05 14:54:00.355  INFO 18936 --- [main] (system) o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.11]
+2024-01-05 14:54:00.463  INFO 18936 --- [main] (system) o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-01-05 14:54:00.464  INFO 18936 --- [main] (system) w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1317 ms
+2024-01-05 14:54:01.428  INFO 18936 --- [main] (system) o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@2dcd451f, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@342394b3, org.springframework.security.web.context.SecurityContextHolderFilter@3ddac0b6, org.springframework.security.web.header.HeaderWriterFilter@4d2bc56a, org.springframework.security.web.authentication.logout.LogoutFilter@6bf28f61, com.example.filter.JwtAuthenticationFilter@59fea5f5, com.example.filter.RequestLogFilter@20027c44, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@61ce238e, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@628bcf2c, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@a251135, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@5dd6f517, org.springframework.security.web.session.SessionManagementFilter@2c6aa46c, org.springframework.security.web.access.ExceptionTranslationFilter@5690c2a8, org.springframework.security.web.access.intercept.AuthorizationFilter@6694fb1b]
+2024-01-05 14:54:01.689  WARN 18936 --- [main] (system) ocalVariableTableParameterNameDiscoverer : Using deprecated '-debug' fallback for parameter name resolution. Compile the affected code with '-parameters' instead or avoid its introspection: org.springframework.amqp.rabbit.core.RabbitAdmin
+2024-01-05 14:54:01.731  INFO 18936 --- [main] (system) o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2024-01-05 14:54:01.734  INFO 18936 --- [main] (system) o.s.a.r.c.CachingConnectionFactory       : Attempting to connect to: [localhost:5672]
+2024-01-05 14:54:01.769  INFO 18936 --- [main] (system) o.s.a.r.c.CachingConnectionFactory       : Created new connection: rabbitConnectionFactory#1308ef19:0/SimpleConnection@4ddb9a8 [delegate=amqp://guest@127.0.0.1:5672/, localPort=10218]
+2024-01-05 14:54:01.802  INFO 18936 --- [main] (system) c.example.MyProjectBackendApplication    : Started MyProjectBackendApplication in 3.081 seconds (process running for 3.694)
+2024-01-05 14:54:08.445  INFO 18936 --- [http-nio-8080-exec-9] (system) o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-01-05 14:54:08.445  INFO 18936 --- [http-nio-8080-exec-9] (system) o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-01-05 14:54:08.446  INFO 18936 --- [http-nio-8080-exec-9] (system) o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2024-01-05 14:54:08.910  INFO 18936 --- [http-nio-8080-exec-9] (55992862080372736) com.example.filter.RequestLogFilter      : 请求URL: "/upload/avatar" (POST) | 远程IP地址: 0:0:0:0:0:0:0:1 │ 身份: 未验证 | 请求参数列表: {}
+2024-01-05 14:54:09.015  INFO 18936 --- [http-nio-8080-exec-9] (55992862080372736) c.example.controller.UploadController    : 图片上传，头像名为：
+2024-01-05 14:54:09.976  INFO 18936 --- [http-nio-8080-exec-9] (55992862080372736) c.example.controller.UploadController    : 图片上传URL为：
+2024-01-05 14:54:09.976  INFO 18936 --- [http-nio-8080-exec-9] (55992862080372736) c.example.controller.UploadController    : 图片上传，头像名为：wallhaven-zy2x7v_3840x2160.png
+2024-01-05 14:54:09.976  INFO 18936 --- [http-nio-8080-exec-9] (55992862080372736) c.example.controller.UploadController    : 图片上传的名字为：
+2024-01-05 14:54:10.024  INFO 18936 --- [http-nio-8080-exec-9] (55992862080372736) com.example.filter.RequestLogFilter      : 请求处理耗时: 1205ms | 响应结果: {"code":1,"msg":"success","data":["https://xiao-shu-shu.oss-cn-shanghai.aliyuncs.com/Avatar/0186664d-2c67-4741-933b-8a24c3785552.png","Avatar/0186664d-2c67-4741-933b-8a24c3785552.png"]}
+2024-01-05 14:55:40.729  INFO 18936 --- [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-2] (system) o.s.a.r.l.SimpleMessageListenerContainer : Waiting for workers to finish.
+2024-01-05 14:55:41.692  INFO 18936 --- [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-2] (system) o.s.a.r.l.SimpleMessageListenerContainer : Successfully waited for workers to finish.
+2024-01-05 14:55:45.525  INFO 15272 --- [main] (system) c.example.MyProjectBackendApplication    : Starting MyProjectBackendApplication using Java 17.0.9 with PID 15272 (C:\Users\85131\Desktop\doucment\java\test\target\classes started by 85131 in C:\Users\85131\Desktop\doucment\java\test)
+2024-01-05 14:55:45.526  INFO 15272 --- [main] (system) c.example.MyProjectBackendApplication    : The following 1 profile is active: "dev"
+2024-01-05 14:55:46.147  INFO 15272 --- [main] (system) .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-01-05 14:55:46.149  INFO 15272 --- [main] (system) .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-01-05 14:55:46.171  INFO 15272 --- [main] (system) .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 10 ms. Found 0 Redis repository interfaces.
+2024-01-05 14:55:46.520 ERROR 15272 --- [main] (system) o.a.catalina.core.AprLifecycleListener   : An incompatible version [1.2.23] of the Apache Tomcat Native library is installed, while Tomcat requires version [1.2.34]
+2024-01-05 14:55:46.672  INFO 15272 --- [main] (system) o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2024-01-05 14:55:46.678  INFO 15272 --- [main] (system) o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-01-05 14:55:46.678  INFO 15272 --- [main] (system) o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.11]
+2024-01-05 14:55:46.785  INFO 15272 --- [main] (system) o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-01-05 14:55:46.786  INFO 15272 --- [main] (system) w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1226 ms
+2024-01-05 14:55:47.684  INFO 15272 --- [main] (system) o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@5dd6f517, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1e01b195, org.springframework.security.web.context.SecurityContextHolderFilter@628bcf2c, org.springframework.security.web.header.HeaderWriterFilter@2c6aa46c, org.springframework.security.web.authentication.logout.LogoutFilter@696105c4, com.example.filter.JwtAuthenticationFilter@70f4abc1, com.example.filter.RequestLogFilter@5d84e363, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@7c02b3cb, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@20c283b4, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@446a692f, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@59a3eaf7, org.springframework.security.web.session.SessionManagementFilter@3c82bac3, org.springframework.security.web.access.ExceptionTranslationFilter@4d2bc56a, org.springframework.security.web.access.intercept.AuthorizationFilter@49ea13b6]
+2024-01-05 14:55:47.948  WARN 15272 --- [main] (system) ocalVariableTableParameterNameDiscoverer : Using deprecated '-debug' fallback for parameter name resolution. Compile the affected code with '-parameters' instead or avoid its introspection: org.springframework.amqp.rabbit.core.RabbitAdmin
+2024-01-05 14:55:47.993  INFO 15272 --- [main] (system) o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2024-01-05 14:55:47.996  INFO 15272 --- [main] (system) o.s.a.r.c.CachingConnectionFactory       : Attempting to connect to: [localhost:5672]
+2024-01-05 14:55:48.032  INFO 15272 --- [main] (system) o.s.a.r.c.CachingConnectionFactory       : Created new connection: rabbitConnectionFactory#6cee903a:0/SimpleConnection@4c3c31a5 [delegate=amqp://guest@127.0.0.1:5672/, localPort=10339]
+2024-01-05 14:55:48.067  INFO 15272 --- [main] (system) c.example.MyProjectBackendApplication    : Started MyProjectBackendApplication in 2.941 seconds (process running for 3.585)
+2024-01-05 14:55:52.447  INFO 15272 --- [http-nio-8080-exec-1] (system) o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-01-05 14:55:52.448  INFO 15272 --- [http-nio-8080-exec-1] (system) o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-01-05 14:55:52.449  INFO 15272 --- [http-nio-8080-exec-1] (system) o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2024-01-05 14:55:52.937  INFO 15272 --- [http-nio-8080-exec-1] (55993298342514688) com.example.filter.RequestLogFilter      : 请求URL: "/upload/avatar" (POST) | 远程IP地址: 0:0:0:0:0:0:0:1 │ 身份: 未验证 | 请求参数列表: {}
+2024-01-05 14:55:53.047  INFO 15272 --- [http-nio-8080-exec-1] (55993298342514688) c.example.controller.UploadController    : 图片上传，头像名为：wallhaven-zy2x7v_3840x2160.png
+2024-01-05 14:55:54.206  INFO 15272 --- [http-nio-8080-exec-1] (55993298342514688) c.example.controller.UploadController    : 图片上传URL为：https://xiao-shu-shu.oss-cn-shanghai.aliyuncs.com/Avatar/b47250ee-9ec9-4ce3-9960-2ff975608ba9.png
+2024-01-05 14:55:54.206  INFO 15272 --- [http-nio-8080-exec-1] (55993298342514688) c.example.controller.UploadController    : 图片上传的名字为：Avatar/b47250ee-9ec9-4ce3-9960-2ff975608ba9.png
+2024-01-05 14:55:54.253  INFO 15272 --- [http-nio-8080-exec-1] (55993298342514688) com.example.filter.RequestLogFilter      : 请求处理耗时: 1421ms | 响应结果: {"code":1,"msg":"success","data":["https://xiao-shu-shu.oss-cn-shanghai.aliyuncs.com/Avatar/b47250ee-9ec9-4ce3-9960-2ff975608ba9.png","Avatar/b47250ee-9ec9-4ce3-9960-2ff975608ba9.png"]}
+2024-01-05 15:07:38.703  INFO 15272 --- [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-2] (system) o.s.a.r.l.SimpleMessageListenerContainer : Waiting for workers to finish.
+2024-01-05 15:07:39.526  INFO 15272 --- [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-2] (system) o.s.a.r.l.SimpleMessageListenerContainer : Successfully waited for workers to finish.
+2024-01-05 15:07:43.974  INFO 26552 --- [main] (system) c.example.MyProjectBackendApplication    : Starting MyProjectBackendApplication using Java 17.0.9 with PID 26552 (C:\Users\85131\Desktop\doucment\java\test\target\classes started by 85131 in C:\Users\85131\Desktop\doucment\java\test)
+2024-01-05 15:07:43.976  INFO 26552 --- [main] (system) c.example.MyProjectBackendApplication    : The following 1 profile is active: "dev"
+2024-01-05 15:07:44.603  INFO 26552 --- [main] (system) .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-01-05 15:07:44.605  INFO 26552 --- [main] (system) .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-01-05 15:07:44.626  INFO 26552 --- [main] (system) .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 10 ms. Found 0 Redis repository interfaces.
+2024-01-05 15:07:44.988 ERROR 26552 --- [main] (system) o.a.catalina.core.AprLifecycleListener   : An incompatible version [1.2.23] of the Apache Tomcat Native library is installed, while Tomcat requires version [1.2.34]
+2024-01-05 15:07:45.136  INFO 26552 --- [main] (system) o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2024-01-05 15:07:45.142  INFO 26552 --- [main] (system) o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-01-05 15:07:45.142  INFO 26552 --- [main] (system) o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.11]
+2024-01-05 15:07:45.252  INFO 26552 --- [main] (system) o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-01-05 15:07:45.254  INFO 26552 --- [main] (system) w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1245 ms
+2024-01-05 15:07:46.153  INFO 26552 --- [main] (system) o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@1e01b195, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@59a3eaf7, org.springframework.security.web.context.SecurityContextHolderFilter@4b76251c, org.springframework.security.web.header.HeaderWriterFilter@2f112ade, org.springframework.security.web.authentication.logout.LogoutFilter@21ab919c, com.example.filter.JwtAuthenticationFilter@70f4abc1, com.example.filter.RequestLogFilter@5d84e363, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@3d8fd373, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@366b4a7b, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@283ecb4b, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@718d6b7c, org.springframework.security.web.session.SessionManagementFilter@3ddac0b6, org.springframework.security.web.access.ExceptionTranslationFilter@7cbfbcd1, org.springframework.security.web.access.intercept.AuthorizationFilter@7c02b3cb]
+2024-01-05 15:07:46.415  WARN 26552 --- [main] (system) ocalVariableTableParameterNameDiscoverer : Using deprecated '-debug' fallback for parameter name resolution. Compile the affected code with '-parameters' instead or avoid its introspection: org.springframework.amqp.rabbit.core.RabbitAdmin
+2024-01-05 15:07:46.458  INFO 26552 --- [main] (system) o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2024-01-05 15:07:46.461  INFO 26552 --- [main] (system) o.s.a.r.c.CachingConnectionFactory       : Attempting to connect to: [localhost:5672]
+2024-01-05 15:07:46.496  INFO 26552 --- [main] (system) o.s.a.r.c.CachingConnectionFactory       : Created new connection: rabbitConnectionFactory#6cee903a:0/SimpleConnection@5002be8e [delegate=amqp://guest@127.0.0.1:5672/, localPort=11066]
+2024-01-05 15:07:46.530  INFO 26552 --- [main] (system) c.example.MyProjectBackendApplication    : Started MyProjectBackendApplication in 2.957 seconds (process running for 3.546)
+2024-01-05 15:07:59.902  INFO 26552 --- [http-nio-8080-exec-2] (system) o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-01-05 15:07:59.903  INFO 26552 --- [http-nio-8080-exec-2] (system) o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-01-05 15:07:59.904  INFO 26552 --- [http-nio-8080-exec-2] (system) o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2024-01-05 15:08:00.379  INFO 26552 --- [http-nio-8080-exec-2] (55996349493153792) com.example.filter.RequestLogFilter      : 请求URL: "/upload/avatar" (POST) | 远程IP地址: 0:0:0:0:0:0:0:1 │ 身份: 未验证 | 请求参数列表: {"username":"马英九"}
+2024-01-05 15:08:00.487  INFO 26552 --- [http-nio-8080-exec-2] (55996349493153792) com.example.filter.RequestLogFilter      : 请求处理耗时: 204ms | 响应结果: 404 错误
+2024-01-05 15:08:15.195  INFO 26552 --- [http-nio-8080-exec-3] (55996411656933376) com.example.filter.RequestLogFilter      : 请求URL: "/upload/updateAvatar" (POST) | 远程IP地址: 0:0:0:0:0:0:0:1 │ 身份: 未验证 | 请求参数列表: {"username":"马英九"}
+2024-01-05 15:08:15.227  INFO 26552 --- [http-nio-8080-exec-3] (55996411656933376) com.example.filter.RequestLogFilter      : 请求处理耗时: 123ms | 响应结果: {"code":401,"data":null,"id":55996411656933376,"message":"Full authentication is required to access this resource"}
+2024-01-05 15:08:54.379  INFO 26552 --- [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-2] (system) o.s.a.r.l.SimpleMessageListenerContainer : Waiting for workers to finish.
+2024-01-05 15:08:55.071  INFO 26552 --- [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-2] (system) o.s.a.r.l.SimpleMessageListenerContainer : Successfully waited for workers to finish.
+2024-01-05 15:08:59.384  INFO 8056 --- [main] (system) c.example.MyProjectBackendApplication    : Starting MyProjectBackendApplication using Java 17.0.9 with PID 8056 (C:\Users\85131\Desktop\doucment\java\test\target\classes started by 85131 in C:\Users\85131\Desktop\doucment\java\test)
+2024-01-05 15:08:59.386  INFO 8056 --- [main] (system) c.example.MyProjectBackendApplication    : The following 1 profile is active: "dev"
+2024-01-05 15:09:00.018  INFO 8056 --- [main] (system) .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-01-05 15:09:00.020  INFO 8056 --- [main] (system) .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-01-05 15:09:00.044  INFO 8056 --- [main] (system) .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 11 ms. Found 0 Redis repository interfaces.
+2024-01-05 15:09:00.408 ERROR 8056 --- [main] (system) o.a.catalina.core.AprLifecycleListener   : An incompatible version [1.2.23] of the Apache Tomcat Native library is installed, while Tomcat requires version [1.2.34]
+2024-01-05 15:09:00.558  INFO 8056 --- [main] (system) o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2024-01-05 15:09:00.564  INFO 8056 --- [main] (system) o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-01-05 15:09:00.565  INFO 8056 --- [main] (system) o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.11]
+2024-01-05 15:09:00.672  INFO 8056 --- [main] (system) o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-01-05 15:09:00.672  INFO 8056 --- [main] (system) w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1258 ms
+2024-01-05 15:09:01.588  INFO 8056 --- [main] (system) o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@4eb5764d, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@54f9326c, org.springframework.security.web.context.SecurityContextHolderFilter@446a692f, org.springframework.security.web.header.HeaderWriterFilter@4b76251c, org.springframework.security.web.authentication.logout.LogoutFilter@7378c4a4, com.example.filter.JwtAuthenticationFilter@ae3c140, com.example.filter.RequestLogFilter@3b5da0b0, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@59a3eaf7, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@a30dbc0, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@337cb81d, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@5016f1a, org.springframework.security.web.session.SessionManagementFilter@366b4a7b, org.springframework.security.web.access.ExceptionTranslationFilter@446a5aa5, org.springframework.security.web.access.intercept.AuthorizationFilter@1e01b195]
+2024-01-05 15:09:01.848  WARN 8056 --- [main] (system) ocalVariableTableParameterNameDiscoverer : Using deprecated '-debug' fallback for parameter name resolution. Compile the affected code with '-parameters' instead or avoid its introspection: org.springframework.amqp.rabbit.core.RabbitAdmin
+2024-01-05 15:09:01.893  INFO 8056 --- [main] (system) o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2024-01-05 15:09:01.893  INFO 8056 --- [main] (system) o.s.a.r.c.CachingConnectionFactory       : Attempting to connect to: [localhost:5672]
+2024-01-05 15:09:01.929  INFO 8056 --- [main] (system) o.s.a.r.c.CachingConnectionFactory       : Created new connection: rabbitConnectionFactory#1f3c5308:0/SimpleConnection@6f740044 [delegate=amqp://guest@127.0.0.1:5672/, localPort=11182]
+2024-01-05 15:09:01.964  INFO 8056 --- [main] (system) c.example.MyProjectBackendApplication    : Started MyProjectBackendApplication in 2.984 seconds (process running for 3.592)
+2024-01-05 15:09:51.371  INFO 8056 --- [http-nio-8080-exec-1] (system) o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-01-05 15:09:51.372  INFO 8056 --- [http-nio-8080-exec-1] (system) o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-01-05 15:09:51.373  INFO 8056 --- [http-nio-8080-exec-1] (system) o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2024-01-05 15:09:51.904  INFO 8056 --- [http-nio-8080-exec-1] (55996817237741568) com.example.filter.RequestLogFilter      : 请求URL: "/upload/updateAvatar" (POST) | 远程IP地址: 0:0:0:0:0:0:0:1 │ 身份: 未验证 | 请求参数列表: {"username":"马英九"}
+2024-01-05 15:09:52.035  INFO 8056 --- [http-nio-8080-exec-1] (55996817237741568) c.example.controller.UploadController    : 图片上传，头像名为：wallhaven-zy2x7v_3840x2160.png
+2024-01-05 15:09:53.319  INFO 8056 --- [http-nio-8080-exec-1] (55996817237741568) c.example.controller.UploadController    : 图片上传URL为：https://xiao-shu-shu.oss-cn-shanghai.aliyuncs.com/Avatar/5464a3f6-e49f-4c7e-b7ee-bea471303816.png
+2024-01-05 15:09:53.320  INFO 8056 --- [http-nio-8080-exec-1] (55996817237741568) c.example.controller.UploadController    : 图片上传的名字为：Avatar/5464a3f6-e49f-4c7e-b7ee-bea471303816.png
+2024-01-05 15:09:53.371  INFO 8056 --- [http-nio-8080-exec-1] (55996817237741568) com.example.filter.RequestLogFilter      : 请求处理耗时: 1569ms | 响应结果: {"code":1,"msg":"success","data":["https://xiao-shu-shu.oss-cn-shanghai.aliyuncs.com/Avatar/5464a3f6-e49f-4c7e-b7ee-bea471303816.png","Avatar/5464a3f6-e49f-4c7e-b7ee-bea471303816.png"]}
+2024-01-05 15:11:02.264  INFO 8056 --- [http-nio-8080-exec-6] (55997112428662784) com.example.filter.RequestLogFilter      : 请求URL: "/upload/updateAvatar" (POST) | 远程IP地址: 0:0:0:0:0:0:0:1 │ 身份: 未验证 | 请求参数列表: {"username":"马英九"}
+2024-01-05 15:11:02.266  INFO 8056 --- [http-nio-8080-exec-6] (55997112428662784) c.example.controller.UploadController    : 图片上传，头像名为：wallhaven-zy2x7v_3840x2160.png
+2024-01-05 15:11:02.981  INFO 8056 --- [http-nio-8080-exec-6] (55997112428662784) c.example.controller.UploadController    : 图片上传URL为：https://xiao-shu-shu.oss-cn-shanghai.aliyuncs.com/Avatar/329e108a-1585-4210-8106-7b2afd6a615d.png
+2024-01-05 15:11:02.981  INFO 8056 --- [http-nio-8080-exec-6] (55997112428662784) c.example.controller.UploadController    : 图片上传的名字为：Avatar/329e108a-1585-4210-8106-7b2afd6a615d.png
+2024-01-05 15:11:02.985  INFO 8056 --- [http-nio-8080-exec-6] (55997112428662784) com.example.filter.RequestLogFilter      : 请求处理耗时: 804ms | 响应结果: {"code":1,"msg":"success","data":["https://xiao-shu-shu.oss-cn-shanghai.aliyuncs.com/Avatar/329e108a-1585-4210-8106-7b2afd6a615d.png","Avatar/329e108a-1585-4210-8106-7b2afd6a615d.png"]}
+2024-01-05 15:13:00.951  INFO 8056 --- [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-2] (system) o.s.a.r.l.SimpleMessageListenerContainer : Waiting for workers to finish.
+2024-01-05 15:13:00.973  INFO 8056 --- [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-2] (system) o.s.a.r.l.SimpleMessageListenerContainer : Successfully waited for workers to finish.
+2024-01-05 15:13:06.616  INFO 10088 --- [main] (system) c.example.MyProjectBackendApplication    : Starting MyProjectBackendApplication using Java 17.0.9 with PID 10088 (C:\Users\85131\Desktop\doucment\java\test\target\classes started by 85131 in C:\Users\85131\Desktop\doucment\java\test)
+2024-01-05 15:13:06.619  INFO 10088 --- [main] (system) c.example.MyProjectBackendApplication    : The following 1 profile is active: "dev"
+2024-01-05 15:13:07.336  INFO 10088 --- [main] (system) .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-01-05 15:13:07.338  INFO 10088 --- [main] (system) .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-01-05 15:13:07.360  INFO 10088 --- [main] (system) .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 11 ms. Found 0 Redis repository interfaces.
+2024-01-05 15:13:07.741 ERROR 10088 --- [main] (system) o.a.catalina.core.AprLifecycleListener   : An incompatible version [1.2.23] of the Apache Tomcat Native library is installed, while Tomcat requires version [1.2.34]
+2024-01-05 15:13:07.898  INFO 10088 --- [main] (system) o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2024-01-05 15:13:07.906  INFO 10088 --- [main] (system) o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-01-05 15:13:07.906  INFO 10088 --- [main] (system) o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.11]
+2024-01-05 15:13:08.020  INFO 10088 --- [main] (system) o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-01-05 15:13:08.021  INFO 10088 --- [main] (system) w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1368 ms
+2024-01-05 15:13:09.009  INFO 10088 --- [main] (system) o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@17c34e62, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@239d73ff, org.springframework.security.web.context.SecurityContextHolderFilter@61b0af9f, org.springframework.security.web.header.HeaderWriterFilter@10724a72, org.springframework.security.web.authentication.logout.LogoutFilter@283ecb4b, com.example.filter.JwtAuthenticationFilter@53dba9cd, com.example.filter.RequestLogFilter@5d221b20, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@665b441e, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@1ecec098, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@49f1184e, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@6bf28f61, org.springframework.security.web.session.SessionManagementFilter@10301d6f, org.springframework.security.web.access.ExceptionTranslationFilter@1a85e86e, org.springframework.security.web.access.intercept.AuthorizationFilter@18f13756]
+2024-01-05 15:13:09.302  WARN 10088 --- [main] (system) ocalVariableTableParameterNameDiscoverer : Using deprecated '-debug' fallback for parameter name resolution. Compile the affected code with '-parameters' instead or avoid its introspection: org.springframework.amqp.rabbit.core.RabbitAdmin
+2024-01-05 15:13:09.349  INFO 10088 --- [main] (system) o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2024-01-05 15:13:09.353  INFO 10088 --- [main] (system) o.s.a.r.c.CachingConnectionFactory       : Attempting to connect to: [localhost:5672]
+2024-01-05 15:13:09.391  INFO 10088 --- [main] (system) o.s.a.r.c.CachingConnectionFactory       : Created new connection: rabbitConnectionFactory#26d73519:0/SimpleConnection@7b0dfa91 [delegate=amqp://guest@127.0.0.1:5672/, localPort=11443]
+2024-01-05 15:13:09.428  INFO 10088 --- [main] (system) c.example.MyProjectBackendApplication    : Started MyProjectBackendApplication in 3.24 seconds (process running for 3.922)
+2024-01-05 15:13:12.447  INFO 10088 --- [http-nio-8080-exec-2] (system) o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-01-05 15:13:12.447  INFO 10088 --- [http-nio-8080-exec-2] (system) o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-01-05 15:13:12.448  INFO 10088 --- [http-nio-8080-exec-2] (system) o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2024-01-05 15:13:12.933  INFO 10088 --- [http-nio-8080-exec-2] (55997660393508864) com.example.filter.RequestLogFilter      : 请求URL: "/upload/updateAvatar" (POST) | 远程IP地址: 0:0:0:0:0:0:0:1 │ 身份: 未验证 | 请求参数列表: {"username":"马英九"}
+2024-01-05 15:13:13.044  INFO 10088 --- [http-nio-8080-exec-2] (55997660393508864) c.example.controller.UploadController    : 图片上传，头像名为：wallhaven-zy2x7v_3840x2160.png
+2024-01-05 15:13:14.127  INFO 10088 --- [http-nio-8080-exec-2] (55997660393508864) c.example.controller.UploadController    : 图片上传URL为：https://xiao-shu-shu.oss-cn-shanghai.aliyuncs.com/Avatar/4721433b-2179-4ce2-b059-126ba97f7dcd.png
+2024-01-05 15:13:14.127  INFO 10088 --- [http-nio-8080-exec-2] (55997660393508864) c.example.controller.UploadController    : 图片上传的名字为：Avatar/4721433b-2179-4ce2-b059-126ba97f7dcd.png
+2024-01-05 15:13:14.173  INFO 10088 --- [http-nio-8080-exec-2] (55997660393508864) com.example.filter.RequestLogFilter      : 请求处理耗时: 1347ms | 响应结果: {"code":1,"msg":"success","data":["https://xiao-shu-shu.oss-cn-shanghai.aliyuncs.com/Avatar/4721433b-2179-4ce2-b059-126ba97f7dcd.png","Avatar/4721433b-2179-4ce2-b059-126ba97f7dcd.png"]}
+2024-01-05 15:15:10.070  INFO 10088 --- [http-nio-8080-exec-5] (55998151823331328) com.example.filter.RequestLogFilter      : 请求URL: "/upload/uploadAvatar" (POST) | 远程IP地址: 0:0:0:0:0:0:0:1 │ 身份: 未验证 | 请求参数列表: {"username":"马英九"}
+2024-01-05 15:15:10.088  INFO 10088 --- [http-nio-8080-exec-5] (55998151823331328) com.example.filter.RequestLogFilter      : 请求处理耗时: 96ms | 响应结果: {"code":401,"data":null,"id":55998151823331328,"message":"Full authentication is required to access this resource"}
+2024-01-05 15:15:13.775  INFO 10088 --- [http-nio-8080-exec-10] (55998167287730176) com.example.filter.RequestLogFilter      : 请求URL: "/upload/uploadAvatar" (POST) | 远程IP地址: 0:0:0:0:0:0:0:1 │ 身份: 未验证 | 请求参数列表: {"username":"马英九"}
+2024-01-05 15:15:13.777  INFO 10088 --- [http-nio-8080-exec-10] (55998167287730176) com.example.filter.RequestLogFilter      : 请求处理耗时: 98ms | 响应结果: {"code":401,"data":null,"id":55998167287730176,"message":"Full authentication is required to access this resource"}
+2024-01-05 15:15:49.718  INFO 10088 --- [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-2] (system) o.s.a.r.l.SimpleMessageListenerContainer : Waiting for workers to finish.
+2024-01-05 15:15:49.912  INFO 10088 --- [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-2] (system) o.s.a.r.l.SimpleMessageListenerContainer : Successfully waited for workers to finish.
+2024-01-05 15:15:54.350  INFO 2192 --- [main] (system) c.example.MyProjectBackendApplication    : Starting MyProjectBackendApplication using Java 17.0.9 with PID 2192 (C:\Users\85131\Desktop\doucment\java\test\target\classes started by 85131 in C:\Users\85131\Desktop\doucment\java\test)
+2024-01-05 15:15:54.352  INFO 2192 --- [main] (system) c.example.MyProjectBackendApplication    : The following 1 profile is active: "dev"
+2024-01-05 15:15:55.034  INFO 2192 --- [main] (system) .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-01-05 15:15:55.036  INFO 2192 --- [main] (system) .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-01-05 15:15:55.059  INFO 2192 --- [main] (system) .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 11 ms. Found 0 Redis repository interfaces.
+2024-01-05 15:15:55.461 ERROR 2192 --- [main] (system) o.a.catalina.core.AprLifecycleListener   : An incompatible version [1.2.23] of the Apache Tomcat Native library is installed, while Tomcat requires version [1.2.34]
+2024-01-05 15:15:55.611  INFO 2192 --- [main] (system) o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2024-01-05 15:15:55.618  INFO 2192 --- [main] (system) o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-01-05 15:15:55.618  INFO 2192 --- [main] (system) o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.11]
+2024-01-05 15:15:55.727  INFO 2192 --- [main] (system) o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-01-05 15:15:55.728  INFO 2192 --- [main] (system) w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1346 ms
+2024-01-05 15:15:56.667  INFO 2192 --- [main] (system) o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@5dd6f517, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1e01b195, org.springframework.security.web.context.SecurityContextHolderFilter@628bcf2c, org.springframework.security.web.header.HeaderWriterFilter@2c6aa46c, org.springframework.security.web.authentication.logout.LogoutFilter@696105c4, com.example.filter.JwtAuthenticationFilter@78eafad, com.example.filter.RequestLogFilter@7eae55, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@7c02b3cb, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@20c283b4, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@446a692f, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@59a3eaf7, org.springframework.security.web.session.SessionManagementFilter@3c82bac3, org.springframework.security.web.access.ExceptionTranslationFilter@4d2bc56a, org.springframework.security.web.access.intercept.AuthorizationFilter@49ea13b6]
+2024-01-05 15:15:56.949  WARN 2192 --- [main] (system) ocalVariableTableParameterNameDiscoverer : Using deprecated '-debug' fallback for parameter name resolution. Compile the affected code with '-parameters' instead or avoid its introspection: org.springframework.amqp.rabbit.core.RabbitAdmin
+2024-01-05 15:15:56.995  INFO 2192 --- [main] (system) o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2024-01-05 15:15:56.997  INFO 2192 --- [main] (system) o.s.a.r.c.CachingConnectionFactory       : Attempting to connect to: [localhost:5672]
+2024-01-05 15:15:57.036  INFO 2192 --- [main] (system) o.s.a.r.c.CachingConnectionFactory       : Created new connection: rabbitConnectionFactory#2c2aab92:0/SimpleConnection@4c3c31a5 [delegate=amqp://guest@127.0.0.1:5672/, localPort=11631]
+2024-01-05 15:15:57.074  INFO 2192 --- [main] (system) c.example.MyProjectBackendApplication    : Started MyProjectBackendApplication in 3.124 seconds (process running for 3.754)
+2024-01-05 15:17:09.273  INFO 2192 --- [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-2] (system) o.s.a.r.l.SimpleMessageListenerContainer : Waiting for workers to finish.
+2024-01-05 15:17:09.593  INFO 2192 --- [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-2] (system) o.s.a.r.l.SimpleMessageListenerContainer : Successfully waited for workers to finish.
+2024-01-05 15:17:12.508  INFO 15252 --- [main] (system) c.example.MyProjectBackendApplication    : Starting MyProjectBackendApplication using Java 17.0.9 with PID 15252 (C:\Users\85131\Desktop\doucment\java\test\target\classes started by 85131 in C:\Users\85131\Desktop\doucment\java\test)
+2024-01-05 15:17:12.511  INFO 15252 --- [main] (system) c.example.MyProjectBackendApplication    : The following 1 profile is active: "dev"
+2024-01-05 15:17:13.135  INFO 15252 --- [main] (system) .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-01-05 15:17:13.137  INFO 15252 --- [main] (system) .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-01-05 15:17:13.158  INFO 15252 --- [main] (system) .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 10 ms. Found 0 Redis repository interfaces.
+2024-01-05 15:17:13.512 ERROR 15252 --- [main] (system) o.a.catalina.core.AprLifecycleListener   : An incompatible version [1.2.23] of the Apache Tomcat Native library is installed, while Tomcat requires version [1.2.34]
+2024-01-05 15:17:13.662  INFO 15252 --- [main] (system) o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2024-01-05 15:17:13.668  INFO 15252 --- [main] (system) o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-01-05 15:17:13.669  INFO 15252 --- [main] (system) o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.11]
+2024-01-05 15:17:13.774  INFO 15252 --- [main] (system) o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-01-05 15:17:13.774  INFO 15252 --- [main] (system) w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1233 ms
+2024-01-05 15:17:14.690  INFO 15252 --- [main] (system) o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@6bf28f61, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@64dcf763, org.springframework.security.web.context.SecurityContextHolderFilter@1ecec098, org.springframework.security.web.header.HeaderWriterFilter@10301d6f, org.springframework.security.web.authentication.logout.LogoutFilter@76104df5, com.example.filter.JwtAuthenticationFilter@41d20f06, com.example.filter.RequestLogFilter@70f4abc1, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@3a5e4f32, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@8ecc457, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@694b1ddb, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@696105c4, org.springframework.security.web.session.SessionManagementFilter@5ef591af, org.springframework.security.web.access.ExceptionTranslationFilter@10724a72, org.springframework.security.web.access.intercept.AuthorizationFilter@2ac3d530]
+2024-01-05 15:17:14.958  WARN 15252 --- [main] (system) ocalVariableTableParameterNameDiscoverer : Using deprecated '-debug' fallback for parameter name resolution. Compile the affected code with '-parameters' instead or avoid its introspection: org.springframework.amqp.rabbit.core.RabbitAdmin
+2024-01-05 15:17:15.006  INFO 15252 --- [main] (system) o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2024-01-05 15:17:15.009  INFO 15252 --- [main] (system) o.s.a.r.c.CachingConnectionFactory       : Attempting to connect to: [localhost:5672]
+2024-01-05 15:17:15.045  INFO 15252 --- [main] (system) o.s.a.r.c.CachingConnectionFactory       : Created new connection: rabbitConnectionFactory#760a2b6e:0/SimpleConnection@3321fb65 [delegate=amqp://guest@127.0.0.1:5672/, localPort=11725]
+2024-01-05 15:17:15.080  INFO 15252 --- [main] (system) c.example.MyProjectBackendApplication    : Started MyProjectBackendApplication in 2.971 seconds (process running for 3.593)
+2024-01-05 15:17:20.358  INFO 15252 --- [http-nio-8080-exec-1] (system) o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-01-05 15:17:20.359  INFO 15252 --- [http-nio-8080-exec-1] (system) o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-01-05 15:17:20.360  INFO 15252 --- [http-nio-8080-exec-1] (system) o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2024-01-05 15:17:20.847  INFO 15252 --- [http-nio-8080-exec-1] (55998700257939456) com.example.filter.RequestLogFilter      : 请求URL: "/upload/uploadAvatar" (POST) | 远程IP地址: 0:0:0:0:0:0:0:1 │ 身份: 未验证 | 请求参数列表: {"username":"马英九"}
+2024-01-05 15:17:20.958  INFO 15252 --- [http-nio-8080-exec-1] (55998700257939456) c.example.controller.UploadController    : 图片上传，头像名为：wallhaven-zy2x7v_3840x2160.png
+2024-01-05 15:17:21.909  INFO 15252 --- [http-nio-8080-exec-1] (55998700257939456) c.example.controller.UploadController    : 图片上传URL为：https://xiao-shu-shu.oss-cn-shanghai.aliyuncs.com/Avatar/66c714f0-cec9-4598-b1c5-f390d41c3f9a.png
+2024-01-05 15:17:21.910  INFO 15252 --- [http-nio-8080-exec-1] (55998700257939456) c.example.controller.UploadController    : 图片上传的名字为：Avatar/66c714f0-cec9-4598-b1c5-f390d41c3f9a.png
+2024-01-05 15:17:21.984  INFO 15252 --- [http-nio-8080-exec-1] (55998700257939456) com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-01-05 15:17:22.148  INFO 15252 --- [http-nio-8080-exec-1] (55998700257939456) com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@7061ed08
+2024-01-05 15:17:22.150  INFO 15252 --- [http-nio-8080-exec-1] (55998700257939456) com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-01-05 15:17:22.260  INFO 15252 --- [http-nio-8080-exec-1] (55998700257939456) com.example.filter.RequestLogFilter      : 请求处理耗时: 1511ms | 响应结果: {"code":1,"msg":"success","data":["https://xiao-shu-shu.oss-cn-shanghai.aliyuncs.com/Avatar/66c714f0-cec9-4598-b1c5-f390d41c3f9a.png","Avatar/66c714f0-cec9-4598-b1c5-f390d41c3f9a.png"]}
+2024-01-05 15:21:39.815  INFO 15252 --- [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-2] (system) o.s.a.r.l.SimpleMessageListenerContainer : Waiting for workers to finish.
+2024-01-05 15:21:40.641  INFO 15252 --- [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-2] (system) o.s.a.r.l.SimpleMessageListenerContainer : Successfully waited for workers to finish.
+2024-01-05 15:21:40.673  INFO 15252 --- [SpringApplicationShutdownHook] (system) com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-01-05 15:21:40.678  INFO 15252 --- [SpringApplicationShutdownHook] (system) com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-01-05 15:21:45.191  INFO 13292 --- [main] (system) c.example.MyProjectBackendApplication    : Starting MyProjectBackendApplication using Java 17.0.9 with PID 13292 (C:\Users\85131\Desktop\doucment\java\test\target\classes started by 85131 in C:\Users\85131\Desktop\doucment\java\test)
+2024-01-05 15:21:45.193  INFO 13292 --- [main] (system) c.example.MyProjectBackendApplication    : The following 1 profile is active: "dev"
+2024-01-05 15:21:45.838  INFO 13292 --- [main] (system) .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-01-05 15:21:45.840  INFO 13292 --- [main] (system) .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-01-05 15:21:45.861  INFO 13292 --- [main] (system) .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 10 ms. Found 0 Redis repository interfaces.
+2024-01-05 15:21:46.213 ERROR 13292 --- [main] (system) o.a.catalina.core.AprLifecycleListener   : An incompatible version [1.2.23] of the Apache Tomcat Native library is installed, while Tomcat requires version [1.2.34]
+2024-01-05 15:21:46.363  INFO 13292 --- [main] (system) o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2024-01-05 15:21:46.370  INFO 13292 --- [main] (system) o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-01-05 15:21:46.370  INFO 13292 --- [main] (system) o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.11]
+2024-01-05 15:21:46.476  INFO 13292 --- [main] (system) o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-01-05 15:21:46.477  INFO 13292 --- [main] (system) w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1250 ms
+2024-01-05 15:21:47.488  INFO 13292 --- [main] (system) o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@30333941, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@2d5c160e, org.springframework.security.web.context.SecurityContextHolderFilter@59929ac, org.springframework.security.web.header.HeaderWriterFilter@76104df5, org.springframework.security.web.authentication.logout.LogoutFilter@5dd6f517, com.example.filter.JwtAuthenticationFilter@5d84e363, com.example.filter.RequestLogFilter@708dfe10, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@56dde9f7, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@18f13756, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2b0494a8, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@8afce3, org.springframework.security.web.session.SessionManagementFilter@3f9e8af5, org.springframework.security.web.access.ExceptionTranslationFilter@283ecb4b, org.springframework.security.web.access.intercept.AuthorizationFilter@33bfe6d3]
+2024-01-05 15:21:47.764  WARN 13292 --- [main] (system) ocalVariableTableParameterNameDiscoverer : Using deprecated '-debug' fallback for parameter name resolution. Compile the affected code with '-parameters' instead or avoid its introspection: org.springframework.amqp.rabbit.core.RabbitAdmin
+2024-01-05 15:21:47.810  INFO 13292 --- [main] (system) o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2024-01-05 15:21:47.814  INFO 13292 --- [main] (system) o.s.a.r.c.CachingConnectionFactory       : Attempting to connect to: [localhost:5672]
+2024-01-05 15:21:47.850  INFO 13292 --- [main] (system) o.s.a.r.c.CachingConnectionFactory       : Created new connection: rabbitConnectionFactory#6fd7aba8:0/SimpleConnection@22617270 [delegate=amqp://guest@127.0.0.1:5672/, localPort=12103]
+2024-01-05 15:21:47.885  INFO 13292 --- [main] (system) c.example.MyProjectBackendApplication    : Started MyProjectBackendApplication in 3.09 seconds (process running for 3.741)
+2024-01-05 15:21:54.623  INFO 13292 --- [http-nio-8080-exec-1] (system) o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-01-05 15:21:54.623  INFO 13292 --- [http-nio-8080-exec-1] (system) o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-01-05 15:21:54.624  INFO 13292 --- [http-nio-8080-exec-1] (system) o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2024-01-05 15:21:55.085  INFO 13292 --- [http-nio-8080-exec-1] (55999850508062720) com.example.filter.RequestLogFilter      : 请求URL: "/upload/updateAvatar" (POST) | 远程IP地址: 0:0:0:0:0:0:0:1 │ 身份: 未验证 | 请求参数列表: {"username":"jocker"}
+2024-01-05 15:21:55.197 ERROR 13292 --- [http-nio-8080-exec-1] (55999850508062720) o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: java.lang.NullPointerException: Cannot invoke "org.springframework.web.multipart.MultipartFile.getOriginalFilename()" because "avatar" is null] with root cause
+
+java.lang.NullPointerException: Cannot invoke "org.springframework.web.multipart.MultipartFile.getOriginalFilename()" because "avatar" is null
+	at com.example.controller.UploadController.updateAvatar(UploadController.java:51)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:205)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:150)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:884)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:797)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1081)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:974)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1011)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:205)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:110)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:110)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(FilterChainProxy.java:231)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:365)
+	at org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:100)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:126)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:120)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:131)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:85)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:227)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:221)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at com.example.filter.RequestLogFilter.doFilterInternal(RequestLogFilter.java:42)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at com.example.filter.JwtAuthenticationFilter.doFilterInternal(JwtAuthenticationFilter.java:44)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:352)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:268)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at com.example.filter.FlowLimitingFilter.doFilter(FlowLimitingFilter.java:51)
+	at jakarta.servlet.http.HttpFilter.doFilter(HttpFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at com.example.filter.CorsFilter.doFilter(CorsFilter.java:34)
+	at jakarta.servlet.http.HttpFilter.doFilter(HttpFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:166)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:341)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:391)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:894)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1740)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+
+2024-01-05 15:22:36.859  INFO 13292 --- [http-nio-8080-exec-4] (56000025754472448) com.example.filter.RequestLogFilter      : 请求URL: "/upload/updateAvatar" (POST) | 远程IP地址: 0:0:0:0:0:0:0:1 │ 身份: 未验证 | 请求参数列表: {"username":"jocker"}
+2024-01-05 15:22:36.861  INFO 13292 --- [http-nio-8080-exec-4] (56000025754472448) c.example.controller.UploadController    : 图片上传，头像名为：wallhaven-zy2x7v_3840x2160.png
+2024-01-05 15:22:37.880  INFO 13292 --- [http-nio-8080-exec-4] (56000025754472448) c.example.controller.UploadController    : 图片上传URL为：https://xiao-shu-shu.oss-cn-shanghai.aliyuncs.com/Avatar/02bab06c-88e6-4dc7-acb5-b74642b6b553.png
+2024-01-05 15:22:37.880  INFO 13292 --- [http-nio-8080-exec-4] (56000025754472448) c.example.controller.UploadController    : 图片上传的名字为：Avatar/02bab06c-88e6-4dc7-acb5-b74642b6b553.png
+2024-01-05 15:22:37.941  INFO 13292 --- [http-nio-8080-exec-4] (56000025754472448) com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-01-05 15:22:38.128  INFO 13292 --- [http-nio-8080-exec-4] (56000025754472448) com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@74250787
+2024-01-05 15:22:38.130  INFO 13292 --- [http-nio-8080-exec-4] (56000025754472448) com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-01-05 15:22:38.200  INFO 13292 --- [http-nio-8080-exec-4] (56000025754472448) com.example.filter.RequestLogFilter      : 请求处理耗时: 1428ms | 响应结果: {"code":1,"msg":"success","data":["https://xiao-shu-shu.oss-cn-shanghai.aliyuncs.com/Avatar/02bab06c-88e6-4dc7-acb5-b74642b6b553.png","Avatar/02bab06c-88e6-4dc7-acb5-b74642b6b553.png"]}
+2024-01-05 15:29:13.361  INFO 13292 --- [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-2] (system) o.s.a.r.l.SimpleMessageListenerContainer : Waiting for workers to finish.
+2024-01-05 15:29:14.043  INFO 13292 --- [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-2] (system) o.s.a.r.l.SimpleMessageListenerContainer : Successfully waited for workers to finish.
+2024-01-05 15:29:14.079  INFO 13292 --- [SpringApplicationShutdownHook] (system) com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-01-05 15:29:14.084  INFO 13292 --- [SpringApplicationShutdownHook] (system) com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

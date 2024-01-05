@@ -1,6 +1,10 @@
 package com.example.controller;
 
+import com.example.entity.RestBean;
 import com.example.entity.Result;
+import com.example.entity.vo.request.UpdateAvatarVO;
+import com.example.mapper.AccountMapper;
+import com.example.service.AccountService;
 import com.example.utils.AliOSSUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,20 +22,50 @@ import java.util.List;
 public class UploadController {
     @Autowired
     private AliOSSUtils aliOSSUtils;
+    @Autowired
+    private AccountService accountService;
 
-    @PostMapping("/avatar")
-    public Result uploadAvatar(MultipartFile avatar) throws IOException {
-
-        log.info("图片上传，头像名为：",avatar.getOriginalFilename());
+    @PostMapping("/uploadAvatar")
+    public Result uploadAvatar(MultipartFile avatar,String username) throws IOException {
+        log.info("图片上传，头像名为：{}", avatar.getOriginalFilename());
         List<String> UrlAndUUID = (aliOSSUtils.uploadAvatar(avatar));
 
         String fileUrl = UrlAndUUID.get(0);
         String imageUUID = UrlAndUUID.get(1);
 
-        log.info("图片上传URL为：",fileUrl);
-        log.info("图片上传的名字为：",imageUUID);
+        log.info("图片上传URL为：{}",fileUrl);
+        log.info("图片上传的名字为：{}",imageUUID);
 
+        UpdateAvatarVO updateAvatarVO=new UpdateAvatarVO(username,fileUrl,imageUUID);
+        boolean isSuccess = accountService.updateAvatar(updateAvatarVO.getUsername(),
+                updateAvatarVO.getNewAvatarUrl(),updateAvatarVO.getNewAvatarUuid());
+        if (isSuccess) {
         return Result.success(UrlAndUUID);
+        }
+        else {
+            return Result.error("上传头像失败");
+        }
+    }
+    @PostMapping("/updateAvatar")
+    public Result updateAvatar(MultipartFile avatar,String username) throws IOException {
+        log.info("图片上传，头像名为：{}", avatar.getOriginalFilename());
+        List<String> UrlAndUUID = (aliOSSUtils.uploadAvatar(avatar));
+
+        String fileUrl = UrlAndUUID.get(0);
+        String imageUUID = UrlAndUUID.get(1);
+
+        log.info("图片上传URL为：{}",fileUrl);
+        log.info("图片上传的名字为：{}",imageUUID);
+
+        UpdateAvatarVO updateAvatarVO=new UpdateAvatarVO(username,fileUrl,imageUUID);
+        boolean isSuccess = accountService.updateAvatar(updateAvatarVO.getUsername(),
+                updateAvatarVO.getNewAvatarUrl(),updateAvatarVO.getNewAvatarUuid());
+        if (isSuccess) {
+            return Result.success(UrlAndUUID);
+        }
+        else {
+            return Result.error("上传头像失败");
+        }
     }
 
     @PostMapping("/bookcover")

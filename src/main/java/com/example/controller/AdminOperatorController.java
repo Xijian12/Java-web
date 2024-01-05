@@ -61,7 +61,7 @@ public class AdminOperatorController {
     @Operation(summary = "修改头像")
     public RestBean<String> updateAvatar(@RequestBody @Valid UpdateAvatarVO updateAvatarVO) {
         boolean isSuccess = accountService.updateAvatar(updateAvatarVO.getUsername(),
-                updateAvatarVO.getNewAvatarUrl(),updateAvatarVO.getNewAvatorUuid());
+                updateAvatarVO.getNewAvatarUrl(),updateAvatarVO.getNewAvatarUuid());
         if (isSuccess) {
             return RestBean.success("成功修改用户头像");
         } else {
@@ -71,7 +71,7 @@ public class AdminOperatorController {
 
     @GetMapping("/showAllAccounts")
     @Operation(summary = "显示所有用户和管理员")
-    public RestBean<List<DisplayAccountByAdminVO>> showAllAcount(){
+    public RestBean<List<DisplayAccountByAdminVO>> showAllAccount(){
         List<DisplayAccountByAdminVO> accounts = accountService.getAllAccounts();
         return RestBean.success(accounts);
     }
