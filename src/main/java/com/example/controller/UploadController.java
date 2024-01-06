@@ -1,11 +1,9 @@
 package com.example.controller;
 
-import com.example.entity.RestBean;
 import com.example.entity.Result;
 import com.example.entity.dto.Account;
-import com.example.entity.dto.Book;
 import com.example.entity.vo.request.UpdateAvatarVO;
-import com.example.mapper.AccountMapper;
+import com.example.pojo.Book;
 import com.example.service.AccountService;
 import com.example.service.BookUploadService;
 import com.example.utils.AliOSSUtils;

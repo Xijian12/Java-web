@@ -10,7 +10,7 @@ public interface BookMapper {
 
     @Insert({
             "<script>",
-            "INSERT INTO books (",
+            "INSERT INTO book (",
             "book_name, book_version, book_author, book_grade, ",
             "<if test='downloads != null'>book_download_url,</if>",
             "<if test='clicks != null'>book_click_url,</if>",
@@ -32,15 +32,12 @@ public interface BookMapper {
     @Options(useGeneratedKeys = true, keyProperty = "id")
     int insertBook(Book book);
 
-    @Select("SELECT * FROM books WHERE book_id = #{id}")
-    Book selectBookById(int id);
-
-    @Update("UPDATE books SET book_name = #{bookName}, book_version = #{bookVersion}, book_author = #{bookAuthor}, book_grade = #{book_grade}, book_download_num = #{bookDownloadNum}, book_click_num = #{bookClickNum}, uploader = #{uploader}, book_points= #{bookPoints}, book_porfile = #{bookPorfile}, book_cover_url = #{bookCoverUrl},  category_id = #{categoryId} WHERE book_id = #{bookId}")
+    @Update("UPDATE book SET book_name = #{bookName}, book_version = #{bookVersion}, book_author = #{bookAuthor}, book_grade = #{book_grade}, book_download_num = #{bookDownloadNum}, book_click_num = #{bookClickNum}, uploader = #{uploader}, book_points= #{bookPoints}, book_porfile = #{bookPorfile}, book_cover_url = #{bookCoverUrl},  category_id = #{categoryId} WHERE book_id = #{bookId}")
     int updateBook(Book book);
 
     @Delete({
             "<script>",
-            "DELETE FROM books WHERE book_id IN ",
+            "DELETE FROM book WHERE book_id IN ",
             "<foreach item='id' collection='ids' open='(' separator=',' close=')'>",
             "#{id}",
             "</foreach>",
@@ -49,4 +46,10 @@ public interface BookMapper {
     void deleteBooksByIds(@Param("ids") List<Integer> ids);
     @Select("SELECT * FROM test.book")
     List<Book> selectAllBooks();
+
+    @Select("select * from book where book_id = #{bookId}")
+    public Book selectBookById(int bookId);
+
+    @Update("UPDATE book SET book_cover_url = #{bookCoverUrl}, book_cover_uuid = #{bookCoverUuid} WHERE book_id = #{bookId}")
+    void updateBookcover(int bookId,String bookCoverUrl, String bookCoverUuid);
 }

@@ -1,8 +1,7 @@
 package com.example.service.impl;
 
-import com.example.entity.dto.Book;
-import com.example.mapper.AccountMapper;
-import com.example.mapper.BookMapper;
+import com.example.BookMapper.BookMapper;
+import com.example.pojo.Book;
 import com.example.service.BookUploadService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
