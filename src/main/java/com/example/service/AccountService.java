@@ -30,4 +30,5 @@ public interface AccountService extends IService<Account>, UserDetailsService {
     List<DisplayAccountByAdminVO> getAllAccounts();
 
     boolean updateAvatar(String username, String newAvatarUrl,String newAvatarUuid);
+
 }

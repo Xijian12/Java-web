@@ -24,10 +24,12 @@ import java.util.UUID;
 public class AliOSSUtils {
     @Autowired
     private AliOSSPropreties aliOSSPropreties;
+
     /**
-     * 实现上传头像到OSS,返回文件的URL地址和文件名UUID
+     * 实现上传头像、封面到OSS,返回文件的URL地址和文件名UUID
      */
-    public List<String> uploadAvatar(MultipartFile file) throws IOException {
+    //ISAVATAR为真，则表示上传的是头像，反之则表示上传的是图书封面
+    public List<String> uploadImage(MultipartFile file,boolean ISAVATAR) throws IOException {
         String endpoint = aliOSSPropreties.getEndpoint();
         String accessKeyId = aliOSSPropreties.getAccessKeyId();
         String accessKeySecret = aliOSSPropreties.getAccessKeySecret();
@@ -38,50 +40,16 @@ public class AliOSSUtils {
         InputStream inputStream = file.getInputStream();
 
         // 避免文件覆盖
-        String catalogueAvatar =aliOSSPropreties.getCatalogueAvatar();
+        String catalogueAvatarOrBookCover = "";
+        //如果ISAVATAR为真，则代表上传的是头像，则添加到/Avatar目录下，反之，则添加到/BookCover目录下
+        if(ISAVATAR){
+            catalogueAvatarOrBookCover = aliOSSPropreties.getCatalogueAvatar();
+        }else{
+            catalogueAvatarOrBookCover = aliOSSPropreties.getCatalogueBookCover();
+        }
+
         String originalFilename = file.getOriginalFilename();
-        String newfileName = catalogueAvatar+ UUID.randomUUID().toString() + originalFilename.substring(originalFilename.lastIndexOf("."));
-
-        //创建请求类
-        PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, newfileName, inputStream);
-        // 如果需要上传时设置存储类型和访问权限，请参考以下示例代码。
-        ObjectMetadata metadata = new ObjectMetadata();
-        metadata.setHeader(OSSHeaders.OSS_STORAGE_CLASS, StorageClass.Standard.toString());
-        metadata.setObjectAcl(CannedAccessControlList.PublicRead);
-        putObjectRequest.setMetadata(metadata);
-
-        //上传文件到 OSS
-        PutObjectResult result = ossClient.putObject(putObjectRequest);
-
-        //文件访问路径
-        String url = endpoint.split("//")[0] + "//" + bucketName + "." + endpoint.split("//")[1] + "/" + newfileName;
-        // 关闭ossClient
-        ossClient.shutdown();
-
-        List<String> UrlAndUUID = new ArrayList<>();
-        UrlAndUUID.add(url);
-        UrlAndUUID.add(newfileName);
-
-        return UrlAndUUID;// 把上传到oss的路径返回
-    }
-
-    /**
-     * 实现上传封面到OSS,返回文件的URL地址和文件名UUID
-     */
-    public List<String> uploadBookCover(MultipartFile file) throws IOException {
-        String endpoint = aliOSSPropreties.getEndpoint();
-        String accessKeyId = aliOSSPropreties.getAccessKeyId();
-        String accessKeySecret = aliOSSPropreties.getAccessKeySecret();
-        String bucketName = aliOSSPropreties.getBucketName();
-        // 创建OSSClient实例。
-        OSS ossClient = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret);
-        // 获取上传的文件的输入流
-        InputStream inputStream = file.getInputStream();
-
-        // 避免文件覆盖
-        String catalogueBookCover = aliOSSPropreties.getCatalogueBookCover();
-        String originalFilename = file.getOriginalFilename();
-        String newfileName = catalogueBookCover + UUID.randomUUID().toString() + originalFilename.substring(originalFilename.lastIndexOf("."));
+        String newfileName = catalogueAvatarOrBookCover + UUID.randomUUID().toString() + originalFilename.substring(originalFilename.lastIndexOf("."));
 
         //创建请求类
         PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, newfileName, inputStream);

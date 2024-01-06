@@ -2,6 +2,7 @@ package com.example.controller;
 
 import com.example.entity.RestBean;
 import com.example.entity.Result;
+import com.example.entity.dto.Account;
 import com.example.entity.vo.request.UpdateAvatarVO;
 import com.example.mapper.AccountMapper;
 import com.example.service.AccountService;
@@ -28,7 +29,7 @@ public class UploadController {
     @PostMapping("/uploadAvatar")
     public Result uploadAvatar(MultipartFile avatar,String username) throws IOException {
         log.info("图片上传，头像名为：{}", avatar.getOriginalFilename());
-        List<String> UrlAndUUID = (aliOSSUtils.uploadAvatar(avatar));
+        List<String> UrlAndUUID = (aliOSSUtils.uploadImage(avatar,true));
 
         String fileUrl = UrlAndUUID.get(0);
         String imageUUID = UrlAndUUID.get(1);
@@ -47,9 +48,12 @@ public class UploadController {
         }
     }
     @PostMapping("/updateAvatar")
-    public Result updateAvatar(MultipartFile avatar,String username) throws IOException {
+    public Result updateAvatar(MultipartFile avatar,String username) throws Exception {
         log.info("图片上传，头像名为：{}", avatar.getOriginalFilename());
-        List<String> UrlAndUUID = (aliOSSUtils.uploadAvatar(avatar));
+        //查找用户的账号密码，并得到原来的头像地址，
+        Account account = accountService.findAccountByNameOrEmail(username);
+        String fileAddress = account.getAvatarUuid();
+        List<String> UrlAndUUID = (aliOSSUtils.uploadImage(avatar,true));
 
         String fileUrl = UrlAndUUID.get(0);
         String imageUUID = UrlAndUUID.get(1);
@@ -61,10 +65,12 @@ public class UploadController {
         boolean isSuccess = accountService.updateAvatar(updateAvatarVO.getUsername(),
                 updateAvatarVO.getNewAvatarUrl(),updateAvatarVO.getNewAvatarUuid());
         if (isSuccess) {
+            //调用阿里云工具类删除原来的头像
+            aliOSSUtils.DeleteFile(fileAddress);
             return Result.success(UrlAndUUID);
         }
         else {
-            return Result.error("上传头像失败");
+            return Result.error("更新头像失败");
         }
     }
 
@@ -72,7 +78,7 @@ public class UploadController {
     public Result uploadBookCover(MultipartFile BookCover) throws IOException {
 
         log.info("封面上传，封面名为：",BookCover.getOriginalFilename());
-        List<String> UrlAndUUID = (aliOSSUtils.uploadAvatar(BookCover));
+        List<String> UrlAndUUID = (aliOSSUtils.uploadImage(BookCover,false));
 
         String fileUrl = UrlAndUUID.get(0);
         String imageUUID = UrlAndUUID.get(1);
@@ -80,6 +86,6 @@ public class UploadController {
         log.info("封面上传URL为：",fileUrl);
         log.info("封面上传的名字为：",imageUUID);
 
-        return Result.success(UrlAndUUID);
+        return Result.success(fileUrl);
     }
 }
