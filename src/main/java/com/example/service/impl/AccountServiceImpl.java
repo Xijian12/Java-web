@@ -301,4 +301,6 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
     private boolean existsAccountByUsername(String username){
         return this.baseMapper.exists(Wrappers.<Account>query().eq("username", username));
     }
+
+
 }

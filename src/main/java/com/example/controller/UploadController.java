@@ -3,9 +3,11 @@ package com.example.controller;
 import com.example.entity.RestBean;
 import com.example.entity.Result;
 import com.example.entity.dto.Account;
+import com.example.entity.dto.Book;
 import com.example.entity.vo.request.UpdateAvatarVO;
 import com.example.mapper.AccountMapper;
 import com.example.service.AccountService;
+import com.example.service.BookUploadService;
 import com.example.utils.AliOSSUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,8 @@ public class UploadController {
     private AliOSSUtils aliOSSUtils;
     @Autowired
     private AccountService accountService;
+    @Autowired
+    private BookUploadService bookUploadService;
 
     @PostMapping("/uploadAvatar")
     public Result uploadAvatar(MultipartFile avatar,String username) throws IOException {
@@ -74,11 +78,13 @@ public class UploadController {
         }
     }
 
-    @PostMapping("/bookcover")
-    public Result uploadBookCover(MultipartFile BookCover) throws IOException {
+    //上传图书封面，并返回图书封面的URL地址和云存储位置
+    @PostMapping("/uploadBookcover")
+    public Result uploadBookCover(MultipartFile bookCover) throws IOException {
 
-        log.info("封面上传，封面名为：",BookCover.getOriginalFilename());
-        List<String> UrlAndUUID = (aliOSSUtils.uploadImage(BookCover,false));
+
+        log.info("封面上传，封面名为：",bookCover.getOriginalFilename());
+        List<String> UrlAndUUID = (aliOSSUtils.uploadImage(bookCover,false));
 
         String fileUrl = UrlAndUUID.get(0);
         String imageUUID = UrlAndUUID.get(1);
@@ -86,6 +92,32 @@ public class UploadController {
         log.info("封面上传URL为：",fileUrl);
         log.info("封面上传的名字为：",imageUUID);
 
-        return Result.success(fileUrl);
+        return Result.success(UrlAndUUID);
+    }
+
+    //更新图书封面，并返回一个URL地址
+    @PostMapping("/updateBookcover")
+    public Result updateBookCover(MultipartFile bookCover,String bookId) throws Exception {
+        log.info("封面上传，封面名为：",bookCover.getOriginalFilename());
+        List<String> UrlAndUUID = (aliOSSUtils.uploadImage(bookCover,false));
+
+        int bookID = Integer.parseInt(bookId);
+        Book book = bookUploadService.findBookById(bookID);
+        String originalBookcoverAddress = book.getBookCoverUuid();
+
+        String fileUrl = UrlAndUUID.get(0);
+        String imageUUID = UrlAndUUID.get(1);
+
+        log.info("封面上传URL为：",fileUrl);
+        log.info("封面上传的名字为：",imageUUID);
+
+        if (bookUploadService.updateBookcover(bookID,fileUrl,imageUUID)) {
+            //调用阿里云工具类删除原来的头像
+            aliOSSUtils.DeleteFile(originalBookcoverAddress);
+            return Result.success(fileUrl);
+        }
+        else {
+            return Result.error("更新封面失败");
+        }
     }
 }
