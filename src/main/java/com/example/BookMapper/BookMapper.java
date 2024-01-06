@@ -52,4 +52,7 @@ public interface BookMapper {
 
     @Update("UPDATE book SET book_cover_url = #{bookCoverUrl}, book_cover_uuid = #{bookCoverUuid} WHERE book_id = #{bookId}")
     void updateBookcover(int bookId,String bookCoverUrl, String bookCoverUuid);
+
+    @Update("UPDATE book SET book_file_uuid = #{bookFileUUID} WHERE book_id = #{bookId}")
+    void updateBookFile(int bookId, String bookFileUUID);
 }

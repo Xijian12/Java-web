@@ -28,4 +28,14 @@ public class BookUploadServiceImpl implements BookUploadService {
         }
         return false;
     }
+
+    @Override
+    public boolean updateBookFile(int bookId, String bookFileUUID){
+        Book book = findBookById(bookId);
+        if (book != null) {
+            bookMapper.updateBookFile(bookId,bookFileUUID);
+            return true;
+        }
+        return false;
+    }
 }

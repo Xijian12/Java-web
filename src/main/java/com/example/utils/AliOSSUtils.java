@@ -75,7 +75,8 @@ public class AliOSSUtils {
     }
 
     //上传其他文件，例如图书，资料等
-    public String uploadFile(MultipartFile file) throws IOException {
+    //ISBOOK为真，表是上传的是图书，ISBOOK为假，表是上传的是资料
+    public String uploadFile(MultipartFile file,boolean ISBOOK) throws IOException {
         String endpoint = aliOSSPropreties.getEndpoint();
         String accessKeyId = aliOSSPropreties.getAccessKeyId();
         String accessKeySecret = aliOSSPropreties.getAccessKeySecret();
@@ -85,9 +86,16 @@ public class AliOSSUtils {
         // 获取上传的文件的输入流
         InputStream inputStream = file.getInputStream();
 
+        String catalogueBookOrMaterial = "";
+        //如果ISAVATAR为真，则代表上传的是头像，则添加到/Avatar目录下，反之，则添加到/BookCover目录下
+        if(ISBOOK){
+            catalogueBookOrMaterial = aliOSSPropreties.getCatalogueBooks();
+        }else{
+            catalogueBookOrMaterial = aliOSSPropreties.getCatalogueMaterial();
+        }
         // 避免文件覆盖
         String originalFilename = file.getOriginalFilename();
-        String newfileName = UUID.randomUUID().toString() + originalFilename.substring(originalFilename.lastIndexOf("."));
+        String newfileName = catalogueBookOrMaterial + UUID.randomUUID().toString() + originalFilename.substring(originalFilename.lastIndexOf("."));
 
         //创建请求类
         PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, newfileName, inputStream);
