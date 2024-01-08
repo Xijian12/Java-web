@@ -9,10 +9,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class BookReview {
     private int id;
-    private String bookEdition;
-    private String review;
-    private int rating; // 评分为1到5
+    private String bookVersion;
+    private String userComment;
+    private int userGrade; // 评分为1到5
     private String userNickname;
-    private String userAccount;
+    private String userEmail;
     private int bookId;
 }

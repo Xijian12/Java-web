@@ -67,7 +67,16 @@ public class SecurityConfiguration {
                         .requestMatchers("/upload/updateBookcover").permitAll() // 添加这一行
                         .requestMatchers("/upload/uploadBook").permitAll() // 添加这一行
                         .requestMatchers("/upload/updateBook").permitAll() // 添加这一行
-                        .requestMatchers("/books").permitAll() // 添加这一行
+                        .requestMatchers("/book").permitAll() // 添加这一行
+                        .requestMatchers("/book/admin").permitAll() // 添加这一行
+                        .requestMatchers("/book/{id}").permitAll()
+                        .requestMatchers("/category").permitAll()
+                        .requestMatchers("/category/detail").permitAll()
+                        .requestMatchers("/category/update").permitAll()
+                        .requestMatchers("/category/{categoryIds}").permitAll()
+                        .requestMatchers("/book/comment/**").permitAll()
+                        .requestMatchers("/upload/uploadBookcover").permitAll() // 添加这一行
+                        .requestMatchers("/upload/updateBookcover").permitAll() // 添加这一行
                         .anyRequest().hasAnyRole(Const.ROLE_DEFAULT)
                 )
                 .formLogin(conf -> conf

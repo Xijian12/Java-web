@@ -14,7 +14,7 @@ public class Book {
     private String bookName;
     private String bookAuthor;
     private String bookVersion;
-    private String bookPulishHouse;
+    private String bookPublishHouse;
     private String bookGrade;
     private Integer bookDownloadNum;
     private Integer bookClickNum;
@@ -60,12 +60,12 @@ public class Book {
         this.bookVersion = bookVersion;
     }
 
-    public String getBookPulishHouse() {
-        return bookPulishHouse;
+    public String getBookPublishHouse() {
+        return bookPublishHouse;
     }
 
-    public void setBookPulishHouse(String bookPulishHouse) {
-        this.bookPulishHouse = bookPulishHouse;
+    public void setBookPublishHouse(String bookPublishHouse) {
+        this.bookPublishHouse = bookPublishHouse;
     }
 
     public String getBookGrade() {

@@ -4,7 +4,7 @@ import java.util.List;
 
 public class BookResponse {
     private int total;
-    private List<BookDetail> items;
+    private List<Book> items;
 
     // 构造函数、Getter和Setter
 
@@ -16,11 +16,11 @@ public class BookResponse {
         this.total = total;
     }
 
-    public List<BookDetail> getItems() {
+    public List<Book> getItems() {
         return items;
     }
 
-    public void setItems(List<BookDetail> items) {
+    public void setItems(List<Book> items) {
         this.items = items;
     }
 }

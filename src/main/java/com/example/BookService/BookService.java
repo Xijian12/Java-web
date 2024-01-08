@@ -2,6 +2,7 @@ package com.example.BookService;
 
 import com.example.BookMapper.BookMapper;
 import com.example.pojo.Book;
+import com.example.pojo.BookDeletionRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,16 +10,30 @@ import java.util.List;
 
 @Service
 public class BookService {
-
+    @Autowired
     private final BookMapper bookMapper;
 
-    @Autowired
+
+    public boolean deleteBooksIfAdmin(BookDeletionRequest request) {
+        // 检查是否为管理员
+        if (!bookMapper.isUser(request.getUserEmail())) {
+            return false;
+        }
+
+        // 删除图书
+        bookMapper.deleteBooksByIds(request.getBookIds());
+        return true;
+    }
+    public void deleteBooks(List<Integer> ids) {
+        bookMapper.deleteBooksByIds(ids);
+    }
+
     public BookService(BookMapper bookMapper) {
         this.bookMapper = bookMapper;
     }
 
-    public int addBook(Book book) {
-        return bookMapper.insertBook(book);
+    public void createBook(Book book) {
+        bookMapper.insertBook(book);
     }
 
     public Book getBookById(int id) {
@@ -32,8 +47,16 @@ public class BookService {
     public int updateBook(Book book) {
         return bookMapper.updateBook(book);
     }
+    public boolean deleteBooksIfUser(BookDeletionRequest request) {
+        // 检查是否为管理员
+        if (!bookMapper.isUser(request.getUserEmail())) {
+            return false;
+        }
 
-    public void deleteBooks(List<Integer> ids) {
-        bookMapper.deleteBooksByIds(ids);
+        // 删除图书
+        bookMapper.deleteBooksByIds(request.getBookIds());
+        return true;
     }
-    }
+
+
+}

@@ -1,6 +1,7 @@
 package com.example.BookService;
 
 import com.example.BookMapper.BookCategoryMapper;
+import com.example.pojo.Book;
 import com.example.pojo.BookCategory;
 import com.example.pojo.BookDetail;
 import com.example.pojo.BookResponse;
@@ -14,21 +15,21 @@ public class BookCategoryService {
     @Autowired
     private BookCategoryMapper bookCategoryMapper;
 
-    public BookCategory getCategoryById(int id) {
-        return bookCategoryMapper.selectCategoryById(id);
+    public BookCategory getCategoryById(int categoryId) {
+        return bookCategoryMapper.selectCategoryById(categoryId);
     }
 
     public List<BookCategory> getAllCategories() {
         return bookCategoryMapper.selectAllCategories();
     }
 
-    public void addCategory(String name, String alias) {
+    public void addCategory(String categoryName, String categoryAlias) {
         BookCategory category = new BookCategory();
-        category.setName(name);
-        category.setAlias(alias);
+        category.setCategoryName(categoryName);
+        category.setCategoryAlias(categoryAlias);
         // 默认点击和下载次数为0
-        category.setClicks(0);
-        category.setDownloads(0);
+        category.setCategoryClickNum(0);
+        category.setCategoryDownloadNum(0);
         bookCategoryMapper.insertCategory(category);
     }
 
@@ -36,17 +37,8 @@ public class BookCategoryService {
         bookCategoryMapper.updateCategory(category);
     }
 
-    public boolean deleteCategory(int id) {
-        try {
-            // 假设这是调用Mapper来删除分类的代码
-             bookCategoryMapper.deleteCategory(id);
-            // 返回true表示删除成功
-            return true;
-        } catch (Exception e) {
-            // 处理异常，例如记录日志
-            // 返回false表示删除失败
-            return false;
-        }
+    public  void deleteCategories(List<Integer> categoryIds) {
+        bookCategoryMapper.deleteCategoriesByIds(categoryIds);
     }
     public List<BookDetail> getBooksByCategoryId(Long categoryId) {
         // 实现从数据库获取该分类下所有图书信息的逻辑
@@ -60,12 +52,12 @@ public class BookCategoryService {
 
         public BookResponse getBooksByCategoryName(String categoryName, int page, int pageSize) {
             int offset = (page - 1) * pageSize;
-            List<BookDetail> bookDetails = bookCategoryMapper.getBooksByCategoryName(categoryName, pageSize, offset);
-            int total = bookDetails.size();  // 本次查询到的图书总数
+            List<Book> book = bookCategoryMapper.getBooksByCategoryName(categoryName, pageSize, offset);
+            int total = book.size();  // 本次查询到的图书总数
 
             BookResponse response = new BookResponse();
             response.setTotal(total);
-            response.setItems(bookDetails);
+            response.setItems(book);
             return response;
         }
 

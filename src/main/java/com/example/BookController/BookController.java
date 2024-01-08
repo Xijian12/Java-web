@@ -2,9 +2,11 @@ package com.example.BookController;
 
 import com.example.BookService.BookService;
 import com.example.pojo.Book;
+import com.example.pojo.BookDeletionRequest;
 import com.example.pojo.DeleteBooksRequest;
 import com.example.pojo.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,25 +15,26 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/books")
+@RequestMapping("/book")
 public class BookController {
-
+    @Autowired
     private final BookService bookService;
 
-    @Autowired
+
     public BookController(BookService bookService) {
         this.bookService = bookService;
     }
 
+
     @PostMapping
     public ResponseEntity<?> createBook(@RequestBody Book book) {
-        int bookId = bookService.addBook(book);
-        return ResponseEntity.ok(new Response(0, "操作成功", bookId));
+        bookService.createBook(book);
+        return  ResponseEntity.ok(new Response(0, "操作成功"));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getBookById(@PathVariable int id) {
-        Book book = bookService.getBookById(id);
+    public ResponseEntity<?> getBookById(@PathVariable int bookId) {
+        Book book = bookService.getBookById(bookId);
         return ResponseEntity.ok(new Response(0, "操作成功", book));
     }
 
@@ -41,18 +44,34 @@ public class BookController {
         return ResponseEntity.ok(new Response(0, "操作成功", books));
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<?> updateBook(@PathVariable int bookId, @RequestBody Book book) {
-        book.setBookId(bookId);
+    @PutMapping("/user")
+    public ResponseEntity<?> updateBook(@RequestBody Book book) {
+
+        bookService.updateBook(book);
+        return ResponseEntity.ok(new Response(0, "操作成功", null));
+    }
+    @PutMapping("/admin")
+    public ResponseEntity<?> updateBookAdmin(@RequestBody Book book) {
+
         bookService.updateBook(book);
         return ResponseEntity.ok(new Response(0, "操作成功", null));
     }
 
-    @DeleteMapping("/delete")
-    public ResponseEntity<?> deleteBooks(@RequestBody DeleteBooksRequest request) {
-        // 可以在这里添加身份验证逻辑
-
-        bookService.deleteBooks(request.getIds());
-        return ResponseEntity.ok(new Response(0, "操作成功", null));
+    @DeleteMapping("/admin")
+    public ResponseEntity<?> deleteBooks(@RequestBody BookDeletionRequest request) {
+        if (bookService.deleteBooksIfAdmin(request)) {
+            return ResponseEntity.ok(new Response(0, "操作成功", null));
+        } else {
+            return ResponseEntity.ok(new Response(0, "操作失败，该账户不是管理员！", null));
+        }
     }
+    @DeleteMapping("/user")
+    public ResponseEntity<?> deleteBooksUser(@RequestBody BookDeletionRequest request) {
+        if (bookService.deleteBooksIfUser(request)) {
+            return ResponseEntity.ok(new Response(0, "操作成功", null));
+        } else {
+            return ResponseEntity.ok(new Response(0, "操作失败，不能删除别人的图书！", null));
+        }
+    }
+
 }

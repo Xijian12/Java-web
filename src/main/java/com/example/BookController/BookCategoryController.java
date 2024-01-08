@@ -11,42 +11,41 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/category")
+
 
 public class BookCategoryController {
     @Autowired
     private BookCategoryService bookCategoryService;
-    @PostMapping("/admin/category")
+    @PostMapping
     public ResponseEntity<?> addCategory(@RequestBody CategoryRequest request) {
         bookCategoryService.addCategory(request.getCategoryName(), request.getCategoryAlias());
         return ResponseEntity.ok(new Response(0, "操作成功"));
     }
     @GetMapping("/get/{id}")
-    public BookCategory getCategoryById(@PathVariable int id) {
-        return bookCategoryService.getCategoryById(id);
+    public BookCategory getCategoryById(@PathVariable int categoryId) {
+        return bookCategoryService.getCategoryById(categoryId);
     }
 
-    @GetMapping("/category")
+    @GetMapping
     public List<BookCategory> getAllCategories() {
         return bookCategoryService.getAllCategories();
     }
 
 
 
-    // 内部类用于响应
+
 
     @PutMapping
-    public void updateCategory(@RequestBody BookCategory category) {
+    public  ResponseEntity<?>updateCategory(@RequestBody BookCategory category) {
         bookCategoryService.updateCategory(category);
+         return ResponseEntity.ok(new Response(0, "操作成功"));
     }
 
-    @DeleteMapping("/category/{id}")
-    public ResponseEntity<Response> deleteCategory(@PathVariable int id) {
-        boolean isSuccess = bookCategoryService.deleteCategory(id);
-        if (isSuccess) {
-            return ResponseEntity.ok(new Response(0, "操作成功"));
-        } else {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Response(1, "操作失败"));
-        }
+    @DeleteMapping("/{categoryIds}")
+    public ResponseEntity<?> deleteCategories(@PathVariable List<Integer> categoryIds) {
+        bookCategoryService.deleteCategories(categoryIds);
+        ;return ResponseEntity.ok(new Response(0, "操作成功"));
     }
     @GetMapping("/category/detail")
     public ResponseEntity<Response> getBooksByCategoryName(
