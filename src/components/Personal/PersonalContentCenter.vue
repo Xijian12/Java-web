@@ -1,128 +1,80 @@
 <template>
-  <div class="contentCenter">
-    <div class="contentCenter_title">
-      <span class="contentCenter_title_span"> 全部商品 / 发票 </span>
-    </div>
-    <div class="contentCenter_center" v-if="this.paid.length === 0">
-      <span style="margin: 50px; font-size: 50px">请去购买商品</span>
-    </div>
-    <div class="contentCenter_center" v-else>
-      <ul>
-        <li>序号</li>
-        <li>商品信息</li>
-        <li>单价</li>
-        <li>数量</li>
-        <li>金额</li>
-      </ul>
-      <ol v-for="(item, index) in this.paid" :key="index">
-        <li>
-          <span>{{index+1}}</span>
-          <img :src="item.product_image" alt="" />
-        </li>
-        <li>{{ item.product_name }}</li>
-        <li>{{ item.product_price * 10000 }}</li>
-        <li>{{ item.product_much }}件</li>
-        <li>￥{{ item.product_price * 10000 * item.product_much }}</li>
-      </ol>
-    </div>
+  <div class="contentTitle">
+    <el-container class="container_middle">
+        <el-aside width="200px">
+            <el-col>
+                <h4 style="text-align:center;color:#424242">个人中心</h4>
+                 <el-menu default-active="/personal" class="el-menu-vertical-demo" unique-opened :router="true">
+                    <el-menu-item index="/home">
+                        <el-icon><HomeFilled/></el-icon>
+                        <span slot="title">主页</span>
+                    </el-menu-item>
+                    <el-menu-item index="/personal/personalMyinfo">
+                        <el-icon><UserFilled/></el-icon>
+                        <span slot="title">个人信息</span>
+                    </el-menu-item>
+                    <el-sub-menu index="/personal/book">
+                        <template #title>
+                            <el-icon><Expand/></el-icon>
+                            <span>图书管理</span>
+                        </template>
+                        <el-menu-item-group >
+                            <template #title></template>
+                            <el-menu-item index="/personal/favorite"><el-icon><StarFilled/></el-icon>我的收藏</el-menu-item>
+                            <el-menu-item index="/personal/publishRecord"><el-icon><Collection /></el-icon>发布记录</el-menu-item>
+                            <el-menu-item index="/personal/publish"><el-icon><Sell /></el-icon>发布图书</el-menu-item>
+                        </el-menu-item-group>
+                    </el-sub-menu>
+                    <el-sub-menu index="/personal/order">
+                        <template #title>
+                            <el-icon><ShoppingCart/></el-icon>
+                            <span>订单管理</span>
+                        </template>
+                        <el-menu-item-group>
+                            <template #title></template>
+                            <el-menu-item index="/personal/buyrecord"><el-icon><Money /></el-icon>购买记录</el-menu-item>
+                            <el-menu-item index="/personal/sellrecord"><el-icon><WalletFilled /></el-icon>出售记录</el-menu-item>
+                        </el-menu-item-group>
+                    </el-sub-menu>
+                </el-menu>
+            </el-col>
+        </el-aside>
+
+        <el-main>
+            <router-view >
+            </router-view>
+        </el-main>
+    </el-container>
   </div>
 </template>
 
-<script>
-export default {
-    name:"PersonalContentCenter",
-    data(){
-      return{
-        paid:[]
-      }
-    },
-    created(){
-      let userid = this.$store.state.personalID[0].user_id;
-      this.$http.get(`home/usercartdone/`).then(response => {
-        this.paid = response.data.filter(item => item.user_name === userid)
-        console.log(response.data);
-      })
-      // this.paid =  this.$store.state.Product
-    }
-}
+<script setup>
+import router from "@/router"
+
 </script>
 
-<style scoped>
-.contentCenter {
-  width: 1160px;
-  height: 100%;
-  position: relative;
-  left: 50%;
-  transform: translateX(-50%);
-  margin: 20px 20px 20px 0;
-}
-.contentCenter_title {
-  width: 100%;
-  height: 40px;
-  background-color: paleturquoise;
-  line-height: 40px;
-}
-.contentCenter_title > .contentCenter_title_span {
-  height: 100%;
-  width: 100px;
-  border-bottom: 3px solid red;
-  padding: 10px 10px;
-}
-.contentCenter_center {
-  width: 100%;
-  height: 600px;
-  background-color: #fff;
-  overflow: auto;
-}
-.contentCenter_center > ul {
-  display: flex;
-  flex-direction: row;
-}
-.contentCenter_center > ul > li {
-  margin-left: 10px;
-  flex: 1;
-}
-.contentCenter_center > ul > li:nth-child(2) {
-  flex: 4;
-}
-.contentCenter_center > ol {
-  width: 100%;
-  height: 150px;
-  border: 1px solid gainsboro;
-  margin: 20px 0;
-  display: flex;
-  flex-direction: row;
-}
-.contentCenter_center > ol > li {
-  margin-left: 10px;
-  flex: 1;
-  /* line-height: 150px; */
-}
-.contentCenter_center > ol > li:nth-child(1) {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-}
-.contentCenter_center > ol > li:nth-child(1) > span {
-  flex: 1;
-  margin-top: 70px;
-}
-.contentCenter_center > ol > li:nth-child(1) > img {
-  flex: 1;
-  width: 100px;
-  height: 80px;
-  margin-top: 30px;
-}
-.contentCenter_center > ol > li:nth-child(2) {
-  line-height: 130px;
-  margin-top: 10px;
-  flex: 4;
-  flex-wrap: wrap;
-}
-.contentCenter_center > ol > li:nth-child(3),
-.contentCenter_center > ol > li:nth-child(4),
-.contentCenter_center > ol > li:nth-child(5),
-.contentCenter_center > ol > li:nth-child(6) {
-  line-height: 150px;
-}
+<style  lang="less" scoped>
+.contentTitle{
+    position: relative;
+    width: 1200px;
+    height: 700px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: row;
+  }
+.container_middle {
+        margin-top: 20px;
+        height: 100%;
+        .el-menu {
+            border-right: 0;
+        }
+        .el-aside {
+            background-color: #fff;
+        }
+        .el-main {
+            width: 1000px;
+            background-color: rgb(222, 238, 255);
+        }
+    }
 </style>

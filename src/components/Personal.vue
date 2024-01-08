@@ -6,26 +6,10 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import Header from "@/components/Home/Header.vue";
 import PersonalContentTitle from "@/components/Personal/PersonalContentTitle.vue";
 import PersonalContentCenter from "@/components/Personal/PersonalContentCenter.vue";
-export default {
-  name: "Personal",
-  data() {
-    return {
-      data1: [],
-    };
-  },
-  components: {
-    PersonalContentTitle,
-    Header,
-    PersonalContentCenter
-  },
-  created() {
-    
-  },
-};
 </script>
 
 <style scoped>

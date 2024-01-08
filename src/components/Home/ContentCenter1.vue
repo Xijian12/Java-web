@@ -2,225 +2,260 @@
   <div class="contentCenter">
     <div class="contentCenter_Left">
       <div class="contentCenter_Left_menu">
-          <div class="contentCenter_Left_menu_title">主题市场</div>
-          <div
-            class="contentCenter_Left_menu_theme"
-            v-for="(item, index) in theme"
-            :key="index"
-            @mouseover="yiru"
-            @mouseout="yichu"
-          >
-            <div class="contentCenter_Left_menu_char">{{ item.theme }}</div>
-            <div class="contentCenter_Left_menu_fuhao">></div>
+          <div class="contentCenter_Left_menu_title1" @mouseenter="yiru" @mouseleave="yichu"> 
+            <div class="left_item">
+              <div class="navTitleBox">
+        <img src="src/assets/images/category-area.png" alt="">
+        <div class="navTitle">按分类看</div>
+        <div class="navDescribe">分门别类，找你所想</div>
+        <i class="keke_iconfont"></i>
+              </div>
+            </div>
+          </div>
+          <div class="contentCenter_Left_menu_title2" @mouseenter="yiru2" @mouseleave="yichu2">
+            <div class="left_item">
+              <div class="navTitleBox">
+        <img src="src/assets/images/category-specialty.png" alt="">
+      <div class="navTitle">文档搜索</div>
+      <div class="navDescribe">精确搜索，直达所需</div>
+      <i class="keke_iconfont"></i>
+              </div>
+            </div>
+          </div>
+          <div class="contentCenter_Left_menu_title3">
+            <div class="left_item">
+              <a href="pdf-account.html" onclick="showWindow('login', 'member.php?mod=logging&action=login&fromkeke=1');">
+                <div class="navTitleBox">
+                <img src="src/assets/images/category-ask.png" alt="">
+                <div class="navTitle">我的文库</div>
+                <div class="navDescribe">我收藏的文档在这里</div>
+                <i class="keke_iconfont"></i>
+                </div>
+              </a>
+            </div>
           </div>
         </div>
       <div class="contentCenter_Left_item">
-        <div class="contentCenter_Left_item_title">
-          <a href="">天猫</a>
-          <a href="">聚划算</a>
-        </div>
-        <div v-show="guanbi" class="fugai">
+        <div v-show="guanbi1" class="fugai" @mouseenter="yiru" @mouseleave="yichu">
           <div class="fugai_left">
-            <div class="fugai_left_product">
-                <div class="fugai_left_title">
-                住宅家具
-              </div>
-              <div class="fugai_left_item" >
-                <a href="" v-for="(item,index) in chufangdianqi" :key="index">
-                  {{item.name}}
-                </a>
-              </div>
-            </div>
-            <div class="fugai_left_product">
-                <div class="fugai_left_title">
-                住宅家具
-              </div>
-              <div class="fugai_left_item" >
-                <a href="" v-for="(item,index) in chufangdianqi" :key="index">
-                  {{item.name}}
-                </a>
-              </div>
-            </div>
-            <div class="fugai_left_product">
-                <div class="fugai_left_title">
-                住宅家具
-              </div>
-              <div class="fugai_left_item" >
-                <a href="" v-for="(item,index) in chufangdianqi" :key="index">
-                  {{item.name}}
-                </a>
-              </div>
-            </div>
-            
-          
-            
+            <div class="popup">
+              <div class="cate_list_box">
+                <li>
+                  <div class="firstcatename">
+                    <a href="pdf-class-1-0-0.html" title="经济管理" target="_blank">经济管理</a>
+                  </div>
+                  <span class="catelist">
+                  <a href="pdf-class-1-12-0.html" title="" target="_blank">管理学</a>
+                  <a href="pdf-class-1-13-0.html" title="" target="_blank">金融投资</a>
+                  <a href="pdf-class-1-14-0.html" title="" target="_blank">市场营销</a>
+                  <a href="pdf-class-1-15-0.html" title="" target="_blank">保险</a>
+                  <a href="pdf-class-1-16-0.html" title="" target="_blank">财会专业</a></span>
+                </li>
+        <li>
+          <div class="firstcatename">
+            <a href="pdf-class-2-0-0.html" title="成功励志" target="_blank">成功励志</a>
           </div>
-          <div class="fugai_right">
-            <div>猜你喜欢</div>
-            <div class="fugai_right_product" v-for="(item,index) in 6" :key="index">
-                <img src="https://gw.alicdn.com/imgextra/i1/O1CN01KgTkZ526XpIWPjIJy_!!6000000007672-0-tps-430-430.jpg_110x10000Q75.jpg" alt="">
-                <span>真便宜{{item}}</span>
+          <span class="catelist ">
+            <a href="pdf-class-2-17-0.html" title="" target="_blank">成功学</a>
+            <a href="pdf-class-2-18-0.html" title="" target="_blank">职场</a>
+            <a href="pdf-class-2-19-0.html" title="" target="_blank">演讲口才</a>
+            <a href="pdf-class-2-20-0.html" title="" target="_blank">人际交往</a>
+            <a href="pdf-class-2-21-0.html" title="" target="_blank">个人修养</a>
+            <a href="pdf-class-2-22-0.html" title="" target="_blank">性格情绪</a>
+            <a href="pdf-class-2-23-0.html" title="" target="_blank">励志书籍</a></span>
+        </li>
+        <li>
+          <div class="firstcatename">
+            <a href="pdf-class-3-0-0.html" title="人物传记" target="_blank">人物传记</a>
+          </div>
+          <span class="catelist ">
+            <a href="pdf-class-3-24-0.html" title="" target="_blank">人物传记</a>
+            <a href="pdf-class-3-25-0.html" title="" target="_blank">世界各国史</a>
+            <a href="pdf-class-3-26-0.html" title="" target="_blank">中国史</a></span>
+        </li>
+        <li>
+          <div class="firstcatename">
+            <a href="pdf-class-4-0-0.html" title="计算机书籍" target="_blank">计算机书籍</a>
+          </div>
+          <span class="catelist ">
+            <a href="pdf-class-4-27-0.html" title="" target="_blank">操作系统</a>
+            <a href="pdf-class-4-28-0.html" title="" target="_blank">数据库</a>
+            <a href="pdf-class-4-29-0.html" title="" target="_blank">信息安全</a>
+            <a href="pdf-class-4-30-0.html" title="" target="_blank">程序设计</a>
+            <a href="pdf-class-4-31-0.html" title="" target="_blank">软件开发</a>
+            <a href="pdf-class-4-33-0.html" title="" target="_blank">人工智能</a>
+            <a href="pdf-class-4-34-0.html" title="" target="_blank">平面设计</a>
+            <a href="pdf-class-4-35-0.html" title="" target="_blank">网络通信</a>
+            <a href="pdf-class-4-36-0.html" title="" target="_blank">家庭办公</a>
+            <a href="pdf-class-4-37-0.html" title="" target="_blank">计算机语言</a></span>
+        </li>
+        <li>
+          <div class="firstcatename">
+            <a href="pdf-class-7-0-0.html" title="人文社科类" target="_blank">人文社科类</a>
+          </div>
+          <span class="catelist keke_doc_clearfix">
+            <a href="pdf-class-7-50-0.html" title="" target="_blank">社会科学</a>
+            <a href="pdf-class-7-51-0.html" title="" target="_blank">心理学</a>
+            <a href="pdf-class-7-52-0.html" title="" target="_blank">宗教</a>
+            <a href="pdf-class-7-53-0.html" title="" target="_blank">法律</a>
+            <a href="pdf-class-7-54-0.html" title="" target="_blank">政治军事</a>
+            <a href="pdf-class-7-55-0.html" title="" target="_blank">文化</a>
+            <a href="pdf-class-7-56-0.html" title="" target="_blank">教育考试</a>
+            <a href="pdf-class-7-57-0.html" title="" target="_blank">古籍</a></span>
+        </li>
+        <div class="openmore">
+          <a href="pdf-class.html" target="_blank">查看全部文档</a>
+        </div>
+              </div>
             </div>
           </div>
         </div>
+        <div v-show="guanbi2" class="fugai" @mouseenter="yiru2" @mouseleave="yichu2">
+          <div class="fugai_left">
+            <div class="popup">
+        <h1 class="searchtitle">文档搜索</h1>
+          <div class="search_bar">
+            <form action="plugin.php?id=keke_doc&amp;ac=list">
+              <input type="hidden" name="id" value="keke_doc">
+              <input type="hidden" name="ac" value="list">
+              <input type="text" name="keyword" class="tx" autocomplete="off" placeholder="请输入您要搜索的文档关键字...">
+              <el-button type="submit" @click="SearchDisplayVue()">搜索</el-button>
+            </form>
+          </div>
+          <div class="hotkeyword">
+          热门搜索：
+          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=Java" target="_blank">Java</a>
+          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=程序设计" target="_blank">程序设计</a>
+          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=古籍" target="_blank">古籍</a>
+          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=编程" target="_blank">编程</a>
+          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=教程" target="_blank">教程</a>
+          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=家庭" target="_blank">家庭</a>
+          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=百科" target="_blank">百科</a>
+          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=金融" target="_blank">金融</a>
+          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=设计" target="_blank">设计</a>
+          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=Python" target="_blank">Python</a>
+          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=文化" target="_blank">文化</a>
+          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=科技" target="_blank">科技</a>
+          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=社会" target="_blank">社会</a>
+          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=网络" target="_blank">网络</a>
+          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=计算机" target="_blank">计算机</a>
+          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=管理" target="_blank">管理</a>
+          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=科学" target="_blank">科学</a>
+          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=文学" target="_blank">文学</a>
+          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=财经" target="_blank">财经</a>
+          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=设计" target="_blank">设计</a>
+          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=教育" target="_blank">教育</a>
+          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=成功" target="_blank">成功</a>
+          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=励志" target="_blank">励志</a>
+          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=技术" target="_blank">技术</a>
+          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=投资" target="_blank">投资</a>
+          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=哲学" target="_blank">哲学</a>
+          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=军事" target="_blank">军事</a>
+          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=社会科学" target="_blank">社会科学</a>
+          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=程序设计" target="_blank">程序设计</a>
+          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=个人理财" target="_blank">个人理财</a>
+          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=数据" target="_blank">数据</a>
+          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=小说" target="_blank">小说</a>
+          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=家居" target="_blank">家居</a>
+          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=电子" target="_blank">电子</a>
+          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=科普" target="_blank">科普</a>
+          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=摄影" target="_blank">摄影</a>
+          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=传记" target="_blank">传记</a>
+          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=佛教" target="_blank">佛教</a>
+          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=娱乐" target="_blank">娱乐</a>
+          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=少儿" target="_blank">少儿</a>
+          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=学习" target="_blank">学习</a>
+          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=经济学" target="_blank">经济学</a>
+          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=编程" target="_blank">编程</a>
+          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=互联网" target="_blank">互联网</a>
+          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=旅游" target="_blank">旅游</a>
+          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=中国史" target="_blank">中国史</a>
+          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=散文" target="_blank">散文</a>
+          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=自然科学" target="_blank">自然科学</a>
+          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=中国古代史" target="_blank">中国古代史</a>                 
+        </div>
+            </div>
+          </div>
+        </div>   
         <div v-show="!guanbi" class="contentCenter_Left_item_content">
-          <div class="contentCenter_Left_item_content_top">
             <div class="huandengpian">
-              <el-carousel trigger="click">
-                <el-carousel-item v-for="item in 4" :key="item">
-                  <h3 class="small">{{ item }}</h3>
+              <el-carousel trigger="click" class="el-carousel" indicator-position="none">
+                <el-carousel-item v-for="item in carouselData" :key="item.id">
+                  <img v-viewer :src="item.imageUrl" alt="图片丢失了" class="carousel-image"> 
                 </el-carousel-item>
               </el-carousel>
             </div>
-          </div>
-          <div class="contentCenter_Left_item_content_bottom">
-            <div class="contentCenter_Left_item_content_bottom_image1">
-              <div class="wenzi">
-                <div class="round"></div>
-                <div>聚划算</div>
-              </div>
-              <div class="image">
-                <img src="../../assets/img/image1.png" alt="" />
-              </div>
-            </div>
-            <div class="contentCenter_Left_item_content_bottom_image1">
-              <div class="wenzi">
-                <div class="round round2"></div>
-                <div>有好货</div>
-              </div>
-              <div class="image">
-                <img src="../../assets/img/image2.png" alt="" />
-              </div>
-            </div>
-          </div>
         </div>
-      </div>
+        </div>
     </div>
     <div class="contentCenter_Right" >
-      <div class="contentCenter_Right_top" v-if="!this.arr">
-        <div class="touxiang">
-          <div class="image">
-            <img src="../../assets/img/taobaokefu.jpg" alt="" />
-            <div>Hi,你好~~</div>
-            <div class="jishanshan">领淘币抵钱</div>
-          </div>
+          <div class="hd_right_box">
+            <div class="hd_right">
+                <div class="right_top">
+                    <h2>文库累计收录文档</h2>
+                    <div class="docnumboxs"><span class="docnum" id="docnum">1145296</span> 份</div>
+                </div>
+                <a href="javascript:" onclick="tipNoPer();"  class="updocbtn"><i class="keke_iconfont">&#xe7da;</i>上传文档</a>
+                <ul class="advantage">
+                    <li>
+                        <img src="src/assets/images/s-fast.png" alt="快审"><span>快审</span>
+                    </li>
+                    <li>
+                        <img src="src/assets/images/s-profession.png" alt="高佣">高佣
+                    </li>
+                    <li>
+                        <img src="src/assets/images/s-privacy.png" alt="开放">开放
+                    </li>
+                </ul>
+            </div>
         </div>
-        <div class="login">
-          <div><button class="button1" @click="loginBtn()">登录</button></div>
-          <div><button class="button2">注册领红包</button></div>
-        </div>
-      </div>
-      <div class="contentCenter_Right_top" v-else>
-        <div class="touxiang">
-          <div class="image">
-            <img :src="this.arr.img" alt="" style="width:80px;height:80px;border:1px solid #000;"/>
-            <div>Hi,你好~~</div>
-            <div class="jishanshan">{{this.arr.user_name}}</div>
-            <button @click="findPaid()" style="width:120px;margin-left:-20px;">点击查看购买记录</button>
-          </div>
-        </div>
-      </div>
-      <div class="contentCenter_Right_center">专属会员服务</div>
-      <div class="contentCenter_Right_bottom">
-        <div
-          class="contentCenter_Right_bottom_item"
-          v-for="(item, index) in login"
-          :key="index"
-        >
-          <img src="../../assets/img/login_image1.png" alt="" />
-          <div class="wenzi">{{ item.title }}</div>
-          <div class="fuhao">></div>
-        </div>
-      </div>
     </div>
   </div>
 </template>
 
-<script>
-export default {
-  name: "ContentCenter1",
-  props:["abs"],
-  data() {
-    return {
-      theme: [
-        { id: 1, theme: "居家生活" },
-        { id: 1, theme: "居家生活" },
-        { id: 1, theme: "居家生活" },
-        { id: 1, theme: "居家生活" },
-        { id: 1, theme: "居家生活" },
-        { id: 1, theme: "居家生活" },
-        { id: 1, theme: "居家生活" },
-        { id: 1, theme: "居家生活" },
-        { id: 1, theme: "居家生活" },
-        { id: 1, theme: "居家生活" },
-        { id: 1, theme: "居家生活" },
-        { id: 1, theme: "居家生活" },
-        { id: 1, theme: "居家生活" },
-      ],
-      login: [
-        {
-          id: 1,
-          image: "../../assets/img/login_image1.png",
-          title: "官方物流寄送至全球十地",
-        },
-        {
-          id: 2,
-          image: "../../assets/img/login_image1.png",
-          title: "官方物流寄送至全球十地",
-        },
-        {
-          id: 3,
-          image: "../../assets/img/login_image1.png",
-          title: "官方物流寄送至全球十地",
-        },
-        {
-          id: 4,
-          image: "../../assets/img/login_image1.png",
-          title: "官方物流寄送至全球十地",
-        },
-      ],
-      guanbi:false,
-      chufangdianqi:[
-        {id:1,name:"上处置累累设置别"},
-        {id:1,name:"净水器"},
-        {id:1,name:"空气炸锅"},
-        {id:1,name:"删除加热类设备"},
-        {id:1,name:"删除视频机械"},
-        {id:1,name:"商用出点"},
-        {id:1,name:"厨房加点配件"},
-        {id:1,name:"咖啡机"},
-        {id:1,name:"咖啡机大活佛爱好的符号看"},
-      ]
-    };
-  },
-  computed: {},
-  methods: {
-    yiru() {
-      this.guanbi = !this.guanbi
-    },
-    yichu() {
-      this.guanbi = !this.guanbi
-    },
-    loginBtn(){
-      this.$router.push({name:"login"})
-    },
-    findPaid(){
-      this.$router.push({name:"personal"})
+<script setup>
+import {ref} from 'vue'
+import {useStore} from 'vuex'
+import router from "@/router"
+const store = useStore();
+const arr = ref(store.state.personalID[0])
+const guanbi = ref(false)
+const guanbi1 = ref(false)
+const guanbi2 = ref(false)
+const carouselData = ref([
+  { id: 1, imageUrl: 'src/assets/images/dragon.png', number: 1 },
+  { id: 2, imageUrl: 'src/assets/images/background.jpeg', number: 2 },
+  { id: 3, imageUrl: 'src/assets/images/jinxuan.jpg', number: 3 },
+]);
+const yiru = () =>  {
+      guanbi.value = !guanbi.value
+      guanbi1.value = !guanbi1.value
     }
-  },
-  created:function(){
-    this.arr = this.$store.state.personalID[0]
-  },
-};
+const  yichu = () =>  {
+   guanbi.value = !guanbi.value
+   guanbi1.value = !guanbi1.value
+    }
+const yiru2 = () =>  {
+      guanbi.value = !guanbi.value
+      guanbi2.value = !guanbi2.value
+    }
+const  yichu2 = () =>  {
+   guanbi.value = !guanbi.value
+   guanbi2.value = !guanbi2.value
+    }
+
+function SearchDisplayVue(){
+      router.push({name:"SearchDisplay"})
+    }
 </script>
 
 <style scoped>
 .fugai {
   width: 100%;
-  height: 520px;
+  height: 100%;
   display: flex;
   flex-direction: row;
-  border: 2px solid red;
+  background-color: #fff;
   border-radius: 12px;
 }
 .fugai > .fugai_left{
@@ -233,56 +268,10 @@ export default {
   overflow: auto;
   border-right: 2px solid #d3dce6;
 }
-.fugai > .fugai_left > .fugai_left_product{
-  width: 100%;
-  margin-bottom: 20px;
-  display: flex;
-  flex-direction: column;
-
-}
-.fugai > .fugai_left > .fugai_left_product > .fugai_left_title{
-  font-size: 20px;
-  font-weight: 600;
-}
-.fugai > .fugai_left > .fugai_left_product > .fugai_left_item{
-  margin-top: 10px;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-}
-.fugai > .fugai_left > .fugai_left_product > .fugai_left_item > a {
-  margin-top: 2px;
-  margin-right: 20px;
-  text-decoration: none;
-  color: #a0a0a0;
-}
-.fugai > .fugai_right{
-  flex: 3;
-  padding: 20px;
-}
-.fugai > .fugai_right > div{
-  font-size: 20px;
-  font-weight: 600;
-}
-.fugai > .fugai_right > .fugai_right_product {
-  margin-top: 20px;
-  width: 50%;
-  height: 131px;
-  background-color: #fff;
-  float: left;
-}
-.fugai > .fugai_right > .fugai_right_product > img{
-  width: 100%;
-  height: 110px;
-}
-.fugai > .fugai_right > .fugai_right_product > span {
-  position: relative;
-  left: 30%;
-}
 .contentCenter {
   position: relative;
   width: 1200px;
-  height: 590px;
+  height: 300px;
   /* background-color: orangered; */
   left: 50%;
   transform: translate(-50%);
@@ -295,266 +284,186 @@ export default {
   height: 100%;
   margin: 0 20px 0 0;
   /* background-color: palegreen; */
-  border-radius: 20px;
   display: flex;
   flex-direction: row;
 }
 .contentCenter_Left_menu {
-  flex: 1;
-  height: 100%;
-  background-color: #fff;
+  flex: 1.5;
+  max-height: 100%;
+  background-color: #f4f5f9;
   border-top-left-radius: 20px;
   border-bottom-left-radius: 20px;
   display: flex;
   flex-direction: column;
   cursor: pointer;
 }
-.contentCenter_Left_menu_title {
+.contentCenter_Left_menu_title1 {
+  height: 100px;
+  color: #746868;
   font-size: 20px;
   text-align: center;
-  line-height: 50px;
+  background-color: #fff;
+  line-height: 20px;
   /* color: orangered; */
   font-weight: 700;
+  border-top-left-radius: 20px;
+  /* border-bottom-left-radius: 10px; */
 }
-.contentCenter_Left_menu_theme {
-  width: 100%;
-  height: 40px;
-  /* background-color: red; */
-  display: flex;
-  flex-direction: row;
-  line-height: 40px;
-}
-.contentCenter_Left_menu_theme:hover {
-  background-color: tomato;
-}
-.contentCenter_Left_menu_char {
-  flex: 9;
-  margin-left: 10px;
-}
-.contentCenter_Left_menu_fuhao {
-  flex: 1;
-  color: #a0a0a0;
-}
-.contentCenter_Left_item {
-  flex: 4;
-  height: 100%;
+.contentCenter_Left_menu_title2 {
+  height: 100px;
+  color: #746868;
+  font-size: 20px;
+  text-align: center;
   background-color: #fff;
+  line-height: 20px;
+  /* color: orangered; */
+  font-weight: 700;
+  /* border-bottom-left-radius: 10px; */
+}
+.contentCenter_Left_menu_title3 {
+  height: 100px;
+  color: #746868;
+  font-size: 20px;
+  text-align: center;
+  background-color: #fff;
+  line-height: 20px;
+  /* color: orangered; */
+  font-weight: 700;
+  /* border-bottom-left-radius: 10px; */
+  border-bottom-left-radius: 20px;
+}
+
+.contentCenter_Left_item {
+  flex: 5;
+  height: 100%;
+  background-color: #f4f5f9;
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
 }
-.contentCenter_Left_item_title {
-  font-size: 15px;
-  line-height: 50px;
-  font-weight: 700;
-}
-.contentCenter_Left_item_title > a {
-  color: red;
-  margin-left: 30px;
-  text-decoration: none;
-}
+
 .contentCenter_Left_item_content {
   width: 100%;
-  height: 520px;
-  display: flex;
-  flex-direction: column;
-}
-.contentCenter_Left_item_content_top {
-  flex: 1;
-  /* background-color: pink; */
-}
-.contentCenter_Left_item_content_top > .huandengpian {
-  width: 660px;
-  /* height: 100%; */
-  height: 250px;
-}
-.el-carousel {
-  overflow: hidden;
   height: 100%;
-  width: 100%;
-  margin-left: 20px;
-  border-radius: 15px;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
 }
-.el-carousel__item h3 {
-  color: #475669;
-  font-size: 140px;
-  opacity: 0.75;
-  line-height: 250px;
+.contentCenter_Left_item_content > .huandengpian {
+  width: 100%;
+  height: 100%;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+.contentCenter_Left_item_content > .huandengpian > .el-carousel {
   text-align: center;
-}
-
-.el-carousel__item:nth-child(2n) {
-  background-color: #99a9bf;
-}
-
-.el-carousel__item:nth-child(2n + 1) {
-  background-color: #d3dce6;
-}
-.contentCenter_Left_item_content_top > .huandengpian > ol {
-  width: 170px;
-  height: 30px;
-  position: relative;
-  left: 50%;
-  top: -15%;
-  transform: translateX(-50%);
-  margin-left: 20px;
-  background-color: rgba(0, 0, 0, 0.5);
-  border-radius: 30px;
-}
-.contentCenter_Left_item_content_top > .huandengpian > ol > li {
-  width: 15px;
-  height: 15px;
-  margin-left: 10px;
-  margin-right: 8px;
-  float: left;
-  border-radius: 15px;
-  background-color: #fff;
-  margin-top: 8px;
-  cursor: pointer;
-}
-.contentCenter_Left_item_content_top > .huandengpian > ol > li.active {
-  background-color: orange;
-}
-.contentCenter_Left_item_content_bottom {
-  flex: 1;
-  /* background-color: rosybrown; */
-  display: flex;
-  flex-direction: row;
-}
-.contentCenter_Left_item_content_bottom_image1 {
-  margin-left: 20px;
-}
-.contentCenter_Left_item_content_bottom_image1 > .wenzi {
-  /* background-color: sandybrown; */
-  height: 30px;
-  line-height: 30px;
-  display: flex;
-  flex-direction: row;
-}
-.contentCenter_Left_item_content_bottom_image1 > .wenzi > .round {
-  width: 20px;
-  height: 20px;
-  background-color: red;
-  border-radius: 20px;
-  margin: 5px;
-}
-.contentCenter_Left_item_content_bottom_image1 > .wenzi > .round2 {
-  background-color: skyblue;
-}
-.contentCenter_Left_item_content_bottom_image1 > .image {
-  width: 100%;
-  height: 200px;
-}
-.contentCenter_Left_item_content_bottom_image1 > .image > img {
   width: 100%;
   height: 100%;
-  border-radius: 20px;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  
+}
+.carousel-image {
+  width: 100%;
+  height: 100%; 
+  object-fit: cover;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
 }
 .contentCenter_Right {
   flex: 1;
   height: 100%;
+  margin: auto;
   background-color: #fff;
-  border-radius: 30px;
+  border-radius: 20px;
   display: flex;
   flex-direction: column;
 }
-.contentCenter_Right_top {
-  flex: 3;
-  /* background-color: skyblue; */
-  display: flex;
-  flex-direction: column;
+.hd_right_box{
+  width: 25%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding-left: 12px;
+  border-radius: 20px;
+  
 }
-.contentCenter_Right_top > .touxiang {
-  flex: 3;
-  /* background-color: turquoise; */
+.hd_right {
+    box-shadow: 0 0 20px 0 rgba(0,0,0,.08);
+    height: 280px;
+    text-align: center;
+    border-radius: 20px;
+    padding: 20px 20px 0;
+    background: url(src/assets/images/toprightbg.jpg) center top no-repeat #fff;
 }
-.contentCenter_Right_top > .touxiang > .image {
-  width: 80px;
-  height: 100%;
-  /* background-color: thistle; */
-  position: relative;
-  left: 50%;
-  transform: translate(-50%);
-  /* border-radius: 60px; */
+.docnumboxs {
+    font-size: 20px;
+    margin-top: 20px;
+    font-weight: 400;
 }
-.contentCenter_Right_top > .touxiang > .image > img {
-  position: relative;
-  margin-top: 30px;
-  left: 50%;
-  transform: translate(-50%);
-  width: 50px;
-  height: 50px;
-  border-radius: 50px;
+.docnumboxs .docnum {
+    font-size: 24px;
+    color: #000;
+    font-weight: 800;
 }
-.contentCenter_Right_top > .touxiang > .image > div {
-  width: 100%;
-  font-size: 10px;
-  text-align: center;
+.updocbtn {
+    background: #f54b4b;
+    text-align: center;
+    display: inline-block;
+    margin: 20px auto 0;
+    width: 100px;
+    padding: 6px 20px;
+    color: #fff;
+    font-size: 14px;
+    border-radius: 30px;
 }
-.contentCenter_Right_top > .touxiang > .image > .jishanshan {
-  font-size: 15px;
-  color: orangered;
+.keke_iconfont {
+    font-family: "keke_iconfont" !important;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    margin-right: 5px;
 }
-.contentCenter_Right_top > .login {
-  flex: 1;
-  /* background-color: yellowgreen; */
-  display: flex;
-  flex-direction: row;
+.hd_right .advantage {
+    list-style: none;
+    display: flex; /* 将列表项水平排列 */
+    justify-content: center; /* 水平居中 */
+    padding: 0; /* 去除默认的内边距 */
 }
-.contentCenter_Right_top > .login > div {
-  /* background-color: violet; */
-  flex: 1;
-  height: 80%;
-  display: flex;
-  justify-items: center;
-  margin-left: 20px;
-  border-radius: 5px;
+
+.advantage li {
+    margin-right: 20px; /* 为每个列表项添加右边距，根据需要调整间距 */
+    text-align: center; /* 文字水平居中 */
+    vertical-align: text-bottom; /* 文字在底部对齐 */
 }
-.contentCenter_Right_top > .login > div > .button1 {
-  background: orangered;
-  color: #fff;
-  border: none;
-  padding: 0 20px;
-  border-radius: 5px;
+
+.advantage img {
+    display: block; /* 防止图片底部留白 */
+    margin: 0 auto; /* 图片水平居中 */
 }
-.contentCenter_Right_top > .login > div > .button2 {
-  border: 1px solid orangered;
-  color: orangered;
-  background-color: #fff;
-  padding: 0 20px;
-}
-.contentCenter_Right_center {
-  flex: 1;
-  /* background-color: springgreen; */
-  font-size: 20px;
-  font-weight: 700;
-  line-height: 50px;
-  margin-left: 10px;
-}
-.contentCenter_Right_bottom {
-  flex: 6;
-  /* background-color: tomato; */
-  display: flex;
-  flex-direction: column;
-}
-.contentCenter_Right_bottom_item {
-  /* background-color: aqua; */
-  width: 100%;
-  height: 60px;
-  display: flex;
-  flex-direction: row;
-  margin-top: 20px;
-}
-.contentCenter_Right_bottom_item > img {
-  flex: 2;
-}
-.contentCenter_Right_bottom_item > .wenzi {
-  flex: 6;
-  font-size: 10px;
-  line-height: 60px;
-  margin-left: 10px;
-}
-.contentCenter_Right_bottom_item > .fuhao {
-  flex: 1;
-  line-height: 60px;
-}
+.left_item{z-index:100}
+.left_item .navTitleBox{height:80px;border-bottom:1px solid #f5f5f5;position:relative;padding:35px 0 0 60px;cursor:pointer}
+.left_item .popup{position:absolute;box-sizing:border-box;left:100%;top:0;display:none;width:760px;min-height:348px;background-color:#fff;box-shadow:0 0 10px 0 rgba(0,0,0,.08);font-size:12px;line-height:30px;overflow:hidden;border:5px solid #fff9f8;z-index: 1000; /* 设置一个较高的层级 */}
+.left_item .navTitleBox img{position:absolute;left:15px;top:39px}
+.left_item .navTitleBox .navTitle{display:block;font-size:18px;line-height:24px;font-weight:800}
+.left_item a .navTitleBox .navTitle{color:#363636}
+.left_item .navTitleBox .navDescribe{font-size:12px;color:#bbb;line-height:24px}
+.cate_list_box{padding:30px 30px 40px;background:#fff}
+.cate_list_box li{position:relative;min-height:30px;margin-bottom:10px;float:left;border-bottom:1px dashed #ececec;padding-bottom:10px;width:100%}
+.cate_list_box li:last-child{border-bottom:0}
+.firstcatename{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;box-sizing:border-box;position:absolute;width:120px;font-weight:800;left:0;top:0;font-size:14px;color:#333;padding:0 10px 0 17px}
+.firstcatename:before{top:11px;width:3px;height:8px;position:absolute;left:0;background-color:#f54b4b;content:''}
+.firstcatename a{color:#000}
+.catelist{word-break:break-all;padding-left:100px;display:inline-block;line-height:30px}
+.catelist a{color:#777;margin-right:10px;font-size:13px;display:inline-block}
+.catelist a:hover{color:#f05759}
+.openmore{position:absolute;bottom:0;left:170px;width:750px;height:45px;line-height:40px;background-image:linear-gradient(rgba(255,255,255,.1),#fff);text-align:center;color:#f54b4b;cursor:pointer}
+.openmore a{color:#fff;padding:5px 15px 5px;background:#f54b4b}
+.searchtitle{text-align:center;font-size:36px;font-weight:800;margin-top:10px}
+.search_bar{width:500px;height:40px;position:relative;z-index:10;padding-right:60px;border:2px solid #ec3b3b;border-radius:5px;margin:0 auto;margin-top:30px;background:#fff}
+.search_bar input{outline:0;border:none;background:0 0;resize:none;border-radius:0;-webkit-appearance:none;-moz-appearance:none;appearance:none;display:block;width:90%;height:40px;padding:0 10px 0 20px;font-size:14px}
+.search_bar button{position:absolute;text-align:center;top:-1px;right:0;width:90px;height:42px;border-radius:0 5px 5px 0;cursor:pointer;outline:0;border:none;font-size:16px;resize:none;-webkit-appearance:none;-moz-appearance:none;appearance:none;color:#fff;background:linear-gradient(to bottom,#ec3b3b 0,#ec3b3b 100%)}
+.search_bar .keke_iconfont{font-size:18px;margin-right:7px}
+.hotkeyword{text-align:center;margin-top:20px;color:#a5a2a2}
+.hotkeyword a{margin:0 5px;color:#0a0a0a}
+
+
 </style>

@@ -2,7 +2,7 @@
   <div class="contentcenter">
     <div class="contentcenter_frame">
       <span class="contentcenter_frame_title">
-        ifashion <span class="contentcenter_frame_title_span">時尚穿搭</span>
+        ifashion <span class="contentcenter_frame_title_span">畅销书</span>
       </span>
       <div class="contentcenter_frame_image">
         <div class="contentcenter_frame_image_big">
@@ -109,13 +109,8 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: "ContentCenter2",
-  data() {
-    return {};
-  },
-};
+<script setup>
+
 </script>
 
 <style scoped>
@@ -190,14 +185,7 @@ export default {
   width: 40px;
   height: 100%;
 }
-.contentcenter_frame_com_image > img {
-  width: 46px;
-  height: 46px;
-  position: relative;
-  top: 50%;
-  left: 0;
-  transform: translate(0, -50%);
-}
+
 .contentcenter_frame_com_wenzi {
   flex: 7;
   width: 40px;

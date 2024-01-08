@@ -80,7 +80,7 @@
   
   <style scoped>
   #home_content {
-    background-color: #ffcc99;
+    background-color: #ffdf99;
     /* min-width: 1700px; */
   }
   .comeToHeader {

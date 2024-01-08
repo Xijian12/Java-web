@@ -31,7 +31,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="12" style="text-align: right">
-            <el-link @click="router.push('/forget')">忘记密码？</el-link>
+            <el-link @click="router.push('/forget')" >忘记密码？</el-link>
           </el-col>
         </el-row>
       </el-form>
@@ -49,6 +49,7 @@
 </template>
 
 <script setup>
+import {User, Lock} from '@element-plus/icons-vue'
 import {useStore} from 'vuex';
 import router from "@/router";
 import {reactive, ref} from "vue";
@@ -75,7 +76,8 @@ function userLogin() {
   formRef.value.validate((isValid) => {
     if(isValid) {
       login(form.username, form.password, form.remember, (res) =>{
-        store.dispatch('addID',res.data)
+        store.dispatch('addID',res)
+        console.log("cacac",store.state)
         router.push("/home")     
       })
     }

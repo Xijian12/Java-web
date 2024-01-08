@@ -1,17 +1,7 @@
 <template>
-  <div
-    class="contentcenter"
-    :style="{ height: `${heightT}` + 'px' }"
-    ref="getHeight"
-  >
-    <div>
-      <span class="contentcenter_title">
-        猜你喜欢<span class="contentcenter_title_fangkuai">个性推荐</span>
-      </span>
-    </div>
-    <div id="wrap">
-    <div style="margin-bottom: 30px">
-      <el-row :gutter="22">
+  <div id="wrap">
+    <div :loading="loading" style="margin-bottom: 30px">
+      <el-row :gutter="20">
         <el-col :span="6" v-for="(book,index) in books">
           <div id="card-container" @click="BookDetail(book.id)" style="cursor: pointer">
             <el-card :body-style="{ padding: '0px'}" shadow="hover">
@@ -48,7 +38,7 @@
                 <el-button-group style="margin-left: 15px">
                   <el-button @click.stop="addToCart(index)" size="mini" icon="el-icon-shopping-cart-1"></el-button>
                   <el-button @click.stop="addToCollection(index)" size="mini" icon="el-icon-star-off"></el-button>
-                  <el-button @click.stop="" size="mini" icon="el-icon-more"></el-button>
+                  <el-button size="mini" icon="el-icon-more"></el-button>
                 </el-button-group>
               </div>
             </el-card>
@@ -73,64 +63,49 @@
       </el-pagination>
     </div>
   </div>
-    <div class="post grid" data-id="19368">
-    </div> 
-  </div>
 </template>
 
 <script setup>
-import {ref, onMounted} from 'vue'
-import {useStore} from 'vuex';
-import router from "@/router"
-const total = ref(1)
-const books = ref([{
-  id:1,
-  img:'src/assets/images/dragon.png',
-  bookName:'',
-  author:'',
-  price:23,
-},
-{
-  img:'src/assets/images/dragon.png'
-},
-{
-  img:'src/assets/images/dragon.png'
-},
-{
-  img:'src/assets/images/dragon.png'
-},
-{
-  img:'src/assets/images/dragon.png'
-},
-{
-  img:'src/assets/images/dragon.png'
-},
-{
-  img:'src/assets/images/dragon.png'
-},
-{
-  img:'src/assets/images/dragon.png'
-},
-])
-const myArg = ref([])
-
-
- // 翻页功能
-function page(currentPage){
+import { ref } from 'vue';
+  const total = ref(1);
+  const books = ref({
+        id: '',
+        bookName: '',
+        author: '',
+        price: 0,
+        discount: 1,
+        press: '',
+        publicationDate: '',
+        brief: '',
+        img: ''
+      })
+  const keyWord = ref(null);
+  const scope = ref(null);
+  const classification = ref(null);
+  const loading = ref(false);
+    // 翻页功能
+    function page(currentPage) {
+      let data = {
+        keyWord: this.keyWord,
+        scope: this.scope,
+        classification: this.classification,
+        currentPage: currentPage,
+        pageSize:8
+      };
       const _this = this;
-      axios.get("http://localhost:8081/book/selectBook/" + _this.myArg + "/" + currentPage + "/8")
-          .then(function (resp) {
+      axios.post("http://localhost:8081/book/selectBookByKeyWord",data)
+          .then(function (resp){
             _this.books = resp.data.books;
             _this.total = resp.data.total;
           });
     }
     // 保留一位小数
-function decimals(value) {
+    function decimals(value) {
       return value.toFixed(1);
     }
     // 跳转商品详情页
     function BookDetail(id) {
-      router.push({name: 'BookDetail', params: {id: id}});
+      this.$router.push({name: 'BookDetail', params: {id: id}});
     }
     // 加入购物车
     function addToCart(index){
@@ -200,118 +175,38 @@ function decimals(value) {
       }
     }
     // 初始化页面数据
-    function initData(myArg) {
-      this.myArg = myArg;
-      axios.get("http://localhost:8081/book/selectBook/" + myArg + "/1" + "/8")
+    function initData(keyWord,scope,classification){
+      this.loading = true;
+      this.keyWord = JSON.parse(keyWord);
+      this.scope = JSON.parse(scope);
+      this.classification = JSON.parse(classification);
+      let data = {
+        keyWord: JSON.parse(keyWord),
+        scope: JSON.parse(scope),
+        classification: JSON.parse(classification),
+        currentPage:1,
+        pageSize:8
+      };
+      axios.post("http://localhost:8081/book/selectBookByKeyWord",data)
           .then((resp) => {
+            this.loading = false;
             this.books = resp.data.books;
             this.total = resp.data.total;
           });
     }
-
-const store = useStore();
-const heightT = ref(748)
-const size = ref(10)
-const page2 = ref(0)
-const view = ref([])
-const back = ref([])
-const flag = ref(true)
-const data2 = ref([])
-// 发起 HTTP GET 请求到 'home/usercart'
-onMounted(async () => {
-  try {
-    const response = await $http.get('home/usercart');
-    // 将响应数据保存到 data2 中
-    data2.value = response.data;
-    // 将 data2 添加到 back 数组中
-    back.value.push(data2.value);
-    // 将 back 数组的第一个元素赋值给 back 变量
-    back.value = back.value[0];
-    // 调用 initView 函数
-    initView();
-  } catch (error) {
-    console.error('Error fetching data:', error);
-  }
-
-  window.onscroll = () => {
-    const windowHeight =
-      document.documentElement.clientHeight || document.body.clientHeight;
-    const scrollTop =
-      (document.documentElement.scrollTop || document.body.scrollTop) -
-      windowHeight;
-    const scrollHeight =
-      document.documentElement.scrollHeight || document.body.scrollHeight;
-    const end = document.querySelector(".end");
-    const loading = document.querySelector(".loading");
-
-    if (
-      scrollTop + windowHeight >= scrollHeight - windowHeight &&
-      view.value.length < back.value.length
-    ) {
-      setTimeout(() => {
-        if (back.value.length - view.value.length >= 6) {
-          heightT.value += 678;
-          page.value++;
-          initView();
-        } else {
-          heightT.value += 339;
-          page.value++;
-          initView();
-        }
-      }, 1000);
-      end.classList.remove("active");
-      loading.classList.add("active");
-    } else {
-      loading.classList.remove("active");
-      end.classList.add("active");
-    }
-  };
-});
-
-// 初始化视图的函数
-function initView(){
-   view.push(
-        back.slice(page * size, (page + 1) * size)
-      );
-};
-
-
+ 
+  // created() {
+  //   this.initData(this.$route.query.keyWord, this.$route.query.scope, this.$route.query.classification);
+  // }
 </script>
-<style scoped>
-.contentcenter {
-  width: 1200px;
-  /* height: 718px; */
-  /* height: 100%; */
-  background-color: #fff;
-  position: relative;
-  margin-top: 20px;
-  left: 50%;
-  transform: translate(-50%);
-  padding: 18px;
-  border-radius: 12px;
-}
-.contentcenter_title {
-  height: 70px;
-  width: 100%;
-  font-size: 27px;
-  margin: 10px;
-}
-.contentcenter_title_fangkuai {
-  margin-left: 10px;
-  background-color: orangered;
-  color: white;
-  font-size: 17px;
-  padding: 0 5px;
-  border-radius: 3px;
-  position: relative;
-  top: -3px;
-}
 
+<style scoped>
 [v-cloak] {
   display: none !important;
 }
 
 #wrap {
+  margin: 50px auto;
   width: 1200px;
 }
 
@@ -332,14 +227,9 @@ function initView(){
   cursor: pointer;
 }
 
-#card-container #img {
-  width: 150px;
-  height: 220px;
-}
-
 #card-container #img img {
   width: 150px;
-  height: 200px;
+  height: 220px;
 }
 
 #card-container #content {
@@ -381,5 +271,4 @@ function initView(){
   width: 245px;
   height: 290px;
 }
-
 </style>

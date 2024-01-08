@@ -4,9 +4,11 @@
       <span style="color:red;">{{arr.username}}</span>
       <!-- <img class="Header_content_left_image" :src="arr" alt=""> -->
     </span>
-    <span v-if="this.arr">我的钱包：￥<span style="color:red;font-size:20px;">{{arr.userPic}}</span></span>
-    <span class="Header_content_right" @click="loginCart()">我的 购物车</span>
-    <el-button @click="userLogout">退出登录</el-button>
+    <span v-if="arr">我的积分：￥<span style="color:red;font-size:20px;">{{arr.userPic}}</span></span>
+    <span class="Header_content_right" @click="toPersonal">个人中心</span>
+    <div>
+    <el-button @click="userLogout" style="width: 100px" type="success" plain>退出登录</el-button>
+    </div>
   </div>
 </template>
 
@@ -19,19 +21,19 @@ import {useStore} from 'vuex';
 const store = useStore();
 const arr = ref(store.state.personalID[0])
 function userLogout(){
-  logout(() => router.push('/'))
+  logout(() => router.push("/"))
+}
+function toPersonal(){
+  router.push("/personal")
 }
 
-function loginCart(){
-      this.$router.push({name:"cart"})
-    }
 </script>
 
 <style scoped>
   #Header_content{
     display: flex;
     height: 50px;
-    background-color: snow;
+    background-color:  #f7fbfd;
     justify-content: space-around;
     line-height: 50px;
   }

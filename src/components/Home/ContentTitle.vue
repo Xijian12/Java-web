@@ -1,103 +1,38 @@
 <template>
   <div class="contentTitle">
     <div class="image">
-      <img class="taobao_img" src="../../assets/img/taobao.png" alt="">
-      <a class="wenzi" href="www.baidu.com" >
-        中国大陆
+      <img class="logo_img" src="src/assets/images/logo.jpg" alt="">
+      <a class="wenzi" href="https://www.shu.edu.cn/" >
+        上海大学
       </a>
     </div>
     <div class="title_search">
       <i class="iconfont icon-sousuo sousuo"></i>
-      <input v-model="keyword" class="title_seacrh_input"  type="search" placeholder="搜索商品" >
-      <!-- <el-button class="title_searcch_button" round>搜索</el-button> -->
-      <div class="search_content" ref="search" v-show="keyword">
-        <ul v-for="(item,index) in list" :key="index" @click="handleToProduct(item.id)">
-          <li class="search-item border-bottom">{{item.product_name}}</li>
-        </ul>
-        <ul v-show="hasNoData">
-          <li class="search-item border-bottom" >没有匹配的数据</li>
-        </ul>
-      </div>
+      <input v-model="keyword" class="title_seacrh_input"  type="search" placeholder="搜索资料" >
       <div class="title_seacrh_wenzi">
-        <a class="title_wenzi">海澜之家  套装 秋 移动电源 紧身裤牛仔高腰 洗衣机 泰茶 收纳盒   更多。。。</a>
+        <span class="title_wenzi_state">热搜：</span>
+        <a class="title_wenzi">电子书</a>
       </div>
     </div>
-    <button @click="clickme()">今日签到</button>
+    <el-button @click="clickme()" style="width: 100px; height: 80px;" type="danger" plain>今日签到</el-button>
   </div>
 </template>
 
-<script>
-export default {
-  name:"ContentTitle",
-  data(){
-    return{
-      keyword:"",
-      search:[],
-      hasNoData:"",
-      timer:null,
-      list:[]
-    }
-  },
-  methods:{
-    clickme(){
-      this.$store.commit("addyouMoney",100);
-    },
-    handleToProduct(id){
-      console.log(id);
-      let router = this.list.filter(item => item.id === id)
-      console.log(router);
-      this.$router.push({path:"/itemList",
-        query:{
-            id:router[0].id,
-            car_name:router[0].product_name,
-            car_model:router[0].car_model,
-            car_price:router[0].product_price,
-            car_color:router[0].car_color,
-            car_image:router[0].product_image,
-            car_image2:router[0].product_image,
-            introduce:router[0].introduce,
-            howManyToBuy:router[0].howManyToBuy,
-            car_purchase_method:router[0].car_purchase_method,
-            car_package:router[0].car_package,
-            user_name:router[0].user_name
-          }
-      })
-    }
-  },
-  watch:{
-    keyword(){
-      if(this.timer){
-        clearTimeout(this.timer)
-      }
-      if(!this.keyword){
-        this.list = []
-        return
-      }
-      this.timer = setTimeout(()=>{
-        const result = []
-        for(let i = 0;i < this.search.length;i++){
+<script setup>
+import { ref, watch, onMounted } from 'vue';
+import {useStore} from 'vuex';
+const store = useStore();
+const keyword = ref("");
+const search = ref([]);
+const hasNoData = ref("");
+const timer = ref(null);
+const list = ref([]);
 
-            if(this.search[i].product_name.indexOf(this.keyword) > -1){
-              // console.log(this.search[i].product_name);
-              result.push(this.search[i])
-            }
-        }
-        if(result.length === 0){
-          this.hasNoData = "社么都没用"
-        }else{
-          this.list = result
-          console.log(this.list);
-          this.hasNoData = ""
-        }
-      },100)
+
+function clickme(){
+      store.commit('addUserPic',100);
     }
-  },
-  mounted:function(){
-    this.$http.get(`home/usercart`).then(response=>{
-      this.search = response.data.filter(item => item.user_name === 1)
-    })
-  }
-}
+  
 </script>
 
 <style scoped>
@@ -107,7 +42,7 @@ export default {
     justify-content: space-evenly;
   }
   .image{
-    height: 60px;
+    height: 70px;
     /* width: 190px; */
     margin-top: 30px;
     display: flex;
@@ -115,19 +50,21 @@ export default {
     flex: 2;
     justify-content: flex-end;
   }
-  .image > .taobao_img{
+  .image > .logo_img{
+    border-radius: 25px;
     height: 100%;
     width: 100px;
-    padding-right: 10px;
-    border-right: 2px solid orangered;
+    padding-right: 5px;
   }
   .image > .wenzi {
+    padding-left: 10px;
+    border-left: 2px solid rgb(80, 43, 243);
     height: 100%;
     width: 70px;
     font-size: 25px;
     margin-left: 10px;
     margin-top: -5px;
-    color: orangered;
+    color: rgb(80, 43, 243);
     text-decoration: none;
   }
   .title_search{
@@ -161,9 +98,14 @@ export default {
   }
   .title_wenzi{
     font-size: small;
-    color:	#A0A0A0;
+    color:	#86cf61;
     cursor: pointer;
-    margin-left: 15px;
+    margin-left: 20px;
+  }
+  .title_wenzi_state{
+    font-size: small;
+    color:	#000;
+    margin-left: 40px;
   }
   .title_wenzi:hover{
     color: orangered;

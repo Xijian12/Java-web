@@ -5,11 +5,21 @@ import { createStore } from 'vuex';
 // 创建 store 实例
 const store = createStore({
   state: {
-    personalID:[],
+    personalID:[{
+      expire:'',
+      role:'',
+      token:'',
+      username:'',
+      userPic:0,
+    }],
   },
   mutations: {
     addID(state, value){
+      state.personalID=[];
       state.personalID.push(value);
+    },
+    addUserPic(state, value){
+      state.personalID[0].userPic=value;
     }
   },
   actions: {

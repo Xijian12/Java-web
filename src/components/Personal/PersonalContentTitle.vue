@@ -1,8 +1,5 @@
 <template>
   <div class="contentTitle">
-    <div class="image">
-      <img class="taobao_img" src="../../assets/img/taobao.png" alt="">
-    </div>
     <div class="title_search">
       <button class="title_searcch_button2" @click="findProduct()">查看购物车</button>
       <button class="title_searcch_button3" @click="ToIndex()">返回首页</button>
@@ -10,26 +7,17 @@
   </div>
 </template>
 
-<script>
-export default {
-  name:"PersonalContentTitle",
-  data(){
-    return{
-      data1:[]
-    }
-  },
-  created(){
-    
-  },
-  methods:{
-   ToIndex(){
-     this.$router.push({name:"home"})
-   },
-   findProduct(){
-     this.$router.push({name:"cart"})
+<script setup>
+import router from "@/router"
+
+
+function ToIndex(){
+     router.push("/home")
    }
-  }
-}
+function findProduct(){
+    router.push("/cart")
+   }
+
 </script>
 
 <style scoped>
