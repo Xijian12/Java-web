@@ -70,6 +70,7 @@ public class SecurityConfiguration {
                         .requestMatchers("/book").permitAll() // 添加这一行
                         .requestMatchers("/book/admin").permitAll() // 添加这一行
                         .requestMatchers("/book/{id}").permitAll()
+                        .requestMatchers("/book/user").permitAll()
                         .requestMatchers("/category").permitAll()
                         .requestMatchers("/category/detail").permitAll()
                         .requestMatchers("/category/update").permitAll()

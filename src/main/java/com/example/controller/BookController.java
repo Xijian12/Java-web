@@ -68,6 +68,9 @@ public class BookController {
     }
     @DeleteMapping("/user")
     public ResponseEntity<?> deleteBooksUser(@RequestBody BookDeletionRequest request) throws Exception {
+        System.out.println(request.getBookIds());
+        System.out.println(request.getUserEmail());
+        System.out.println(request.getAdminAccount());
         if (bookService.deleteBooksIfUser(request)) {
             Book book = bookService.GetBookObject(request.getUserEmail());
             if(book != null){
