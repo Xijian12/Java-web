@@ -45,7 +45,7 @@ public class AliOSSUtils {
         if(ISAVATAR){
             catalogueAvatarOrBookCover = aliOSSPropreties.getCatalogueAvatar();
         }else{
-            catalogueAvatarOrBookCover = aliOSSPropreties.getCatalogueBookCover();
+            catalogueAvatarOrBookCover = aliOSSPropreties.getCatalogueCover();
         }
 
         String originalFilename = file.getOriginalFilename();

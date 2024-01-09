@@ -1,8 +1,8 @@
-package com.example.BookService;
+package com.example.service.impl;
 
-import com.example.BookMapper.BookMapper;
-import com.example.pojo.Book;
-import com.example.pojo.BookDeletionRequest;
+import com.example.mapper.BookMapper;
+import com.example.entity.vo.request.Book;
+import com.example.entity.vo.request.BookDeletionRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +12,10 @@ import java.util.List;
 public class BookService {
     @Autowired
     private final BookMapper bookMapper;
+
+    public Book GetBookObject(String userEmail){
+        return bookMapper.getBookObject(userEmail);
+    }
 
 
     public boolean deleteBooksIfAdmin(BookDeletionRequest request) {

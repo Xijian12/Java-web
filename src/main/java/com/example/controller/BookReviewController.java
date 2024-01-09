@@ -1,16 +1,13 @@
-package com.example.BookController;
+package com.example.controller;
 
-import com.example.BookService.BookReviewService;
-import com.example.pojo.BookReview;
-import com.example.pojo.CommentDeletionRequest;
-import com.example.pojo.Page;
-import com.example.pojo.Response;
+import com.example.service.impl.BookReviewService;
+import com.example.entity.vo.request.BookReview;
+import com.example.entity.vo.request.CommentDeletionRequest;
+import com.example.entity.vo.request.Page;
+import com.example.entity.vo.request.Response;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/book/comment")

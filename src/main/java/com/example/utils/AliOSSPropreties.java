@@ -12,7 +12,7 @@ public class AliOSSPropreties {
     private String accessKeyId;
     private String accessKeySecret;
     private String bucketName;
-    private String catalogueBookCover;
+    private String catalogueCover;
     private String catalogueAvatar;
     private String catalogueBooks;
     private String catalogueMaterial;
