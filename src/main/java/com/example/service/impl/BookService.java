@@ -20,7 +20,7 @@ public class BookService {
 
     public boolean deleteBooksIfAdmin(BookDeletionRequest request) {
         // 检查是否为管理员
-        if (!bookMapper.isUser(request.getUserEmail())) {
+        if (!bookMapper.isAdmin(request.getAdminAccount())){
             return false;
         }
 
