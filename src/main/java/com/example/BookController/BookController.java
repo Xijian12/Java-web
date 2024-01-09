@@ -32,7 +32,7 @@ public class BookController {
         return  ResponseEntity.ok(new Response(0, "操作成功"));
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{bookId}")
     public ResponseEntity<?> getBookById(@PathVariable int bookId) {
         Book book = bookService.getBookById(bookId);
         return ResponseEntity.ok(new Response(0, "操作成功", book));
