@@ -1,12 +1,12 @@
 package com.example.mapper;
 
 import com.example.entity.vo.request.Material;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 @Mapper
 public interface MaterialMapper {
+
+    void insertMaterial(Material material);
 
     //根据ID来筛选一个Material
     @Select("select * from materials where material_id = #{materialId}")
@@ -35,4 +35,9 @@ public interface MaterialMapper {
     //更新其他资料的UUID
     @Update("update materials set another_material_uuid = #{materialFileUUID} where material_id = #{materialId}")
     void updateAnotherMaterial(int materialId, String materialFileUUID);
+
+    @Delete("delete from  materials where material_id = #{mateialId}")
+    void delelteMaterialById(int mateialId);
+
+    void updateMaterial(Material material);
 }
