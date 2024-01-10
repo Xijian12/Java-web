@@ -78,6 +78,7 @@ public class SecurityConfiguration {
                         .requestMatchers("/book/comment/**").permitAll()
                         .requestMatchers("/upload/uploadBookcover").permitAll() // 添加这一行
                         .requestMatchers("/upload/updateBookcover").permitAll() // 添加这一行
+                        .requestMatchers("/user/updateUserInfo").permitAll() // 添加这一行
                         .anyRequest().hasAnyRole(Const.ROLE_DEFAULT)
                 )
                 .formLogin(conf -> conf
