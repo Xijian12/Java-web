@@ -1,10 +1,10 @@
-package com.example.BookService;
+package com.example.service.impl;
 
-import com.example.BookMapper.BookCategoryMapper;
-import com.example.pojo.Book;
-import com.example.pojo.BookCategory;
-import com.example.pojo.BookDetail;
-import com.example.pojo.BookResponse;
+import com.example.mapper.BookCategoryMapper;
+import com.example.entity.vo.request.Book;
+import com.example.entity.vo.request.BookCategory;
+import com.example.entity.vo.request.BookDetail;
+import com.example.entity.vo.request.BookResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

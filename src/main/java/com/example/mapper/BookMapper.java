@@ -1,6 +1,6 @@
-package com.example.BookMapper;
+package com.example.mapper;
 
-import com.example.pojo.Book;
+import com.example.entity.vo.request.Book;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -51,4 +51,7 @@ public interface BookMapper {
 
     @Update("UPDATE book SET book_file_uuid = #{bookFileUUID} WHERE book_id = #{bookId}")
     void updateBookFile(int bookId, String bookFileUUID);
+
+    @Select("select * from book where book_uploader = #{userEmail}")
+    Book getBookObject(String userEmail);
 }

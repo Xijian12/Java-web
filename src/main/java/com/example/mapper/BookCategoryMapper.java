@@ -1,8 +1,8 @@
-package com.example.BookMapper;
+package com.example.mapper;
 
-import com.example.pojo.Book;
-import com.example.pojo.BookCategory;
-import com.example.pojo.BookDetail;
+import com.example.entity.vo.request.Book;
+import com.example.entity.vo.request.BookCategory;
+import com.example.entity.vo.request.BookDetail;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;

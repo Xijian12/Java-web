@@ -1,4 +1,4 @@
-package com.example.pojo;
+package com.example.entity.vo.request;
 
 public class CategoryRequest {
     private String categoryName;

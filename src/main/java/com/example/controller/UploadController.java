@@ -2,10 +2,12 @@ package com.example.controller;
 
 import com.example.entity.Result;
 import com.example.entity.dto.Account;
+import com.example.entity.vo.request.Material;
 import com.example.entity.vo.request.UpdateAvatarVO;
-import com.example.pojo.Book;
+import com.example.entity.vo.request.Book;
 import com.example.service.AccountService;
 import com.example.service.BookUploadService;
+import com.example.service.MaterialUploadService;
 import com.example.utils.AliOSSUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,8 @@ public class UploadController {
     private AccountService accountService;
     @Autowired
     private BookUploadService bookUploadService;
+    @Autowired
+    private MaterialUploadService materialUploadService;
 
     @PostMapping("/uploadAvatar")
     public Result uploadAvatar(MultipartFile avatar, String username) throws IOException {
@@ -68,7 +72,9 @@ public class UploadController {
                 updateAvatarVO.getNewAvatarUrl(), updateAvatarVO.getNewAvatarUuid());
         if (isSuccess) {
             //调用阿里云工具类删除原来的头像
-            aliOSSUtils.DeleteFile(fileAddress);
+            if(fileAddress!=null){
+                aliOSSUtils.DeleteFile(fileAddress);
+            }
             return Result.success(UrlAndUUID);
         } else {
             return Result.error("更新头像失败");
@@ -149,13 +155,57 @@ public class UploadController {
         String bookFileUUID = aliOSSUtils.uploadFile(bookFile,true);
 
         log.info("图书文件更新的云存储地址为：{}", bookFileUUID);
-
         if (bookUploadService.updateBookFile(bookID, bookFileUUID)) {
             //调用阿里云工具类删除原来的文件
             if (originalBookFileAddress != null) {
                 aliOSSUtils.DeleteFile(originalBookFileAddress);
             }
             return Result.success();
+        } else {
+            return Result.error("更新封面失败");
+        }
+    }
+
+    //上传资料封面，并返回资料封面的URL地址和云存储位置
+    @PostMapping("/uploadMaterialcover")
+    public Result uploadMaterialcover(MultipartFile materialCover) throws IOException {
+        log.info("封面上传，封面名为：{}", materialCover.getOriginalFilename());
+        List<String> UrlAndUUID = (aliOSSUtils.uploadImage(materialCover, false));
+
+        String fileUrl = UrlAndUUID.get(0);
+        String imageUUID = UrlAndUUID.get(1);
+
+        log.info("封面上传URL为：{}", fileUrl);
+        log.info("封面上传的云存储地址为：{}", imageUUID);
+
+        return Result.success(UrlAndUUID);
+    }
+
+    //更新图书封面，并返回一个URL地址
+    @PostMapping("/updateMaterialcover")
+    public Result updateMaterialcover(MultipartFile materialCover, String materialId) throws Exception {
+        log.info("封面上传，封面名为：", materialCover.getOriginalFilename());
+        List<String> UrlAndUUID = (aliOSSUtils.uploadImage(materialCover, false));
+
+        int materialID = Integer.parseInt(materialId);
+        Material material = materialUploadService.findMaterialById(materialID);
+        if(material == null){
+            return Result.error("该图书不存在");
+        }
+        String originalBookcoverAddress = material.getMaterialCoverUuid();
+
+        String fileUrl = UrlAndUUID.get(0);
+        String imageUUID = UrlAndUUID.get(1);
+
+        log.info("封面上传URL为：{}", fileUrl);
+        log.info("封面上传的云存储地址为：{}", imageUUID);
+
+        if (materialUploadService.updateMaterialcover(materialID, fileUrl, imageUUID)) {
+            //调用阿里云工具类删除原来的头像
+            if (originalBookcoverAddress != null) {
+                aliOSSUtils.DeleteFile(originalBookcoverAddress);
+            }
+            return Result.success(fileUrl);
         } else {
             return Result.error("更新封面失败");
         }

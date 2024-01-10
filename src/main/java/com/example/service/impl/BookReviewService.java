@@ -1,10 +1,9 @@
-package com.example.BookService;
+package com.example.service.impl;
 
-import com.example.BookMapper.BookMapper;
-import com.example.BookMapper.BookReviewMapper;
-import com.example.pojo.BookReview;
-import com.example.pojo.CommentDeletionRequest;
-import com.example.pojo.Page;
+import com.example.mapper.BookReviewMapper;
+import com.example.entity.vo.request.BookReview;
+import com.example.entity.vo.request.CommentDeletionRequest;
+import com.example.entity.vo.request.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

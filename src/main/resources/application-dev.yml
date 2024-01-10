@@ -52,7 +52,7 @@ aliyun:
     accessKeyId: LTAI5tShHvTghSGiteidgrZi
     accessKeySecret: wNufqd8fJNuu70d1nF5PR1QtAebBfx
     bucketName: xiao-shu-shu
-    catalogueBookCover: BookCover/
+    catalogueCover: Cover/
     catalogueAvatar: Avatar/
     catalogueBooks: Books/
     catalogueMaterial: Material/

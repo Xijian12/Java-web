@@ -1,10 +1,11 @@
-package com.example.BookController;
+package com.example.controller;
 
-import com.example.BookService.BookCategoryService;
-import com.example.pojo.*;
-import com.example.BookService.BookCategoryService;
+import com.example.entity.vo.request.BookCategory;
+import com.example.entity.vo.request.BookResponse;
+import com.example.entity.vo.request.CategoryRequest;
+import com.example.entity.vo.request.Response;
+import com.example.service.impl.BookCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

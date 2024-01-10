@@ -1,12 +1,11 @@
-package com.example.BookController;
+package com.example.controller;
 
-import com.example.BookService.BookService;
-import com.example.pojo.Book;
-import com.example.pojo.BookDeletionRequest;
-import com.example.pojo.DeleteBooksRequest;
-import com.example.pojo.Response;
+import com.example.service.impl.BookService;
+import com.example.entity.vo.request.Book;
+import com.example.entity.vo.request.BookDeletionRequest;
+import com.example.entity.vo.request.Response;
+import com.example.utils.AliOSSUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,6 +18,8 @@ import java.util.List;
 public class BookController {
     @Autowired
     private final BookService bookService;
+    @Autowired
+    private AliOSSUtils aliOSSUtils;
 
 
     public BookController(BookService bookService) {
@@ -72,12 +73,18 @@ public class BookController {
 
     }
     @DeleteMapping("/user")
-    public ResponseEntity<?> deleteBooksUser(@RequestBody BookDeletionRequest request) {
+    public ResponseEntity<?> deleteBooksUser(@RequestBody BookDeletionRequest request) throws Exception {
+        System.out.println(request.getBookIds());
+        System.out.println(request.getUserEmail());
+        System.out.println(request.getAdminAccount());
         if (bookService.deleteBooksIfUser(request)) {
+            Book book = bookService.GetBookObject(request.getUserEmail());
+            if(book != null){
+                aliOSSUtils.DeleteFile(book.getBookFileUuid());
+            }
             return ResponseEntity.ok(new Response(0, "操作成功", null));
         } else {
             return ResponseEntity.ok(new Response(0, "操作失败，不能删除别人的图书！", null));
         }
     }
-
 }
