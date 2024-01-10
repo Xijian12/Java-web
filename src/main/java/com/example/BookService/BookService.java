@@ -22,6 +22,7 @@ public class BookService {
 
         // 删除图书
         bookMapper.deleteBooksByIds(request.getBookIds());
+
         return true;
     }
     public void deleteBooks(List<Integer> ids) {
@@ -31,7 +32,9 @@ public class BookService {
     public BookService(BookMapper bookMapper) {
         this.bookMapper = bookMapper;
     }
-
+ public List<Book> selectBooksByIds(List<Integer> BookIds){
+        return bookMapper.selectBooksByIds(BookIds);
+ }
     public void createBook(Book book) {
         bookMapper.insertBook(book);
     }

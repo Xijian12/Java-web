@@ -25,6 +25,18 @@ public interface BookMapper {
             "</script>"
     })
     void deleteBooksByIds(@Param("ids") List<Integer> ids);
+
+    @Select({
+            "<script>",
+            "SELECT * FROM test.book WHERE book_id IN ",
+            "<foreach item='id' collection='bookIds' open='(' separator=',' close=')'>",
+            "#{id}",
+            "</foreach>",
+            "</script>"
+    })
+    List<Book> selectBooksByIds(@Param("bookIds") List<Integer> bookIds);
+
+
     @Select("SELECT * FROM test.book")
     List<Book> selectAllBooks();
     @Select("SELECT COUNT(*) > 0 FROM test.db_account WHERE email = #{adminAccount} AND role = 'admin'")

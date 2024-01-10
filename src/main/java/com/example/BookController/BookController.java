@@ -29,7 +29,7 @@ public class BookController {
     @PostMapping
     public ResponseEntity<?> createBook(@RequestBody Book book) {
         bookService.createBook(book);
-        return  ResponseEntity.ok(new Response(0, "操作成功"));
+        return  ResponseEntity.ok(new Response(200, "操作成功"));
     }
 
     @GetMapping("/{bookId}")
@@ -64,6 +64,12 @@ public class BookController {
         } else {
             return ResponseEntity.ok(new Response(0, "操作失败，该账户不是管理员！", null));
         }
+    }
+    @GetMapping("/test")
+    public ResponseEntity<?> selectBooksById(@RequestBody BookDeletionRequest request)
+    {   List<Book> books=bookService.selectBooksByIds(request.getBookIds());
+        return ResponseEntity.ok(new Response(0, "操作成功",books ));
+
     }
     @DeleteMapping("/user")
     public ResponseEntity<?> deleteBooksUser(@RequestBody BookDeletionRequest request) {
