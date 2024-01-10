@@ -1,6 +1,7 @@
 package com.example.controller;
 
 import com.example.entity.RestBean;
+import com.example.entity.vo.request.UserInfoUpdateRequest;
 import com.example.entity.vo.response.DisplayAccountByUserVO;
 import com.example.service.AccountService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -31,6 +32,19 @@ public class UserOperatorController {
         System.out.println(userVo);
         return RestBean.success(userVo.toString());
     }
+
+    @PostMapping("/updateUserInfo")
+    @Operation(summary = "修改用户信息")
+    public RestBean<String> updateUserInfo(@RequestBody UserInfoUpdateRequest userInfoRequest){
+        String newUserInfo = accountService.updateUserInfo(
+                userInfoRequest.getOldUserName(),
+                userInfoRequest.getNewUserName(),
+                userInfoRequest.getNewPassword(),
+                userInfoRequest.getPoints()
+        );
+        return RestBean.success("成功修改用户信息");
+    }
+
 
     /**
      * 针对于返回值为String作为错误信息的方法进行统一处理
