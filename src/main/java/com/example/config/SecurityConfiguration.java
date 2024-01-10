@@ -87,6 +87,7 @@ public class SecurityConfiguration {
                         .requestMatchers("/material").permitAll() // 添加资料信息访问路径
                         .requestMatchers("/material/{materialId}").permitAll() // 添加访问资料信息访问路径
                         .requestMatchers("/material/user").permitAll() // 添加资料信息访问路径
+                        .requestMatchers("/user/updateUserInfo").permitAll() // 添加资料信息访问路径
                         .anyRequest().hasAnyRole(Const.ROLE_DEFAULT)
                 )
                 .formLogin(conf -> conf
