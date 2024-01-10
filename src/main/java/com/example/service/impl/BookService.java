@@ -55,7 +55,7 @@ public class BookService {
         return bookMapper.updateBook(book);
     }
     public boolean deleteBooksIfUser(BookDeletionRequest request) {
-        // 检查是否为管理员
+        // 检查是否为用户
         if (!bookMapper.isUser(request.getUserEmail())) {
             return false;
         }

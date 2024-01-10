@@ -59,29 +59,39 @@ public class BookController {
     }
 
     @DeleteMapping("/admin")
-    public ResponseEntity<?> deleteBooks(@RequestBody BookDeletionRequest request) {
+    public ResponseEntity<?> deleteBooks(@RequestBody BookDeletionRequest request) throws Exception {
         if (bookService.deleteBooksIfAdmin(request)) {
+            List<Book> books=bookService.selectBooksByIds(request.getBookIds());
+            if(books!=null){
+                for (Book book : books) {
+                    aliOSSUtils.DeleteFile(book.getBookFileUuid());
+                }
+            }
             return ResponseEntity.ok(new Response(0, "操作成功", null));
         } else {
             return ResponseEntity.ok(new Response(0, "操作失败，该账户不是管理员！", null));
         }
     }
     @GetMapping("/test")
-    public ResponseEntity<?> selectBooksById(@RequestBody BookDeletionRequest request)
-    {   List<Book> books=bookService.selectBooksByIds(request.getBookIds());
+    public ResponseEntity<?> selectBooksById(@RequestBody BookDeletionRequest request) throws Exception {   List<Book> books=bookService.selectBooksByIds(request.getBookIds());
+        if(books!=null){
+            for(int i=0;i<books.size();i++){
+            aliOSSUtils.DeleteFile(books.get(i).getBookFileUuid());}
+        }
         return ResponseEntity.ok(new Response(0, "操作成功",books ));
 
     }
     @DeleteMapping("/user")
     public ResponseEntity<?> deleteBooksUser(@RequestBody BookDeletionRequest request) throws Exception {
-        System.out.println(request.getBookIds());
-        System.out.println(request.getUserEmail());
-        System.out.println(request.getAdminAccount());
+
         if (bookService.deleteBooksIfUser(request)) {
-            Book book = bookService.GetBookObject(request.getUserEmail());
-            if(book != null){
-                aliOSSUtils.DeleteFile(book.getBookFileUuid());
+            List<Book> books=bookService.selectBooksByIds(request.getBookIds());
+            if(books!=null){
+                for (Book book : books) {
+                    aliOSSUtils.DeleteFile(book.getBookFileUuid());
+                }
             }
+
             return ResponseEntity.ok(new Response(0, "操作成功", null));
         } else {
             return ResponseEntity.ok(new Response(0, "操作失败，不能删除别人的图书！", null));
