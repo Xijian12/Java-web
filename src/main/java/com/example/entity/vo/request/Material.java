@@ -5,32 +5,33 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Material {
-    private Integer MaterialId;
-    private String shcool;
+    private Integer materialId;
+    private String school;
     private String major;
     private String subject;
-    private Integer materialGrade;
-    private Integer materialClickNum;
-    private Integer materialDownloadNum;
+    private double materialGrade;
     private String materialUploader;
     private String materialProfile;
     private String materialCoverUrl;
     private String materialCoverUuid;
+    private Integer materialClickNum;
+    private Integer materialDownloadNum;
     private String elecBookUuid;
-    private Integer elecBookPoints;
+    private double elecBookPoints;
     private String teachingPlanUuid;
-    private Integer teachingPlanPoints;
+    private double teachingPlanPoints;
     private String classPptUuid;
-    private Integer classPptPoints;
+    private double classPptPoints;
     private String calendarVolumeUuid;
-    private Integer calendarVolumePoints;
-    private String anotherMaterial;
-    private Integer anotherMaterialPoints;
-    private LocalDate createTime;
-    private LocalDate updateTime;
+    private double calendarVolumePoints;
+    private String anotherMaterialUuid;
+    private double anotherMaterialPoints;
+    private LocalDateTime createTime;
+    private LocalDateTime updateTime;
 }

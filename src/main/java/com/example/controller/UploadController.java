@@ -162,7 +162,7 @@ public class UploadController {
             }
             return Result.success();
         } else {
-            return Result.error("更新封面失败");
+            return Result.error("更新图书失败");
         }
     }
 
@@ -192,7 +192,7 @@ public class UploadController {
         if(material == null){
             return Result.error("该图书不存在");
         }
-        String originalBookcoverAddress = material.getMaterialCoverUuid();
+        String originalMaterialcoverAddress = material.getMaterialCoverUuid();
 
         String fileUrl = UrlAndUUID.get(0);
         String imageUUID = UrlAndUUID.get(1);
@@ -202,10 +202,70 @@ public class UploadController {
 
         if (materialUploadService.updateMaterialcover(materialID, fileUrl, imageUUID)) {
             //调用阿里云工具类删除原来的头像
-            if (originalBookcoverAddress != null) {
-                aliOSSUtils.DeleteFile(originalBookcoverAddress);
+            if (originalMaterialcoverAddress != null) {
+                aliOSSUtils.DeleteFile(originalMaterialcoverAddress);
             }
             return Result.success(fileUrl);
+        } else {
+            return Result.error("更新资料封面失败");
+        }
+    }
+    @PostMapping("/uploadMaterial")
+    public Result uploadMaterialFile(MultipartFile materialFile) throws IOException {
+        log.info("资料文件上传，文件名为：{}", materialFile.getOriginalFilename());
+
+        String materialFileFileUUID = aliOSSUtils.uploadFile(materialFile,false);
+
+        log.info("资料文件上传的云存储地址为：{}", materialFileFileUUID);
+
+        return Result.success(materialFileFileUUID);
+    }
+
+    //更新图书文件
+    @PostMapping("/updateMaterial")
+    public Result updateMaterialFile(MultipartFile materialFile, String materialId,String type) throws Exception {
+        log.info("图书文件更新，文件名为：{}", materialFile.getOriginalFilename());
+
+        int materialID = Integer.parseInt(materialId);
+        int Type = Integer.parseInt(type);
+        Material material = materialUploadService.findMaterialById(materialID);
+        if(material == null){
+            return Result.error("该资料不存在");
+        }
+        String originalBookFileAddress = null;
+        //根据Type判断需要更新什么类型的资料
+        switch (Type){
+            case 1: {
+                originalBookFileAddress = material.getElecBookUuid();
+                break;
+            }
+            case 2: {
+                originalBookFileAddress = material.getTeachingPlanUuid();
+                break;
+            }
+            case 3: {
+                originalBookFileAddress = material.getClassPptUuid();
+                break;
+            }
+            case 4: {
+                originalBookFileAddress = material.getCalendarVolumeUuid();
+                break;
+            }
+            case 5: {
+                originalBookFileAddress = material.getAnotherMaterialUuid();
+                break;
+            }
+        }
+
+        String materialFileUUID = aliOSSUtils.uploadFile(materialFile,false);
+
+        log.info("资料文件更新的云存储地址为：{}", materialFileUUID);
+        if (materialUploadService.updateMaterialFile(materialID, materialFileUUID,Type)) {
+            //调用阿里云工具类删除原来的文件
+            if (originalBookFileAddress != null) {
+                aliOSSUtils.DeleteFile(originalBookFileAddress);
+            }
+            return Result.success();
         } else {
             return Result.error("更新封面失败");
         }

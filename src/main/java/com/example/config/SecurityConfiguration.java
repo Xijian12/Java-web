@@ -76,9 +76,17 @@ public class SecurityConfiguration {
                         .requestMatchers("/category/update").permitAll()
                         .requestMatchers("/category/{categoryIds}").permitAll()
                         .requestMatchers("/book/comment/**").permitAll()
-                        .requestMatchers("/upload/uploadBookcover").permitAll() // 添加这一行
-                        .requestMatchers("/upload/updateBookcover").permitAll() // 添加这一行
-                        .requestMatchers("/user/updateUserInfo").permitAll() // 添加这一行
+                        .requestMatchers("/upload/uploadBookcover").permitAll() // 上传图书封面访问路径
+                        .requestMatchers("/upload/updateBookcover").permitAll() // 更新图书封面访问路径
+                        .requestMatchers("/upload/uploadBook").permitAll() // 上传图书访问路径
+                        .requestMatchers("/upload/updateBook").permitAll() // 更新图书访问路径
+                        .requestMatchers("/upload/uploadMaterialcover").permitAll() // 上传资料封面访问路径
+                        .requestMatchers("/upload/updateMaterialcover").permitAll() // 更新资料封面访问路径
+                        .requestMatchers("/upload/uploadMaterial").permitAll() // 上传资料访问路径
+                        .requestMatchers("/upload/updateMaterial").permitAll() // 更新资料访问路径
+                        .requestMatchers("/material").permitAll() // 添加资料信息访问路径
+                        .requestMatchers("/material/{materialId}").permitAll() // 添加访问资料信息访问路径
+                        .requestMatchers("/material/user").permitAll() // 添加资料信息访问路径
                         .anyRequest().hasAnyRole(Const.ROLE_DEFAULT)
                 )
                 .formLogin(conf -> conf
