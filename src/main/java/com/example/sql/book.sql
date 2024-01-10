@@ -11,7 +11,7 @@
  Target Server Version : 80035
  File Encoding         : 65001
 
- Date: 09/01/2024 13:07:55
+ Date: 10/01/2024 22:59:03
 */
 
 SET NAMES utf8mb4;
@@ -48,7 +48,7 @@ CREATE TABLE `book`  (
 -- ----------------------------
 -- Records of book
 -- ----------------------------
-INSERT INTO `book` VALUES (1, '毛泽东选集', '毛泽东', 525252, '人民出版社', 9.9, 999, 10, '3146624068@qq.com', 99, '最伟大的思想', 'https://xiao-shu-shu.oss-cn-shanghai.aliyuncs.com/Cover/d2cd9aa0-67e7-4d97-ad20-2ba640cc7ef6.jpg', 'Cover/d2cd9aa0-67e7-4d97-ad20-2ba640cc7ef6.jpg', 'Books/24424c2a-12ea-42fd-b6ca-159f26a36d6d.txt', '文学', 'literture', NULL, NULL);
+INSERT INTO `book` VALUES (1, '毛泽东选集', '毛泽东', 525252, '人民出版社', 9.9, 999, 10, '3146624068@qq.com', 99, '最伟大的思想', 'https://xiao-shu-shu.oss-cn-shanghai.aliyuncs.com/Cover/d2cd9aa0-67e7-4d97-ad20-2ba640cc7ef6.jpg', 'Cover/d2cd9aa0-67e7-4d97-ad20-2ba640cc7ef6.jpg', 'Material/146fe016-81be-407d-8892-d53fa2ad7762.txt', '文学', 'literture', NULL, NULL);
 INSERT INTO `book` VALUES (2, 'Java编程思想', 'Bruce Eckel', 2, '机械工业出版社', 8.5, 1200, 1500, 'user1@example.com', 50, '深入浅出Java编程', 'https://xiao-shu-shu.oss-cn-shanghai.aliyuncs.com/Cover/abb74761-50e6-4bcb-970f-bc59d8d2e768.png', 'Cover/abb74761-50e6-4bcb-970f-bc59d8d2e768.png', 'Books/39373567-c157-4e8e-abf2-6e5c02c12d71.txt', '技术', 'technology', NULL, NULL);
 INSERT INTO `book` VALUES (3, 'Python核心编程', 'Wesley J. Chun', 3, '人民邮电出版社', 9, 800, 1000, 'user2@example.com', 60, '掌握Python核心技术', 'https://xiao-shu-shu.oss-cn-shanghai.aliyuncs.com/Cover/e14bc3c5-5a6d-48c7-96fb-d7a96384abdc.png', 'Cover/e14bc3c5-5a6d-48c7-96fb-d7a96384abdc.png', 'Books/1ee379f4-2b03-44ac-a92f-18520ebd1585.txt', '技术', 'technology', NULL, NULL);
 INSERT INTO `book` VALUES (4, '数据库系统概念', 'Abraham Silberschatz', 6, '机械工业出版社', 8.8, 600, 900, 'user3@example.com', 70, '数据库系统的经典教材', 'https://xiao-shu-shu.oss-cn-shanghai.aliyuncs.com/Cover/adf33e63-f043-4924-874b-3512495fd41f.png', 'Cover/adf33e63-f043-4924-874b-3512495fd41f.png', 'Books/0aa1cbc9-92e1-463c-970d-f428645dea62.txt', '科学', 'science', NULL, NULL);
@@ -58,6 +58,5 @@ INSERT INTO `book` VALUES (7, '西游记', '吴承恩', 10, '人民文学出版�
 INSERT INTO `book` VALUES (8, '三体', '刘慈欣', 3, '重庆出版社', 9.8, 1800, 2100, 'user7@example.com', 95, '硬科幻巅峰之作', 'https://xiao-shu-shu.oss-cn-shanghai.aliyuncs.com/Cover/0e379ce2-b581-482f-b6e9-dddf254f4ba7.png', 'Cover/0e379ce2-b581-482f-b6e9-dddf254f4ba7.png', 'Books/aaac7c58-6866-49c4-9577-788c50016e70.txt', '科幻', 'fiction', NULL, NULL);
 INSERT INTO `book` VALUES (9, '霍乱时期的爱情', '加西亚·马尔克斯', 8, '南海出版公司', 9.6, 1300, 1600, 'user8@example.com', 85, '拉丁美洲文学巨匠的代表作', 'https://xiao-shu-shu.oss-cn-shanghai.aliyuncs.com/Cover/6622066b-4815-4891-a1ff-78ad4005bdb9.png', 'Cover/6622066b-4815-4891-a1ff-78ad4005bdb9.png', 'Books/ffbb25ca-b1b8-4709-8c5e-bd1424ce2d72.txt', '爱情', 'love', NULL, NULL);
 INSERT INTO `book` VALUES (10, '红楼梦', '曹雪芹', 15, '人民文学出版社', 9.9, 2500, 3000, 'user9@example.com', 110, '中国古典小说四大名著之一', 'https://xiao-shu-shu.oss-cn-shanghai.aliyuncs.com/Cover/5afee9fa-4bf1-4000-a247-bec74c2c902c.png', 'Cover/5afee9fa-4bf1-4000-a247-bec74c2c902c.png', 'Books/14e62b53-82ba-44bb-bf69-611b21563eee.txt', '文学', 'literture', NULL, NULL);
-INSERT INTO `book` VALUES (11, '数学之美', '吴军', 7, '人民邮电出版社', 8.9, 700, 800, 'user10@example.com', 75, '数学的思维与美感', 'https://xiao-shu-shu.oss-cn-shanghai.aliyuncs.com/Cover/e171f87a-433d-48ef-a9b8-f0d8cb279c6d.png', 'Cover/e171f87a-433d-48ef-a9b8-f0d8cb279c6d.png', 'Books/82777a51-6bdb-4437-843d-a7e91815ae9d.txt', '艺术', 'art', NULL, NULL);
 
 SET FOREIGN_KEY_CHECKS = 1;

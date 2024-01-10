@@ -86,7 +86,11 @@ public class SecurityConfiguration {
                         .requestMatchers("/upload/updateMaterial").permitAll() // 更新资料访问路径
                         .requestMatchers("/material").permitAll() // 添加资料信息访问路径
                         .requestMatchers("/material/{materialId}").permitAll() // 添加访问资料信息访问路径
-                        .requestMatchers("/material/user").permitAll() // 添加资料信息访问路径
+                        .requestMatchers("/material/user").permitAll() // 添加用户访问资料信息访问路径
+                        .requestMatchers("/material/admin").permitAll() // 添加管理员访问资料信息访问路径
+                        .requestMatchers("/material/download").permitAll() // 添加下载资料信息访问路径
+                        .requestMatchers("/material/comment/user").permitAll() // 用户给资料添加评论的访问路径
+                        .requestMatchers("/material/comment/admin").permitAll() // 用户给资料添加评论的访问路径
                         .anyRequest().hasAnyRole(Const.ROLE_DEFAULT)
                 )
                 .formLogin(conf -> conf
