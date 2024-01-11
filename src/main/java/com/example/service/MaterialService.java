@@ -6,6 +6,7 @@ import com.example.entity.vo.request.DonwloadMaterialVO;
 import com.example.entity.vo.request.Material;
 import com.example.entity.vo.request.admin.AdminAddCommentVO;
 import com.example.entity.vo.request.admin.AdminDeleteCommentVO;
+import com.example.entity.vo.request.user.MaterialPage;
 import com.example.entity.vo.request.user.UserAddCommentVO;
 import com.example.entity.vo.request.user.UserDeleteCommentVO;
 
@@ -58,4 +59,7 @@ public interface MaterialService {
     //根据上传者查询详细信息
     List<Material> getMaterialsByUserEmail(String userEmail);
 
+    MaterialPage queryMaterialByCondition(String school, String major, String subject, Integer materialGradeFloor, Integer materialGradeUpper, Integer page, Integer pageSize);
+
+    MaterialPage queryMaterialCommentById(Integer materialId, Integer page, Integer pageSize);
 }

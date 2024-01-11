@@ -91,6 +91,7 @@ public class SecurityConfiguration {
                         .requestMatchers("/material/download").permitAll() // 添加下载资料信息访问路径
                         .requestMatchers("/material/comment/user").permitAll() // 用户给资料添加评论的访问路径
                         .requestMatchers("/material/comment/admin").permitAll() // 用户给资料添加评论的访问路径
+                        .requestMatchers("/material/comment").permitAll() // 用户给资料添加评论的访问路径
                         .requestMatchers("/material/getClickDownloadBySchool").permitAll() //查询学校点击量下载量
                         .requestMatchers("/material/getClickDownloadByCategory").permitAll() //查询学科点击量下载量
                         .requestMatchers("/material/highest/{n}").permitAll() //查询综合评分最高的前N类资料

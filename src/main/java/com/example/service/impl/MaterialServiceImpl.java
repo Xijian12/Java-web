@@ -1,6 +1,5 @@
 package com.example.service.impl;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.entity.dto.Account;
 import com.example.entity.vo.request.DeleteMaterialRequest;
 import com.example.entity.vo.request.DonwloadMaterialVO;
@@ -8,6 +7,7 @@ import com.example.entity.vo.request.Material;
 import com.example.entity.vo.request.MaterialComment;
 import com.example.entity.vo.request.admin.AdminAddCommentVO;
 import com.example.entity.vo.request.admin.AdminDeleteCommentVO;
+import com.example.entity.vo.request.user.MaterialPage;
 import com.example.entity.vo.request.user.UserAddCommentVO;
 import com.example.entity.vo.request.user.UserDeleteCommentVO;
 import com.example.mapper.MaterialCommentMapper;
@@ -15,6 +15,8 @@ import com.example.mapper.MaterialMapper;
 import com.example.service.AccountService;
 import com.example.service.MaterialService;
 import com.example.utils.AliOSSUtils;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -335,4 +337,36 @@ public class MaterialServiceImpl implements MaterialService {
         return materialMapper.selectMaterialsByUserEmail(userEmail);
     }
 
+    @Override
+    public MaterialPage queryMaterialByCondition(String school, String major, String subject, Integer materialGradeFloor, Integer materialGradeUpper, Integer page, Integer pageSize) {
+        //设置分页参数
+        PageHelper.startPage(page,pageSize);
+
+        //查询结果
+        List<Material> materialList = materialMapper.selectMaterialByCondition(school,major,subject,
+                materialGradeFloor,materialGradeUpper);
+        log.info("materialList:{}",materialList);
+        //用PageHelper自带的Page类型对查询结果进行强制转型
+        Page<Material> p = (Page<Material>) materialList;
+
+        //对查询结果进行封装
+        return new MaterialPage(p.getTotal(),p.getResult());
+    }
+
+    @Override
+    public MaterialPage queryMaterialCommentById(Integer materialId, Integer page, Integer pageSize){
+        //只能吧查询语句放上面
+        Material material = materialMapper.selectMaterialById(materialId);
+        //设置分页参数
+        PageHelper.startPage(page,pageSize);
+
+        //查询结果
+        List<MaterialComment> materialComments = materialCommentMapper.getMaterialCommentBySMS(material.getSchool(),material.getMajor(),material.getSubject());
+        log.info("materialComments:{}",materialComments);
+        //用PageHelper自带的Page类型对查询结果进行强制转型
+        Page<MaterialComment> p = (Page<MaterialComment>) materialComments;
+
+        //对查询结果进行封装
+        return new MaterialPage(p.getTotal(),p.getResult());
+    }
 }
