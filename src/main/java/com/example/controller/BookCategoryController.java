@@ -23,14 +23,16 @@ public class BookCategoryController {
         bookCategoryService.addCategory(request.getCategoryName(), request.getCategoryAlias());
         return ResponseEntity.ok(new Response(0, "操作成功"));
     }
-    @GetMapping("/get/{id}")
+    @GetMapping("/get/{categoryId}")
     public BookCategory getCategoryById(@PathVariable int categoryId) {
         return bookCategoryService.getCategoryById(categoryId);
     }
 
     @GetMapping
-    public List<BookCategory> getAllCategories() {
-        return bookCategoryService.getAllCategories();
+    public List<BookCategory> getAllCategories(@RequestParam("page") int page,
+                                               @RequestParam ("pageSize")int pageSize) {
+
+        return bookCategoryService.getAllCategories(page,pageSize);
     }
 
 

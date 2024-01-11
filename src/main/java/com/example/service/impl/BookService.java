@@ -19,7 +19,9 @@ public class BookService {
         return bookMapper.getBookObject(userEmail);
     }
 
-
+ public void updateClickByVersion(String bookVersion,int bookDownloadNum,int bookClickNum){
+        bookMapper.updateClickByversion(bookVersion,bookDownloadNum,bookClickNum);
+ }
     public boolean deleteBooksIfAdmin(BookDeletionRequest request) {
         // 检查是否为管理员
         if (!bookMapper.isAdmin(request.getAdminAccount())){

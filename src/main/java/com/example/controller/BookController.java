@@ -8,6 +8,7 @@ import com.example.utils.AliOSSUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.service.annotation.PutExchange;
 
 import java.io.IOException;
 import java.util.List;
@@ -116,6 +117,14 @@ public ResponseEntity<?> downloadBook(@RequestBody DownloadBookRequest book) thr
         return ResponseEntity.ok(new Response(200, "操作成功",books ));
 
     }
+  @PutMapping ("/downClicks/{bookVersion}")
+  public ResponseEntity<?> updateByVersion(@RequestParam(required = false) String bookVersion,
+                              @RequestParam(required = false) int bookDownloadNum,
+                              @RequestParam(required = false) int bookClickNum)
+  {      bookService.updateClickByVersion(bookVersion,bookDownloadNum,bookClickNum);
+      return ResponseEntity.ok(new Response(200, "操作成功", null));
+  }
+
     @DeleteMapping("/user")
     public ResponseEntity<?> deleteBooksUser(@RequestBody BookDeletionRequest request) throws Exception {
 
