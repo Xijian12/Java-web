@@ -235,8 +235,8 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
         if (account != null) {
             account.setAvatarUrl(newAvatarUrl);
             account.setAvatarUuid(newAvatarUuid);
-            System.out.println(newAvatarUrl);
-            System.out.println(newAvatarUuid);
+//            System.out.println(newAvatarUrl);
+//            System.out.println(newAvatarUuid);
             // 更新用户信息
             return accountMapper.updateById(account) > 0;
         }

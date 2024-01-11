@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.entity.Result;
 import com.example.entity.vo.request.DeleteMaterialRequest;
 import com.example.entity.vo.request.DonwloadMaterialVO;
@@ -8,12 +9,15 @@ import com.example.entity.vo.request.admin.AdminAddCommentVO;
 import com.example.entity.vo.request.admin.AdminDeleteCommentVO;
 import com.example.entity.vo.request.user.UserAddCommentVO;
 import com.example.entity.vo.request.user.UserDeleteCommentVO;
+import com.example.entity.vo.response.MaterialUploadVO;
 import com.example.service.MaterialService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @RestController
@@ -139,4 +143,42 @@ public class MaterialController {
 
         return Result.success(material);
     }
+
+    //根据学校名称查询下载量和点击量
+    @GetMapping("/getClickDownloadBySchool")
+    public Result GetClickDownloadBySchool(@RequestParam String school){
+        Map<String, Integer> ClickDownloadNum = materialService.schoolClicksDownload(school);
+        return Result.success(ClickDownloadNum);
+    }
+
+    //根据专业名称查询下载量和点击量
+    @GetMapping("/getClickDownloadByCategory")
+    public Result GetClickDownloadByCategry(@RequestParam String Category){
+        Map<String, Integer> ClickDownloadNum = materialService.categoryClicksDownload(Category);
+        return Result.success(ClickDownloadNum );
+    }
+
+    //查询综合评分最高的前N类资料
+    @GetMapping("/highest/{n}")
+    public Result getTopNMaterials(@PathVariable Integer n) {
+        List<Material> materials = materialService.getTopNMaterials(n);
+        return Result.success(materials);
+    }
+    //根据ID查询资料的下载量和点击量
+    @GetMapping("/downClicks/{materialId}")
+    public Result getMaterialDownloadClicks(@PathVariable int materialId) {
+        Map<String, Integer> data = materialService.getDownloadClicksByMaterialId(materialId);
+        return Result.success(data);
+    }
+
+    //查询某个用户上传的所有资料
+    @GetMapping("/userUpload")
+    public Result getMaterialsByUserEmail(@RequestParam String userEmail) {
+        List<Material> materials = materialService.getMaterialsByUserEmail(userEmail);
+        MaterialUploadVO response = new MaterialUploadVO();
+        response.setSize(materials.size());
+        response.setMaterials(materials);
+        return Result.success(response);
+    }
+
 }

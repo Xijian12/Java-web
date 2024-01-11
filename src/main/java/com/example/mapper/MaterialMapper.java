@@ -1,7 +1,14 @@
 package com.example.mapper;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.toolkit.Constants;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.entity.vo.request.Material;
 import org.apache.ibatis.annotations.*;
+
+import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface MaterialMapper {
@@ -40,4 +47,28 @@ public interface MaterialMapper {
     void delelteMaterialById(int mateialId);
 
     void updateMaterial(Material material);
+
+    //学校点击量查询 学校下载量查询
+    // 学校下载量查询
+    @Select("SELECT sum(material_download_num) AS downloadNum, sum(material_click_num) AS clickNum FROM materials where school= #{school}")
+    Map<String, Integer> countDownloadClickNumBySchool(String school);
+    // 类别点击量查询
+    @Select("SELECT sum(material_download_num) AS downloadNum, sum(material_click_num) AS clickNum FROM materials where major= #{major}")
+    Map<String, Integer> countDownloadClickNumByCategory(String major);
+
+
+
+    // 查询最高的前n类资料
+    @Select("SELECT * FROM materials ORDER BY (material_grade * #{weight1} + material_click_num * #{weight2} + material_download_num * #{weight3}) DESC LIMIT #{n}")
+    List<Material> selectTopNMaterials(@Param("weight1") double weight1, @Param("weight2") double weight2, @Param("weight3") double weight3, @Param("n") int n);
+
+    @Select("SELECT material_download_num, material_click_num FROM materials WHERE material_id = #{materialId}")
+    Map<String, Integer> getDownloadClicksByMaterialId(int materialId);
+
+    @Select("SELECT * FROM materials WHERE material_uploader = #{userEmail}")
+    List<Material> selectMaterialsByUserEmail(String userEmail);
+
+
+
+
 }

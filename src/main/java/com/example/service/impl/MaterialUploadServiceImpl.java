@@ -1,14 +1,15 @@
 package com.example.service.impl;
 
-import com.example.entity.vo.request.Book;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.entity.vo.request.Material;
-import com.example.mapper.BookMapper;
 import com.example.mapper.MaterialMapper;
-import com.example.service.BookUploadService;
 import com.example.service.MaterialUploadService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
 @Service
 @Slf4j
@@ -73,4 +74,8 @@ public class MaterialUploadServiceImpl implements MaterialUploadService {
         }
         return false;
     }
+
+
+
+
 }

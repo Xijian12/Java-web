@@ -1,5 +1,6 @@
 package com.example.service.impl;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.entity.dto.Account;
 import com.example.entity.vo.request.DeleteMaterialRequest;
 import com.example.entity.vo.request.DonwloadMaterialVO;
@@ -22,6 +23,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Slf4j
@@ -301,4 +303,36 @@ public class MaterialServiceImpl implements MaterialService {
         }
         return true;
     }
+
+    //根据专业名称查询下载量和点击量
+    @Override
+    public  Map<String, Integer> categoryClicksDownload(String major) {
+        return materialMapper.countDownloadClickNumByCategory(major);
+    }
+    //根据学校名称查询下载量和点击量
+    @Override
+    public  Map<String, Integer> schoolClicksDownload(String school) {
+        return materialMapper.countDownloadClickNumBySchool(school);
+    }
+
+    //定义资料排名权重
+    @Override
+    public List<Material> getTopNMaterials(int n) {
+        double weight1 = 5;    // 资料评分的权重
+        double weight2 = 1;    // 点击量的权重
+        double weight3 = 2;    // 下载量的权重
+        return materialMapper.selectTopNMaterials(weight1, weight2, weight3, n);
+    }
+    //根据ID查询资料的下载量和点击量
+    @Override
+    public Map<String, Integer> getDownloadClicksByMaterialId(int materialId) {
+        return materialMapper.getDownloadClicksByMaterialId(materialId);
+    }
+
+    //根据上传者查询详细信息
+    @Override
+    public List<Material> getMaterialsByUserEmail(String userEmail) {
+        return materialMapper.selectMaterialsByUserEmail(userEmail);
+    }
+
 }
