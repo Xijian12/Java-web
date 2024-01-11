@@ -102,6 +102,10 @@ public ResponseEntity<?> downloadBook(@RequestBody DownloadBookRequest book) thr
             return ResponseEntity.ok(new Response(0, "操作失败，该账户不是管理员！", null));
         }
     }
+    @GetMapping("/book/highest/{n}")
+    public List<Book> getTopNBooks(@PathVariable int n) {
+        return bookService.findTopNBooks(n);
+    }
     @GetMapping("/test")
     public ResponseEntity<?> selectBooksById(@RequestBody BookDeletionRequest request) throws Exception {   List<Book> books=bookService.selectBooksByIds(request.getBookIds());
         if(books!=null){

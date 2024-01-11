@@ -15,7 +15,8 @@ public interface BookMapper {
 
     @Update("UPDATE test.book SET book_name = #{bookName}, book_version = #{bookVersion}, book_author = #{bookAuthor}, book_grade = #{bookGrade}, book_download_num = #{bookDownloadNum}, book_click_num = #{bookClickNum}, book_uploader = #{bookUploader}, book_points= #{bookPoints}, book_profile = #{bookProfile}, book_cover_url = #{bookCoverUrl},  category_name = #{categoryName} WHERE book_id = #{bookId}")
     int updateBook(Book book);
-
+    @Select("SELECT * FROM  test.book ORDER BY book_grade DESC LIMIT #{n}")
+    List<Book> findTopNBooks(int n);
     @Delete({
             "<script>",
             "DELETE FROM book WHERE book_id IN ",

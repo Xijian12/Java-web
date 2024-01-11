@@ -82,5 +82,8 @@ public DownloadBook downloadBook(String userEmail,int bookId){
         return true;
     }
 
-
+public List<Book> findTopNBooks(int n)
+{
+  return  bookMapper.findTopNBooks(n);
+}
 }
