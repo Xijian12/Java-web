@@ -14,9 +14,6 @@ import NavView from "@/components/Backend/NavView.vue";
 import HomeView from "@/components/Backend/HomeView.vue";
 import BookTableView from "@/components/Backend/BookTableView.vue";
 import BookView from "@/components/Backend/BookView.vue";
-import BorrowView from "@/components/Backend/BorrowView.vue";
-import ReturnView from "@/components/Backend/ReturnView.vue";
-import OvertimeView from "@/components/Backend/OvertimeView.vue";
 import UserView from "@/components/Backend/UserView.vue";
 import SystemView from "@/components/Backend/SystemView.vue";
 
@@ -165,24 +162,6 @@ const router = createRouter({
                 name: "图书信息管理",
                 meta: { show: true },
                 components: { book: BookView },
-              },
-              {
-                path: "/borrow",
-                name: "借阅图书",
-                meta: { show: true },
-                components: { borrow: BorrowView },
-              },
-              {
-                path: "/return",
-                name: "归还图书",
-                meta: { show: true },
-                components: { return: ReturnView },
-              },
-              {
-                path: "/overtime",
-                name: "超时查询",
-                meta: { show: true },
-                components: { overtime: OvertimeView },
               },
             ],
           },

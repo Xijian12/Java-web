@@ -11,7 +11,7 @@
     </div>
     <div id="wrap">
     <div style="margin-top: 10px">
-      <el-row :gutter="22">
+      <el-row :gutter="24">
         <el-col :span="6" v-for="(book, index) in books.slice(0, 8)" :key="index">
           <div id="card-container" @click="BookDetail(book.bookId)" style="cursor: pointer">
             <el-card :body-style="{ padding: '0px'}" shadow="hover">
@@ -43,9 +43,9 @@
                   <span v-if="book.discount<1" class="price">定价: ¥{{ book.bookPoints }}</span>
                 </div>
               </div>
-              <div id="bottom-btn">
-                <el-button @click.stop="BookDetail(book.id)" size="medium" type="primary" plain>查看详情</el-button>
-                <el-button-group style="margin-left: 15px">
+              <div id="bottom-btn" >
+                <el-button @click.stop="BookDetail(book.bookId)" size="medium" type="primary" plain>查看详情</el-button>
+                <el-button-group style="margin-left: 10px">
                   <el-button @click.stop="addToCart(index)" size="mini" :icon="ShoppingCart"></el-button>
                   <el-button @click.stop="addToCollection(index)" size="mini" :icon="Star"></el-button>
                   <el-button @click.stop="" size="mini" :icon="More"></el-button>
@@ -56,25 +56,7 @@
         </el-col>
       </el-row>
     </div>
-
-    <!--数据为空时显示-->
-    <div v-show="total===0" v-cloak>
-      <el-empty :image-size="200"></el-empty>
-    </div>
-    <div id="pageBtn">
-      <el-pagination
-          background
-          layout="prev, pager, next"
-          :page-size="8"
-          :total="total"
-          @current-change="page"
-          hide-on-single-page
-          v-show="total!=null">
-      </el-pagination>
-    </div>
   </div>
-    <div class="post grid" data-id="19368">
-    </div> 
   </div>
 </template>
 
@@ -86,36 +68,8 @@ import router from "@/router"
 import {get} from '@/net';
 import axios from "axios";
 
-const total = ref(1)
-let books = reactive([{
-  id:1,
-  img:'src/assets/images/dragon.png',
-  bookName:'',
-  author:'',
-  price:23,
-},
-{
-  img:'src/assets/images/dragon.png'
-},
-{
-  img:'src/assets/images/dragon.png'
-},
-{
-  img:'src/assets/images/dragon.png'
-},
-{
-  img:'src/assets/images/dragon.png'
-},
-{
-  img:'src/assets/images/dragon.png'
-},
-{
-  img:'src/assets/images/dragon.png'
-},
-{
-  img:'src/assets/images/dragon.png'
-},
-])
+const total = ref(0)
+let books = ref([])
 const myArg = ref([])
 
 
@@ -209,7 +163,7 @@ function initData() {
   axios.get("/book")
   .then(response => {
     // 处理成功的响应
-    books = response.data.data
+    books.value = response.data.data
     console.log('成功：', books);
   })
   .catch(error => {
@@ -255,10 +209,10 @@ onMounted(() => {
   border-radius: 12px;
 }
 .contentcenter_title {
-  height: 70px;
+  height: 30px;
   width: 100%;
   font-size: 27px;
-  margin: 10px;
+  margin-top: 10px;
 }
 .contentcenter_title_fangkuai {
   margin-left: 10px;
@@ -271,17 +225,9 @@ onMounted(() => {
   top: -3px;
 }
 
-[v-cloak] {
-  display: none !important;
-}
-
 #wrap {
+  margin-top: 30px;
   width: 1200px;
-}
-
-#pageBtn {
-  margin: 20px auto;
-  display: table;
 }
 
 #card-container {
@@ -340,10 +286,12 @@ onMounted(() => {
 }
 
 #card-container #bottom-btn{
+  display: flex;
+  align-items: center;
   float: none;
-  margin: 0 0 10px 10px;
+  margin: 0 0 30px 10px;
   width: 245px;
-  height: 290px;
+  height: 40px;
 }
 
 </style>

@@ -1,10 +1,10 @@
 <script setup>
 import { useDark, useToggle } from '@vueuse/core'
-import { defineComponent } from "vue";
+import { defineComponent, onBeforeUnmount } from "vue";
 
-const debounce = (callback: (...args: any[]) => void, delay: number) => {
-  let tid: any;
-  return function (...args: any[]) {
+const debounce = (callback, delay) => {
+  let tid;
+  return function (...args) {
     tid && clearTimeout(tid);
     tid = setTimeout(() => {
       callback(...args);
@@ -12,25 +12,31 @@ const debounce = (callback: (...args: any[]) => void, delay: number) => {
   };
 };
 
-const _ = (window as any).ResizeObserver;
-(window as any).ResizeObserver = class ResizeObserver extends _ {
-  constructor(callback: (...args: any[]) => void) {
+const _ResizeObserver = window.ResizeObserver;
+window.ResizeObserver = class ResizeObserver extends _ResizeObserver {
+  constructor(callback) {
     callback = debounce(callback, 20);
     super(callback);
   }
 };
 
-useDark({
+const darkModeObserver = useDark({
   selector: 'html',
   attribute: 'class',
   valueDark: 'dark',
   valueLight: 'light'
-})
+});
 
 useDark({
-  onChanged(dark) { useToggle(dark) }
-})
+  onChanged(dark) {
+    useToggle(dark);
+  }
+});
 
+onBeforeUnmount(() => {
+  darkModeObserver.stop();
+  // 如果需要，添加其他清理逻辑
+});
 </script>
 
 <template>

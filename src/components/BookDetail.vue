@@ -103,7 +103,7 @@
       <!-- 推荐 -->
       <div id="recommendation">
         <el-divider content-position="left">
-          <span style="font-size: 20px"><i class="el-icon-present"></i> 同类推荐</span>
+          <span style="font-size: 20px"><el-icon><Present /></el-icon> 同类推荐</span>
         </el-divider>
         <div id="recommendBooks">
           <el-row :gutter="20">
@@ -128,7 +128,7 @@
       <div id="detail-comment">
         <el-tabs v-model="activeName" type="card" @tab-click="handleClick">
           <el-tab-pane name="detail">
-            <span slot="label"><i class="el-icon-info"></i> 商品详情</span>
+            <span slot="label"><el-icon><InfoFilled /></el-icon> 商品详情</span>
             <div class="detail-content" style="padding: 15px">
               <el-skeleton animated>
                 <template slot="template">
@@ -142,7 +142,7 @@
             </div>
           </el-tab-pane>
           <el-tab-pane name="comment">
-            <span slot="label"><i class="el-icon-s-comment"></i> 商品评论</span>
+            <span slot="label"><el-icon><Comment /></el-icon> 商品评论</span>
             <div v-if="commentData.length>0" class="comment-content">
               <el-table :data="commentData" :loading="loading" style="width: 100%">
                 <el-table-column width="200">
@@ -186,8 +186,9 @@
 import {Link, Star} from '@element-plus/icons-vue';
 import {ref, reactive, onMounted} from 'vue';
 import axios from "axios";
+import { useRoute } from 'vue-router';
 import {ElMessage} from "element-plus";
-const bookId = reactive(1); 
+const router = useRoute();
 const activeName = ref('detail');
 const quantity = ref(1);
 const checkTable = ref(false);
@@ -199,8 +200,7 @@ const loadingBtn = ref(false);
 const commentData = ref([]);
 const colors = ref(['#99A9BF', '#F7BA2A', '#FF9900']);
 const total = ref(null);
-const id = ref('');
-let book = reactive({
+let book = ref({
         id: '',
         bookName: '',
         author: '',
@@ -223,19 +223,17 @@ function decimals(value) {
       return value.toFixed(1);
     }
     // 页面初始化时执行，根据编号查询图书
-function initData(bookID){
-  // 发起简单的 GET 请求
-axios.get(`/book/${bookID}`)
-  .then(response => {
+const initData = async (bookId) => {
+  try {
+    const response = await axios.get(`/book/${bookId}`);
     // 处理成功的响应
-    book = response.data.data
-    console.log('成功：', book);
-  })
-  .catch(error => {
+    book.value = response.data.data;
+    console.log('成功：', book.value);
+  } catch (error) {
     // 处理请求错误
     console.error('请求失败：', error);
-  });
-    }
+  }
+};
     // 加入购物车
 function addToCart() {
       console.log("===========")
@@ -419,8 +417,10 @@ function handleClick(tab) {
       this.$router.push({name: 'BookDetail', params: {id: bookId}});
     }
     // 在组件挂载时执行查询图书的函数
-onMounted(() => {
-  initData(bookId);
+onMounted(async () => {
+  const bookId = router.params.id;
+  await initData(bookId);
+  // 在这里可以执行其他操作，确保 initData 函数执行完成后再执行
 });
 </script>
 <style>

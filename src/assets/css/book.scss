@@ -44,12 +44,12 @@
 
   // 图书表格样式
   .book-table {
-    height: calc(100% - 80px);
+    height: calc(660px);
     .el-col {
       display: flex;
       flex-direction: column;
       align-items: center;
-      max-height: calc(100% - 16px);
+      max-height: calc(580px);
 
       .el-table {
         min-height: 100%;

@@ -4,7 +4,7 @@
       <el-aside>
         <!--        导航栏-->
         <el-scrollbar>
-          <div class="title"><p>图书管理系统</p></div>
+          <div class="title"><p>小SHU书后台管理</p></div>
           <el-menu router :default-active="$route.path" unique-opened>
             <el-menu-item index="/backendhome" @click="addTab('主页', '/backendhome')"
               ><el-icon><House /></el-icon>主页</el-menu-item
