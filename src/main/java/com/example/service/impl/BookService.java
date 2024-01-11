@@ -1,5 +1,6 @@
 package com.example.service.impl;
 
+import com.example.entity.vo.request.Page;
 import com.example.mapper.BookMapper;
 import com.example.entity.vo.request.Book;
 import com.example.entity.vo.request.BookDeletionRequest;
@@ -13,7 +14,7 @@ public class BookService {
     @Autowired
     private final BookMapper bookMapper;
 
-    public Book GetBookObject(String userEmail){
+    public List<Book >GetBookObject(String userEmail){
         return bookMapper.getBookObject(userEmail);
     }
 
@@ -46,16 +47,27 @@ public class BookService {
     public Book getBookById(int id) {
         return bookMapper.selectBookById(id);
     }
+    public List<Book> getBookByEmail(String userEmail){
+
+        return bookMapper.getBookObject(userEmail);
+    }
 
     public List<Book> getAllBooks() {
         return bookMapper.selectAllBooks();
+    }
+    public List<Book> findBooks(String bookName, String bookAuthor, Integer bookPointsFloor, Integer bookPointsUpper,Double bookGradeFloor, Double bookGradeUpper,int page,int pageSize){
+        Integer offset = (page - 1) * pageSize;
+        Integer limit=pageSize;
+
+        return bookMapper.findBooks(bookName, bookAuthor, bookPointsFloor, bookPointsUpper, bookGradeFloor, bookGradeUpper, offset, pageSize);
+
     }
 
     public int updateBook(Book book) {
         return bookMapper.updateBook(book);
     }
     public boolean deleteBooksIfUser(BookDeletionRequest request) {
-        // 检查是否为用户
+        // 检查是否为管理员
         if (!bookMapper.isUser(request.getUserEmail())) {
             return false;
         }

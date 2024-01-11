@@ -41,7 +41,7 @@ public class BookReviewController {
         return ResponseEntity.ok(new Response(0, "操作成功", null));
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping("/admin/delete")
     public ResponseEntity<?> deleteComments(@RequestBody CommentDeletionRequest request) {
         if (bookReviewService.deleteCommentsIfAdmin(request)) {
             return ResponseEntity.ok(new Response(0, "操作成功", null));

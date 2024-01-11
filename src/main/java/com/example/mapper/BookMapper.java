@@ -25,6 +25,30 @@ public interface BookMapper {
             "</script>"
     })
     void deleteBooksByIds(@Param("ids") List<Integer> ids);
+    @Select({
+            "<script>",
+            "SELECT * FROM test.book",
+            "<where>",
+            "<if test='bookName != null'>AND book_name LIKE CONCAT('%', #{bookName}, '%')</if>",
+            "<if test='bookAuthor != null'>AND book_author LIKE CONCAT('%', #{bookAuthor}, '%')</if>",
+            "<if test='bookPointsFloor != null'>AND book_points>=#{bookPointsFloor}</if>",
+            "<if test='bookPointsUpper != null'>AND #{bookPointsUpper}>=book_points</if>",
+            "<if test='bookGradeUpper != null'>AND #{bookGradeUpper}>=book_grade</if>",
+            "<if test='bookGradeFloor != null'>AND book_grade >= #{bookGradeFloor}</if>",
+
+           "</where>",
+            "LIMIT #{offset}, #{limit}",
+            "</script>"
+    })
+    List<Book> findBooks(@Param("bookName") String bookName,
+                         @Param("bookAuthor") String bookAuthor,
+                         @Param("bookPointsFloor") Integer bookPointsFloor,
+                         @Param("bookPointsUpper") Integer bookPointsUpper,
+                         @Param("bookGradeFloor") Double bookGradeFloor,
+                         @Param("bookGradeUpper") Double bookGradeUpper,
+                         @Param("offset") Integer offset,
+                         @Param("limit") Integer limit);
+
 
     @Select({
             "<script>",
@@ -53,5 +77,5 @@ public interface BookMapper {
     void updateBookFile(int bookId, String bookFileUUID);
 
     @Select("select * from book where book_uploader = #{userEmail}")
-    Book getBookObject(String userEmail);
+   List<Book> getBookObject(String userEmail);
 }
