@@ -19,13 +19,22 @@ public interface BookMapper {
     List<Book> findTopNBooks(int n);
     @Delete({
             "<script>",
+            "BEGIN",
+            // 删除图书
             "DELETE FROM book WHERE book_id IN ",
             "<foreach item='id' collection='ids' open='(' separator=',' close=')'>",
             "#{id}",
-            "</foreach>",
+            "</foreach>;",
+            // 删除相关的图书评论
+            "DELETE FROM commentforbook WHERE book_id IN ",
+            "<foreach item='id' collection='ids' open='(' separator=',' close=')'>",
+            "#{id}",
+            "</foreach>;",
+            "END",
             "</script>"
     })
     void deleteBooksByIds(@Param("ids") List<Integer> ids);
+
     @Select({
             "<script>",
             "SELECT * FROM test.book",

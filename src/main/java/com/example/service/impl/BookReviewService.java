@@ -51,4 +51,12 @@ public class BookReviewService {
         bookReviewMapper.deleteCommentsByIds(request.getIds());
         return true;
     }
+    public boolean deleteCommentsIfUser(CommentDeletionRequest request) {
+
+
+
+        // 执行批量删除操作
+        bookReviewMapper.deleteCommentsByIds(request.getIds());
+        return true;
+    }
 }
