@@ -23,15 +23,15 @@ public class Material {
     private Integer materialClickNum;
     private Integer materialDownloadNum;
     private String elecBookUuid;
-    private double elecBookPoints;
+    private Integer elecBookPoints;
     private String teachingPlanUuid;
-    private double teachingPlanPoints;
+    private Integer teachingPlanPoints;
     private String classPptUuid;
-    private double classPptPoints;
+    private Integer classPptPoints;
     private String calendarVolumeUuid;
-    private double calendarVolumePoints;
+    private Integer calendarVolumePoints;
     private String anotherMaterialUuid;
-    private double anotherMaterialPoints;
+    private Integer anotherMaterialPoints;
     private LocalDateTime createTime;
     private LocalDateTime updateTime;
 }
