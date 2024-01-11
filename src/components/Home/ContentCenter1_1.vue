@@ -14,7 +14,7 @@
             <div class="module_subbox">
               <a href="https://www.pdfdz.com/plugin.php?id=keke_group" target="_blank" class="keke_doc_clearfix">                    
                 <div class="lefticon">
-                <img src="src/assets/images/181821ze01cp13x4w4poc7.png" /></div>
+                <img src="src\assets\images\181821ze01cp13x4w4poc7.png" /></div>
                 <div class="web-module-right">
                   <div class="righthd">加入VIP</div>
                   <div class="rightbd">会员特权 畅快阅读</div>         

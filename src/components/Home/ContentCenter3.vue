@@ -10,13 +10,13 @@
       </span>
     </div>
     <div id="wrap">
-    <div style="margin-bottom: 30px">
+    <div style="margin-top: 10px">
       <el-row :gutter="22">
-        <el-col :span="6" v-for="(book,index) in books">
-          <div id="card-container" @click="BookDetail(book.id)" style="cursor: pointer">
+        <el-col :span="6" v-for="(book, index) in books.slice(0, 8)" :key="index">
+          <div id="card-container" @click="BookDetail(book.bookId)" style="cursor: pointer">
             <el-card :body-style="{ padding: '0px'}" shadow="hover">
               <div id="img">
-                <img :src="book.img">
+                <img :src="book.bookCoverUrl">
               </div>
               <div id="content">
                 <div id="bookName">
@@ -25,7 +25,7 @@
                 </div>
                 <div id="author">
                   <span class="title">作者: </span><br>
-                  <span class="content" style="height: 20px;">{{ book.author }}</span>
+                  <span class="content" style="height: 20px;">{{ book.bookAuthor }}</span>
                 </div>
                 <div>
                   <el-popover
@@ -34,21 +34,21 @@
                       width="200"
                       trigger="hover"
                       :close-delay="100"
-                      :content="book.brief">
-                    <el-button slot="reference" type="text" >简介</el-button>
+                      :content="book.bookProfile">
+                      <template #reference><el-button slot="reference" type="text" >简介</el-button></template>  
                   </el-popover>
                 </div>
                 <div id="price">
-                  <span class="discountPrice"><span style="font-size: 15px">¥ </span>{{decimals(book.price*book.discount)}}</span><br>
-                  <span v-if="book.discount<1" class="price">定价: ¥{{ book.price }}</span>
+                  <span class="discountPrice"><span style="font-size: 15px">¥ </span>{{decimals(book.bookPoints*1)}}</span><br>
+                  <span v-if="book.discount<1" class="price">定价: ¥{{ book.bookPoints }}</span>
                 </div>
               </div>
               <div id="bottom-btn">
                 <el-button @click.stop="BookDetail(book.id)" size="medium" type="primary" plain>查看详情</el-button>
                 <el-button-group style="margin-left: 15px">
-                  <el-button @click.stop="addToCart(index)" size="mini" icon="el-icon-shopping-cart-1"></el-button>
-                  <el-button @click.stop="addToCollection(index)" size="mini" icon="el-icon-star-off"></el-button>
-                  <el-button @click.stop="" size="mini" icon="el-icon-more"></el-button>
+                  <el-button @click.stop="addToCart(index)" size="mini" :icon="ShoppingCart"></el-button>
+                  <el-button @click.stop="addToCollection(index)" size="mini" :icon="Star"></el-button>
+                  <el-button @click.stop="" size="mini" :icon="More"></el-button>
                 </el-button-group>
               </div>
             </el-card>
@@ -79,11 +79,15 @@
 </template>
 
 <script setup>
-import {ref, onMounted} from 'vue'
+import {More, Star, ShoppingCart} from '@element-plus/icons-vue';
+import {ref, reactive, onMounted} from 'vue'
 import {useStore} from 'vuex';
 import router from "@/router"
+import {get} from '@/net';
+import axios from "axios";
+
 const total = ref(1)
-const books = ref([{
+let books = reactive([{
   id:1,
   img:'src/assets/images/dragon.png',
   bookName:'',
@@ -200,13 +204,19 @@ function decimals(value) {
       }
     }
     // 初始化页面数据
-    function initData(myArg) {
-      this.myArg = myArg;
-      axios.get("http://localhost:8081/book/selectBook/" + myArg + "/1" + "/8")
-          .then((resp) => {
-            this.books = resp.data.books;
-            this.total = resp.data.total;
-          });
+function initData() {
+  // 发起简单的 GET 请求
+  axios.get("/book")
+  .then(response => {
+    // 处理成功的响应
+    books = response.data.data
+    console.log('成功：', books);
+  })
+  .catch(error => {
+    // 处理请求错误
+    console.error('请求失败：', error);
+  });
+     
     }
 
 const store = useStore();
@@ -217,56 +227,6 @@ const view = ref([])
 const back = ref([])
 const flag = ref(true)
 const data2 = ref([])
-// 发起 HTTP GET 请求到 'home/usercart'
-onMounted(async () => {
-  try {
-    const response = await $http.get('home/usercart');
-    // 将响应数据保存到 data2 中
-    data2.value = response.data;
-    // 将 data2 添加到 back 数组中
-    back.value.push(data2.value);
-    // 将 back 数组的第一个元素赋值给 back 变量
-    back.value = back.value[0];
-    // 调用 initView 函数
-    initView();
-  } catch (error) {
-    console.error('Error fetching data:', error);
-  }
-
-  window.onscroll = () => {
-    const windowHeight =
-      document.documentElement.clientHeight || document.body.clientHeight;
-    const scrollTop =
-      (document.documentElement.scrollTop || document.body.scrollTop) -
-      windowHeight;
-    const scrollHeight =
-      document.documentElement.scrollHeight || document.body.scrollHeight;
-    const end = document.querySelector(".end");
-    const loading = document.querySelector(".loading");
-
-    if (
-      scrollTop + windowHeight >= scrollHeight - windowHeight &&
-      view.value.length < back.value.length
-    ) {
-      setTimeout(() => {
-        if (back.value.length - view.value.length >= 6) {
-          heightT.value += 678;
-          page.value++;
-          initView();
-        } else {
-          heightT.value += 339;
-          page.value++;
-          initView();
-        }
-      }, 1000);
-      end.classList.remove("active");
-      loading.classList.add("active");
-    } else {
-      loading.classList.remove("active");
-      end.classList.add("active");
-    }
-  };
-});
 
 // 初始化视图的函数
 function initView(){
@@ -274,6 +234,10 @@ function initView(){
         back.slice(page * size, (page + 1) * size)
       );
 };
+
+onMounted(() => {
+  initData();
+});
 
 
 </script>
@@ -321,7 +285,7 @@ function initView(){
 }
 
 #card-container {
-  margin-top: 25px;
+  margin-top: 10px;
 }
 
 #card-container #img {

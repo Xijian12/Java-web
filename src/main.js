@@ -6,6 +6,8 @@ import store from "./store"
 import './assets/iconfont/iconfont.css'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
+import "element-plus/theme-chalk/index.css";
+import zhCn from "element-plus/es/locale/lang/zh-cn";
 import Viewer from 'v-viewer'
 import 'viewerjs/dist/viewer.css'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
@@ -17,7 +19,7 @@ const app = createApp(App)
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
     app.component(key, component)
   }
-app.use(ElementPlus)
+app.use(ElementPlus, { locale: zhCn });
 app.use(Viewer, {
     defaultOptions: {
       inline: false,  //默认值：false。启用内联模式。

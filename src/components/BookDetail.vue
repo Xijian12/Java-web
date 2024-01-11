@@ -8,25 +8,25 @@
        <!-- 商品详情 -->
       <div id="detail">
         <div id="img">
-          <img :src="book.img">
+          <img :src="book.bookCoverUrl">
         </div>
         <div id="descriptions">
           <el-descriptions :title="'《 '+book.bookName+' 》'" :column="3" :colon="false" style="font-size: 16px">
-            <el-descriptions-item label="作者 :" :contentStyle="{'color':'#409EFF'}">{{ book.author }}
+            <el-descriptions-item label="作者 :" :contentStyle="{'color':'#409EFF'}">{{ book.bookAuthor }}
             </el-descriptions-item>
-            <el-descriptions-item label="出版社 :" :contentStyle="{'color':'#409EFF'}">{{ book.press }}
+            <el-descriptions-item label="出版社 :" :contentStyle="{'color':'#409EFF'}">{{ book.bookPublishHouse }}
             </el-descriptions-item>
-            <el-descriptions-item label="出版时间 :" :contentStyle="{'color':'#409EFF'}">{{ book.publicationDate }}
+            <el-descriptions-item label="版本 :" :contentStyle="{'color':'#409EFF'}">{{ book.bookVersion }}
             </el-descriptions-item>
-            <el-descriptions-item label="" :contentStyle="{'margin-top':'10px','font-size':'20px','color':'#222222','font-weight':'400',
+            <el-descriptions-item label="上传者 :" :contentStyle="{'margin-top':'10px','font-size':'20px','color':'#222222','font-weight':'400',
                 'width':'750px','height':'115px','display':'-webkit-box','overflow':'hidden','-webkit-box-orient':'vertical','-webkit-line-clamp':'4'}">
-              {{ book.brief }}
+              {{ book.bookUploader }}
             </el-descriptions-item>
           </el-descriptions>
           <div>
             <span style="font-size: 18px;color: #ff1f1f">¥ </span><span
-              class="discountPrice">{{ decimals(book.price * book.discount) }}</span>
-            <span class="price">定价: ¥ {{ book.price }}</span>
+              class="discountPrice">{{ decimals(1 * book.bookPoints) }}</span>
+            <span class="price">定价: ¥ {{ book.bookPoints }}</span>
           </div>
           <el-divider></el-divider>
           <div id="btn-group">
@@ -34,29 +34,30 @@
                              size="medium" v-model="quantity"></el-input-number>
             <el-button @click="addToCart" :loading="loadingBtn" type="primary" icon="el-icon-shopping-cart-1">加入购物车
             </el-button>
-            <el-button @click="beforeBuyNow" type="primary" plain icon="el-icon-shopping-bag-2">立即购买</el-button>
+            <el-button @click="checkTable= true" type="primary" plain icon="el-icon-shopping-bag-2">立即购买</el-button>
             <el-popover
                 placement="bottom"
                 title="收藏"
-                width="150"
+                :width="150"
                 trigger="hover"
                 content="添加该商品到收藏夹"
                 style="margin-left: 180px;margin-right: 10px">
-              <el-button @click="addToCollection" slot="reference" type="warning" icon="el-icon-star-off" circle
-                         size="medium"></el-button>
+                <template #reference>
+                  <el-button @click="addToCollection"  type="warning" :icon="Star" circle></el-button>
+                </template> 
             </el-popover>
             <el-popover
                 placement="bottom"
                 title="分享"
-                width="150"
+                :width="150"
                 trigger="hover"
                 content="复制商品链接以分享">
-              <el-button slot="reference" type="info" icon="el-icon-link" circle size="medium"></el-button>
+                <template #reference><el-button stype="success" :icon="Link" circle ></el-button></template>
             </el-popover>
           </div>
         </div>
       </div>
-      <el-dialog :before-close="cancelBuyNow" title="结算" :visible.sync="checkTable" v-loading="loading">
+      <el-dialog title="结算" v-model="checkTable" :loading="true">
         <el-table :data="checkData">
           <el-table-column type="index" width="60"></el-table-column>
           <el-table-column>
@@ -182,11 +183,15 @@
   </div>
 </template>
 <script setup>
-import {ref} from 'vue'
+import {Link, Star} from '@element-plus/icons-vue';
+import {ref, reactive, onMounted} from 'vue';
+import axios from "axios";
+import {ElMessage} from "element-plus";
+const bookId = reactive(1); 
 const activeName = ref('detail');
 const quantity = ref(1);
 const checkTable = ref(false);
-const loading = ref(true);
+const loading = reactive(true);
 const checkData = ref([{bookName: '', quantity: 0, discountPrice: 0, img: ''}]);
 const userInfo = ref({id: '', userName: '', phoneNumber: '', shippingAddress: ''});
 const payWay = ref('支付宝');
@@ -195,7 +200,7 @@ const commentData = ref([]);
 const colors = ref(['#99A9BF', '#F7BA2A', '#FF9900']);
 const total = ref(null);
 const id = ref('');
-const book = ref({
+let book = reactive({
         id: '',
         bookName: '',
         author: '',
@@ -218,11 +223,18 @@ function decimals(value) {
       return value.toFixed(1);
     }
     // 页面初始化时执行，根据编号查询图书
-function initData(bookId) {
-      axios.get("http://localhost:8081/book/selectBookById/" + bookId)
-          .then((resp) => {
-            this.book = resp.data;
-          })
+function initData(bookID){
+  // 发起简单的 GET 请求
+axios.get(`/book/${bookID}`)
+  .then(response => {
+    // 处理成功的响应
+    book = response.data.data
+    console.log('成功：', book);
+  })
+  .catch(error => {
+    // 处理请求错误
+    console.error('请求失败：', error);
+  });
     }
     // 加入购物车
 function addToCart() {
@@ -296,27 +308,28 @@ function addToCollection() {
     }
     // 立即购买
 function beforeBuyNow() {
-      let id = sessionStorage.getItem("id");
-      if (id == null) {
-        this.$message({
-          type: 'warning',
-          message: '您还未登录，请先登录！'
-        });
-      } else {
-        this.loading = true;
-        this.checkTable = true;
-        axios.get("http://localhost:8081/user/selectUserById/" + this.id)
-            .then((resp) => {
-              this.userInfo = resp.data;
-            });
-        this.checkData[0] = {
-          bookName: this.book.bookName,
-          quantity: 1,
-          discountPrice: this.decimals(this.book.discount * this.book.price),
-          img: this.book.img
-        };
-        this.loading = false;
-      }
+      // loading = false
+      // let id = sessionStorage.getItem("id");
+      // if (id == null) {
+      //   this.$message({
+      //     type: 'warning',
+      //     message: '您还未登录，请先登录！'
+      //   });
+      // } else {
+      //   this.loading = true;
+      //   this.checkTable = true;
+      //   axios.get("http://localhost:8081/user/selectUserById/" + this.id)
+      //       .then((resp) => {
+      //         this.userInfo = resp.data;
+      //       });
+      //   this.checkData[0] = {
+      //     bookName: this.book.bookName,
+      //     quantity: 1,
+      //     discountPrice: this.decimals(this.book.discount * this.book.price),
+      //     img: this.book.img
+      //   };
+      //   this.loading = false;
+      // }
     }
     // 结算立即购买
 function buyNow(state) {
@@ -364,16 +377,6 @@ function buyNow(state) {
             }
           });
     }
-    // 取消立即购买
-function cancelBuyNow() {
-      this.$confirm('确认取消支付？未支付的订单稍后可在 我的订单 中重新支付')
-          .then(_ => {
-            this.buyNow(6);
-            this.payWay = "支付宝";
-          })
-          .catch(_ => {
-          });
-    }
     // 切换标签页，显示评论
 function handleClick(tab) {
       if (tab.name === 'comment') {
@@ -415,6 +418,10 @@ function handleClick(tab) {
     function bookDetail(bookId){
       this.$router.push({name: 'BookDetail', params: {id: bookId}});
     }
+    // 在组件挂载时执行查询图书的函数
+onMounted(() => {
+  initData(bookId);
+});
 </script>
 <style>
 #wrap {
