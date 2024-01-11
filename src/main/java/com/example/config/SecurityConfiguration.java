@@ -91,7 +91,15 @@ public class SecurityConfiguration {
                         .requestMatchers("/material/download").permitAll() // 添加下载资料信息访问路径
                         .requestMatchers("/material/comment/user").permitAll() // 用户给资料添加评论的访问路径
                         .requestMatchers("/material/comment/admin").permitAll() // 用户给资料添加评论的访问路径
-                        .anyRequest().hasAnyRole(Const.ROLE_DEFAULT)
+                        .requestMatchers("/material/comment").permitAll() // 用户给资料添加评论的访问路径
+                        .requestMatchers("/material/getClickDownloadBySchool").permitAll() //查询学校点击量下载量
+                        .requestMatchers("/material/getClickDownloadByCategory").permitAll() //查询学科点击量下载量
+                        .requestMatchers("/material/highest/{n}").permitAll() //查询综合评分最高的前N类资料
+                        .requestMatchers("/material/downClicks/{materialId}").permitAll() // 根据ID查询资料的下载量和点击量
+                        .requestMatchers("/material/{materialId}").permitAll() // 根据ID查询资料（已经实现）
+                        .requestMatchers("/material/userUpload").permitAll() // 查询某个用户上传的所有资料
+                        .requestMatchers("/material/materialslist").permitAll() // 资料列表查询(条件分页)
+                .anyRequest().hasAnyRole(Const.ROLE_DEFAULT)
                 )
                 .formLogin(conf -> conf
                         .loginProcessingUrl("/api/auth/login")

@@ -1,19 +1,24 @@
 package com.example.controller;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.entity.Result;
 import com.example.entity.vo.request.DeleteMaterialRequest;
 import com.example.entity.vo.request.DonwloadMaterialVO;
 import com.example.entity.vo.request.Material;
 import com.example.entity.vo.request.admin.AdminAddCommentVO;
 import com.example.entity.vo.request.admin.AdminDeleteCommentVO;
+import com.example.entity.vo.request.user.MaterialPage;
 import com.example.entity.vo.request.user.UserAddCommentVO;
 import com.example.entity.vo.request.user.UserDeleteCommentVO;
+import com.example.entity.vo.response.MaterialUploadVO;
 import com.example.service.MaterialService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @RestController
@@ -21,6 +26,27 @@ import java.io.IOException;
 public class MaterialController {
     @Autowired
     private MaterialService materialService;
+
+
+    //根据条件分页查询
+    @GetMapping
+    public Result queryMaterialByCondition(String school,String major, String subject,
+                                           Integer materialGradeFloor,Integer materialGradeUpper,
+                                           @RequestParam(defaultValue = "1") Integer page,
+                                           @RequestParam(defaultValue = "10") Integer pageSize){
+        MaterialPage materialPage = materialService.queryMaterialByCondition(school,major,subject,
+                materialGradeFloor,materialGradeUpper,page,pageSize);
+        return Result.success(materialPage);
+    }
+
+    //根据资料ID分页查询该资料的所有评论
+    @GetMapping("/comment")
+    public Result queryMaterialComment(Integer materialId,
+                                       @RequestParam(defaultValue = "1") Integer page,
+                                       @RequestParam(defaultValue = "10") Integer pageSize){
+        MaterialPage materialPage = materialService.queryMaterialCommentById(materialId,page,pageSize);
+        return Result.success(materialPage);
+    }
 
     //新增资料信息
     @PostMapping
@@ -131,7 +157,6 @@ public class MaterialController {
         return Result.error("不存在该管理员");
     }
 
-
     //根据ID查询资料信息
     @GetMapping("/{materialId}")
     public Result GetMaterialData(@PathVariable Integer materialId){
@@ -139,4 +164,42 @@ public class MaterialController {
 
         return Result.success(material);
     }
+
+    //根据学校名称查询下载量和点击量
+    @GetMapping("/getClickDownloadBySchool")
+    public Result GetClickDownloadBySchool(@RequestParam String school){
+        Map<String, Integer> ClickDownloadNum = materialService.schoolClicksDownload(school);
+        return Result.success(ClickDownloadNum);
+    }
+
+    //根据专业名称查询下载量和点击量
+    @GetMapping("/getClickDownloadByCategory")
+    public Result GetClickDownloadByCategry(@RequestParam String Category){
+        Map<String, Integer> ClickDownloadNum = materialService.categoryClicksDownload(Category);
+        return Result.success(ClickDownloadNum );
+    }
+
+    //查询综合评分最高的前N类资料
+    @GetMapping("/highest/{n}")
+    public Result getTopNMaterials(@PathVariable Integer n) {
+        List<Material> materials = materialService.getTopNMaterials(n);
+        return Result.success(materials);
+    }
+    //根据ID查询资料的下载量和点击量
+    @GetMapping("/downClicks/{materialId}")
+    public Result getMaterialDownloadClicks(@PathVariable int materialId) {
+        Map<String, Integer> data = materialService.getDownloadClicksByMaterialId(materialId);
+        return Result.success(data);
+    }
+
+    //查询某个用户上传的所有资料
+    @GetMapping("/userUpload")
+    public Result getMaterialsByUserEmail(@RequestParam String userEmail) {
+        List<Material> materials = materialService.getMaterialsByUserEmail(userEmail);
+        MaterialUploadVO response = new MaterialUploadVO();
+        response.setSize(materials.size());
+        response.setMaterials(materials);
+        return Result.success(response);
+    }
+
 }

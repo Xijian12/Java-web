@@ -7,6 +7,7 @@ import com.example.entity.vo.request.Material;
 import com.example.entity.vo.request.MaterialComment;
 import com.example.entity.vo.request.admin.AdminAddCommentVO;
 import com.example.entity.vo.request.admin.AdminDeleteCommentVO;
+import com.example.entity.vo.request.user.MaterialPage;
 import com.example.entity.vo.request.user.UserAddCommentVO;
 import com.example.entity.vo.request.user.UserDeleteCommentVO;
 import com.example.mapper.MaterialCommentMapper;
@@ -14,6 +15,8 @@ import com.example.mapper.MaterialMapper;
 import com.example.service.AccountService;
 import com.example.service.MaterialService;
 import com.example.utils.AliOSSUtils;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +25,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Slf4j
@@ -300,5 +304,69 @@ public class MaterialServiceImpl implements MaterialService {
             }
         }
         return true;
+    }
+
+    //根据专业名称查询下载量和点击量
+    @Override
+    public  Map<String, Integer> categoryClicksDownload(String major) {
+        return materialMapper.countDownloadClickNumByCategory(major);
+    }
+    //根据学校名称查询下载量和点击量
+    @Override
+    public  Map<String, Integer> schoolClicksDownload(String school) {
+        return materialMapper.countDownloadClickNumBySchool(school);
+    }
+
+    //定义资料排名权重
+    @Override
+    public List<Material> getTopNMaterials(int n) {
+        double weight1 = 5;    // 资料评分的权重
+        double weight2 = 1;    // 点击量的权重
+        double weight3 = 2;    // 下载量的权重
+        return materialMapper.selectTopNMaterials(weight1, weight2, weight3, n);
+    }
+    //根据ID查询资料的下载量和点击量
+    @Override
+    public Map<String, Integer> getDownloadClicksByMaterialId(int materialId) {
+        return materialMapper.getDownloadClicksByMaterialId(materialId);
+    }
+
+    //根据上传者查询详细信息
+    @Override
+    public List<Material> getMaterialsByUserEmail(String userEmail) {
+        return materialMapper.selectMaterialsByUserEmail(userEmail);
+    }
+
+    @Override
+    public MaterialPage queryMaterialByCondition(String school, String major, String subject, Integer materialGradeFloor, Integer materialGradeUpper, Integer page, Integer pageSize) {
+        //设置分页参数
+        PageHelper.startPage(page,pageSize);
+
+        //查询结果
+        List<Material> materialList = materialMapper.selectMaterialByCondition(school,major,subject,
+                materialGradeFloor,materialGradeUpper);
+        log.info("materialList:{}",materialList);
+        //用PageHelper自带的Page类型对查询结果进行强制转型
+        Page<Material> p = (Page<Material>) materialList;
+
+        //对查询结果进行封装
+        return new MaterialPage(p.getTotal(),p.getResult());
+    }
+
+    @Override
+    public MaterialPage queryMaterialCommentById(Integer materialId, Integer page, Integer pageSize){
+        //只能吧查询语句放上面
+        Material material = materialMapper.selectMaterialById(materialId);
+        //设置分页参数
+        PageHelper.startPage(page,pageSize);
+
+        //查询结果
+        List<MaterialComment> materialComments = materialCommentMapper.getMaterialCommentBySMS(material.getSchool(),material.getMajor(),material.getSubject());
+        log.info("materialComments:{}",materialComments);
+        //用PageHelper自带的Page类型对查询结果进行强制转型
+        Page<MaterialComment> p = (Page<MaterialComment>) materialComments;
+
+        //对查询结果进行封装
+        return new MaterialPage(p.getTotal(),p.getResult());
     }
 }
