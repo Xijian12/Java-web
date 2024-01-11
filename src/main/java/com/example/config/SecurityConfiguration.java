@@ -67,7 +67,7 @@ public class SecurityConfiguration {
                         .requestMatchers("/upload/updateBookcover").permitAll() // 添加这一行
                         .requestMatchers("/upload/uploadBook").permitAll() // 添加这一行
                         .requestMatchers("/upload/updateBook").permitAll() // 添加这一行
-                        .requestMatchers("/book").permitAll() // 添加这一行
+                        .requestMatchers("/book/**").permitAll() // 添加这一行
                         .requestMatchers("/book/admin").permitAll() // 添加这一行
                         .requestMatchers("/book/{id}").permitAll()
                         .requestMatchers("/book/user").permitAll()
