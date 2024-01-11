@@ -57,7 +57,7 @@ import router from "@/router"
 .contentTitle{
     position: relative;
     width: 1200px;
-    height: 700px;
+    height:800px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;

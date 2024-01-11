@@ -1,26 +1,32 @@
 <template>
     <div class="form_box">
       <h4 style="color:#424242">发布图书</h4>
-    <el-form :model="bookForm" :rules="rules" label-width="100px">
+    <el-form :model="bookForm" :rules="rules" label-width="150px">
       <el-form-item label="图书名" style="width:350px" prop="bookName">
          <el-input v-model="bookForm.bookName"></el-input>
       </el-form-item>
-      <el-form-item label="ISBN号" style="width:350px" prop="bookIsbn">
-        <el-input v-model.number="bookForm.bookIsbn"></el-input>
+      <el-form-item label="图书作者" style="width:350px" prop="bookAuthor">
+         <el-input v-model="bookForm.bookAuthor"></el-input>
       </el-form-item>
-      <el-form-item label="价格" style="width:250px" prop="bookPrice">
-        <el-input v-model="bookForm.bookPrice"></el-input>
+      <el-form-item label="图书版号" style="width:350px" prop="bookVersion">
+         <el-input v-model="bookForm.bookVersion"></el-input>
       </el-form-item>
-      <el-form-item label="图书种类" prop="bookCategory">
-        <el-select v-model="bookForm.bookCategory" placeholder="请选择图书分类">
+      <el-form-item label="图书出版社" style="width:350px" prop="bookPublishHouse">
+         <el-input v-model="bookForm.bookPublishHouse"></el-input>
+      </el-form-item>
+      <el-form-item label="下载所需积分" style="width:350px" prop="downloadPoints">
+         <el-input v-model="bookForm.downloadPoints"></el-input>
+      </el-form-item>
+      <el-form-item label="图书类别" prop="bookCategory" >
+        <el-select v-model="bookForm.bookCategory"  placeholder="请选择图书分类">
           <el-option v-for="item in categoryList" :key="item.categoryId" :label="item.categoryName"
             :value="item.categoryId"></el-option>
           </el-select>
       </el-form-item>
-      <el-form-item label="图书简介" prop="bookOutline">
-        <el-input type="textarea" v-model="bookForm.bookOutline"></el-input>
+      <el-form-item label="图书简介" prop="bookProfile">
+        <el-input type="textarea" v-model="bookForm.bookProfile"></el-input>
       </el-form-item>
-      <el-form-item label="上传图片" prop="files">
+      <el-form-item label="图书封面上传" prop="files">
         <el-upload class="box_upload" :auto-upload="false" action="" :http-request="uploadFile"
           accept=".jpg, .jpeg, .png" list-type="picture" :limit="4" :on-exceed="exceed" ref="upload" name="File"
           :show-file-list="true" :on-change="imgPreview" :before-upload="beforeAvatarUpload" multiple>
@@ -33,19 +39,18 @@
       </el-form-item>
     </el-form>
   </div>
-  </template>
+</template>
   
-  <script lang="ts" setup>
-  import { ref, reactive } from 'vue';
+<script lang="ts" setup>
+  import { ref, reactive, onMounted } from 'vue';
   import {ElMessage} from "element-plus";
+  import axios from "axios";
   const uploadForm = new FormData();
-  const categoryList = reactive([{
-    categoryId:'',
-    categoryName:''
-  }]);
-  const bookForm = reactive({
+  const categoryList = ref([]);
+  const bookForm = ref({
                   files: [],
                   bookName: '',
+                  bookAuthor: '',
                   bookCategory: '',
                   bookIsbn: '',
                   bookOutline: '',
@@ -129,15 +134,34 @@
                   })
               })
   
-          }      
-  </script>
+          } 
+  function initData() {
+  // 发起简单的 GET 请求
+  axios.get("/category")
+  .then(response => {
+    // 处理成功的响应
+    categoryList.value = response.data
+    console.log('成功：', categoryList);
+  })
+  .catch(error => {
+    // 处理请求错误
+    console.error('请求失败：', error);
+  });
+     
+    }
+
+onMounted(() => {
+  initData();
+  // 在这里可以执行其他操作，确保 initData 函数执行完成后再执行
+});     
+</script>
   
-  <style lang="less" scoped>
+<style lang="less" scoped>
   .form_box {
       width: 40%;
       margin-left: 25%;
       background-color: #fff;
       padding: 30px;
   }
-  </style>
+</style>
   

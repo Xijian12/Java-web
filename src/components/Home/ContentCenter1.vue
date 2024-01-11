@@ -195,7 +195,7 @@
                     <h2>文库累计收录文档</h2>
                     <div class="docnumboxs"><span class="docnum" id="docnum">1145296</span> 份</div>
                 </div>
-                <a href="javascript:" onclick="tipNoPer();"  class="updocbtn"><i class="keke_iconfont">&#xe7da;</i>上传文档</a>
+                <a href="javascript:" @click="tipNoPer"  class="updocbtn"><el-icon><UploadFilled /></el-icon>上传文档</a>
                 <ul class="advantage">
                     <li>
                         <img src="src/assets/images/s-fast.png" alt="快审"><span>快审</span>
@@ -247,6 +247,10 @@ const  yichu2 = () =>  {
 function SearchDisplayVue(){
       router.push({name:"SearchDisplay"})
     }
+// 上传文档跳转
+function tipNoPer(){
+  router.push({name:"publish"})
+}
 </script>
 
 <style scoped>

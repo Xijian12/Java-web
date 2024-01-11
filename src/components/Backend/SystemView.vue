@@ -117,8 +117,11 @@
             :rules="BookTypeRules"
             ref="addBookTypeFormRef"
           >
-            <el-form-item label="种类名称" prop="typeName">
-              <el-input v-model="addBookTypeForm.typeName" autocomplete="off" />
+            <el-form-item label="分类名称" prop="categoryName">
+              <el-input v-model="addBookTypeForm.categoryName" autocomplete="off" />
+            </el-form-item>
+            <el-form-item label="分类别名" prop="categoryAlias">
+              <el-input v-model="addBookTypeForm.categoryAlias" autocomplete="off" />
             </el-form-item>
           </el-form>
           <template #footer>
@@ -148,9 +151,9 @@
             :rules="BookTypeRules"
             ref="deleteBookTypeFormRef"
           >
-            <el-form-item label="种类名称" prop="typeName">
+            <el-form-item label="种类名称" prop="categoryName">
               <el-input
-                v-model="deleteBookTypeForm.typeName"
+                v-model="deleteBookTypeForm.categoryName"
                 autocomplete="off"
               />
             </el-form-item>
@@ -264,8 +267,11 @@ const updatePassword = (formEl: FormInstance | undefined) => {
 
 // 图书种类表单规则
 const BookTypeRules = reactive<FormRules>({
-  typeName: [
-    { required: true, message: "请输入图书种类名称", trigger: "blur" },
+  categoryName: [
+    { required: true, message: "请输入图书分类名称", trigger: "blur" },
+  ],
+  categoryAlias: [
+    { required: true, message: "请输入图书分类别名", trigger: "blur" },
   ],
 });
 
@@ -280,7 +286,8 @@ const addBookTypeDialog = (formEl: FormInstance | undefined) => {
 // 添加图书种类表单
 const addBookTypeFormRef = ref<FormInstance>();
 const addBookTypeForm = reactive({
-  typeName: "",
+  categoryName: "",
+  categoryAlias: "",
 });
 
 // 添加图书种类
@@ -289,18 +296,18 @@ const addBookType = (formEl: FormInstance | undefined) => {
   formEl.validate((valid) => {
     if (valid) {
       axios
-        .post("http://localhost:8888/type/add", addBookTypeForm)
+        .post("/category", addBookTypeForm)
         .then((resp) => {
           const code = resp.data.code;
 
           // 添加失败
-          if (code == 0) {
-            ElMessageBox.alert("添加图书种类失败，请重试", "信息", {
-              confirmButtonText: "确认",
-            });
-          }
+          // if (code == ) {
+          //   ElMessageBox.alert("添加图书种类失败，请重试", "信息", {
+          //     confirmButtonText: "确认",
+          //   });
+          // }
           // 添加成功
-          if (code == 1) {
+          if (code == 0) {
             ElMessageBox.alert("添加图书种类成功", "信息", {
               confirmButtonText: "确认",
               callback: () => {
@@ -308,12 +315,12 @@ const addBookType = (formEl: FormInstance | undefined) => {
               },
             });
           }
-          // 图书种类已存在
-          if (code == 2) {
-            ElMessageBox.alert("该种类名称已存在", "信息", {
-              confirmButtonText: "确认",
-            });
-          }
+          // // 图书种类已存在
+          // if (code == 2) {
+          //   ElMessageBox.alert("该种类名称已存在", "信息", {
+          //     confirmButtonText: "确认",
+          //   });
+          // }
         });
     }
   });
@@ -330,7 +337,7 @@ const deleteBookTypeDialog = (formEl: FormInstance | undefined) => {
 // 删除图书种类表单
 const deleteBookTypeFormRef = ref<FormInstance>();
 const deleteBookTypeForm = reactive({
-  typeName: "",
+  categoryName: "",
 });
 
 // 删除图书种类

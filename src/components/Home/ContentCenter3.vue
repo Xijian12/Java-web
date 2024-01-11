@@ -65,7 +65,6 @@ import {More, Star, ShoppingCart} from '@element-plus/icons-vue';
 import {ref, reactive, onMounted} from 'vue'
 import {useStore} from 'vuex';
 import router from "@/router"
-import {get} from '@/net';
 import axios from "axios";
 
 const total = ref(0)

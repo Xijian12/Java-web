@@ -153,7 +153,7 @@ const router = createRouter({
             children: [
               {
                 path: "/bookTable",
-                name: "图书书目管理",
+                name: "公共图书管理",
                 meta: { show: true },
                 components: { bookTable: BookTableView },
               },

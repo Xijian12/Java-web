@@ -99,7 +99,7 @@
               v-model:page-size="pageSize"
               layout="prev, pager, next"
               :total="pageTotal"
-              @current-change="page"
+              @current-change="pageChange"
             >
             </el-pagination>
           </el-col>
@@ -292,7 +292,7 @@ let searchObj = reactive({});
 let pageNum = ref(1);
 let pageSize = ref(10);
 let pageTotal = ref(0);
-const page = (val: number) => {
+const pageChange = (val: number) => {
   pageNum.value = val;
   searchBook();
 };
@@ -319,27 +319,11 @@ const changeSize = (value: number) => {
 };
 
 // 搜索框选项
-let searchModel = ref("ISBN");
+let searchModel = ref("分类名称");
 let searchOptions = [
   {
-    value: "book_id",
-    label: "图书ID",
-  },
-  {
-    value: "name",
-    label: "图书名称",
-  },
-  {
-    value: "author",
-    label: "作者名称",
-  },
-  {
-    value: "publish",
-    label: "出版社名称",
-  },
-  {
-    value: "ISBN",
-    label: "ISBN号码",
+    value: "categoryName",
+    label: "分类名称",
   },
 ];
 const changeSearch = (value: string) => {
@@ -355,43 +339,19 @@ const searchButton = () => {
 };
 // 搜索图书
 const searchBook = () => {
-  if (searchModel.value == "name") {
-    searchObj = {
-      name: searchInput.value,
-      page: pageNum.value,
-      per_page: pageSize.value,
-    };
-  }
-  if (searchModel.value == "author") {
-    searchObj = {
-      author: searchInput.value,
-      page: pageNum.value,
-      per_page: pageSize.value,
-    };
-  }
-  if (searchModel.value == "publish") {
-    searchObj = {
-      publish: searchInput.value,
-      page: pageNum.value,
-      per_page: pageSize.value,
-    };
-  }
-  if (searchModel.value == "ISBN") {
-    searchObj = {
-      ISBN: searchInput.value,
-      page: pageNum.value,
-      per_page: pageSize.value,
-    };
-  }
-  if (searchModel.value == "book_id") {
-    searchObj = {
-      book_id: searchInput.value,
-      page: pageNum.value,
-      per_page: pageSize.value,
-    };
-  }
   if (searchInput.value != "") {
-    axios.post("/api/manager/querybook/", searchObj).then((resp) => {
+    let params = {
+    categoryName: searchInput.value,
+    page: pageNum.value,
+    pageSize: pageSize.value
+  }
+    console.log(params)
+    axios.get("/category/detail",{
+      params:{
+      categoryName: searchInput.value,
+      page: pageNum.value,
+      pageSize: pageSize.value}
+    }).then((resp) => {
       books.value = resp.data.books;
       pageTotal.value = resp.data.total_count;
       const code = resp.data.code;
