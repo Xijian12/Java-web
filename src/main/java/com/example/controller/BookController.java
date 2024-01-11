@@ -1,15 +1,15 @@
 package com.example.controller;
 
-import com.example.entity.vo.request.Page;
+import com.example.entity.vo.request.*;
+import com.example.entity.vo.request.user.DownloadBook;
+import com.example.entity.vo.request.user.DownloadBookRequest;
 import com.example.service.impl.BookService;
-import com.example.entity.vo.request.Book;
-import com.example.entity.vo.request.BookDeletionRequest;
-import com.example.entity.vo.request.Response;
 import com.example.utils.AliOSSUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 
 
@@ -76,7 +76,18 @@ public class BookController {
         bookService.updateBook(book);
         return ResponseEntity.ok(new Response(200, "操作成功", null));
     }
+    @PostMapping("/download")
+public ResponseEntity<?> downloadBook(@RequestBody DownloadBookRequest book) throws IOException {
+        DownloadBook test=new DownloadBook();
+       test= bookService.downloadBook(book.getUserEmail(), book.getBookId());
+        if(test.getTotal()>=1){
 
+            return ResponseEntity.ok(new Response(200, "操作成功", aliOSSUtils.GetFileDownloadUrl(test.getUrl()) ));
+        }
+        else{
+            return ResponseEntity.ok(new Response(200, "操作失败，积分不够", null));
+        }
+    }
     @DeleteMapping("/admin")
     public ResponseEntity<?> deleteBooks(@RequestBody BookDeletionRequest request) throws Exception {
         if (bookService.deleteBooksIfAdmin(request)) {

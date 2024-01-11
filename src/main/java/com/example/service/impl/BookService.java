@@ -1,6 +1,7 @@
 package com.example.service.impl;
 
 import com.example.entity.vo.request.Page;
+import com.example.entity.vo.request.user.DownloadBook;
 import com.example.mapper.BookMapper;
 import com.example.entity.vo.request.Book;
 import com.example.entity.vo.request.BookDeletionRequest;
@@ -51,7 +52,11 @@ public class BookService {
 
         return bookMapper.getBookObject(userEmail);
     }
+public DownloadBook downloadBook(String userEmail,int bookId){
+    DownloadBook download=new DownloadBook(bookMapper.downloadBook(userEmail,bookId),bookMapper.updateUserPoints(userEmail,bookId));
 
+        return download;
+}
     public List<Book> getAllBooks() {
         return bookMapper.selectAllBooks();
     }

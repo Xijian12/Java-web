@@ -69,6 +69,15 @@ public interface BookMapper {
     boolean isUser(String userEmail);
     @Select("select * from test.book where book_id = #{bookId}")
     public Book selectBookById(int bookId);
+    @Select("SELECT book_file_uuid FROM test.book, test.db_account " +
+            "WHERE db_account.points >= book.book_points " +
+            "AND book_id = #{bookId} " +
+            "AND email = #{userEmail}")
+    public String downloadBook(String userEmail, int bookId);
+    @Update("UPDATE test.db_account SET points = points - (SELECT book_points FROM test.book WHERE book_id = #{bookId}) " +
+            "WHERE email = #{userEmail} " +
+            "AND points >= (SELECT book_points FROM test.book WHERE book_id = #{bookId})")
+    public int updateUserPoints(String userEmail, int bookId);
 
     @Update("UPDATE book SET book_cover_url = #{bookCoverUrl}, book_cover_uuid = #{bookCoverUuid} WHERE book_id = #{bookId}")
     void updateBookcover(int bookId,String bookCoverUrl, String bookCoverUuid);
