@@ -7,6 +7,7 @@ import com.example.entity.vo.request.DonwloadMaterialVO;
 import com.example.entity.vo.request.Material;
 import com.example.entity.vo.request.admin.AdminAddCommentVO;
 import com.example.entity.vo.request.admin.AdminDeleteCommentVO;
+import com.example.entity.vo.request.user.MaterialPage;
 import com.example.entity.vo.request.user.UserAddCommentVO;
 import com.example.entity.vo.request.user.UserDeleteCommentVO;
 import com.example.entity.vo.response.MaterialUploadVO;
@@ -25,6 +26,27 @@ import java.util.Map;
 public class MaterialController {
     @Autowired
     private MaterialService materialService;
+
+
+    //根据条件分页查询
+    @GetMapping
+    public Result queryMaterialByCondition(String school,String major, String subject,
+                                           Integer materialGradeFloor,Integer materialGradeUpper,
+                                           @RequestParam(defaultValue = "1") Integer page,
+                                           @RequestParam(defaultValue = "10") Integer pageSize){
+        MaterialPage materialPage = materialService.queryMaterialByCondition(school,major,subject,
+                materialGradeFloor,materialGradeUpper,page,pageSize);
+        return Result.success(materialPage);
+    }
+
+    //根据资料ID分页查询该资料的所有评论
+    @GetMapping("/comment")
+    public Result queryMaterialComment(Integer materialId,
+                                       @RequestParam(defaultValue = "1") Integer page,
+                                       @RequestParam(defaultValue = "10") Integer pageSize){
+        MaterialPage materialPage = materialService.queryMaterialCommentById(materialId,page,pageSize);
+        return Result.success(materialPage);
+    }
 
     //新增资料信息
     @PostMapping
@@ -134,7 +156,6 @@ public class MaterialController {
         }
         return Result.error("不存在该管理员");
     }
-
 
     //根据ID查询资料信息
     @GetMapping("/{materialId}")

@@ -48,7 +48,7 @@ public class BookCategoryController {
         bookCategoryService.deleteCategories(categoryIds);
         ;return ResponseEntity.ok(new Response(0, "操作成功"));
     }
-    @GetMapping("/category/detail")
+    @GetMapping("/detail")
     public ResponseEntity<Response> getBooksByCategoryName(
             @RequestParam("categoryName") String categoryName,
             @RequestParam(name = "page", defaultValue = "1") int page,

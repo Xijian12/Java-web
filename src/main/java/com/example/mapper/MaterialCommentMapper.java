@@ -7,6 +7,8 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.List;
+
 @Mapper
 public interface MaterialCommentMapper {
     //新增评论
@@ -27,4 +29,10 @@ public interface MaterialCommentMapper {
     @Select("select * from commentformaterial where comment_id = #{commentId}")
     MaterialComment getMaterialCommentById(Integer commentId);
 
+    //根据学校、专业、学科三者SMS来筛选评论
+    List<MaterialComment> getMaterialCommentBySMS(String school,String major,String subject);
+
+    //根据学校、专业、学科三者SMS来删除评论
+    @Delete("delete from commentformaterial where school = #{school} and major = #{major} and subject =#{subject}")
+    void deleteMaterialCommentBySMS(String school,String major,String subject);
 }

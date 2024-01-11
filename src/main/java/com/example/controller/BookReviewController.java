@@ -23,13 +23,13 @@ public class BookReviewController {
     @PostMapping("/user")
     public ResponseEntity<?> createBookReview(@RequestBody BookReview bookReview) {
         bookReviewService.addBookReview(bookReview);
-        return ResponseEntity.ok(new Response(0, "操作成功", null));
+        return ResponseEntity.ok(new Response(200, "操作成功", null));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getBookReviewById(@PathVariable int id) {
         BookReview bookReview = bookReviewService.getBookReviewById(id);
-        return ResponseEntity.ok(new Response(0, "操作成功", bookReview));
+        return ResponseEntity.ok(new Response(200, "操作成功", bookReview));
     }
 
 
@@ -38,17 +38,25 @@ public class BookReviewController {
     public ResponseEntity<?> updateBookReview(@PathVariable int id, @RequestBody BookReview bookReview) {
         bookReview.setId(id);
         bookReviewService.updateBookReview(bookReview);
-        return ResponseEntity.ok(new Response(0, "操作成功", null));
+        return ResponseEntity.ok(new Response(200, "操作成功", null));
     }
 
     @DeleteMapping("/admin/delete")
     public ResponseEntity<?> deleteComments(@RequestBody CommentDeletionRequest request) {
         if (bookReviewService.deleteCommentsIfAdmin(request)) {
-            return ResponseEntity.ok(new Response(0, "操作成功", null));
+            return ResponseEntity.ok(new Response(200, "操作成功", null));
+        } else {
+            return ResponseEntity.ok(new Response(0, "操作失败", null));
+        }}
+@DeleteMapping("/user/delete")
+    public ResponseEntity<?> deleteCommentsByUser(@RequestBody CommentDeletionRequest request) {
+        if (bookReviewService.deleteCommentsIfUser(request)) {
+            return ResponseEntity.ok(new Response(200, "操作成功", null));
         } else {
             return ResponseEntity.ok(new Response(0, "操作失败", null));
         }
-}
+    }
+
     @GetMapping
     public ResponseEntity<?> getCommentsByBookId(
             @RequestParam ("bookId")int bookId,

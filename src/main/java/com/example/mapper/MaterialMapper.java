@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.toolkit.Constants;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.entity.vo.request.Material;
+import com.example.entity.vo.request.user.MaterialPage;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -69,6 +70,6 @@ public interface MaterialMapper {
     List<Material> selectMaterialsByUserEmail(String userEmail);
 
 
-
-
+    List<Material> selectMaterialByCondition(String school, String major, String subject,
+                                           Integer materialGradeFloor, Integer materialGradeUpper);
 }

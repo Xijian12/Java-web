@@ -17,7 +17,7 @@ public interface BookCategoryMapper {
     List<BookCategory> selectAllCategories();
 
 
-    @Update("UPDATE test.book_categories SET category_name = #{categoryName}, category_click_num = #{categoryClickNum}, category_download_num = #{categoryDownloadNum} WHERE category_id = #{categoryId}")
+    @Update("UPDATE test.book_categories SET category_name = #{categoryName},category_alias =#{categoryAlias}, category_click_num = #{categoryClickNum}, category_download_num = #{categoryDownloadNum} WHERE category_id = #{categoryId}")
     void updateCategory(BookCategory category);
 
     @Delete("DELETE FROM  test.book_categories WHERE book_categories.category_id = #{categoryId}")
