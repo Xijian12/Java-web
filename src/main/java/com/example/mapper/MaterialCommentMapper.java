@@ -35,4 +35,10 @@ public interface MaterialCommentMapper {
     //根据学校、专业、学科三者SMS来删除评论
     @Delete("delete from commentformaterial where school = #{school} and major = #{major} and subject =#{subject}")
     void deleteMaterialCommentBySMS(String school,String major,String subject);
+
+    //根据学校、专业、学科、类型四者SMST来删除评论
+    @Delete("delete from commentformaterial where school = #{school} and major = #{major} and subject =#{subject} and type = #{type}")
+    void deleteMaterialCommentBySMST(String school,String major,String subject,Integer type);
+
+
 }

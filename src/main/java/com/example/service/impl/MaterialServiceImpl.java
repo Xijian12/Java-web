@@ -96,6 +96,7 @@ public class MaterialServiceImpl implements MaterialService {
         if(materialIds == null) return false;
         for (int i = 0; i < materialIds.size(); i++) {
             Material material = materialMapper.selectMaterialById(materialIds.get(i));
+            //删除对应的资料和资料在云存储的地址
             if (material != null) {
                 if (material.getMaterialUploader().equals(userEmail) || ISADMIN != null) {
                     switch (type) {
@@ -161,6 +162,8 @@ public class MaterialServiceImpl implements MaterialService {
                     }
                 }
                 else FALG = false;
+                materialCommentMapper.deleteMaterialCommentBySMST(material.getSchool()
+                ,material.getMajor(),material.getSubject(),type);
             }
             else FALG = false;
         }
