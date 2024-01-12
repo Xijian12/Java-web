@@ -72,4 +72,11 @@ public interface MaterialMapper {
 
     List<Material> selectMaterialByCondition(String school, String major, String subject,
                                            Integer materialGradeFloor, Integer materialGradeUpper);
+
+    @Update("UPDATE materials SET material_uploader = #{adminEmail} WHERE material_uploader = #{email}")
+    void updateUploaderByEmail(@Param("email") String email, @Param("adminEmail") String adminEmail);
+
+
+    @Delete("DELETE FROM commentformaterial WHERE user_email = #{email}")
+    void deleteByUserEmail(@Param("email") String email);
 }

@@ -19,8 +19,10 @@ public class BookCategoryService {
         return bookCategoryMapper.selectCategoryById(categoryId);
     }
 
-    public List<BookCategory> getAllCategories() {
-        return bookCategoryMapper.selectAllCategories();
+    public List<BookCategory> getAllCategories(int page,int pageSize) {
+        int offset =(page-1)*pageSize;
+
+        return bookCategoryMapper.selectAllCategories(offset,pageSize);
     }
 
     public void addCategory(String categoryName, String categoryAlias) {

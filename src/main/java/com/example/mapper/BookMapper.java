@@ -12,8 +12,9 @@ public interface BookMapper {
             "VALUES (#{bookName}, #{bookAuthor}, #{bookVersion}, #{bookPulishHouse}, #{bookGrade}, #{bookDownloadNum}, #{bookClickNum}, #{bookUploader}, #{bookPoints}, #{bookProfile}, #{bookCoverUrl}, #{bookCoverUuid}, #{bookFileUuid},#{categoryName}, (SELECT book_categories.category_alias FROM test.book_categories WHERE category_name = #{categoryName}), NOW(), NOW())")
     @Options(useGeneratedKeys = true, keyProperty = "bookId")
     void insertBook(Book book);
-
-    @Update("UPDATE test.book SET book_name = #{bookName}, book_version = #{bookVersion}, book_author = #{bookAuthor}, book_grade = #{bookGrade}, book_download_num = #{bookDownloadNum}, book_click_num = #{bookClickNum}, book_uploader = #{bookUploader}, book_points= #{bookPoints}, book_profile = #{bookProfile}, book_cover_url = #{bookCoverUrl},  category_name = #{categoryName} WHERE book_id = #{bookId}")
+ @Update("UPDATE test.book set book_download_num = #{bookDownloadNum}, book_click_num = #{bookClickNum} where test.book.book_version=#{bookVersion}")
+    void updateClickByversion(String bookVersion,int bookDownloadNum,int bookClickNum);
+    @Update("UPDATE test.book SET book_name = #{bookName}, book_version = #{bookVersion}, book_author = #{bookAuthor}, book_grade = #{bookGrade}, book_download_num = #{bookDownloadNum}, book_click_num = #{bookClickNum}, book_uploader = #{bookUploader}, book_points= #{bookPoints}, book_profile = #{bookProfile}, book_cover_url = #{bookCoverUrl},  category_name = #{categoryName} ,update_time= NOW() WHERE book_id = #{bookId}")
     int updateBook(Book book);
     @Select("SELECT * FROM  test.book ORDER BY book_grade DESC LIMIT #{n}")
     List<Book> findTopNBooks(int n);

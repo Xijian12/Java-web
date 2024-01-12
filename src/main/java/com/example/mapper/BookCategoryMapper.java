@@ -3,6 +3,7 @@ package com.example.mapper;
 import com.example.entity.vo.request.Book;
 import com.example.entity.vo.request.BookCategory;
 import com.example.entity.vo.request.BookDetail;
+import com.example.entity.vo.request.BookReview;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -13,8 +14,8 @@ public interface BookCategoryMapper {
     @Select("SELECT * FROM test.book_categories WHERE book_categories.category_id= #{categoryId}")
     BookCategory selectCategoryById(int categoryId);
 
-    @Select("SELECT * FROM test.book_categories")
-    List<BookCategory> selectAllCategories();
+    @Select("SELECT * FROM test.book_categories LIMIT #{pageSize} OFFSET #{offset}")
+    List<BookCategory> selectAllCategories(@Param("offset")int offset,@Param("pageSize")int pageSize);
 
 
     @Update("UPDATE test.book_categories SET category_name = #{categoryName},category_alias =#{categoryAlias}, category_click_num = #{categoryClickNum}, category_download_num = #{categoryDownloadNum} WHERE category_id = #{categoryId}")

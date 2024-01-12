@@ -7,9 +7,11 @@ import com.example.entity.dto.Account;
 import com.example.entity.vo.request.ConfirmResetVO;
 import com.example.entity.vo.request.EmailRegisterVO;
 import com.example.entity.vo.request.EmailResetVO;
+import com.example.entity.vo.request.Material;
 import com.example.entity.vo.response.DisplayAccountByAdminVO;
 import com.example.entity.vo.response.DisplayAccountByUserVO;
 import com.example.mapper.AccountMapper;
+import com.example.mapper.MaterialMapper;
 import com.example.service.AccountService;
 import com.example.utils.Const;
 import com.example.utils.FlowUtils;
@@ -56,6 +58,9 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
 
     @Autowired
     private AccountMapper accountMapper;
+
+    @Autowired
+    private MaterialMapper materialMapper;
 
     /**
      * 从数据库中通过用户名或邮箱查找用户详细信息
@@ -301,4 +306,58 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
     private boolean existsAccountByUsername(String username){
         return this.baseMapper.exists(Wrappers.<Account>query().eq("username", username));
     }
+
+    @Override
+    public String deleteUserAndRelatedInfo(String email) {
+        // 开始事务
+        // 1. 检查用户是否存在
+        Account account = this.findAccountByNameOrEmail(email);
+        if (account == null) return "用户不存在";
+        try {
+            // 2. 转移用户的上传内容给管理员
+            this.transferMaterialsToAdmin(email);
+//            // 3. 删除用户的评论
+            this.deleteCommentsByUser(email);
+
+//            // 4. 删除用户账户
+            this.removeById(account.getId());
+
+            // 提交事务
+            return null;
+        } catch (Exception e) {
+            // 事务回滚
+            return "删除用户过程中出现错误";
+        }
+    }
+
+    private void transferMaterialsToAdmin(String email) {
+        String adminEmail = "851314610@qq.com";
+        // 获取所有由该用户上传的材料
+        // 假设有一个方法可以获取这些材料
+        List<Material> materials = this.getMaterialsByUploader(email);
+        // 遍历材料并更新上传者为管理员
+        for (Material material : materials) {
+            this.updateUploaderByEmail(material,adminEmail);
+            material.setMaterialUploader(adminEmail);
+        }
+    }
+
+    private void deleteCommentsByUser(String email) {
+        // 假设有一个方法可以删除用户的所有评论
+        materialMapper.deleteByUserEmail(email);
+    }
+
+    //获取所有由该用户上传的材料
+    private List<Material> getMaterialsByUploader(String email) {
+        return materialMapper.selectMaterialsByUserEmail(email);
+    }
+
+    //更新资料上传者为管理员
+    private void updateUploaderByEmail(Material material,String adminEmail) {
+        if (material != null) {
+            materialMapper.updateUploaderByEmail(material.getMaterialUploader(), adminEmail);
+        }
+
+    }
+
 }

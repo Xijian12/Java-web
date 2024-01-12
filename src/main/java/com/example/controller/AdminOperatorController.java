@@ -75,6 +75,13 @@ public class AdminOperatorController {
         List<DisplayAccountByAdminVO> accounts = accountService.getAllAccounts();
         return RestBean.success(accounts);
     }
+
+    @GetMapping("/deleteUser")
+    @Operation(summary = "删除用户")
+    public RestBean<String> deleteUser(@RequestParam String email) {
+        String result = accountService.deleteUserAndRelatedInfo(email);
+        return result == null ? RestBean.success("用户删除成功") : RestBean.failure(400, result);
+    }
     /**
      * 针对于返回值为String作为错误信息的方法进行统一处理
      * @param action 具体操作
