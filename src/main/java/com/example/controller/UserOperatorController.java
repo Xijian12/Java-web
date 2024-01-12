@@ -44,7 +44,12 @@ public class UserOperatorController {
         );
         return RestBean.success("成功修改用户信息");
     }
-
+    @GetMapping("/deleteUser")
+    @Operation(summary = "删除用户")
+    public RestBean<String> deleteUser(@RequestParam String email) {
+        String result = accountService.deleteUserAndRelatedInfo(email);
+        return result == null ? RestBean.success("用户删除成功") : RestBean.failure(400, result);
+    }
 
     /**
      * 针对于返回值为String作为错误信息的方法进行统一处理
