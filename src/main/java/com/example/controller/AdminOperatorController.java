@@ -34,9 +34,9 @@ public class AdminOperatorController {
      */
     @GetMapping("/userInfo")
     @Operation(summary = "查看用户信息")
-    public RestBean<String> getUserInfo(@RequestParam String username){
-        String userVo= accountService.userInfo(username).toString();
-        return RestBean.success(userVo);
+    public RestBean<DisplayAccountByAdminVO> getUserInfo(@RequestParam String username){
+        DisplayAccountByAdminVO userVO= accountService.adminInfo(username);
+        return RestBean.success(userVO);
     }
     /**
      * 管理员查看用户个人信息
@@ -45,8 +45,8 @@ public class AdminOperatorController {
      */
     @GetMapping("/adminInfo")
     @Operation(summary = "查看管理员信息")
-    public RestBean<String> getAdminInfo(@RequestParam String username){
-        String adminVo = accountService.adminInfo(username).toString();
+    public RestBean<DisplayAccountByAdminVO> getAdminInfo(@RequestParam String username){
+        DisplayAccountByAdminVO adminVo = accountService.adminInfo(username);
         return RestBean.success(adminVo);
     }
 
