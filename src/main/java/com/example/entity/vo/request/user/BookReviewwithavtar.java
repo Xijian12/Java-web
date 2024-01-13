@@ -15,5 +15,5 @@ public class BookReviewwithavtar {
     private String userNickname;
     private String userEmail;
     private int bookId;
-    private  String avtarUrl;
+    private  String avatarUrl;
 }

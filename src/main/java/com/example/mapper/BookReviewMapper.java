@@ -24,7 +24,7 @@ public interface BookReviewMapper {
     List<BookReview> selectAllBookReviews();
     @Select("SELECT COUNT(*) > 0 FROM test.db_account WHERE email = #{adminAccount} AND role = 'admin'")
     boolean isAdmin(String adminAccount);
-    @Select("SELECT c.*, a.avtar_url FROM test.commentforbook c " +
+    @Select("SELECT c.*, a.avatar_url FROM test.commentforbook c " +
             "JOIN test.db_account a ON c.user_email = a.email " +
             "WHERE c.book_id = #{bookId} " +
             "LIMIT #{pageSize} OFFSET #{offset}")
