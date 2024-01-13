@@ -79,13 +79,20 @@ public class BookController {
     }
     @PostMapping("/download")
 public ResponseEntity<?> downloadBook(@RequestBody DownloadBookRequest book) throws IOException {
-        DownloadBook test=new DownloadBook();
-       test= bookService.downloadBook(book.getUserEmail(), book.getBookId());
-        if(test.getTotal()>=1){
-
-            return ResponseEntity.ok(new Response(200, "操作成功", aliOSSUtils.GetFileDownloadUrl(test.getUrl()) ));
+        DownloadBook test = new DownloadBook();
+        test = bookService.downloadBook(book.getUserEmail(), book.getBookId());
+        Book bookobj = bookService.getBookById(book.getBookId());
+        int lastDotIndex = bookobj.getBookFileUuid().lastIndexOf(".");
+        // 使用 substring 提取扩展名部分
+        String fileExtension = null;
+        if (lastDotIndex != -1 && lastDotIndex < bookobj.getBookFileUuid().length() - 1) {
+            fileExtension = bookobj.getBookFileUuid().substring(lastDotIndex + 1);
         }
-        else{
+        String newFileName = bookobj.getBookName() + '.' + fileExtension;
+        if (test.getTotal() >= 1) {
+
+            return ResponseEntity.ok(new Response(200, "操作成功", aliOSSUtils.GetFileDownloadUrl(test.getUrl(), newFileName)));
+        } else {
             return ResponseEntity.ok(new Response(200, "操作失败，积分不够", null));
         }
     }

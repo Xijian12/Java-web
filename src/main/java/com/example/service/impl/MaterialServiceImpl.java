@@ -178,30 +178,36 @@ public class MaterialServiceImpl implements MaterialService {
         Material material = materialMapper.selectMaterialById(donwloadMaterialVO.getMaterialId());
         Integer points = null;
         String fileUuid = null;
+        String materialname = null;
         switch (donwloadMaterialVO.getType()){
             case 1:{
                 points = material.getElecBookPoints();
                 fileUuid = material.getElecBookUuid();
+                materialname = "电子书";
                 break;
             }
             case 2:{
                 points = material.getTeachingPlanPoints();
                 fileUuid = material.getTeachingPlanUuid();
+                materialname = "教学计划";
                 break;
             }
             case 3:{
                 points = material.getClassPptPoints();
                 fileUuid = material.getClassPptUuid();
+                materialname = "课程PPT";
                 break;
             }
             case 4:{
                 points = material.getCalendarVolumePoints();
                 fileUuid = material.getCalendarVolumeUuid();
+                materialname = "历年卷";
                 break;
             }
             case 5:{
                 points = material.getAnotherMaterialPoints();
                 fileUuid = material.getAnotherMaterialUuid();
+                materialname = "其他资料";
                 break;
             }
         }
@@ -211,7 +217,15 @@ public class MaterialServiceImpl implements MaterialService {
                 accountService.updateUserInfo(account.getUsername(),account.getUsername(),account.getPassword(),account.getPoints());
             }
             if(fileUuid != null){
-                return aliOSSUtils.GetFileDownloadUrl(fileUuid);
+                int lastDotIndex = fileUuid.lastIndexOf(".");
+                // 使用 substring 提取扩展名部分
+                String fileExtension = null;
+                if (lastDotIndex != -1 && lastDotIndex < fileUuid.length() - 1) {
+                    fileExtension = fileUuid.substring(lastDotIndex + 1);
+                }
+                String newFileName = material.getSchool()+"_"+material.getMajor()+"_"+material.getSubject()+"_"+materialname+ '.' + fileExtension;
+                //String newFileName = material.
+                return aliOSSUtils.GetFileDownloadUrl(fileUuid,newFileName);
             }
             return null;
         }

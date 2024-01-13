@@ -11,6 +11,7 @@ import com.example.service.MaterialUploadService;
 import com.example.utils.AliOSSUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -269,5 +270,15 @@ public class UploadController {
         } else {
             return Result.error("更新封面失败");
         }
+    }
+    @DeleteMapping("delete")
+    public Result deleteFile(String fileUuid) throws Exception {
+        log.info("删除的文件的UUID为：{}", fileUuid);
+
+        if(fileUuid != null){
+            aliOSSUtils.DeleteFile(fileUuid);
+            return Result.success("删除成功");
+        }
+        return Result.error("文件不存在");
     }
 }

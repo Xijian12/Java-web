@@ -5,6 +5,7 @@ import com.example.entity.Result;
 import com.example.entity.dto.Account;
 import com.example.entity.vo.request.UpdateAvatarVO;
 import com.example.entity.vo.request.user.MaterialPage;
+import com.example.entity.vo.request.admin.UpdateUserInfoVO;
 import com.example.entity.vo.response.DisplayAccountByAdminVO;
 import com.example.entity.vo.response.DisplayAccountByUserVO;
 import com.example.service.AccountService;
@@ -35,9 +36,9 @@ public class AdminOperatorController {
      */
     @GetMapping("/userInfo")
     @Operation(summary = "查看用户信息")
-    public RestBean<String> getUserInfo(@RequestParam String username){
-        String userVo= accountService.userInfo(username).toString();
-        return RestBean.success(userVo);
+    public RestBean<DisplayAccountByAdminVO> getUserInfo(@RequestParam String username){
+        DisplayAccountByAdminVO userVO= accountService.adminInfo(username);
+        return RestBean.success(userVO);
     }
     /**
      * 管理员查看用户个人信息
@@ -46,16 +47,16 @@ public class AdminOperatorController {
      */
     @GetMapping("/adminInfo")
     @Operation(summary = "查看管理员信息")
-    public RestBean<String> getAdminInfo(@RequestParam String username){
-        String adminVo = accountService.adminInfo(username).toString();
+    public RestBean<DisplayAccountByAdminVO> getAdminInfo(@RequestParam String username){
+        DisplayAccountByAdminVO adminVo = accountService.adminInfo(username);
         return RestBean.success(adminVo);
     }
 
     @PostMapping("/updateUserInfo")
     @Operation(summary = "修改用户信息")
-    public RestBean<String> updateUserInfo(@RequestParam String oldUserName, @RequestParam String newUserName,
-                                           @RequestParam String newPassword, @RequestParam Integer points){
-        String newUserInfo=accountService.updateUserInfo(oldUserName,newUserName,newPassword,points);
+    public RestBean<String> updateUserInfo(@RequestBody UpdateUserInfoVO request){
+        String newUserInfo = accountService.updateUserInfo(request.getOldUserName(), request.getNewUserName(),
+                request.getNewPassword(), request.getPoints());
         return RestBean.success("成功修改用户信息");
     }
 
