@@ -99,8 +99,10 @@ public ResponseEntity<?> downloadBook(@RequestBody DownloadBookRequest book) thr
         if (test.getTotal() >= 1) {
             //如果下载成功，则给上传者积分奖励
             Account account = accountService.findAccountByNameOrEmail(bookobj.getBookUploader());
-            String newUserInfo = accountService.updateUserInfo(account.getUsername(), account.getUsername(),
-                    account.getPassword(), account.getPoints() + (int)(Constants.pointRate * bookobj.getBookPoints()));
+            if(account != null){
+                String newUserInfo = accountService.updateUserInfo(account.getUsername(), account.getUsername(),
+                        account.getPassword(), account.getPoints() + (int)(Constants.pointRate * bookobj.getBookPoints()));
+            }
             return ResponseEntity.ok(new Response(200, "操作成功", aliOSSUtils.GetFileDownloadUrl(test.getUrl(), newFileName)));
         } else {
             return ResponseEntity.ok(new Response(200, "操作失败，积分不够", null));
