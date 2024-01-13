@@ -57,6 +57,7 @@ public class SecurityConfiguration {
                         .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
                         .requestMatchers("/admin/userInfo").permitAll() // 添加这一行
                         .requestMatchers("/user/userInfo").permitAll() // 添加这一行
+                        .requestMatchers("/user/updateUserInfo").permitAll() // 添加这一行
                         .requestMatchers("/user/deleteUser").permitAll() // 用户注销
                         .requestMatchers("/admin/deleteUser").permitAll() // 管理员删除用户
                         .requestMatchers("/admin/adminInfo").permitAll() // 添加这一行
@@ -101,6 +102,9 @@ public class SecurityConfiguration {
                         .requestMatchers("/material/{materialId}").permitAll() // 根据ID查询资料（已经实现）
                         .requestMatchers("/material/userUpload").permitAll() // 查询某个用户上传的所有资料
                         .requestMatchers("/material/materialslist").permitAll() // 资料列表查询(条件分页)
+                        .requestMatchers("/material/school").permitAll() // 查询所有学校
+                        .requestMatchers("/material/school/major").permitAll() // 查询学校下面的所有专业
+                        .requestMatchers("/material/school/major/subject").permitAll() // 查询学校和专业下面的所有学科
                 .anyRequest().hasAnyRole(Const.ROLE_DEFAULT)
                 )
                 .formLogin(conf -> conf
@@ -159,6 +163,8 @@ public class SecurityConfiguration {
             } else {
                 AuthorizeVO vo = account.asViewObject(AuthorizeVO.class, o -> o.setToken(jwt));
                 vo.setExpire(utils.expireTime());
+                vo.setEmail(account.getEmail());
+                vo.setPoints(account.getPoints());
                 writer.write(RestBean.success(vo).asJsonString());
             }
         }

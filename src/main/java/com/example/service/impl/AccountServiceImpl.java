@@ -4,10 +4,8 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.entity.dto.Account;
-import com.example.entity.vo.request.ConfirmResetVO;
-import com.example.entity.vo.request.EmailRegisterVO;
-import com.example.entity.vo.request.EmailResetVO;
-import com.example.entity.vo.request.Material;
+import com.example.entity.vo.request.*;
+import com.example.entity.vo.request.user.MaterialPage;
 import com.example.entity.vo.response.DisplayAccountByAdminVO;
 import com.example.entity.vo.response.DisplayAccountByUserVO;
 import com.example.mapper.AccountMapper;
@@ -15,6 +13,8 @@ import com.example.mapper.MaterialMapper;
 import com.example.service.AccountService;
 import com.example.utils.Const;
 import com.example.utils.FlowUtils;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import jakarta.annotation.Resource;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -227,11 +227,17 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
     }
 
 
-    public List<DisplayAccountByAdminVO> getAllAccounts() {
+    public MaterialPage getAllAccounts(Integer page,Integer pageSize) {
+        //设置分页参数
+        PageHelper.startPage(page,pageSize);
+
+        //查询结果
         List<Account> accounts = accountMapper.selectList(null); // 检索所有账户
-        return accounts.stream()
-                .map(DisplayAccountByAdminVO::new) // 将每个 Account 转换为 DisplayAccountByAdminVO
-                .collect(Collectors.toList());
+        //用PageHelper自带的Page类型对查询结果进行强制转型
+        Page<Account> p = (Page<Account>) accounts;
+
+        //对查询结果进行封装
+        return new MaterialPage(p.getTotal(),p.getResult());
     }
 
     public boolean updateAvatar(String username, String newAvatarUrl,String newAvatarUuid) {
@@ -282,6 +288,7 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
      * @param text 用户名或邮件
      * @return 账户实体
      */
+    @Override
     public Account findAccountByNameOrEmail(String text){
         return this.query()
                 .eq("username", text).or()

@@ -2,6 +2,7 @@ package com.example.controller;
 
 import com.example.entity.RestBean;
 import com.example.entity.vo.request.UserInfoUpdateRequest;
+import com.example.entity.vo.response.DisplayAccountByAdminVO;
 import com.example.entity.vo.response.DisplayAccountByUserVO;
 import com.example.service.AccountService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -27,10 +28,9 @@ public class UserOperatorController {
      */
     @GetMapping("/userInfo")
     @Operation(summary = "查看用户信息")
-    public RestBean<String> getUserInfo(@RequestParam String username){
-        DisplayAccountByUserVO userVo=accountService.userInfo(username);
-        System.out.println(userVo);
-        return RestBean.success(userVo.toString());
+    public RestBean<DisplayAccountByAdminVO> getUserInfo(@RequestParam String username){
+        DisplayAccountByAdminVO userVO= accountService.adminInfo(username);
+        return RestBean.success(userVO);
     }
 
     @PostMapping("/updateUserInfo")

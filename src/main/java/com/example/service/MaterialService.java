@@ -1,6 +1,5 @@
 package com.example.service;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.entity.vo.request.DeleteMaterialRequest;
 import com.example.entity.vo.request.DonwloadMaterialVO;
 import com.example.entity.vo.request.Material;
@@ -62,4 +61,10 @@ public interface MaterialService {
     MaterialPage queryMaterialByCondition(String school, String major, String subject, Integer materialGradeFloor, Integer materialGradeUpper, Integer page, Integer pageSize);
 
     MaterialPage queryMaterialCommentById(Integer materialId, Integer page, Integer pageSize);
+
+    List<String> getAllSchool();
+
+    List<String> getMajorBySchool(String school);
+
+    List<String> getSubjectBySchoolAndMajor(String school,String major);
 }

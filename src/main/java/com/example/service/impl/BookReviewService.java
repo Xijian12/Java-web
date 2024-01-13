@@ -1,6 +1,5 @@
 package com.example.service.impl;
 
-import com.example.entity.vo.request.user.BookReviewwithavtar;
 import com.example.mapper.BookReviewMapper;
 import com.example.entity.vo.request.BookReview;
 import com.example.entity.vo.request.CommentDeletionRequest;
@@ -35,12 +34,12 @@ public class BookReviewService {
         return bookReviewMapper.updateBookReview(bookReview);
     }
 
-    public Page<BookReviewwithavtar> getCommentsByBookId(int bookId, int page, int pageSize) {
+    public Page<BookReview> getCommentsByBookId(int bookId, int page, int pageSize) {
         int offset = (page - 1) * pageSize;
-        List<BookReviewwithavtar> comments = bookReviewMapper.findCommentsByBookId(bookId, offset, pageSize);
+        List<BookReview> comments = bookReviewMapper.findCommentsByBookId(bookId, offset, pageSize);
         int total = bookReviewMapper.countCommentsByBookId(bookId);
 
-        return new Page<>(comments, total,page, pageSize);
+        return new Page<>(comments, total, page, pageSize);
     }
     public boolean deleteCommentsIfAdmin(CommentDeletionRequest request) {
         // 检查是否为管理员

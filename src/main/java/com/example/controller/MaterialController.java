@@ -1,6 +1,5 @@
 package com.example.controller;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.entity.Result;
 import com.example.entity.vo.request.DeleteMaterialRequest;
 import com.example.entity.vo.request.DonwloadMaterialVO;
@@ -202,4 +201,23 @@ public class MaterialController {
         return Result.success(response);
     }
 
+
+    @GetMapping("/school")
+    public Result getAllSchool(){
+        List<String> schools = materialService.getAllSchool();
+
+        return Result.success(schools);
+    }
+    @GetMapping("/school/major")
+    public Result getMajorBySchool(@RequestParam String school){
+        List<String> schools = materialService.getMajorBySchool(school);
+
+        return Result.success(schools);
+    }
+    @GetMapping("/school/major/subject")
+    public Result getSubjectBySchoolAndMajor(@RequestParam String school,String major){
+        List<String> schools = materialService.getSubjectBySchoolAndMajor(school,major);
+
+        return Result.success(schools);
+    }
 }

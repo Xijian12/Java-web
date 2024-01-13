@@ -1,10 +1,15 @@
 package com.example.controller;
 
+import com.example.entity.dto.Account;
 import com.example.entity.vo.request.*;
 import com.example.entity.vo.request.user.DownloadBook;
 import com.example.entity.vo.request.user.DownloadBookRequest;
+import com.example.mapper.AccountMapper;
+import com.example.service.AccountService;
 import com.example.service.impl.BookService;
 import com.example.utils.AliOSSUtils;
+import com.example.utils.Constants;
+import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +27,8 @@ public class BookController {
     private final BookService bookService;
     @Autowired
     private AliOSSUtils aliOSSUtils;
+    @Resource
+    AccountService accountService;
 
 
     public BookController(BookService bookService) {
@@ -79,13 +86,23 @@ public class BookController {
     }
     @PostMapping("/download")
 public ResponseEntity<?> downloadBook(@RequestBody DownloadBookRequest book) throws IOException {
-        DownloadBook test=new DownloadBook();
-       test= bookService.downloadBook(book.getUserEmail(), book.getBookId());
-        if(test.getTotal()>=1){
-
-            return ResponseEntity.ok(new Response(200, "操作成功", aliOSSUtils.GetFileDownloadUrl(test.getUrl()) ));
+        DownloadBook test = new DownloadBook();
+        test = bookService.downloadBook(book.getUserEmail(), book.getBookId());
+        Book bookobj = bookService.getBookById(book.getBookId());
+        int lastDotIndex = bookobj.getBookFileUuid().lastIndexOf(".");
+        // 使用 substring 提取扩展名部分
+        String fileExtension = null;
+        if (lastDotIndex != -1 && lastDotIndex < bookobj.getBookFileUuid().length() - 1) {
+            fileExtension = bookobj.getBookFileUuid().substring(lastDotIndex + 1);
         }
-        else{
+        String newFileName = bookobj.getBookName() + '.' + fileExtension;
+        if (test.getTotal() >= 1) {
+            //如果下载成功，则给上传者积分奖励
+            Account account = accountService.findAccountByNameOrEmail(bookobj.getBookUploader());
+            String newUserInfo = accountService.updateUserInfo(account.getUsername(), account.getUsername(),
+                    account.getPassword(), account.getPoints() + (int)(Constants.pointRate * bookobj.getBookPoints()));
+            return ResponseEntity.ok(new Response(200, "操作成功", aliOSSUtils.GetFileDownloadUrl(test.getUrl(), newFileName)));
+        } else {
             return ResponseEntity.ok(new Response(200, "操作失败，积分不够", null));
         }
     }

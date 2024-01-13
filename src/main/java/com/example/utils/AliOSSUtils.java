@@ -113,7 +113,7 @@ public class AliOSSUtils {
     }
 
     //获取文件的下载URL，需要传入文件的地址
-    public String GetFileDownloadUrl(String objectName) throws IOException {
+    public String GetFileDownloadUrl(String objectName,String newFileName) throws IOException {
         String endpoint = aliOSSPropreties.getEndpoint();
         String accessKeyId = aliOSSPropreties.getAccessKeyId();
         String accessKeySecret = aliOSSPropreties.getAccessKeySecret();
@@ -130,7 +130,9 @@ public class AliOSSUtils {
             GeneratePresignedUrlRequest request = new GeneratePresignedUrlRequest(bucketName, objectName, HttpMethod.GET);
             // 设置过期时间。
             request.setExpiration(expiration);
-
+            ResponseHeaderOverrides Headers=new ResponseHeaderOverrides();
+            Headers.setContentDisposition(String.format("attachment;filename=%s",newFileName));
+            request.setResponseHeaders(Headers);
             // 通过HTTP GET请求生成签名URL。
             signedUrl = ossClient.generatePresignedUrl(request);
             // 打印签名URL。
