@@ -1,17 +1,26 @@
 package com.example.service.impl;
 
+import com.example.entity.dto.Account;
+import com.example.entity.vo.request.Book;
+import com.example.entity.vo.request.user.BookReviewwithavtar;
 import com.example.mapper.BookReviewMapper;
 import com.example.entity.vo.request.BookReview;
 import com.example.entity.vo.request.CommentDeletionRequest;
 import com.example.entity.vo.request.Page;
+import com.example.service.AccountService;
+import jakarta.annotation.Resource;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
+@Slf4j
 public class BookReviewService {
 
     private final BookReviewMapper bookReviewMapper;
+    @Resource
+    AccountService accountService;
 
     @Autowired
     public BookReviewService(BookReviewMapper bookReviewMapper) {
@@ -34,9 +43,9 @@ public class BookReviewService {
         return bookReviewMapper.updateBookReview(bookReview);
     }
 
-    public Page<BookReview> getCommentsByBookId(int bookId, int page, int pageSize) {
+    public Page<BookReviewwithavtar> getCommentsByBookId(int bookId, int page, int pageSize) {
         int offset = (page - 1) * pageSize;
-        List<BookReview> comments = bookReviewMapper.findCommentsByBookId(bookId, offset, pageSize);
+        List<BookReviewwithavtar> comments = bookReviewMapper.findCommentsByBookId(bookId, offset, pageSize);
         int total = bookReviewMapper.countCommentsByBookId(bookId);
 
         return new Page<>(comments, total, page, pageSize);
@@ -52,11 +61,23 @@ public class BookReviewService {
         return true;
     }
     public boolean deleteCommentsIfUser(CommentDeletionRequest request) {
-
-
-
         // 执行批量删除操作
-        bookReviewMapper.deleteCommentsByIds(request.getIds());
-        return true;
+        boolean FLAG = true;
+        log.info("request:{}",request);
+        for(int i=0;i<request.getIds().size();i++) {
+            BookReview bookReview = bookReviewMapper.selectBookReviewById(request.getIds().get(i));
+            if(bookReview != null) {
+                if (bookReview.getUserEmail().equals(request.getUserEmail())) {
+                    bookReviewMapper.deleteCommentsByIds(request.getIds());
+                }
+                else{
+                    FLAG =false;
+                }
+            }
+            else{
+                FLAG =false;
+            }
+        }
+        return FLAG;
     }
 }
