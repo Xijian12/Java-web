@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace = "com.example.mapper.MaterialMapper">
+    <insert id="insertMaterial">
+        insert into materials(school, major, subject,
+                              material_grade, material_download_num,
+                              material_click_num, material_uploader,
+                              material_profile, material_cover_url,
+                              material_cover_uuid, elec_book_uuid,
+                              teaching_plan_uuid, class_ppt_uuid,
+                              calendar_volume_uuid, another_material_uuid,
+                              elec_book_points, teaching_plan_points,
+                              class_ppt_points, calendar_volume_points,
+                              another_material_points, create_time,
+                              update_time)
+        values (#{school}, #{major}, #{subject},
+                #{materialGrade}, #{materialDownloadNum}, #{materialClickNum},
+                #{materialUploader}, #{materialProfile}, #{materialCoverUrl},
+                #{materialCoverUuid}, #{elecBookUuid}, #{teachingPlanUuid},
+                #{classPptUuid}, #{calendarVolumeUuid}, #{anotherMaterialUuid},
+                #{elecBookPoints}, #{teachingPlanPoints}, #{classPptPoints},
+                #{calendarVolumePoints}, #{anotherMaterialPoints}, #{createTime}, #{updateTime})
+    </insert>
+    
+    <update id="updateMaterial">
+        update materials
+        set school                  = #{school},
+            major                   = #{major},
+            subject                 = #{subject},
+            material_profile        = #{materialProfile},
+            material_cover_url      = #{materialCoverUrl},
+            material_cover_uuid     = #{materialCoverUuid},
+            elec_book_uuid          = #{elecBookUuid},
+            teaching_plan_uuid      = #{teachingPlanUuid},
+            class_ppt_uuid          = #{classPptUuid},
+            calendar_volume_uuid    = #{calendarVolumeUuid},
+            another_material_uuid   = #{anotherMaterialUuid},
+            elec_book_points        = #{elecBookPoints},
+            teaching_plan_points    = #{teachingPlanPoints},
+            class_ppt_points        = #{classPptPoints},
+            calendar_volume_points  = #{calendarVolumePoints},
+            another_material_points = #{anotherMaterialPoints},
+            update_time             = #{updateTime}
+        where material_id = #{materialId}
+    </update>
+    <select id="selectMaterialByCondition" resultType="com.example.entity.vo.request.Material">
+        select *
+        from materials
+        <where>
+            <if test="school != null and school != '' ">
+                school like concat('%',#{school},'%')
+            </if>
+            <if test="major != null and major != '' ">
+                and major like concat('%',#{major},'%')
+            </if>
+            <if test="subject != null and subject != '' ">
+                and subject like concat('%',#{subject},'%')
+            </if>
+            <if test=" materialGradeFloor != null and materialGradeUpper != null">
+                and material_grade between #{materialGradeFloor} and #{materialGradeUpper}
+            </if>
+        </where>
+        order by material_download_num desc
+    </select>
+</mapper>
