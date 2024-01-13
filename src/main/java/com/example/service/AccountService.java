@@ -5,6 +5,7 @@ import com.example.entity.dto.Account;
 import com.example.entity.vo.request.ConfirmResetVO;
 import com.example.entity.vo.request.EmailRegisterVO;
 import com.example.entity.vo.request.EmailResetVO;
+import com.example.entity.vo.request.user.MaterialPage;
 import com.example.entity.vo.response.DisplayAccountByAdminVO;
 import com.example.entity.vo.response.DisplayAccountByUserVO;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -27,7 +28,7 @@ public interface AccountService extends IService<Account>, UserDetailsService {
 
     String updateUserInfo(String username, String newPassword, String password, Integer points);
 
-    List<DisplayAccountByAdminVO> getAllAccounts();
+    MaterialPage getAllAccounts(Integer page, Integer pageSize);
 
     boolean updateAvatar(String username, String newAvatarUrl,String newAvatarUuid);
 

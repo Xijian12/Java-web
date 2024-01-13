@@ -1,8 +1,10 @@
 package com.example.controller;
 
 import com.example.entity.RestBean;
+import com.example.entity.Result;
 import com.example.entity.dto.Account;
 import com.example.entity.vo.request.UpdateAvatarVO;
+import com.example.entity.vo.request.user.MaterialPage;
 import com.example.entity.vo.response.DisplayAccountByAdminVO;
 import com.example.entity.vo.response.DisplayAccountByUserVO;
 import com.example.service.AccountService;
@@ -71,9 +73,10 @@ public class AdminOperatorController {
 
     @GetMapping("/showAllAccounts")
     @Operation(summary = "显示所有用户和管理员")
-    public RestBean<List<DisplayAccountByAdminVO>> showAllAccount(){
-        List<DisplayAccountByAdminVO> accounts = accountService.getAllAccounts();
-        return RestBean.success(accounts);
+    public Result showAllAccount(@RequestParam(defaultValue = "1") Integer page,
+                                 @RequestParam(defaultValue = "10") Integer pageSize){
+        MaterialPage materialPage = accountService.getAllAccounts(page,pageSize);
+        return Result.success(materialPage);
     }
 
     @GetMapping("/deleteUser")
