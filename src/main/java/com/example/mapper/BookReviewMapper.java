@@ -18,14 +18,6 @@ public interface BookReviewMapper {
     @Update("UPDATE test.commentforbook SET book_version = #{bookVersion}, user_comment = #{userComment}, user_grade = #{userGrade}, user_nickname = #{userNickname}, user_email = #{userEmail}, book_id = #{bookId} WHERE id = #{id}")
     int updateBookReview(BookReview bookReview);
 
-    @Delete({
-            "<script>",
-            "DELETE FROM test.commentforbook WHERE id IN",
-            "<foreach item='id' collection='ids' open='(' separator=',' close=')'>",
-            "#{id}",
-            "</foreach>",
-            "</script>"
-    })
     void deleteCommentsByIds(@Param("ids") List<Integer> ids);
     @Select("SELECT * FROM test.commentforbook")
     List<BookReview> selectAllBookReviews();
