@@ -1,6 +1,7 @@
 package com.example.mapper;
 
 import com.example.entity.vo.request.BookReview;
+import com.example.entity.vo.request.user.BookReviewwithavtar;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -31,8 +32,11 @@ public interface BookReviewMapper {
     List<BookReview> selectAllBookReviews();
     @Select("SELECT COUNT(*) > 0 FROM test.db_account WHERE email = #{adminAccount} AND role = 'admin'")
     boolean isAdmin(String adminAccount);
-    @Select("SELECT * FROM test.commentforbook WHERE book_id = #{bookId} LIMIT #{pageSize} OFFSET #{offset}")
-    List<BookReview> findCommentsByBookId(@Param("bookId") int bookId, @Param("offset") int offset, @Param("pageSize") int pageSize);
+    @Select("SELECT c.*, a.avtar_url FROM test.commentforbook c " +
+            "JOIN test.db_account a ON c.user_email = a.email " +
+            "WHERE c.book_id = #{bookId} " +
+            "LIMIT #{pageSize} OFFSET #{offset}")
+    List<BookReviewwithavtar> findCommentsByBookId(@Param("bookId") int bookId, @Param("offset") int offset, @Param("pageSize") int pageSize);
 
     @Select("SELECT COUNT(*) FROM test.commentforbook WHERE book_id = #{bookId}")
     int countCommentsByBookId(@Param("bookId") int bookId);

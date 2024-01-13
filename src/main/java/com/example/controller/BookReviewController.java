@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import com.example.entity.vo.request.user.BookReviewwithavtar;
 import com.example.service.impl.BookReviewService;
 import com.example.entity.vo.request.BookReview;
 import com.example.entity.vo.request.CommentDeletionRequest;
@@ -63,7 +64,7 @@ public class BookReviewController {
             @RequestParam("page") int page,
             @RequestParam ("pageSize")int pageSize) {
 
-        Page<BookReview> comments = bookReviewService.getCommentsByBookId(bookId, page, pageSize);
+        Page<BookReviewwithavtar> comments = bookReviewService.getCommentsByBookId(bookId, page, pageSize);
         return ResponseEntity.ok(comments);
     }
 
