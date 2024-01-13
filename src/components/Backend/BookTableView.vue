@@ -238,7 +238,11 @@ const changeSize = (value: number) => {
 
 // 搜索图书
 const searchBook = () => {
-    axios.get("/category").then((resp) => {
+  axios.get("/category",{
+      params:{
+      page: pageNum.value,
+      pageSize: pageSize.value}
+    }).then((resp) => {
       books.value = resp.data;
       pageTotal.value = resp.data.total_count;
       const code = resp.data.code;

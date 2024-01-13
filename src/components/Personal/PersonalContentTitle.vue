@@ -1,8 +1,6 @@
 <template>
   <div class="contentTitle">
     <div class="title_search">
-      <button class="title_searcch_button2" @click="findProduct()">查看购物车</button>
-      <button class="title_searcch_button3" @click="ToIndex()">返回首页</button>
     </div>
   </div>
 </template>

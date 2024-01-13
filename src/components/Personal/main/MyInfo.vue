@@ -1,49 +1,36 @@
 <template>
     <div>
         <div class="main_box">
+            <div class="image">
+                <img class="logo_img" :src="userInfo.avatarUrl" >
+            </div>      
             <el-descriptions class="margin-top" title="我的信息" :column="1" size="medium" border>
                 <template #extra>
-                    <el-button type="primary" size="small" @click="editDialogVisible=true">修改信息</el-button>
+                    <el-button type="primary" @click="editDialogVisible=true">修改信息</el-button>
                 </template>
                 <el-descriptions-item>
                     <template #label>
                       <el-icon><User /></el-icon>
                         用户名
                     </template>
-                    <p>{{ userInfo.userName }}</p>
-                </el-descriptions-item>
-                <el-descriptions-item>
-                    <template #label>
-                      <el-icon><Iphone /></el-icon>
-                        手机号
-                    </template>
-                    <p>{{ userInfo.userPhone }}</p>
+                    <p>{{ userInfo.username }}</p>
                 </el-descriptions-item>
                 <el-descriptions-item>
                     <template #label>
                       <el-icon><Message /></el-icon>
                         邮箱
                     </template>
-                    <p>{{ userInfo.userEmail }}</p>
+                    <span>{{ userInfo.email }}</span>
                 </el-descriptions-item>
                 <el-descriptions-item>
                     <template #label>
-                      <el-icon><Location /></el-icon>
-                        收货地址
-                    </template>
-                    <p>{{ userInfo.userAddress }}</p>
-                </el-descriptions-item>
-                <el-descriptions-item>
-                    <template #label>
-  
                       <el-icon><Briefcase /></el-icon>
-                        钱包
+                        积分
                     </template>
-                    <el-popover placement="bottom" width="200px" trigger="hover" content="只有当图书被收货后金额才能到钱包哦！">
-                        <p slot="reference">￥ {{ userInfo.userWallet }} 元</p>
-                    </el-popover>
+                    <span>{{ userInfo.points }}</span>
                 </el-descriptions-item>
             </el-descriptions>
+
         </div>
   
         <!-- 弹窗表单区域 -->
@@ -73,20 +60,23 @@
     </div>
   
     <!-- 弹窗表单区域 -->
-  </template>
+</template>
     
-  <script setup>  
-  import {ref} from 'vue'
-  const userInfo = ref([]);
-  const userId = ref('');
-  const editDialogVisible = ref(false);
-  const editForm = ref({
+<script setup>  
+import {ref, onMounted} from 'vue'
+import axios from "axios";
+import {useStore} from 'vuex';
+const store = useStore();
+const username = ref(store.state.personalID[0].username)
+const userInfo = ref([]);
+const editDialogVisible = ref(false);
+const editForm = ref({
                 userName: "",
                 userEmail: "",
                 userPhone: "",
                 userAddress: "",
             });
-  const editFormRules = ref({
+const editFormRules = ref({
                 userEmail: [
                     { required: true, message: "请输入正确的邮箱！", trigger: 'blur', pattern: /^([a-zA-Z0-9]+[-_\.]?)+@[a-zA-Z0-9]+\.[a-z]+$/ }
                 ],
@@ -98,13 +88,19 @@
                 ]
             }
   );
+
+function initData() {
+    console.log("cacac",username.value)
+    axios.get('/user/userInfo',{params: {username: username.value,}}).then(response => {
+    // 处理成功的响应
+    userInfo.value = response.data.data; 
+    console.log('成功：', userInfo.value);
+  })
+   
+};
+
   
-    // created() {
-    //     this.userId = this.cookie.getCookie("LoginId");
-    //     this.getUserInfo('userInfo');
-    // },
-  
-       function getUserInfo(get) {
+function getUserInfo(get) {
             this.$http({
                 method: 'get',
                 url: '/getuser',
@@ -126,11 +122,11 @@
   
   
         //保存修改后的表单信息
-        function editUserInfo() {
+ function editUserInfo() {
             this.$refs.editFormRef.validate(async valid => {
                 if (!valid) return;
                 //发起修改请求
-                const { data: res } = await this.$http.put("updateuser", this.editForm);
+              const { data: res } = await this.$http.put("updateuser", this.editForm);
                 if (res.errcode != "0") {
                     return this.$message.error("修改失败！");
                 } else {
@@ -140,12 +136,31 @@
                 }
             })
         }
-  
-  </script>
+onMounted(() => {
+  initData();
+});
+</script>
     
-  <style lang="less" scoped>
-  .main_box {
+<style lang="less" scoped>
+.main_box {
     margin-left: 0px;
     width: 400px;
-  }
-  </style>
+}
+.image{
+    height: 200px;
+    width: 190px; 
+    margin-top: 30px;
+    margin-left: 30px;
+    flex-direction: row;
+    flex: 2;
+    justify-content: flex-end;
+}
+.image > .logo_img{
+    border-radius: 10px;
+    height: 100%;
+    width: 100%;
+}
+.margin-top{
+    margin-top:20px;
+}
+</style>

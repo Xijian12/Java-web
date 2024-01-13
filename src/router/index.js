@@ -62,7 +62,7 @@ const router = createRouter({
             children: [
             // 搜索展示页
             {
-                path: "/SearchDisplay",
+                path: "/SearchDisplay/:id",
                 name: "SearchDisplay",
                 meta: { show: false },
                 component: SearchDisplay,

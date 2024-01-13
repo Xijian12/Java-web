@@ -73,13 +73,23 @@
         <el-row class="book-table">
           <el-col>
             <el-table :data="books" height="100%" empty-text="没有数据">
-              <el-table-column prop="book_id" label="图书ID" width="130" />
-              <el-table-column prop="name" label="图书名称" />
-              <el-table-column prop="ISBN" label="ISBN号码" width="170" />
-              <el-table-column prop="location" label="存放位置" />
-              <el-table-column prop="status" label="状态" />
-              <el-table-column prop="publish" label="出版社" />
-              <el-table-column prop="manager_id" label="经办人" />
+              <el-table-column prop="bookId" label="图书ID" />
+              <el-table-column prop="bookCoverUrl" label="图书封面">
+                <template #default="scope">
+                  <el-image
+                    :src="scope.row.bookCoverUrl"
+                    style="width: 70px; height: 70px;"
+                  ></el-image>
+                </template>
+              </el-table-column>
+              <el-table-column prop="bookName" label="图书名称" />
+              <el-table-column prop="bookAuthor" label="图书作者"/> 
+              <el-table-column prop="bookPublishHouse" label="出版社" />
+              <el-table-column prop="bookUploader" label="上传者" />
+              <el-table-column prop="bookDownloadNum" label="下载量" />
+              <el-table-column prop="bookClickNum" label="点击量" />
+              <el-table-column prop="categoryName" label="分类名称" />
+              <el-table-column prop="categoryAlias" label="分类别名" />
               <el-table-column fixed="right" label="操作">
                 <template #default="books">
                   <el-button
@@ -352,8 +362,8 @@ const searchBook = () => {
       page: pageNum.value,
       pageSize: pageSize.value}
     }).then((resp) => {
-      books.value = resp.data.books;
-      pageTotal.value = resp.data.total_count;
+      books.value = resp.data.data.items;
+      pageTotal.value = resp.data.data.total;
       const code = resp.data.code;
       const message = resp.data.message;
       // 查询失败
@@ -364,7 +374,7 @@ const searchBook = () => {
         });
       }
       // 查询成功
-      if (code == 200) {
+      if (code == 0) {
         ElMessage({
           message: message,
           type: "success",

@@ -1,4 +1,5 @@
 <template>
+  <Header></Header>
     <div id="wrap">
     <div id="page-header">
       <el-page-header @back="goBack" content="详情页面" title="返回首页"></el-page-header>
@@ -30,11 +31,11 @@
           </div>
           <el-divider></el-divider>
           <div id="btn-group">
-            <el-input-number style="margin-right: 30px;margin-left: 20px" :step="1" step-strictly :min="1" :max="99"
+            <!-- <el-input-number style="margin-right: 30px;margin-left: 20px" :step="1" step-strictly :min="1" :max="99"
                              size="medium" v-model="quantity"></el-input-number>
             <el-button @click="addToCart" :loading="loadingBtn" type="primary" icon="el-icon-shopping-cart-1">加入购物车
-            </el-button>
-            <el-button @click="checkTable= true" type="primary" plain icon="el-icon-shopping-bag-2">立即购买</el-button>
+            </el-button> -->
+            <el-button @click="searchInfo()" type="primary" plain :icon="ShoppingCart">立即购买</el-button>
             <el-popover
                 placement="bottom"
                 title="收藏"
@@ -61,37 +62,34 @@
         <el-table :data="checkData">
           <el-table-column type="index" width="60"></el-table-column>
           <el-table-column>
-            <template slot-scope="scope">
+            <template #default="scope">
               <el-popover placement="right" title="" trigger="hover">
-                <img :src="scope.row.img" alt="" style="width: 150px;height: 170px">
-                <img slot="reference" :src="scope.row.img" style="width: 50px;height: 55px">
               </el-popover>
             </template>
           </el-table-column>
-          <el-table-column property="bookName" label="书名"></el-table-column>
-          <el-table-column property="quantity" label="数量"></el-table-column>
-          <el-table-column property="discountPrice" label="单价(元)"></el-table-column>
+          <el-table-column prop="bookName" label="书名"></el-table-column>
+          <el-table-column prop="bookPoints" label="单价(元)"></el-table-column>
         </el-table>
         <el-descriptions size="small" title="订单信息"
                          style="margin-top: 30px;margin-left: 40px;margin-bottom: 10px">
-          <el-descriptions-item label="收货人"><span style="color: #409EFF">{{ userInfo.userName }}</span>
+          <el-descriptions-item label="收货人"><span style="color: #409EFF">{{ userInfo.username }}</span>
           </el-descriptions-item>
-          <el-descriptions-item label="手机号"><span style="color: #409EFF">{{ userInfo.phoneNumber }}</span>
+          <el-descriptions-item label="邮箱"><span style="color: #409EFF">{{ userInfo.email }}</span>
           </el-descriptions-item>
-          <el-descriptions-item label="总金额"><span style="color: #409EFF">{{ checkData[0].discountPrice }}</span>
+          <el-descriptions-item label="剩余积分"><span style="color: #409EFF">{{ userInfo.points }}</span>
           </el-descriptions-item>
-          <el-descriptions-item label="收货地址"><span style="color: #409EFF">{{ userInfo.shippingAddress }}</span>
-          </el-descriptions-item>
-          <el-descriptions-item label="支付方式">
+          <!-- <el-descriptions-item label="收货地址"><span style="color: #409EFF">{{ userInfo.shippingAddress }}</span>
+          </el-descriptions-item> -->
+          <!-- <el-descriptions-item label="支付方式">
             <el-radio-group v-model="payWay" size="mini">
               <el-radio-button label="支付宝"></el-radio-button>
               <el-radio-button label="微信"></el-radio-button>
               <el-radio-button label="信用卡"></el-radio-button>
               <el-radio-button label="货到付款"></el-radio-button>
             </el-radio-group>
-          </el-descriptions-item>
+          </el-descriptions-item> -->
         </el-descriptions>
-        <el-button :loading="loadingBtn" @click="buyNow(2)" style="margin-left: 600px" type="primary" round>去付款
+        <el-button :loading="loadingBtn" @click="buyNow()" style="margin-left: 600px" type="primary" round>支付
         </el-button>
       </el-dialog>
 
@@ -108,14 +106,14 @@
         <div id="recommendBooks">
           <el-row :gutter="20">
             <el-col :span="4" v-for="book in recommendBooks">
-              <div @click="bookDetail(book.id)" style="cursor: pointer">
+              <div @click="bookDetail(book.bookId)" style="cursor: pointer">
                 <el-card :body-style="{ padding: '0px' }" shadow="hover">
-                  <img :src="book.img" class="image">
+                  <img :src="book.bookCoverUrl" class="image">
                   <div style="padding: 12px;">
                     <span>{{ book.bookName }}</span><br>
                     <span style="font-size: 18px;color: #ff1f1f">¥ </span><span
-                      class="discountPrice">{{ decimals(book.price * book.discount) }}</span>
-                    <span v-if="book.discount<1" class="price"> ¥ {{ book.price }}</span>
+                      class="discountPrice">{{ decimals(book.bookPoints * 1) }}</span>
+                    <span v-if="book.discount<1" class="price"> ¥ {{ book.bookPoints }}</span>
                   </div>
                 </el-card>
               </div>
@@ -130,6 +128,7 @@
           <el-tab-pane name="detail">
             <span slot="label"><el-icon><InfoFilled /></el-icon> 商品详情</span>
             <div class="detail-content" style="padding: 15px">
+              <span>{{book.bookProfile}}</span>
               <el-skeleton animated>
                 <template slot="template">
                   <el-skeleton :rows="6"/>
@@ -143,38 +142,59 @@
           </el-tab-pane>
           <el-tab-pane name="comment">
             <span slot="label"><el-icon><Comment /></el-icon> 商品评论</span>
+            <el-rate style="margin-left: 50px;" v-model="book.bookPoints " :colors="colors" :max="5" show-score disabled></el-rate>
             <div v-if="commentData.length>0" class="comment-content">
-              <el-table :data="commentData" :loading="loading" style="width: 100%">
+              <el-table :data="commentData"  style="width: 100%">
                 <el-table-column width="200">
-                  <template slot-scope="scope">
+                  <template #default="scope">
                     <div class="userInfo">
-                      <img slot="reference" :src="require('../assets/img/icon/user.png')">
-                      <p>{{ scope.row.userName }}</p>
+                      <img :src="scope.row.avatarUrl " >
+                      <p>{{ scope.row.userNickname }}</p>
                     </div>
                   </template>
                 </el-table-column>
                 <el-table-column width="970">
-                  <template slot-scope="scope">
-                    <div class="rate">
-                      <el-rate v-model="scope.row.rate" :colors="colors" show-text disabled></el-rate>
+                  <template #default="scope">
+                    <div class="userGrade">
+                      <el-rate v-model=" scope.row.userGrade "  :colors="colors" :max="5" show-score disabled></el-rate>
                     </div>
-                    <div class="content">{{ scope.row.content }}</div>
-                    <div class="date">{{ formatDate(scope.row.updateTime) }}</div>
+                    <div class="userComment">{{ scope.row.userComment }}</div>
                   </template>
                 </el-table-column>
+                <el-table-column fixed="right" label="操作" >
+                <template #default="scope" >
+                  <el-button v-if="scope.row.userEmail==store.state.personalID[0].email" @click="deleteBookDialog(scope.row)" type="text"
+                    >删除</el-button
+                  >
+                </template>
+              </el-table-column>
               </el-table>
             </div>
             <el-empty v-else description="暂无评论"></el-empty>
             <div id="pageBtn">
               <el-pagination
                   background
+                  v-model:current-page="pageNum"
+                  v-model:page-size="pageSize"
                   layout="prev, pager, next"
-                  :page-size="10"
                   :total="total"
-                  @current-change="page"
-                  :hide-on-single-page=true
-                  v-show="total!=null">
+                  @current-change="pagechange">
               </el-pagination>
+            </div>
+            <div id="pinglun">
+              <el-divider content-position="left">
+                <span style="font-size: 20px"><el-icon><Comment /></el-icon> 发表评论</span>
+              </el-divider>
+              <el-input
+                v-model="textarea"
+                :rows="6"
+                type="textarea"
+                placeholder="请发表评论"
+              />
+              <div style="display: flex; align-items: center; margin-top: 20px; float: right; margin-right: 20px;">
+                <el-rate size="large"  v-model="textGrade" :colors="colors" show-score :max="5"></el-rate>
+                <el-button type="primary" :icon="Edit" @click="sendCommit()">发布</el-button>
+              </div>  
             </div>
           </el-tab-pane>
         </el-tabs>
@@ -183,23 +203,28 @@
   </div>
 </template>
 <script setup>
-import {Link, Star} from '@element-plus/icons-vue';
-import {ref, reactive, onMounted} from 'vue';
-import axios from "axios";
-import { useRoute } from 'vue-router';
+import Header from "@/components/Home/Header.vue";
+import {Link, Star, ShoppingCart, Edit} from '@element-plus/icons-vue';
 import {ElMessage} from "element-plus";
+import {ref, reactive, onMounted, watch} from 'vue';
+import axios from "axios";
+import { useRoute, useRouter } from 'vue-router';
+import {useStore} from 'vuex';
+const store = useStore();
+const username = ref(store.state.personalID[0].username)
 const router = useRoute();
+const userouter = useRouter();
 const activeName = ref('detail');
-const quantity = ref(1);
 const checkTable = ref(false);
-const loading = reactive(true);
-const checkData = ref([{bookName: '', quantity: 0, discountPrice: 0, img: ''}]);
+const checkData = reactive([{bookName: '', quantity: 0, discountPrice: 0, img: ''}]);
 const userInfo = ref({id: '', userName: '', phoneNumber: '', shippingAddress: ''});
-const payWay = ref('支付宝');
+const category = ref('');
 const loadingBtn = ref(false);
 const commentData = ref([]);
 const colors = ref(['#99A9BF', '#F7BA2A', '#FF9900']);
-const total = ref(null);
+let pageNum = ref(1);
+let pageSize = ref(10);
+const total = ref('');
 let book = ref({
         id: '',
         bookName: '',
@@ -209,14 +234,14 @@ let book = ref({
         press: '',
         publicationDate: '',
         brief: '',
-        img: ''
+        img: '',
       })
 const recommendBooks = ref([
   {id:'', bookName: '', price: 0, discount: 0, img: ''},
 ])
   // 返回首页
 function goBack() {
-      this.$router.push("/Home");
+  userouter.push("/home");
     }
     // 保留一位小数
 function decimals(value) {
@@ -228,52 +253,56 @@ const initData = async (bookId) => {
     const response = await axios.get(`/book/${bookId}`);
     // 处理成功的响应
     book.value = response.data.data;
-    console.log('成功：', book.value);
+    checkData[0] = response.data.data;
+    category.value = response.data.data.categoryName;
+    await initDataCategory(category.value); 
   } catch (error) {
     // 处理请求错误
     console.error('请求失败：', error);
   }
 };
-    // 加入购物车
-function addToCart() {
-      console.log("===========")
-      let id = sessionStorage.getItem("id");
-      if (id == null) {
-        id = sessionStorage.getItem("visitorId");
-        this.$message({
-          type: 'warning',
-          message: '您当前未登录，购物车中的内容会随着会话结束而消失，请尽快登录！',
-          duration: 9000,
-          showClose: true
-        });
+    // 页面初始化时执行，根据条件查询评论,带分页
+const initDataCommit = async (bookId) => {
+  try {
+    const response = await axios.get('/book/comment',
+    {
+      params: {
+        bookId: bookId,
+        page: pageNum.value,
+        pageSize: pageSize.value,
       }
-      this.loadingBtn = true;
-      let data = {
-        id: id,
-        bookId: this.book.id,
-        quantity: this.quantity
-      };
-      axios.post("http://localhost:8081/user/addToCart",data)
-          .then((resp) => {
-            this.loadingBtn = false;
-            if (resp.data === 1) {
-              this.$message({
-                type: 'success',
-                message: '添加成功！'
-              });
-            } else if (resp.data === 2) {
-              this.$message({
-                type: 'error',
-                message: '添加失败，库存不足'
-              });
-            } else {
-              this.$message({
-                showClose: true, type: 'error',
-                message: '操作失败，请重试'
-              });
-            }
-          });
+    });
+    // 处理成功的响应
+    commentData.value = response.data.content;
+    for(let i = 0; i <commentData.value.length; i++){
+      commentData.value[i].userGrade = commentData.value[i].userGrade / 2 ; 
     }
+    
+    total.value = response.data.totalElements;
+  } catch (error) {
+    // 处理请求错误
+    console.error('请求失败：', error);
+  }
+};
+
+// 页面初始化时执行，查询同类
+const initDataCategory = async (categoryName) => {
+  try {
+    const response = await axios.get('/category/detail', {
+      params: {
+        categoryName: categoryName,
+        page: 1,
+        pageSize: 5
+      }
+    });
+    recommendBooks.value = response.data.data.items
+    // 处理成功的响应
+    console.log('成功：', recommendBooks.value);
+  } catch (error) {
+    // 处理请求错误
+    console.error('请求失败：', error);
+  }
+};
     // 加入收藏夹
 function addToCollection() {
       let id = sessionStorage.getItem("id");
@@ -303,125 +332,129 @@ function addToCollection() {
               }
             });
       }
-    }
-    // 立即购买
-function beforeBuyNow() {
-      // loading = false
-      // let id = sessionStorage.getItem("id");
-      // if (id == null) {
-      //   this.$message({
-      //     type: 'warning',
-      //     message: '您还未登录，请先登录！'
-      //   });
-      // } else {
-      //   this.loading = true;
-      //   this.checkTable = true;
-      //   axios.get("http://localhost:8081/user/selectUserById/" + this.id)
-      //       .then((resp) => {
-      //         this.userInfo = resp.data;
-      //       });
-      //   this.checkData[0] = {
-      //     bookName: this.book.bookName,
-      //     quantity: 1,
-      //     discountPrice: this.decimals(this.book.discount * this.book.price),
-      //     img: this.book.img
-      //   };
-      //   this.loading = false;
-      // }
-    }
+}
+// 查询用户信息
+function searchInfo() {
+    checkTable.value = true
+    axios.get('/user/userInfo',{params: {username: username.value,}}).then(response => {
+    // 处理成功的响应
+    userInfo.value = response.data.data; 
+  })
+   
+};
     // 结算立即购买
-function buyNow(state) {
-      this.loadingBtn = true;
-      let deal = {
-        userId: this.id,
-        shippingAddress: this.userInfo.shippingAddress,
-        total: this.checkData[0].discountPrice,
-        payWay: this.payWay,
-        state: state
-      };
-      let dealDetails = [{
-        bookId: this.book.id,
-        bookName: this.book.bookName,
-        bookPrice: this.checkData[0].discountPrice,
-        bookQuantity: 1,
-        bookImg: this.book.img
-      }];
-      axios.post("http://localhost:8081/deal/buyNow", {deal: deal, dealDetails: dealDetails})
-          .then((resp) => {
-            this.loadingBtn = false;
-            this.checkTable = false;
-            this.payWay = "支付宝";
-            if (resp.data === 1) {
-              if (state === 2) {
-                this.$message({
-                  showClose: true,
-                  type: 'success',
-                  message: '结算成功！'
-                });
-              }
-              if (state === 6) {
-                this.$message({
-                  showClose: true,
-                  type: 'warning',
-                  message: '您有一笔新的待支付订单，请尽快在 我的订单 中处理'
-                });
-              }
-            } else {
-              this.$message({
-                showClose: true,
-                type: 'error',
-                message: '结算失败，请重试'
-              });
-            }
-          });
+function buyNow() {
+  let obj = {
+    bookId: router.params.id,
+    userEmail: store.state.personalID[0].email,
+  }
+  axios.post("/book/download", obj).then( async (resp) => {
+    const code = resp.data.code;
+    const message = resp.data.message
+    if(code == 200){
+        loadingBtn.value = true
+        checkTable.value = false
+        window.location.href = resp.data.data
     }
-    // 切换标签页，显示评论
+    if (code == 400) {
+        ElMessage({
+          message: message,
+          type: "error",
+        });
+    }
+});
+      
+}
+// 切换标签页，显示评论
 function handleClick(tab) {
-      if (tab.name === 'comment') {
-        this.loading = true;
-        axios.get("http://localhost:8081/comment/selectCommentByBookId/" + this.book.id + "/1/10")
-            .then((resp) => {
-              this.commentData = resp.data.comments;
-              this.total = resp.data.total;
-              this.loading = false;
-            });
-      }
+    if (tab.name === 'comment') {
+      initDataCommit(router.params.id);
+   }
+}
+// 发表评论
+const textarea = ref("")
+const textGrade = ref("")
+function sendCommit(){
+  let obj = {
+    bookId: router.params.id,
+    userNickname: store.state.personalID[0].username,
+    userEmail: store.state.personalID[0].email,
+    userComment:textarea.value,
+    userGrade:textGrade.value * 2,
+  }
+  axios.post("/book/comment/user", obj).then( async (resp) => {
+    const code = resp.data.code;
+    const message = resp.data.message
+    if(code == 200){
+      initDataCommit(router.params.id);
     }
-    // 格式化日期
-    function formatDate(time){
+    if (code == 400) {
+        ElMessage({
+          message: message,
+          type: "error",
+        });
+    }
+});
+}
+// 删除评论
+function deleteBookDialog(row){
+  let obj = {
+    ids:[row.id],
+    userEmail:store.state.personalID[0].email,
+  }
+  axios.delete("/book/comment/user", { data: obj }).then((resp) => {
+    const code = resp.data.code;
+    const message = resp.data.message
+    if(code == 200){
+      ElMessage({
+          message: message,
+          type: "success",
+        });
+      initDataCommit(router.params.id);
+    }
+    if (code == 400) {
+        ElMessage({
+          message: message,
+          type: "error",
+        });
+    }
+});
+} 
+// 格式化日期
+function formatDate(time){
       let date = new Date(time);
       let year = date.getFullYear();
       let month = date.getMonth()+1;
       let day = date.getDate();
       return year+"-"+month+"-"+day;
-    }
-    // 翻页功能
-    function page(currentPage) {
-      this.loading = true;
-      axios.get("http://localhost:8081/comment/selectComment/" + this.book.id + "/" + currentPage + "/10")
-          .then((resp) => {
-            this.commentData = resp.data.comments;
-            this.total = resp.data.total;
-            this.loading = false;
-          });
-    }
-    // 初始化同类推荐
-    function initRecommendBooks(bookId){
-      axios.get("http://localhost:8081/book/selectRecommendBook/" + bookId)
-          .then((resp) => {
-            this.recommendBooks = resp.data;
-          })
-    }
-    // 从同类推荐跳转到图书详情页
-    function bookDetail(bookId){
-      this.$router.push({name: 'BookDetail', params: {id: bookId}});
-    }
-    // 在组件挂载时执行查询图书的函数
+}
+// 翻页功能
+function pagechange(val) {
+  pageNum.value = val;
+  initDataCommit(router.params.id);
+}
+// 从同类推荐跳转到图书详情页
+function bookDetail(id){
+  userouter.push({name: 'BookDetail', params: {id: id}});
+}
+// 在组件挂载时执行查询图书的函数
 onMounted(async () => {
   const bookId = router.params.id;
+  userouter.afterEach((to, from, next) => {
+        window.scrollTo(0, 0)
+    })
   await initData(bookId);
+  await initDataCommit(bookId);
   // 在这里可以执行其他操作，确保 initData 函数执行完成后再执行
 });
+// 使用 watch 监听路由变化
+watch(() => router.params.id,
+      (to, from) => {
+        console.log(`Route changed from ${from.path} to ${to.path}`);
+        window.location.reload()
+      }
+);
+
 </script>
 <style>
 #wrap {
@@ -505,12 +538,12 @@ onMounted(async () => {
   color: #409EFF;
 }
 
-#detail-comment .comment-content .rate {
+#detail-comment .comment-content .userGrade {
   margin: 0 auto 10px;
-  width: 150px;
+  width: 250px;
 }
 
-#detail-comment .comment-content .content {
+#detail-comment .comment-content .userComment {
   height: 90px;
   display: -webkit-box;
   overflow: hidden;
@@ -520,12 +553,16 @@ onMounted(async () => {
 }
 
 #detail-comment .comment-content .date {
-  margin-left: 850px;
+  margin-left: 1100px;
 }
 
 #pageBtn {
-  margin: 20px auto;
+  float: right;  /* 使用 float: right; 将元素靠右 */
   display: table;
 }
+#pinglun{
+  margin-top: 40px;
+}
+
 </style>
 

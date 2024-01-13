@@ -56,7 +56,7 @@
         </el-col>
       </el-row>
     </div>
-  </div>
+    </div>
   </div>
 </template>
 
@@ -172,21 +172,8 @@ function initData() {
      
     }
 
-const store = useStore();
 const heightT = ref(748)
-const size = ref(10)
-const page2 = ref(0)
-const view = ref([])
-const back = ref([])
-const flag = ref(true)
-const data2 = ref([])
 
-// 初始化视图的函数
-function initView(){
-   view.push(
-        back.slice(page * size, (page + 1) * size)
-      );
-};
 
 onMounted(() => {
   initData();

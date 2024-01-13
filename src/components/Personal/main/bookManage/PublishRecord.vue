@@ -1,57 +1,35 @@
 <template>
     <div>
         <div>
-            <el-table :data="recordsList" style="width: 100%">
-                <el-table-column type="expand">
-                    <template slot-scope="props">
-                        <el-form label-position="left" inline class="table-expand">
-                            <el-form-item label="图书ID：">
-                                <span>{{ props.row.bookId }}</span>
-                            </el-form-item>
-                            <el-form-item label="书名：">
-                                <span>{{ props.row.bookName }}</span>
-                            </el-form-item>
-                            <el-form-item label="ISBN号：">
-                                <span>{{ props.row.bookIsbn }}</span>
-                            </el-form-item>
-                            <el-form-item label="分类：">
-                                <span>{{ props.row.bookCategory }}</span>
-                            </el-form-item>
-                            <el-form-item label="价格：">
-                                <span>{{ props.row.bookPrice }}</span>
-                            </el-form-item>
-                            <el-form-item label="描述：">
-                                <span>{{ props.row.bookOutline }}</span>
-                            </el-form-item>
-                        </el-form>
-                    </template>
-                </el-table-column>
-                <el-table-column label="图书ID" prop="bookId">
-                </el-table-column>
-                <el-table-column label="图书名称" prop="bookName">
-                </el-table-column>
-                <el-table-column label="图书状态" prop="bookRelease">
-                    <!-- <template slot-scope="scope">{{ scope.row.bookRelease === 1 ? '男' : '女' }}</template> -->
-                    <template slot-scope="scope">
-                        <!-- <p v-if="scope.row.bookRelease == 0">待审核</p>
-                <p v-if="scope.row.bookRelease == 1">审核通过</p>
-                <p v-if="scope.row.bookRelease == 2">审核不通过</p> -->
-                        <el-tag v-if="scope.row.bookRelease == 0" type="info" effect="dark">待审核</el-tag>
-                        <el-tag v-if="scope.row.bookRelease == 1" type="success" effect="dark">审核通过</el-tag>
-                        <el-tag v-if="scope.row.bookRelease == 2" type="danger" effect="dark">审核不通过</el-tag>
-                        <el-tag v-if="scope.row.bookRelease == 3" type="warning" effect="dark">已出售</el-tag>
-                    </template>
-                </el-table-column>
-                <el-table-column label="操作">
-                    <template slot-scope="scope">
-                        <span v-if="scope.row.bookRelease == 0 || scope.row.bookRelease == 2">
-                            <el-button type="danger" @click="handleEdit(scope.row.bookId)">重新上传</el-button>
-                        </span>
-                        <span v-else>
-                            <el-button type="info" disabled>不可用</el-button>
-                        </span>
-                    </template>
-                </el-table-column>
+            <el-table :data="recordsList" style="width: 100%" empty-text="没有数据">
+              <el-table-column prop="bookId" label="图书ID" />
+              <el-table-column prop="bookCoverUrl" label="图书封面">
+                <template #default="scope">
+                  <el-image
+                    :src="scope.row.bookCoverUrl"
+                    style="width: 70px; height: 70px;"
+                  ></el-image>
+                </template>
+              </el-table-column>
+              <el-table-column prop="bookName" label="图书名称" />
+              <el-table-column prop="bookAuthor" label="图书作者"/> 
+              <el-table-column prop="bookPublishHouse" label="出版社" />
+              <el-table-column prop="bookDownloadNum" label="下载量" />
+              <el-table-column prop="bookClickNum" label="点击量" />
+              <el-table-column prop="categoryName" label="分类名称" />
+              <el-table-column prop="categoryAlias" label="分类别名" />
+              <el-table-column fixed="right" label="操作">
+                <template #default="books">
+                  <el-button
+                    @click="editFromButton(editBookFormRef, books.row)"
+                    type="text"
+                    >编辑</el-button
+                  >
+                  <el-button @click="deleteBookDialog(books.row)" type="text"
+                    >删除</el-button
+                  >
+                </template>
+              </el-table-column>
             </el-table>
         </div>
         <div>
@@ -82,21 +60,24 @@
             </el-dialog>
         </div>
     </div>
-  </template>
+</template>
     
-  <script>
-   import {ref} from 'vue'
-  const userId = ref('');
-  const recordsList = ref([]);
-  const dialogFormVisible = ref(false);
-  const bookForm = ref( {
+<script setup>
+import {ref, onMounted} from 'vue'
+import { useStore } from 'vuex';
+import axios from "axios";
+const store = useStore();
+const userEmail = ref(store.state.personalID[0].email)
+const recordsList = ref([]);
+const dialogFormVisible = ref(false);
+const bookForm = ref( {
                 bookId: '',
                 bookName: '',
                 bookIsbn: '',
-                bookPrice: '',
+                bookPrice: '',  
                 bookOutline: '',
             });
-  const rules = ref({
+const rules = ref({
                 bookName: [
                     { required: true, message: '请输入图书名！', trigger: 'blur' },
                 ],
@@ -110,39 +91,15 @@
                     { required: true, message: '请输入图书简介！', trigger: 'blur' },
                 ],
             });
-  
-        
-    // created() {
-    //     this.userId = this.cookie.getCookie("LoginId");
-    //     this.getRecordsList();
-    // },
-       function getRecordsList() {
-            this.$http({
-                method: 'get',
-                url: '/publishRecord',
-                params: {
-                    sellerId: this.userId
-                }
-            })
-                .then(res => {
-                    this.recordsList = res.data.result;
-                    if (res.data.errcode != "0") {
-                        return this.$notify({
-                            title: '警告',
-                            message: res.data.errmsg,
-                            type: 'warning'
-                        });
-                    } else {
-                        this.$notify({
-                            title: '成功',
-                            message: res.data.errmsg,
-                            type: 'success'
-                        });
-                    }
-                    console.log(this.recordsList);
-                })
-        }
-        function handleEdit(id) {
+function initData() {
+    axios.get(`/book/userUpload/${userEmail.value}`).then(response => {
+    // 处理成功的响应
+    recordsList.value = response.data.data; 
+    console.log("cca", recordsList.value)
+  })
+   
+};
+function handleEdit(id) {
             this.$http({
                 method: 'get',
                 url: 'getBook',
@@ -164,7 +121,7 @@
                 })
             this.dialogFormVisible = true
         }
-        function onSubmit() {
+function onSubmit() {
             this.$refs.bookFormRef.validate(async valid => {
                 if (!valid) return;
                 //发起修改请求
@@ -178,13 +135,16 @@
                 }
             })
         }
-        // 监听修改用户对话框的关闭
-        function editDialogClosed() {
+// 监听修改用户对话框的关闭
+function editDialogClosed() {
             this.$refs.bookFormRef.resetFields()
         }
-  </script>
+onMounted(() => {
+  initData();
+});
+</script>
     
-  <style lang="less" scoped>
+<style lang="less" scoped>
   .table-expand {
     font-size: 0;
   }
@@ -204,4 +164,4 @@
   .dialog_btn {
     margin-left: 25%;
   }
-  </style>
+</style>

@@ -6,10 +6,11 @@ import { createStore } from 'vuex';
 const store = createStore({
   state: {
     personalID:[{
+      email:'524535336@qq.com',
       expire:'',
       role:'',
       token:'',
-      username:'',
+      username:"admin",
       userPic:0,
     }],
   },

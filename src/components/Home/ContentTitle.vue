@@ -23,11 +23,6 @@ import { ref, watch, onMounted } from 'vue';
 import {useStore} from 'vuex';
 const store = useStore();
 const keyword = ref("");
-const search = ref([]);
-const hasNoData = ref("");
-const timer = ref(null);
-const list = ref([]);
-
 
 function clickme(){
       store.commit('addUserPic',100);

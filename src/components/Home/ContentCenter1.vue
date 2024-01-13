@@ -42,69 +42,69 @@
               <div class="cate_list_box">
                 <li>
                   <div class="firstcatename">
-                    <a href="pdf-class-1-0-0.html" title="经济管理" target="_blank">经济管理</a>
+                    <a href="/SearchDisplay/经济管理" title="经济管理" target="_blank">经济管理</a>
                   </div>
                   <span class="catelist">
-                  <a href="pdf-class-1-12-0.html" title="" target="_blank">管理学</a>
-                  <a href="pdf-class-1-13-0.html" title="" target="_blank">金融投资</a>
-                  <a href="pdf-class-1-14-0.html" title="" target="_blank">市场营销</a>
-                  <a href="pdf-class-1-15-0.html" title="" target="_blank">保险</a>
-                  <a href="pdf-class-1-16-0.html" title="" target="_blank">财会专业</a></span>
+                  <a href="/SearchDisplay/管理学" title="" target="_blank">管理学</a>
+                  <a href="/SearchDisplay/金融投资" title="" target="_blank">金融投资</a>
+                  <a href="/SearchDisplay/市场营销" title="" target="_blank">市场营销</a>
+                  <a href="/SearchDisplay/保险" title="" target="_blank">保险</a>
+                  <a href="/SearchDisplay/财会专业" title="" target="_blank">财会专业</a></span>
                 </li>
         <li>
           <div class="firstcatename">
             <a href="pdf-class-2-0-0.html" title="成功励志" target="_blank">成功励志</a>
           </div>
           <span class="catelist ">
-            <a href="pdf-class-2-17-0.html" title="" target="_blank">成功学</a>
-            <a href="pdf-class-2-18-0.html" title="" target="_blank">职场</a>
-            <a href="pdf-class-2-19-0.html" title="" target="_blank">演讲口才</a>
-            <a href="pdf-class-2-20-0.html" title="" target="_blank">人际交往</a>
-            <a href="pdf-class-2-21-0.html" title="" target="_blank">个人修养</a>
-            <a href="pdf-class-2-22-0.html" title="" target="_blank">性格情绪</a>
-            <a href="pdf-class-2-23-0.html" title="" target="_blank">励志书籍</a></span>
+            <a href="/SearchDisplay/成功学" title="" target="_blank">成功学</a>
+            <a href="/SearchDisplay/职场" title="" target="_blank">职场</a>
+            <a href="/SearchDisplay/演讲口才" title="" target="_blank">演讲口才</a>
+            <a href="/SearchDisplay/人际交往" title="" target="_blank">人际交往</a>
+            <a href="/SearchDisplay/个人修养" title="" target="_blank">个人修养</a>
+            <a href="/SearchDisplay性格情绪" title="" target="_blank">性格情绪</a>
+            <a href="/SearchDisplay/励志书籍" title="" target="_blank">励志书籍</a></span>
         </li>
         <li>
           <div class="firstcatename">
-            <a href="pdf-class-3-0-0.html" title="人物传记" target="_blank">人物传记</a>
+            <a href="/SearchDisplay人物传记" title="人物传记" target="_blank">人物传记</a>
           </div>
           <span class="catelist ">
-            <a href="pdf-class-3-24-0.html" title="" target="_blank">人物传记</a>
-            <a href="pdf-class-3-25-0.html" title="" target="_blank">世界各国史</a>
-            <a href="pdf-class-3-26-0.html" title="" target="_blank">中国史</a></span>
+            <a href="/SearchDisplay/人物传记" title="" target="_blank">人物传记</a>
+            <a href="/SearchDisplay/世界各国史" title="" target="_blank">世界各国史</a>
+            <a href="/SearchDisplay/中国史" title="" target="_blank">中国史</a></span>
         </li>
         <li>
           <div class="firstcatename">
-            <a href="pdf-class-4-0-0.html" title="计算机书籍" target="_blank">计算机书籍</a>
+            <a href="/SearchDisplay/计算机书籍" title="计算机书籍" target="_blank">计算机书籍</a>
           </div>
           <span class="catelist ">
-            <a href="pdf-class-4-27-0.html" title="" target="_blank">操作系统</a>
-            <a href="pdf-class-4-28-0.html" title="" target="_blank">数据库</a>
-            <a href="pdf-class-4-29-0.html" title="" target="_blank">信息安全</a>
-            <a href="pdf-class-4-30-0.html" title="" target="_blank">程序设计</a>
-            <a href="pdf-class-4-31-0.html" title="" target="_blank">软件开发</a>
-            <a href="pdf-class-4-33-0.html" title="" target="_blank">人工智能</a>
-            <a href="pdf-class-4-34-0.html" title="" target="_blank">平面设计</a>
-            <a href="pdf-class-4-35-0.html" title="" target="_blank">网络通信</a>
-            <a href="pdf-class-4-36-0.html" title="" target="_blank">家庭办公</a>
-            <a href="pdf-class-4-37-0.html" title="" target="_blank">计算机语言</a></span>
+            <a href="/SearchDisplay/操作系统" title="" target="_blank">操作系统</a>
+            <a href="/SearchDisplay/数据库<" title="" target="_blank">数据库</a>
+            <a href="/SearchDisplay/信息安全" title="" target="_blank">信息安全</a>
+            <a href="/SearchDisplay/程序设计" title="" target="_blank">程序设计</a>
+            <a href="/SearchDisplay/软件开发" title="" target="_blank">软件开发</a>
+            <a href="/SearchDisplay/人工智能" title="" target="_blank">人工智能</a>
+            <a href="/SearchDisplay/面设计" title="" target="_blank">平面设计</a>
+            <a href="/SearchDisplay/网络通信" title="" target="_blank">网络通信</a>
+            <a href="/SearchDisplay/家庭办公" title="" target="_blank">家庭办公</a>
+            <a href="/SearchDisplay/计算机语言" title="" target="_blank">计算机语言</a></span>
         </li>
         <li>
           <div class="firstcatename">
-            <a href="pdf-class-7-0-0.html" title="人文社科类" target="_blank">人文社科类</a>
+            <a href="/SearchDisplay/人文社科类<" title="人文社科类" target="_blank">人文社科类</a>
           </div>
           <span class="catelist keke_doc_clearfix">
-            <a href="pdf-class-7-50-0.html" title="" target="_blank">社会科学</a>
-            <a href="pdf-class-7-51-0.html" title="" target="_blank">心理学</a>
-            <a href="pdf-class-7-52-0.html" title="" target="_blank">宗教</a>
-            <a href="pdf-class-7-53-0.html" title="" target="_blank">法律</a>
-            <a href="pdf-class-7-54-0.html" title="" target="_blank">政治军事</a>
-            <a href="pdf-class-7-55-0.html" title="" target="_blank">文化</a>
-            <a href="pdf-class-7-56-0.html" title="" target="_blank">教育考试</a>
-            <a href="pdf-class-7-57-0.html" title="" target="_blank">古籍</a></span>
+            <a href="/SearchDisplay/社会科学" title="" target="_blank">社会科学</a>
+            <a href="/SearchDisplay/心理学" title="" target="_blank">心理学</a>
+            <a href="/SearchDisplay/宗教" title="" target="_blank">宗教</a>
+            <a href="/SearchDisplay/法律" title="" target="_blank">法律</a>
+            <a href="/SearchDisplay/政治军事" title="" target="_blank">政治军事</a>
+            <a href="/SearchDisplay/文化" title="" target="_blank">文化</a>
+            <a href="/SearchDisplay/教育考试" title="" target="_blank">教育考试</a>
+            <a href="/SearchDisplay/古籍<" title="" target="_blank">古籍</a></span>
         </li>
         <div class="openmore">
-          <a href="pdf-class.html" target="_blank">查看全部文档</a>
+          <a href="/SearchDisplay/1" target="_blank">查看全部文档</a>
         </div>
               </div>
             </div>
@@ -115,64 +115,62 @@
             <div class="popup">
         <h1 class="searchtitle">文档搜索</h1>
           <div class="search_bar">
-            <form action="plugin.php?id=keke_doc&amp;ac=list">
-              <input type="hidden" name="id" value="keke_doc">
-              <input type="hidden" name="ac" value="list">
-              <input type="text" name="keyword" class="tx" autocomplete="off" placeholder="请输入您要搜索的文档关键字...">
+            <form @submit.prevent="SearchDisplayVue()">
+              <input v-model="searchData" type="text" name="keyword" class="tx" autocomplete="off" placeholder="请输入您要搜索的文档关键字...">
               <el-button type="submit" @click="SearchDisplayVue()">搜索</el-button>
             </form>
           </div>
           <div class="hotkeyword">
           热门搜索：
-          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=Java" target="_blank">Java</a>
-          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=程序设计" target="_blank">程序设计</a>
-          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=古籍" target="_blank">古籍</a>
-          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=编程" target="_blank">编程</a>
-          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=教程" target="_blank">教程</a>
-          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=家庭" target="_blank">家庭</a>
-          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=百科" target="_blank">百科</a>
-          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=金融" target="_blank">金融</a>
-          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=设计" target="_blank">设计</a>
-          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=Python" target="_blank">Python</a>
-          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=文化" target="_blank">文化</a>
-          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=科技" target="_blank">科技</a>
-          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=社会" target="_blank">社会</a>
-          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=网络" target="_blank">网络</a>
-          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=计算机" target="_blank">计算机</a>
-          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=管理" target="_blank">管理</a>
-          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=科学" target="_blank">科学</a>
-          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=文学" target="_blank">文学</a>
-          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=财经" target="_blank">财经</a>
-          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=设计" target="_blank">设计</a>
-          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=教育" target="_blank">教育</a>
-          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=成功" target="_blank">成功</a>
-          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=励志" target="_blank">励志</a>
-          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=技术" target="_blank">技术</a>
-          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=投资" target="_blank">投资</a>
-          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=哲学" target="_blank">哲学</a>
-          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=军事" target="_blank">军事</a>
-          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=社会科学" target="_blank">社会科学</a>
-          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=程序设计" target="_blank">程序设计</a>
-          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=个人理财" target="_blank">个人理财</a>
-          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=数据" target="_blank">数据</a>
-          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=小说" target="_blank">小说</a>
-          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=家居" target="_blank">家居</a>
-          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=电子" target="_blank">电子</a>
-          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=科普" target="_blank">科普</a>
-          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=摄影" target="_blank">摄影</a>
-          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=传记" target="_blank">传记</a>
-          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=佛教" target="_blank">佛教</a>
-          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=娱乐" target="_blank">娱乐</a>
-          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=少儿" target="_blank">少儿</a>
-          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=学习" target="_blank">学习</a>
-          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=经济学" target="_blank">经济学</a>
-          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=编程" target="_blank">编程</a>
-          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=互联网" target="_blank">互联网</a>
-          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=旅游" target="_blank">旅游</a>
-          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=中国史" target="_blank">中国史</a>
-          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=散文" target="_blank">散文</a>
-          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=自然科学" target="_blank">自然科学</a>
-          <a href="plugin.php?id=keke_doc&amp;ac=list&amp;keyword=中国古代史" target="_blank">中国古代史</a>                 
+          <a href="/SearchDisplay/Java" target="_blank">Java</a>
+          <a href="/SearchDisplay/程序设计" target="_blank">程序设计</a>
+          <a href="/SearchDisplay/古籍" target="_blank">古籍</a>
+          <a href="/SearchDisplay/编程" target="_blank">编程</a>
+          <a href="/SearchDisplay/教程" target="_blank">教程</a>
+          <a href="/SearchDisplay/家庭" target="_blank">家庭</a>
+          <a href="/SearchDisplay/百科" target="_blank">百科</a>
+          <a href="/SearchDisplay/金融" target="_blank">金融</a>
+          <a href="/SearchDisplay/设计" target="_blank">设计</a>
+          <a href="/SearchDisplay/Python" target="_blank">Python</a>
+          <a href="/SearchDisplay/文化" target="_blank">文化</a>
+          <a href="/SearchDisplay/科技" target="_blank">科技</a>
+          <a href="/SearchDisplay/社会" target="_blank">社会</a>
+          <a href="/SearchDisplay/网络" target="_blank">网络</a>
+          <a href="/SearchDisplay/计算机" target="_blank">计算机</a>
+          <a href="/SearchDisplay/管理" target="_blank">管理</a>
+          <a href="/SearchDisplay/科学" target="_blank">科学</a>
+          <a href="/SearchDisplay/文学" target="_blank">文学</a>
+          <a href="/SearchDisplay/财经" target="_blank">财经</a>
+          <a href="/SearchDisplay/设计" target="_blank">设计</a>
+          <a href="/SearchDisplay/教育" target="_blank">教育</a>
+          <a href="/SearchDisplay/成功" target="_blank">成功</a>
+          <a href="/SearchDisplay/励志" target="_blank">励志</a>
+          <a href="/SearchDisplay/技术" target="_blank">技术</a>
+          <a href="/SearchDisplay/投资" target="_blank">投资</a>
+          <a href="/SearchDisplay/哲学" target="_blank">哲学</a>
+          <a href="/SearchDisplay/军事" target="_blank">军事</a>
+          <a href="/SearchDisplay/社会科学" target="_blank">社会科学</a>
+          <a href="/SearchDisplay/程序设计" target="_blank">程序设计</a>
+          <a href="/SearchDisplay/个人理财" target="_blank">个人理财</a>
+          <a href="/SearchDisplay/数据" target="_blank">数据</a>
+          <a href="/SearchDisplay/小说" target="_blank">小说</a>
+          <a href="/SearchDisplay/家居" target="_blank">家居</a>
+          <a href="/SearchDisplay/电子" target="_blank">电子</a>
+          <a href="/SearchDisplay/科普" target="_blank">科普</a>
+          <a href="/SearchDisplay/摄影" target="_blank">摄影</a>
+          <a href="/SearchDisplay/传记" target="_blank">传记</a>
+          <a href="/SearchDisplay/佛教" target="_blank">佛教</a>
+          <a href="/SearchDisplay/娱乐" target="_blank">娱乐</a>
+          <a href="/SearchDisplay/少儿" target="_blank">少儿</a>
+          <a href="/SearchDisplay/学习" target="_blank">学习</a>
+          <a href="/SearchDisplay/经济学" target="_blank">经济学</a>
+          <a href="/SearchDisplay/编程" target="_blank">编程</a>
+          <a href="/SearchDisplay/互联网" target="_blank">互联网</a>
+          <a href="/SearchDisplay/旅游" target="_blank">旅游</a>
+          <a href="/SearchDisplay/中国史" target="_blank">中国史</a>
+          <a href="/SearchDisplay/散文" target="_blank">散文</a>
+          <a href="/SearchDisplay/自然科学" target="_blank">自然科学</a>
+          <a href="/SearchDisplay/中国古代史" target="_blank">中国古代史</a>                 
         </div>
             </div>
           </div>
@@ -243,9 +241,10 @@ const  yichu2 = () =>  {
    guanbi.value = !guanbi.value
    guanbi2.value = !guanbi2.value
     }
-
+const searchData = ref("")
 function SearchDisplayVue(){
-      router.push({name:"SearchDisplay"})
+      const path = searchData.value
+      router.push({name:"SearchDisplay", params: {id: path}})
     }
 // 上传文档跳转
 function tipNoPer(){

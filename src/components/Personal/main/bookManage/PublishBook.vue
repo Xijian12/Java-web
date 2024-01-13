@@ -17,25 +17,31 @@
       <el-form-item label="下载所需积分" style="width:350px" prop="downloadPoints">
          <el-input v-model="bookForm.downloadPoints"></el-input>
       </el-form-item>
-      <el-form-item label="图书类别" prop="bookCategory" >
-        <el-select v-model="bookForm.bookCategory"  placeholder="请选择图书分类">
-          <el-option v-for="item in categoryList" :key="item.categoryId" :label="item.categoryName"
-            :value="item.categoryId"></el-option>
+      <el-form-item label="图书类别" prop="categoryName" >
+        <el-select v-model="bookForm.categoryName"  placeholder="请选择图书分类">
+          <el-option v-for="item in categoryList" :key="item.categoryName" :label="item.categoryName"
+            :value="item.categoryName"></el-option>
           </el-select>
       </el-form-item>
       <el-form-item label="图书简介" prop="bookProfile">
         <el-input type="textarea" v-model="bookForm.bookProfile"></el-input>
       </el-form-item>
-      <el-form-item label="图书封面上传" prop="files">
-        <el-upload class="box_upload" :auto-upload="false" action="" :http-request="uploadFile"
-          accept=".jpg, .jpeg, .png" list-type="picture" :limit="4" :on-exceed="exceed" ref="upload" name="File"
+      <el-form-item label="图书封面上传" prop="pictures">
+        <el-upload class="box_upload"  action="/upload/uploadBookcover" name="bookCover" :http-request="uploadFile"
+          accept="" list-type="picture" :limit="4" :on-exceed="exceed" ref="uploadRef" 
           :show-file-list="true" :on-change="imgPreview" :before-upload="beforeAvatarUpload" multiple>
         <el-button size="small" type="primary">点击上传</el-button>
-        <div slot="tip" class="el-upload__tip">上传的第一张图片默认为展示主图，只能上传jpg/jpeg/png格式图片，且单个图片不超过2MB</div>
+        </el-upload>
+      </el-form-item>
+      <el-form-item label="图书文件上传" prop="files">
+        <el-upload class="box_upload"  action="/upload/uploadBook" name="bookFile" :http-request="uploadFileBook"
+          accept="" list-type="pdf" :limit="4" :on-exceed="exceed" ref="uploadBookRef" 
+          :show-file-list="true" multiple>
+        <el-button size="small" type="primary">点击上传</el-button>
         </el-upload>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="onSubmit('bookForm')" style="margin-left:185px">发布图书</el-button>
+        <el-button type="primary" @click="onSubmit()" style="margin-left:185px">发布图书</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -43,39 +49,72 @@
   
 <script lang="ts" setup>
   import { ref, reactive, onMounted } from 'vue';
-  import {ElMessage} from "element-plus";
+  import {ElMessage, ElMessageBox} from "element-plus";
+  import type { UploadInstance } from 'element-plus'
   import axios from "axios";
-  const uploadForm = new FormData();
-  const categoryList = ref([]);
-  const bookForm = ref({
-                  files: [],
-                  bookName: '',
-                  bookAuthor: '',
-                  bookCategory: '',
-                  bookIsbn: '',
-                  bookOutline: '',
-                  bookPrice: '',
-              })
-  const rules = ref({
-                  bookName: [
-                      { required: true, message: '请输入图书名！', trigger: 'blur' },
-                  ],
-                  bookIsbn: [
-                      { required: true, message: '请输入ISBN号！', trigger: 'blur' },
-                      { type: 'number', message: 'ISBN号为数字！' }
-                  ],
-                  bookPrice: [
-                      { required: true, message: '请输入价格！', trigger: 'blur' },
-                  ],
-                  bookOutline: [
-                      { required: true, message: '请输入图书简介！', trigger: 'blur' },
-                  ],
-                  bookCategory: [
-                      { required: true, message: '请选择图书种类！', trigger: 'change' },
-                  ],
-              })
-  function uploadFile(param) {
-    uploadForm.append('files', param.file);
+  const usereamil = ref("2323223@qq.com")
+  const uploadRef = ref<UploadInstance>()
+  const uploadBookRef = ref<UploadInstance>()
+  const categoryList = ref([{
+    categoryId:"",
+    categoryName:"",
+  }]);
+  const bookForm = reactive<any>(
+    {
+      pictures: [],
+      files: [],
+      bookName: "",
+      bookAuthor: "",
+      bookVersion: "",
+      bookPublishHouse: "",
+      bookCoverUrl: "",
+      downloadPoints: "",
+      bookProfile: "",
+      categoryName: "",
+      bookUploader: usereamil.value,
+      bookCoverUuid: "",
+      bookFileUuid: "",
+    })
+const rules = ref(
+  {
+    bookName: [{ required: true, message: '请输入图书名！', trigger: 'blur' },],
+    bookAuthor: [{ required: true, message: '请输入图书名！', trigger: 'blur' },],
+    bookVersion: [{ required: true, message: '请输入图书名！', trigger: 'blur' },],
+    bookPublishHouse: [{ required: true, message: '请输入图书名！', trigger: 'blur' },],
+    downloadPoints: [{ required: true, message: '请输入图书名！', trigger: 'blur' },],
+    bookProfile: [{ required: true, message: '请输入图书名！', trigger: 'blur' },],
+    categoryName: [{ required: true, message: '请输入图书名！', trigger: 'blur' },],
+    files: [{ required: true, message: '请输入图书名！', trigger: 'blur' },],
+    pictures: [{ required: true, message: '请输入图书名！', trigger: 'blur' },],
+  })
+function uploadFile(param) {
+    const uploadForm1 = new FormData();
+    uploadForm1.append('bookCover', param.file);
+    // 发送上传请求
+    axios.post("/upload/uploadBookcover", uploadForm1)
+        .then(response => {
+          // 处理成功响应
+          bookForm.bookCoverUrl = response.data.data[0]
+          bookForm.bookCoverUuid = response.data.data[1]
+        })
+        .catch(error => {
+          // 处理错误
+          console.error(error);
+        });
+          }
+  function uploadFileBook(param) {
+    const uploadForm2 = new FormData();
+    uploadForm2.append('bookFile', param.file);
+    // 发送上传请求
+    axios.post("/upload/uploadBook", uploadForm2)
+        .then(response => {
+          // 处理成功响应
+          bookForm.bookFileUuid = response.data.data
+        })
+        .catch(error => {
+          // 处理错误
+          console.error(error);
+        });
           }
   function exceed(files, fileList) {
     return ElMessage.error("最多上传4张图片！");
@@ -93,55 +132,52 @@
               }
           }
   function beforeAvatarUpload(file) { 
-              console.log(file)
-              const isLt2M = file.size / 1024 / 1024 < 2;
+              const isLt2M = file.size / 1024 / 1024 < 4;
               if (!isLt2M) {
                 ElMessage({
-                      message: '上传文件大小不能超过 2MB!',
+                      message: '上传文件大小不能超过 4MB!',
                       type: 'warning'
                   });
               }
               return isLt2M
           }
   //提交方法
-  function onSubmit(bookForm) {
-              this.$refs[bookForm].validate((valid) => {
-                  if (!valid) return;
-                  this.$refs.upload.submit();
-                  this.uploadForm.append('bookName', this.bookForm.bookName);
-                  this.uploadForm.append('bookCategory', this.bookForm.bookCategory);
-                  this.uploadForm.append('bookIsbn', this.bookForm.bookIsbn);
-                  this.uploadForm.append('bookOutline', this.bookForm.bookOutline);
-                  this.uploadForm.append('bookPrice', this.bookForm.bookPrice);
-                  this.uploadForm.append('bookSeller', this.cookie.getCookie("LoginId"));
-                  this.uploadForm.append('bookRelease', 0);   //默认审核状态为0，提交由后台管理系统审核
-                  this.$http.post('/insertBook', this.uploadForm)
-                  .then(res => {
-                      if (res.data.errcode != "0") {
-                          this.uploadForm = new FormData();   //清空formdata
-                          this.clearFiles();
-                          return this.$message.error(res.data.errmsg);
-                      } else {
-                          this.$refs[bookForm].resetFields(); //上传成功清空表单
-                          this.clearFiles();  //清空文件列表
-                          this.uploadForm = new FormData();   //清空formdata
-                          this.$notify({
-                              title: '成功',
-                              message: res.data.errmsg,
-                              type: 'success'
-                          })
-                      }
-                  })
-              })
-  
+  function onSubmit() {    
+    console.log("上传", bookForm)
+    // 发送上传请求
+    axios.post("/book", bookForm)
+        .then(response => {
+          const code = response.data.code
+          const message = response.data.message
+           // 添加失败
+          if (code == 400) {
+            ElMessageBox.alert(message, {
+              confirmButtonText: "确认",
+            });
+          }
+          // 添加成功
+          if (code == 200) {
+            ElMessageBox.alert(message, {
+              confirmButtonText: "确认",
+
+          })
+        }
+      }).catch(error => {
+          // 处理错误
+          console.error(error);
+        });
+
           } 
   function initData() {
   // 发起简单的 GET 请求
-  axios.get("/category")
+ axios.get("/category",{
+      params:{
+      page: 1,
+      pageSize: 200}
+    })
   .then(response => {
     // 处理成功的响应
     categoryList.value = response.data
-    console.log('成功：', categoryList);
   })
   .catch(error => {
     // 处理请求错误
@@ -158,8 +194,8 @@ onMounted(() => {
   
 <style lang="less" scoped>
   .form_box {
-      width: 40%;
-      margin-left: 25%;
+      width: 50%;
+      margin-left: 20%;
       background-color: #fff;
       padding: 30px;
   }
