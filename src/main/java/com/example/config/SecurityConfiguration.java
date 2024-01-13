@@ -160,6 +160,7 @@ public class SecurityConfiguration {
             } else {
                 AuthorizeVO vo = account.asViewObject(AuthorizeVO.class, o -> o.setToken(jwt));
                 vo.setExpire(utils.expireTime());
+                vo.setEmail(account.getEmail());
                 writer.write(RestBean.success(vo).asJsonString());
             }
         }
