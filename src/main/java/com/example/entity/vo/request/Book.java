@@ -3,12 +3,15 @@ package com.example.entity.vo.request;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.time.LocalDate;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@RequestMapping
+
+
 public class Book {
     private Integer bookId;
     private String bookName;
@@ -28,4 +31,5 @@ public class Book {
     private String categoryAlias;
     private LocalDate createTime;
     private LocalDate updateTime;
+
 }

@@ -8,8 +8,8 @@ import java.util.List;
 @Mapper
 public interface BookMapper {
 
-    @Insert("INSERT INTO test.book (book_name, book_author, book_version, book_publish_house, book_grade, book_download_num, book_click_num, book_uploader, book_points, book_profile, book_cover_url, book_cover_uuid, book_file_uuid, category_name, category_alias,create_time, update_time) " +
-            "VALUES (#{bookName}, #{bookAuthor}, #{bookVersion}, #{bookPulishHouse}, #{bookGrade}, #{bookDownloadNum}, #{bookClickNum}, #{bookUploader}, #{bookPoints}, #{bookProfile}, #{bookCoverUrl}, #{bookCoverUuid}, #{bookFileUuid},#{categoryName}, (SELECT book_categories.category_alias FROM test.book_categories WHERE category_name = #{categoryName}), NOW(), NOW())")
+    @Insert("INSERT INTO test.book (book_name, book_author, book_version, book_publish_house, book_grade, book_download_num, book_click_num, book_uploader, book_points, book_profile, book_cover_url, book_cover_uuid, book_file_uuid, category_name, create_time, update_time,category_alias) " +
+            "VALUES (#{bookName}, #{bookAuthor}, #{bookVersion}, #{bookPublishHouse}, #{bookGrade}, #{bookDownloadNum}, #{bookClickNum}, #{bookUploader}, #{bookPoints}, #{bookProfile}, #{bookCoverUrl}, #{bookCoverUuid}, #{bookFileUuid},#{categoryName}, (SELECT book_categories.category_alias FROM test.book_categories WHERE category_name = #{categoryName}), NOW(), NOW())")
     @Options(useGeneratedKeys = true, keyProperty = "bookId")
     void insertBook(Book book);
  @Update("UPDATE test.book set book_download_num = #{bookDownloadNum}, book_click_num = #{bookClickNum} where test.book.book_version=#{bookVersion}")

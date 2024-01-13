@@ -57,6 +57,7 @@ public class SecurityConfiguration {
                         .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
                         .requestMatchers("/admin/userInfo").permitAll() // 添加这一行
                         .requestMatchers("/user/userInfo").permitAll() // 添加这一行
+                        .requestMatchers("/user/updateUserInfo").permitAll() // 添加这一行
                         .requestMatchers("/user/deleteUser").permitAll() // 用户注销
                         .requestMatchers("/admin/deleteUser").permitAll() // 管理员删除用户
                         .requestMatchers("/admin/adminInfo").permitAll() // 添加这一行
