@@ -8,11 +8,13 @@ import com.example.entity.vo.request.CommentDeletionRequest;
 import com.example.entity.vo.request.Page;
 import com.example.service.AccountService;
 import jakarta.annotation.Resource;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
+@Slf4j
 public class BookReviewService {
 
     private final BookReviewMapper bookReviewMapper;
@@ -59,14 +61,22 @@ public class BookReviewService {
     }
     public boolean deleteCommentsIfUser(CommentDeletionRequest request) {
         // 执行批量删除操作
+        boolean FLAG = true;
+        log.info("request:{}",request);
         for(int i=0;i<request.getIds().size();i++) {
             BookReview bookReview = bookReviewMapper.selectBookReviewById(request.getIds().get(i));
-            if (bookReview.getUserEmail() == request.getAdminAccount()) {
-                bookReviewMapper.deleteCommentsByIds(request.getIds());
-            } else {
-                return false;
+            if(bookReview != null) {
+                if (bookReview.getUserEmail().equals(request.getUserEmail())) {
+                    bookReviewMapper.deleteCommentsByIds(request.getIds());
+                }
+                else{
+                    FLAG =false;
+                }
+            }
+            else{
+                FLAG =false;
             }
         }
-        return true;
+        return FLAG;
     }
 }
