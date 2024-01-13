@@ -1,10 +1,15 @@
 package com.example.controller;
 
+import com.example.entity.dto.Account;
 import com.example.entity.vo.request.*;
 import com.example.entity.vo.request.user.DownloadBook;
 import com.example.entity.vo.request.user.DownloadBookRequest;
+import com.example.mapper.AccountMapper;
+import com.example.service.AccountService;
 import com.example.service.impl.BookService;
 import com.example.utils.AliOSSUtils;
+import com.example.utils.Constants;
+import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +27,8 @@ public class BookController {
     private final BookService bookService;
     @Autowired
     private AliOSSUtils aliOSSUtils;
+    @Resource
+    AccountService accountService;
 
 
     public BookController(BookService bookService) {
@@ -90,7 +97,10 @@ public ResponseEntity<?> downloadBook(@RequestBody DownloadBookRequest book) thr
         }
         String newFileName = bookobj.getBookName() + '.' + fileExtension;
         if (test.getTotal() >= 1) {
-
+            //如果下载成功，则给上传者积分奖励
+            Account account = accountService.findAccountByNameOrEmail(bookobj.getBookUploader());
+            String newUserInfo = accountService.updateUserInfo(account.getUsername(), account.getUsername(),
+                    account.getPassword(), account.getPoints() + (int)(Constants.pointRate * bookobj.getBookPoints()));
             return ResponseEntity.ok(new Response(200, "操作成功", aliOSSUtils.GetFileDownloadUrl(test.getUrl(), newFileName)));
         } else {
             return ResponseEntity.ok(new Response(200, "操作失败，积分不够", null));

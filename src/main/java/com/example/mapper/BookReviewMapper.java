@@ -20,7 +20,7 @@ public interface BookReviewMapper {
 
     @Delete({
             "<script>",
-            "DELETE FROM test.book_comment WHERE id IN",
+            "DELETE FROM test.commentforbook WHERE id IN",
             "<foreach item='id' collection='ids' open='(' separator=',' close=')'>",
             "#{id}",
             "</foreach>",

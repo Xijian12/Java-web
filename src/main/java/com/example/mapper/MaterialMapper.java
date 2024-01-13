@@ -1,12 +1,6 @@
 package com.example.mapper;
 
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.baomidou.mybatisplus.core.toolkit.Constants;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.entity.vo.request.Material;
-import com.example.entity.vo.request.user.MaterialPage;
-import com.example.entity.vo.request.user.SchoolMajorSubject;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -85,8 +79,8 @@ public interface MaterialMapper {
     List<String> selectAllSchool();
 
     @Select("select distinct(major) from materials where school = #{school}")
-    List<String> selectMajorBySchool(SchoolMajorSubject schoolMajorSubject);
+    List<String> selectMajorBySchool(String school);
 
     @Select("select distinct(subject) from materials where school = #{school} and major = #{major}")
-    List<String> selectSubjectBySchoolAndMajorl(SchoolMajorSubject schoolMajorSubject);
+    List<String> selectSubjectBySchoolAndMajorl(String school,String major);
 }

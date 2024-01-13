@@ -1,6 +1,5 @@
 package com.example.controller;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.entity.Result;
 import com.example.entity.vo.request.DeleteMaterialRequest;
 import com.example.entity.vo.request.DonwloadMaterialVO;
@@ -8,7 +7,6 @@ import com.example.entity.vo.request.Material;
 import com.example.entity.vo.request.admin.AdminAddCommentVO;
 import com.example.entity.vo.request.admin.AdminDeleteCommentVO;
 import com.example.entity.vo.request.user.MaterialPage;
-import com.example.entity.vo.request.user.SchoolMajorSubject;
 import com.example.entity.vo.request.user.UserAddCommentVO;
 import com.example.entity.vo.request.user.UserDeleteCommentVO;
 import com.example.entity.vo.response.MaterialUploadVO;
@@ -211,14 +209,14 @@ public class MaterialController {
         return Result.success(schools);
     }
     @GetMapping("/school/major")
-    public Result getMajorBySchool(@RequestBody SchoolMajorSubject schoolMajorSubject){
-        List<String> schools = materialService.getMajorBySchool(schoolMajorSubject);
+    public Result getMajorBySchool(@RequestParam String school){
+        List<String> schools = materialService.getMajorBySchool(school);
 
         return Result.success(schools);
     }
     @GetMapping("/school/major/subject")
-    public Result getSubjectBySchoolAndMajor(@RequestBody SchoolMajorSubject schoolMajorSubject){
-        List<String> schools = materialService.getSubjectBySchoolAndMajor(schoolMajorSubject);
+    public Result getSubjectBySchoolAndMajor(@RequestParam String school,String major){
+        List<String> schools = materialService.getSubjectBySchoolAndMajor(school,major);
 
         return Result.success(schools);
     }

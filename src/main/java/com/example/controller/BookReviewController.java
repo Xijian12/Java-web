@@ -41,21 +41,21 @@ public class BookReviewController {
         return ResponseEntity.ok(new Response(200, "操作成功", null));
     }
 
-    @DeleteMapping("/admin/delete")
+    @DeleteMapping("/admin")
     public ResponseEntity<?> deleteComments(@RequestBody CommentDeletionRequest request) {
         if (bookReviewService.deleteCommentsIfAdmin(request)) {
             return ResponseEntity.ok(new Response(200, "操作成功", null));
         } else {
             return ResponseEntity.ok(new Response(0, "操作失败", null));
         }}
-@DeleteMapping("/user/delete")
-    public ResponseEntity<?> deleteCommentsByUser(@RequestBody CommentDeletionRequest request) {
-        if (bookReviewService.deleteCommentsIfUser(request)) {
-            return ResponseEntity.ok(new Response(200, "操作成功", null));
-        } else {
-            return ResponseEntity.ok(new Response(0, "操作失败", null));
+    @DeleteMapping("/user")
+        public ResponseEntity<?> deleteCommentsByUser(@RequestBody CommentDeletionRequest request) {
+            if (bookReviewService.deleteCommentsIfUser(request)) {
+                return ResponseEntity.ok(new Response(200, "操作成功", null));
+            } else {
+                return ResponseEntity.ok(new Response(0, "操作失败", null));
+            }
         }
-    }
 
     @GetMapping
     public ResponseEntity<?> getCommentsByBookId(

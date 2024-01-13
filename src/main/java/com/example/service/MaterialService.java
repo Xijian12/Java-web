@@ -1,13 +1,11 @@
 package com.example.service;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.entity.vo.request.DeleteMaterialRequest;
 import com.example.entity.vo.request.DonwloadMaterialVO;
 import com.example.entity.vo.request.Material;
 import com.example.entity.vo.request.admin.AdminAddCommentVO;
 import com.example.entity.vo.request.admin.AdminDeleteCommentVO;
 import com.example.entity.vo.request.user.MaterialPage;
-import com.example.entity.vo.request.user.SchoolMajorSubject;
 import com.example.entity.vo.request.user.UserAddCommentVO;
 import com.example.entity.vo.request.user.UserDeleteCommentVO;
 
@@ -66,7 +64,7 @@ public interface MaterialService {
 
     List<String> getAllSchool();
 
-    List<String> getMajorBySchool(SchoolMajorSubject schoolMajorSubject);
+    List<String> getMajorBySchool(String school);
 
-    List<String> getSubjectBySchoolAndMajor(SchoolMajorSubject schoolMajorSubject);
+    List<String> getSubjectBySchoolAndMajor(String school,String major);
 }

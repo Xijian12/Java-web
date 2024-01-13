@@ -8,7 +8,6 @@ import com.example.entity.vo.request.MaterialComment;
 import com.example.entity.vo.request.admin.AdminAddCommentVO;
 import com.example.entity.vo.request.admin.AdminDeleteCommentVO;
 import com.example.entity.vo.request.user.MaterialPage;
-import com.example.entity.vo.request.user.SchoolMajorSubject;
 import com.example.entity.vo.request.user.UserAddCommentVO;
 import com.example.entity.vo.request.user.UserDeleteCommentVO;
 import com.example.mapper.MaterialCommentMapper;
@@ -16,6 +15,7 @@ import com.example.mapper.MaterialMapper;
 import com.example.service.AccountService;
 import com.example.service.MaterialService;
 import com.example.utils.AliOSSUtils;
+import com.example.utils.Constants;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import jakarta.annotation.Resource;
@@ -46,6 +46,12 @@ public class MaterialServiceImpl implements MaterialService {
         material.setMaterialDownloadNum(0);
         material.setCreateTime(LocalDateTime.now());
         material.setUpdateTime(LocalDateTime.now());
+        Account account = accountService.findAccountByNameOrEmail(material.getMaterialUploader());
+        log.info("account:{}",account);
+        if(account != null){
+            String newUserInfo = accountService.updateUserInfo(account.getUsername(), account.getUsername(),
+                    account.getPassword(), account.getPoints() + Constants.uploadPointBonus);
+        }
         materialMapper.insertMaterial(material);
     }
 
@@ -226,6 +232,10 @@ public class MaterialServiceImpl implements MaterialService {
                 }
                 String newFileName = material.getSchool()+"_"+material.getMajor()+"_"+material.getSubject()+"_"+materialname+ '.' + fileExtension;
                 //String newFileName = material.
+                //如果下载成功，则给上传者积分奖励
+                String newUserInfo = accountService.updateUserInfo(account.getUsername(), account.getUsername(),
+                        account.getPassword(), account.getPoints() + (int)(Constants.pointRate * points));
+
                 return aliOSSUtils.GetFileDownloadUrl(fileUuid,newFileName);
             }
             return null;
@@ -394,12 +404,12 @@ public class MaterialServiceImpl implements MaterialService {
     }
 
     @Override
-    public List<String> getMajorBySchool(SchoolMajorSubject schoolMajorSubject){
-        return materialMapper.selectMajorBySchool(schoolMajorSubject);
+    public List<String> getMajorBySchool(String school){
+        return materialMapper.selectMajorBySchool(school);
     }
 
     @Override
-    public List<String> getSubjectBySchoolAndMajor(SchoolMajorSubject schoolMajorSubject){
-        return materialMapper.selectSubjectBySchoolAndMajorl(schoolMajorSubject);
+    public List<String> getSubjectBySchoolAndMajor(String school,String major){
+        return materialMapper.selectSubjectBySchoolAndMajorl(school,major);
     }
 }

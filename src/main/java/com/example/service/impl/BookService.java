@@ -1,10 +1,14 @@
 package com.example.service.impl;
 
+import com.example.entity.dto.Account;
 import com.example.entity.vo.request.Page;
 import com.example.entity.vo.request.user.DownloadBook;
 import com.example.mapper.BookMapper;
 import com.example.entity.vo.request.Book;
 import com.example.entity.vo.request.BookDeletionRequest;
+import com.example.service.AccountService;
+import com.example.utils.Constants;
+import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +18,8 @@ import java.util.List;
 public class BookService {
     @Autowired
     private final BookMapper bookMapper;
+    @Resource
+    AccountService accountService;
 
     public List<Book >GetBookObject(String userEmail){
         return bookMapper.getBookObject(userEmail);
@@ -44,6 +50,11 @@ public class BookService {
         return bookMapper.selectBooksByIds(BookIds);
  }
     public void createBook(Book book) {
+        Account account = accountService.findAccountByNameOrEmail(book.getBookUploader());
+        if(account != null){
+            String newUserInfo = accountService.updateUserInfo(account.getUsername(), account.getUsername(),
+                    account.getPassword(), account.getPoints() + Constants.uploadPointBonus);
+        }
         bookMapper.insertBook(book);
     }
 
