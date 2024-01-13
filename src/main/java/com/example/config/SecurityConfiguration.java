@@ -102,6 +102,9 @@ public class SecurityConfiguration {
                         .requestMatchers("/material/{materialId}").permitAll() // 根据ID查询资料（已经实现）
                         .requestMatchers("/material/userUpload").permitAll() // 查询某个用户上传的所有资料
                         .requestMatchers("/material/materialslist").permitAll() // 资料列表查询(条件分页)
+                        .requestMatchers("/material/school").permitAll() // 查询所有学校
+                        .requestMatchers("/material/school/major").permitAll() // 查询学校下面的所有专业
+                        .requestMatchers("/material/school/major/subject").permitAll() // 查询学校和专业下面的所有学科
                 .anyRequest().hasAnyRole(Const.ROLE_DEFAULT)
                 )
                 .formLogin(conf -> conf

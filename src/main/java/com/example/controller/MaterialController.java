@@ -8,6 +8,7 @@ import com.example.entity.vo.request.Material;
 import com.example.entity.vo.request.admin.AdminAddCommentVO;
 import com.example.entity.vo.request.admin.AdminDeleteCommentVO;
 import com.example.entity.vo.request.user.MaterialPage;
+import com.example.entity.vo.request.user.SchoolMajorSubject;
 import com.example.entity.vo.request.user.UserAddCommentVO;
 import com.example.entity.vo.request.user.UserDeleteCommentVO;
 import com.example.entity.vo.response.MaterialUploadVO;
@@ -202,4 +203,23 @@ public class MaterialController {
         return Result.success(response);
     }
 
+
+    @GetMapping("/school")
+    public Result getAllSchool(){
+        List<String> schools = materialService.getAllSchool();
+
+        return Result.success(schools);
+    }
+    @GetMapping("/school/major")
+    public Result getMajorBySchool(@RequestBody SchoolMajorSubject schoolMajorSubject){
+        List<String> schools = materialService.getMajorBySchool(schoolMajorSubject);
+
+        return Result.success(schools);
+    }
+    @GetMapping("/school/major/subject")
+    public Result getSubjectBySchoolAndMajor(@RequestBody SchoolMajorSubject schoolMajorSubject){
+        List<String> schools = materialService.getSubjectBySchoolAndMajor(schoolMajorSubject);
+
+        return Result.success(schools);
+    }
 }

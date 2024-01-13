@@ -8,6 +8,7 @@ import com.example.entity.vo.request.MaterialComment;
 import com.example.entity.vo.request.admin.AdminAddCommentVO;
 import com.example.entity.vo.request.admin.AdminDeleteCommentVO;
 import com.example.entity.vo.request.user.MaterialPage;
+import com.example.entity.vo.request.user.SchoolMajorSubject;
 import com.example.entity.vo.request.user.UserAddCommentVO;
 import com.example.entity.vo.request.user.UserDeleteCommentVO;
 import com.example.mapper.MaterialCommentMapper;
@@ -385,5 +386,20 @@ public class MaterialServiceImpl implements MaterialService {
 
         //对查询结果进行封装
         return new MaterialPage(p.getTotal(),p.getResult());
+    }
+
+    @Override
+    public List<String> getAllSchool(){
+        return materialMapper.selectAllSchool();
+    }
+
+    @Override
+    public List<String> getMajorBySchool(SchoolMajorSubject schoolMajorSubject){
+        return materialMapper.selectMajorBySchool(schoolMajorSubject);
+    }
+
+    @Override
+    public List<String> getSubjectBySchoolAndMajor(SchoolMajorSubject schoolMajorSubject){
+        return materialMapper.selectSubjectBySchoolAndMajorl(schoolMajorSubject);
     }
 }

@@ -7,6 +7,7 @@ import com.example.entity.vo.request.Material;
 import com.example.entity.vo.request.admin.AdminAddCommentVO;
 import com.example.entity.vo.request.admin.AdminDeleteCommentVO;
 import com.example.entity.vo.request.user.MaterialPage;
+import com.example.entity.vo.request.user.SchoolMajorSubject;
 import com.example.entity.vo.request.user.UserAddCommentVO;
 import com.example.entity.vo.request.user.UserDeleteCommentVO;
 
@@ -62,4 +63,10 @@ public interface MaterialService {
     MaterialPage queryMaterialByCondition(String school, String major, String subject, Integer materialGradeFloor, Integer materialGradeUpper, Integer page, Integer pageSize);
 
     MaterialPage queryMaterialCommentById(Integer materialId, Integer page, Integer pageSize);
+
+    List<String> getAllSchool();
+
+    List<String> getMajorBySchool(SchoolMajorSubject schoolMajorSubject);
+
+    List<String> getSubjectBySchoolAndMajor(SchoolMajorSubject schoolMajorSubject);
 }

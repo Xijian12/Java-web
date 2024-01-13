@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.toolkit.Constants;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.entity.vo.request.Material;
 import com.example.entity.vo.request.user.MaterialPage;
+import com.example.entity.vo.request.user.SchoolMajorSubject;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -79,4 +80,13 @@ public interface MaterialMapper {
 
     @Delete("DELETE FROM commentformaterial WHERE user_email = #{email}")
     void deleteByUserEmail(@Param("email") String email);
+
+    @Select("select distinct(school) from materials")
+    List<String> selectAllSchool();
+
+    @Select("select distinct(major) from materials where school = #{school}")
+    List<String> selectMajorBySchool(SchoolMajorSubject schoolMajorSubject);
+
+    @Select("select distinct(subject) from materials where school = #{school} and major = #{major}")
+    List<String> selectSubjectBySchoolAndMajorl(SchoolMajorSubject schoolMajorSubject);
 }
