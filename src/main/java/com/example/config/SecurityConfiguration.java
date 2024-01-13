@@ -164,6 +164,7 @@ public class SecurityConfiguration {
                 AuthorizeVO vo = account.asViewObject(AuthorizeVO.class, o -> o.setToken(jwt));
                 vo.setExpire(utils.expireTime());
                 vo.setEmail(account.getEmail());
+                vo.setPoints(account.getPoints());
                 writer.write(RestBean.success(vo).asJsonString());
             }
         }
