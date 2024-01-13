@@ -282,6 +282,7 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
      * @param text 用户名或邮件
      * @return 账户实体
      */
+    @Override
     public Account findAccountByNameOrEmail(String text){
         return this.query()
                 .eq("username", text).or()

@@ -3,6 +3,7 @@ package com.example.controller;
 import com.example.entity.RestBean;
 import com.example.entity.dto.Account;
 import com.example.entity.vo.request.UpdateAvatarVO;
+import com.example.entity.vo.request.admin.UpdateUserInfoVO;
 import com.example.entity.vo.response.DisplayAccountByAdminVO;
 import com.example.entity.vo.response.DisplayAccountByUserVO;
 import com.example.service.AccountService;
@@ -51,9 +52,9 @@ public class AdminOperatorController {
 
     @PostMapping("/updateUserInfo")
     @Operation(summary = "修改用户信息")
-    public RestBean<String> updateUserInfo(@RequestParam String oldUserName, @RequestParam String newUserName,
-                                           @RequestParam String newPassword, @RequestParam Integer points){
-        String newUserInfo=accountService.updateUserInfo(oldUserName,newUserName,newPassword,points);
+    public RestBean<String> updateUserInfo(@RequestBody UpdateUserInfoVO request){
+        String newUserInfo = accountService.updateUserInfo(request.getOldUserName(), request.getNewUserName(),
+                request.getNewPassword(), request.getPoints());
         return RestBean.success("成功修改用户信息");
     }
 
