@@ -52,20 +52,20 @@ public class BookController {
         List<Book> book = bookService.getBookByEmail(userEmail);
         return ResponseEntity.ok(new Response(200, "操作成功", book));
     }
-@GetMapping("/find")
-    public ResponseEntity<?> getBooks(
-            @RequestParam(required = false) String bookName,
-            @RequestParam(required = false) String bookAuthor,
-            @RequestParam(required = false) Integer bookPointsFloor,
-            @RequestParam(required = false) Integer bookPointsUpper,
-            @RequestParam(required = false)  Double bookGradeFloor,
-            @RequestParam(required = false) Double bookGradeUpper,
-            @RequestParam(defaultValue = "1") int page,
-            @RequestParam(defaultValue = "10") int pageSize) {
+    @GetMapping("/find")
+        public ResponseEntity<?> getBooks(
+                @RequestParam(required = false) String bookName,
+                @RequestParam(required = false) String bookAuthor,
+                @RequestParam(required = false) Integer bookPointsFloor,
+                @RequestParam(required = false) Integer bookPointsUpper,
+                @RequestParam(required = false)  Double bookGradeFloor,
+                @RequestParam(required = false) Double bookGradeUpper,
+                @RequestParam(defaultValue = "1") int page,
+                @RequestParam(defaultValue = "10") int pageSize) {
 
-        List<Book> books = bookService.findBooks(bookName, bookAuthor, bookPointsFloor, bookPointsUpper, bookGradeFloor, bookGradeUpper, page, pageSize);
-        return ResponseEntity.ok(books);
-    }
+            List<Book> books = bookService.findBooks(bookName, bookAuthor, bookPointsFloor, bookPointsUpper, bookGradeFloor, bookGradeUpper, page, pageSize);
+            return ResponseEntity.ok(books);
+        }
    @GetMapping
     public ResponseEntity<?> getAllBooks() {
         List<Book> books = bookService.getAllBooks();

@@ -9,8 +9,8 @@ import java.util.List;
 @Mapper
 public interface BookReviewMapper {
 
-    @Insert("INSERT INTO test.commentforbook (book_version, user_comment, user_grade, user_nickname, user_email, book_id) " +
-            "VALUES (#{bookVersion}, #{userComment}, #{userGrade}, #{userNickname}, #{userEmail}, #{bookId})")
+    @Insert("INSERT INTO test.commentforbook (book_version, user_comment, user_grade, user_nickname, user_email, book_id,create_time,update_time) " +
+            "VALUES (#{bookVersion}, #{userComment}, #{userGrade}, #{userNickname}, #{userEmail}, #{bookId},#{createTime},#{updateTime})")
     int insertBookReview(BookReview bookReview);
 
     @Select("SELECT * FROM test.commentforbook WHERE id = #{id}")

@@ -4,6 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -15,4 +18,6 @@ public class BookReview {
     private String userNickname;
     private String userEmail;
     private int bookId;
+    private LocalDateTime createTime;
+    private LocalDateTime updateTime;
 }

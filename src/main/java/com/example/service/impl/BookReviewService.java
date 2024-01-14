@@ -1,5 +1,6 @@
 package com.example.service.impl;
 
+import ch.qos.logback.core.util.Loader;
 import com.example.entity.dto.Account;
 import com.example.entity.vo.request.Book;
 import com.example.entity.vo.request.user.BookReviewwithavtar;
@@ -13,6 +14,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 @Service
 @Slf4j
@@ -28,6 +31,8 @@ public class BookReviewService {
     }
 
     public int addBookReview(BookReview bookReview) {
+        bookReview.setCreateTime(LocalDateTime.now());
+        bookReview.setUpdateTime(LocalDateTime.now());
         return bookReviewMapper.insertBookReview(bookReview);
     }
 
