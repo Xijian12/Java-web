@@ -24,6 +24,8 @@ public class BookReviewService {
     private final BookReviewMapper bookReviewMapper;
     @Resource
     AccountService accountService;
+    @Autowired
+    private BookService bookService;
 
     @Autowired
     public BookReviewService(BookReviewMapper bookReviewMapper) {
@@ -33,6 +35,10 @@ public class BookReviewService {
     public int addBookReview(BookReview bookReview) {
         bookReview.setCreateTime(LocalDateTime.now());
         bookReview.setUpdateTime(LocalDateTime.now());
+        Book book= bookService.getBookById(bookReview.getBookId());
+        if(book != null){
+            bookReview.setBookVersion(book.getBookVersion());
+        }
         return bookReviewMapper.insertBookReview(bookReview);
     }
 
