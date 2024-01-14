@@ -56,6 +56,10 @@ public class BookService {
             String newUserInfo = accountService.updateUserInfo(account.getUsername(), account.getUsername(),
                     account.getPassword(), account.getPoints() + Constants.uploadPointBonus);
         }
+        if(book.getBookCoverUrl() == null){
+            book.setBookCoverUrl(Constants.defaultBookcoverUrl);
+            book.setBookCoverUuid(Constants.defaultBookcoverUuid);
+        }
         book.setUpdateTime(LocalDate.now());
         book.setCreateTime(LocalDate.now());
         bookMapper.insertBook(book);
