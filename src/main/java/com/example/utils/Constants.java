@@ -7,4 +7,5 @@ public class Constants {
     public final static String defaultBookcoverUuid = "defalutCover";
     public final static String defaultAvatarUrl = "https://xiao-shu-shu.oss-cn-shanghai.aliyuncs.com/defaultAvatar.jpg";           //上传资料给加分
     public final static String defaultAvatarUuid = "defalutAvatar";
+    public final static Integer defaultPoints=10;
 }

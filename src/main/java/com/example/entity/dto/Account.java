@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.example.entity.BaseData;
+import com.example.utils.Constants;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,6 +13,7 @@ import java.util.Date;
 
 /**
  * 数据库中的用户信息
+ * @author 85131
  */
 @Data
 @TableName("db_account")
@@ -37,9 +39,9 @@ public class Account implements BaseData {
         this.role = role;
         this.registerTime = registerTime;
         // 默认值或null初始化
-        this.points = 5;
-        this.avatarUrl = null; // 或者任何默认URL
-        this.avatarUuid= null; // 或者任何默认UUID
+        this.points = Constants.defaultPoints;
+        this.avatarUrl = Constants.defaultAvatarUrl; // 或者任何默认URL
+        this.avatarUuid= Constants.defaultAvatarUuid; // 或者任何默认UUID
     }
 
     public Account(Account another) {
