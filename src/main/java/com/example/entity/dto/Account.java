@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 /**
@@ -30,6 +31,7 @@ public class Account implements BaseData {
     Integer points;
     String avatarUrl;
     String avatarUuid;
+    LocalDate lastSignInDate;
 
     public Account(Integer id, String username, String password, String email, String role, Date registerTime) {
         this.id = id;
@@ -42,6 +44,7 @@ public class Account implements BaseData {
         this.points = Constants.defaultPoints;
         this.avatarUrl = Constants.defaultAvatarUrl; // 或者任何默认URL
         this.avatarUuid= Constants.defaultAvatarUuid; // 或者任何默认UUID
+        this.lastSignInDate=null;
     }
 
     public Account(Account another) {
@@ -55,6 +58,7 @@ public class Account implements BaseData {
         this.points = another.points != null ? another.points : 5;
         this.avatarUrl = another.avatarUrl!= null ? another.avatarUrl : null; // 或者默认URL
         this.avatarUuid = another.avatarUuid!= null ? another.avatarUuid : null; // 或者默认URL
+        this.lastSignInDate=null;
     }
 
 

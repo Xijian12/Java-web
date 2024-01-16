@@ -35,4 +35,6 @@ public interface AccountService extends IService<Account>, UserDetailsService {
     String deleteUserAndRelatedInfo(String email);
 
     List<Account> findTopNAccounts(int i);
+
+    String signIn(String username);
 }

@@ -3,6 +3,7 @@ package com.example.controller;
 import com.example.entity.RestBean;
 import com.example.entity.Result;
 import com.example.entity.dto.Account;
+import com.example.entity.vo.request.SignINVO;
 import com.example.entity.vo.request.UpdateAvatarVO;
 import com.example.entity.vo.request.user.MaterialPage;
 import com.example.entity.vo.request.admin.UpdateUserInfoVO;
@@ -94,6 +95,24 @@ public class AdminOperatorController {
         List<Account> topAccounts = accountService.findTopNAccounts(10);
         return Result.success(topAccounts);
     }
+    //每日签到
+    @PostMapping("/signIn")
+    public RestBean<String> signIn(@RequestBody SignINVO sign) {
+        String result = accountService.signIn(sign.getUsername());
+
+        if (result.equals("签到失败，用户今日已经签到")) {
+            return RestBean.failure(400,result);
+        }
+
+        if (result.equals("用户不存在")) {
+            return RestBean.failure(400,result); // 返回用户不存在的错误信息
+        }
+
+        return RestBean.success(result);
+    }
+
+
+
     /**
      * 针对于返回值为String作为错误信息的方法进行统一处理
      * @param action 具体操作
