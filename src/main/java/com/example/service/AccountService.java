@@ -33,4 +33,5 @@ public interface AccountService extends IService<Account>, UserDetailsService {
     boolean updateAvatar(String username, String newAvatarUrl,String newAvatarUuid);
 
     String deleteUserAndRelatedInfo(String email);
+
 }
