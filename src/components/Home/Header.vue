@@ -24,7 +24,7 @@ function userLogout(){
   logout(() => router.push("/"))
 }
 function toPersonal(){
-  router.push("/personal")
+  router.push("/personal/personalMyinfo")
 }
 
 </script>

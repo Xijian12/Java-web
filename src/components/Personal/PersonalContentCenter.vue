@@ -21,11 +21,11 @@
                         <el-menu-item-group >
                             <template #title></template>
                             <el-menu-item index="/personal/favorite"><el-icon><StarFilled/></el-icon>我的收藏</el-menu-item>
-                            <el-menu-item index="/personal/publishRecord"><el-icon><Collection /></el-icon>发布记录</el-menu-item>
+                            <el-menu-item index="/personal/publishRecord"><el-icon><Collection /></el-icon>下载记录</el-menu-item>
                             <el-menu-item index="/personal/publish"><el-icon><Sell /></el-icon>发布图书</el-menu-item>
                         </el-menu-item-group>
                     </el-sub-menu>
-                    <el-sub-menu index="/personal/order">
+                    <!-- <el-sub-menu index="/personal/order">
                         <template #title>
                             <el-icon><ShoppingCart/></el-icon>
                             <span>订单管理</span>
@@ -35,12 +35,12 @@
                             <el-menu-item index="/personal/buyrecord"><el-icon><Money /></el-icon>购买记录</el-menu-item>
                             <el-menu-item index="/personal/sellrecord"><el-icon><WalletFilled /></el-icon>出售记录</el-menu-item>
                         </el-menu-item-group>
-                    </el-sub-menu>
+                    </el-sub-menu> -->
                 </el-menu>
             </el-col>
         </el-aside>
 
-        <el-main>
+        <el-main> 
             <router-view >
             </router-view>
         </el-main>

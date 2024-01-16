@@ -12,14 +12,14 @@
         <!-- 推荐文档列表内容 -->
         <el-row>
         <el-col :span="12"> 
-        <div v-for="book in books" class="ranking_num1" >
-        <span @click="searchMaterial(book.materialId)"><el-icon><Folder /></el-icon>{{ book.school }}{{ book.major }}{{ book.subject }}资料</span>
+        <div v-if="books && books.length > 0" v-for="(book, index) in books.slice(0,6)" :key="index" class="ranking_num1" >
+        <span @click="searchMaterial(book.materialId)"><el-icon><Folder /></el-icon>{{ book.school }}{{ book.major }}{{ book.subject }}</span>
         <span>{{formatDate(book.updateTime)  }}</span>
         </div>
         </el-col>
         <el-col :span="12"> 
-        <div v-for="book in books" class="ranking_num2">
-        <span @click="searchMaterial(book.materialId)"><el-icon><Folder /></el-icon>{{ book.school }}{{ book.major }}{{ book.subject }}资料</span>
+        <div v-if="books && books.length > 0" v-for="(book, index) in books.slice(6,12)" :key="index" class="ranking_num2">
+        <span @click="searchMaterial(book.materialId)"><el-icon><Folder /></el-icon>{{ book.school }}{{ book.major }}{{ book.subject }}</span>
         <span>{{formatDate(book.updateTime)  }}</span>
         </div>
         </el-col>
@@ -34,8 +34,20 @@
   </div>
   <div class="right_userlist">
     <div class="hd">
-      <div class="titCell"></div>
       <h2>用户排行</h2>
+      <div class="ranking_num3" v-for="User in Users">
+        <el-row>
+          <el-col :span="4"> 
+            <img :src="User.avatarUrl" class="rounded-avatar" />
+          </el-col> 
+        <el-col :span="8">       
+          <span  style="margin-left: 10px;">{{ User.username}}</span>
+         </el-col>
+         <el-col :span="12"> 
+        <span style="text-align: right; margin-right: 20px;">积分：{{ User.points}}</span>
+        </el-col>
+        </el-row>
+        </div>
     </div>
   </div>
   </div>
@@ -53,11 +65,25 @@ const books = ref()
 // 初始化页面数据
 function initData() {
   // 发起简单的 GET 请求
-  axios.get("/material")
+  axios.get("/material/highest/12")
   .then(response => {
     // 处理成功的响应
-    books.value = response.data.data.items
+    books.value = response.data.data
     console.log('成功：', books.value);
+  })
+  .catch(error => {
+    // 处理请求错误
+    console.error('请求失败：', error);
+  });    
+}
+const Users = ref()
+function initData2() {
+  // 发起简单的 GET 请求
+  axios.get("/admin/showTopNAccounts")
+  .then(response => {
+    // 处理成功的响应
+    Users.value = response.data.data
+    console.log('成功：', Users.value);
   })
   .catch(error => {
     // 处理请求错误
@@ -74,10 +100,11 @@ function formatDate(time){
       let year = date.getFullYear();
       let month = date.getMonth()+1;
       let day = date.getDate();
-      return year+"-"+month+"-"+day;
+      return year+"-"+month;
 }
 onMounted(() => {
   initData();
+  initData2();
 });
 </script>
 
@@ -116,8 +143,9 @@ onMounted(() => {
 .right_userlist .hd .titCell li{font-size:0;display:inline-block;margin:0 3px;border-radius:50%;width:7px;height:7px;text-align:center;background:#ccc;cursor:pointer}
 .right_userlist .hd .titCell li.on{background:red;color:#fff;width:15px;border-radius:5px}
 .right_userlist .bd{height:260px;overflow:hidden}
-.newdoclist .ranking_num1{flex-direction: row; flex:1; margin-right:15px;font-size:18px;cursor: pointer; }
-.newdoclist .ranking_num2{flex-direction: row; flex:1; margin-right:15px;font-size:18px;cursor: pointer;}
+.newdoclist .ranking_num1{flex-direction: row; flex:1; margin-right:0px; margin-top: 20px; font-size:18px;cursor: pointer; }
+.newdoclist .ranking_num2{flex-direction: row; flex:1; margin-right:0px; margin-top: 20px; font-size:18px;cursor: pointer;}
+.newdoclist .ranking_num3{flex-direction: row; margin-right:0px; margin-top: 25px; font-size:18px;cursor: pointer;}
 .ranking_num1:hover {
   transform: translateY(-5px); /* 鼠标悬停时向上浮动5像素，你可以根据需要调整浮动的距离 */
   text-decoration: underline; 
@@ -126,6 +154,16 @@ onMounted(() => {
   text-decoration: underline;
   transform: translateY(-5px); /* 鼠标悬停时向上浮动5像素，你可以根据需要调整浮动的距离 */
 }
-.newdoclist li a img{width:23px;height:23px;border-radius:30px;display:inline-block;vertical-align:top;margin:5px 10px 0 0}
+.ranking_num3:hover {
+  text-decoration: underline;
+  transform: translateY(-5px); /* 鼠标悬停时向上浮动5像素，你可以根据需要调整浮动的距离 */
+}
+.newdoclist li a img{width:23px;height:23px;border-radius:30px;display:inline-block;vertical-align:top;margin:5px 0px 0 0}
 .newdoclist li{overflow:hidden;line-height:37px;height:37px;display: flex;}
+.rounded-avatar {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%; 
+  overflow: hidden; 
+}
 </style>

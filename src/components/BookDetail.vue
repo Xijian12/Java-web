@@ -28,14 +28,7 @@
             <span style="font-size: 18px;color: #ff1f1f">¥ </span><span
               class="discountPrice">{{ decimals(1 * book.bookPoints) }}</span>
             <span class="price">定价: ¥ {{ book.bookPoints }}</span>
-          </div>
-          <el-divider></el-divider>
-          <div id="btn-group">
-            <!-- <el-input-number style="margin-right: 30px;margin-left: 20px" :step="1" step-strictly :min="1" :max="99"
-                             size="medium" v-model="quantity"></el-input-number>
-            <el-button @click="addToCart" :loading="loadingBtn" type="primary" icon="el-icon-shopping-cart-1">加入购物车
-            </el-button> -->
-            <el-button @click="searchInfo()" type="primary" plain :icon="ShoppingCart">立即购买</el-button>
+            <el-button style="margin-left: 300px;" @click="searchInfo()" type="primary" plain :icon="ShoppingCart">立即购买</el-button>
             <el-popover
                 placement="bottom"
                 title="收藏"
@@ -44,7 +37,7 @@
                 content="添加该商品到收藏夹"
                 style="margin-left: 180px;margin-right: 10px">
                 <template #reference>
-                  <el-button @click="addToCollection"  type="warning" :icon="Star" circle></el-button>
+                  <el-button @click="addToCollection(book.bookId)"  type="warning" :icon="Star" circle></el-button>
                 </template> 
             </el-popover>
             <el-popover
@@ -55,6 +48,26 @@
                 content="复制商品链接以分享">
                 <template #reference><el-button stype="success" :icon="Link" circle ></el-button></template>
             </el-popover>
+          </div>
+
+          <el-divider></el-divider>
+          <div id="btn-group">
+            <div id="detail">
+            <span slot="label"><el-icon><Shop /></el-icon> 商品详情</span>
+            <div class="detail-content" style="padding: 10px">
+              <span style="font-size: 18px;">{{ book.bookProfile }}</span>
+              <!-- <el-skeleton animated>
+                <template slot="template">
+                  <el-skeleton :rows="6"/>
+                  <el-skeleton-item variant="image" style="width: 1170px; height: 250px;margin-top: 20px"/>
+                  <el-skeleton-item variant="image"
+                                    style="width: 1170px; height: 250px;margin-top: 10px;margin-bottom: 20px"/>
+                  <el-skeleton :rows="12"/>
+                </template>
+              </el-skeleton> -->
+            </div>
+          </div>
+          
           </div>
         </div>
       </div>
@@ -124,25 +137,9 @@
 
       <!-- 详情和评论 -->
       <div id="detail-comment">
-        <el-tabs v-model="activeName" type="card" @tab-click="handleClick">
-          <el-tab-pane name="detail">
-            <span slot="label"><el-icon><InfoFilled /></el-icon> 商品详情</span>
-            <div class="detail-content" style="padding: 15px">
-              <span>{{book.bookProfile}}</span>
-              <el-skeleton animated>
-                <template slot="template">
-                  <el-skeleton :rows="6"/>
-                  <el-skeleton-item variant="image" style="width: 1170px; height: 250px;margin-top: 20px"/>
-                  <el-skeleton-item variant="image"
-                                    style="width: 1170px; height: 250px;margin-top: 10px;margin-bottom: 20px"/>
-                  <el-skeleton :rows="12"/>
-                </template>
-              </el-skeleton>
-            </div>
-          </el-tab-pane>
-          <el-tab-pane name="comment">
             <span slot="label"><el-icon><Comment /></el-icon> 商品评论</span>
-            <el-rate style="margin-left: 50px;" v-model="book.bookGrade " :colors="colors" :max="5" show-score disabled></el-rate>
+            <span style="margin-left: 380px;"> 商品总分：</span>
+            <el-rate style="margin-left: 20px;" v-model="book.bookGrade " :colors="colors" :max="5" show-score disabled></el-rate>
             <div v-if="commentData.length>0" class="comment-content">
               <el-table :data="commentData"  style="width: 100%">
                 <el-table-column width="200">
@@ -196,8 +193,6 @@
                 <el-button type="primary" :icon="Edit" @click="sendCommit()">发布</el-button>
               </div>  
             </div>
-          </el-tab-pane>
-        </el-tabs>
       </div>
     </div>
   </div>
@@ -212,9 +207,9 @@ import { useRoute, useRouter } from 'vue-router';
 import {useStore} from 'vuex';
 const store = useStore();
 const username = ref(store.state.personalID[0].username)
+const email = ref(store.state.personalID[0].email)
 const router = useRoute();
 const userouter = useRouter();
-const activeName = ref('detail');
 const checkTable = ref(false);
 const checkData = reactive([{bookName: '', quantity: 0, discountPrice: 0, img: ''}]);
 const userInfo = ref({id: '', userName: '', phoneNumber: '', shippingAddress: ''});
@@ -253,6 +248,7 @@ const initData = async (bookId) => {
     const response = await axios.get(`/book/${bookId}`);
     // 处理成功的响应
     book.value = response.data.data;
+    book.value.bookGrade = book.value.bookGrade / 2;
     checkData[0] = response.data.data;
     category.value = response.data.data.categoryName;
     await initDataCategory(category.value); 
@@ -303,35 +299,26 @@ const initDataCategory = async (categoryName) => {
     console.error('请求失败：', error);
   }
 };
-    // 加入收藏夹
-function addToCollection() {
-      let id = sessionStorage.getItem("id");
-      if (id == null) {
-        this.$message({
-          type: 'warning',
-          message: '您还未登录，请先登录！'
-        });
-      } else {
-        axios.post("http://localhost:8081/user/addToCollection/"+id+"/"+this.book.id)
+// 加入收藏
+function addToCollection(bookId){
+      let obj ={
+        userEmail:email.value,
+        bookId: bookId,
+      }
+      axios.post("/book/collectRecord", obj)
             .then((resp) => {
-              if (resp.data === 1) {
-                this.$message({
+              if (resp.data.code === 0) {
+                ElMessage({
                   showClose: true, type: 'success',
                   message: '添加成功！'
                 });
-              } else if (resp.data === 0) {
-                this.$message({
-                  showClose: true,
-                  message: '该图书已在收藏夹中'
-                });
               } else {
-                this.$message({
+                ElMessage({
                   showClose: true, type: 'error',
-                  message: '操作失败，请重试'
+                  message: resp.data.msg
                 });
               }
             });
-      }
 }
 // 查询用户信息
 function searchInfo() {

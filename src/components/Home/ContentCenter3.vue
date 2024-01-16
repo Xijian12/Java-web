@@ -47,7 +47,7 @@
                 <el-button @click.stop="BookDetail(book.bookId)" size="medium" type="primary" plain>查看详情</el-button>
                 <el-button-group style="margin-left: 10px">
                   <el-button @click.stop="addToCart(index)" size="mini" :icon="ShoppingCart"></el-button>
-                  <el-button @click.stop="addToCollection(index)" size="mini" :icon="Star"></el-button>
+                  <el-button @click.stop="addToCollection(book.bookId)" size="mini" :icon="Star"></el-button>
                   <el-button @click.stop="" size="mini" :icon="More"></el-button>
                 </el-button-group>
               </div>
@@ -63,10 +63,13 @@
 <script setup>
 import {More, Star, ShoppingCart} from '@element-plus/icons-vue';
 import {ref, reactive, onMounted} from 'vue'
-import {useStore} from 'vuex';
+import {ElMessage} from "element-plus";
 import router from "@/router"
 import axios from "axios";
+import {useStore} from 'vuex';
 
+const store = useStore();
+const email = ref(store.state.personalID[0].email)
 const total = ref(0)
 let books = ref([])
 const myArg = ref([])
@@ -126,36 +129,27 @@ function decimals(value) {
             }
           });
     }
-    // 加入收藏
-    function addToCollection(index){
-      let id = sessionStorage.getItem("id");
-      if (id == null) {
-        this.$message({
-          type: 'warning',
-          message: '您还未登录，请先登录！'
-        });
-      } else {
-        axios.post("http://localhost:8081/user/addToCollection/"+id+"/"+this.books[index].id)
+// 加入收藏
+function addToCollection(bookId){
+      let obj ={
+        userEmail:email.value,
+        bookId: bookId,
+      }
+      axios.post("/book/collectRecord", obj)
             .then((resp) => {
-              if (resp.data === 1) {
-                this.$message({
+              if (resp.data.code == 0) {
+                ElMessage({
                   showClose: true, type: 'success',
                   message: '添加成功！'
                 });
-              } else if (resp.data === 0) {
-                this.$message({
-                  showClose: true,
-                  message: '该图书已在收藏夹中'
-                });
               } else {
-                this.$message({
+                ElMessage({
                   showClose: true, type: 'error',
-                  message: '操作失败，请重试'
+                  message: resp.data.msg
                 });
               }
             });
-      }
-    }
+}
     // 初始化页面数据
 function initData() {
   // 发起简单的 GET 请求

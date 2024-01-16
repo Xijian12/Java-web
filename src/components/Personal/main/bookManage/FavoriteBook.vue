@@ -1,111 +1,107 @@
 <template>
     <el-table :data="favoritesList" style="width: 100%">
-        <el-table-column type="expand">
-            <template slot-scope="props">
-                <el-form label-position="left" inline class="table-expand">
-                    <el-form-item label="收藏记录ID：">
-                        <span>{{ props.row.favoritesId }}</span>
-                    </el-form-item>
-                    <el-form-item label="图书ID：">
-                        <span>{{ props.row.book.bookId }}</span>
-                    </el-form-item>
-                    <el-form-item label="卖家：">
-                        <span>{{ props.row.book.seller.sellerName }}</span>
-                    </el-form-item>
-                    <el-form-item label="书名：">
-                        <span>{{ props.row.book.bookName }}</span>
-                    </el-form-item>
-                    <el-form-item label="ISBN号：">
-                        <span>{{ props.row.book.bookIsbn }}</span>
-                    </el-form-item>
-                    <el-form-item label="分类：">
-                        <span>{{ props.row.book.category.categoryName }}</span>
-                    </el-form-item>
-                    <el-form-item label="价格：">
-                        <span>{{ props.row.book.bookPrice }}</span>
-                    </el-form-item>
-                    <el-form-item label="描述：">
-                        <span>{{ props.row.book.bookOutline }}</span>
-                    </el-form-item>
-                </el-form>
-            </template>
+        <el-table-column label="收藏记录ID" prop="collectId" width="100px">
         </el-table-column>
-        <el-table-column label="收藏记录ID" prop="favoritesId">
+        <el-table-column prop="bookCoverUrl" label="图书封面">
+                <template #default="scope">
+                  <el-image
+                    :src="scope.row.bookCoverUrl"
+                    style="width: 70px; height: 70px;"
+                  ></el-image>
+                </template>
+              </el-table-column>
+        <el-table-column label="图书ID" prop="bookId">
         </el-table-column>
-        <el-table-column label="图书ID" prop="book.bookId">
+        <el-table-column label="书名" prop="bookName">
         </el-table-column>
-        <el-table-column label="书名" prop="book.bookName">
-        </el-table-column>
-        <el-table-column label="卖家" prop="book.seller.sellerName">
-        </el-table-column>
-        <el-table-column label="图书状态" prop="book.bookRelease">
-            <template slot-scope="scope">
-                <el-tag v-if="scope.row.book.bookRelease == 3" type="info" effect="dark">已下架</el-tag>
-                <el-tag v-else effect="dark">上架中</el-tag>
-            </template>
+        <el-table-column label="上传者" prop="username">
         </el-table-column>
         <el-table-column label="操作">
-            <template slot-scope="scope">
-                <el-button size="medium" type="danger" @click="handleDelete(scope.row.favoritesId)">取消收藏</el-button>
+            <template #default="scope">
+                <el-button size="medium" type="danger" @click="handleDelete(scope.row.collectId)">取消收藏</el-button>
             </template>
         </el-table-column>
     </el-table>
+    <div id="pageBtn">
+              <el-pagination
+                  background
+                  v-model:current-page="pageNum"
+                  v-model:page-size="pageSize"
+                  layout="prev, pager, next"
+                  :total="total"
+                  @current-change="pagechange">
+              </el-pagination>
+            </div>
   </template>
     
-  <script setup>
-  import {ref} from 'vue'
-  const favoritesList = ref([])
-  const userId = ref('')
-    // created() {
-    //     this.userId = this.cookie.getCookie("LoginId");
-    //     this.getFavoritesList();
-    // },
-  function getFavoritesList() {
-            this.$http({
-                method: 'get',
-                url: '/favoritesList',
-                params: {
-                    userId: this.userId
-                }
-            })
-                .then(res => {
-                    this.favoritesList = res.data.result;
-                    if (res.data.errcode != "0") {
-                        return this.$notify({
-                            title: '警告',
-                            message: res.data.errmsg,
-                            type: 'warning'
-                        });
-                    } else {
-                        this.$notify({
-                            title: '成功',
-                            message: res.data.errmsg,
-                            type: 'success'
-                        });
-                    }
-                    console.log("this.favoritesList",this.favoritesList);
-                })
-        }
-        function handleDelete(favoritesId) {
-            this.$http({
-                method: 'delete',
-                url: '/deleteFavorite',
-                params: {
-                    favoritesId: favoritesId
-                }
-            })
-                .then(res => {
-                    console.log("res.data:",res.data);
-                    if (res.data.errcode != "0") {
-                        console.log(res.data.errcode);
-                        this.$message.error(res.data.errmsg);
-                    } else {
-                        console.log(res.data.errcode);
-                        this.$message.success(res.data.errmsg);
-                        return this.getFavoritesList();
-                    }
-                })
-        }
+<script setup>
+import {ref, onMounted} from 'vue';
+import {useStore} from 'vuex';
+import {ElMessage} from "element-plus";
+const pageNum = ref(1);
+const pageSize = ref(10);
+const total = ref();
+const store = useStore();
+const email = ref(store.state.personalID[0].email)
+const favoritesList = ref([])
+import axios from "axios";
+function getFavoritesList() {
+    axios.get("/book/collectRecord",{params:{
+        page:pageNum.value,
+        pageSize:pageSize.value,
+        userEmail:email.value,
+    }}).then((resp) => {
+    const code = resp.data.code;
+    const message = resp.data.message
+    favoritesList.value = resp.data.data.items;
+    total.value = resp.data.data.total
+    if(code == 200){
+      ElMessage({
+          message: message,
+          type: "success",
+        });
+      initDataCommit(router.params.id);
+    }
+    if (code == 400) {
+        ElMessage({
+          message: message,
+          type: "error",
+        });
+    }
+    })
+}
+function handleDelete(collectId) {
+    axios.delete("/book/collectRecord",{params:{
+        collectId:collectId,
+    }}).then((resp) => {
+    const code = resp.data.code;
+    const message = resp.data.msg
+    if(code == 0){
+      ElMessage({
+          message: message,
+          type: "success",
+        });
+    getFavoritesList()
+    }
+    if (code == 400) {
+        ElMessage({
+          message: message,
+          type: "error",
+        });
+    }
+    })
+            
+}
+// 在组件挂载时执行查询图书的函数
+onMounted( () => {
+  getFavoritesList();
+  // 在这里可以执行其他操作，确保 initData 函数执行完成后再执行
+});
+// 翻页功能
+function pagechange(val) {
+  pageNum.value = val;
+  initDataCommit(router.params.id);
+}
   </script>
     
   <style lang="less" scoped>
@@ -124,4 +120,8 @@
     margin-bottom: 0;
     width: 30%;
   }
+  #pageBtn {
+  float: right;  /* 使用 float: right; 将元素靠右 */
+  display: table;
+}
   </style>

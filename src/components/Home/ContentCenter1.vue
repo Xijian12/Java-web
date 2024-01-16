@@ -402,7 +402,7 @@ function searchBook(path){
   border-bottom-right-radius: 20px;
   
 }
-.carousel-image {
+  .carousel-image {
   width: 100%;
   height: 100%; 
   object-fit: cover;
