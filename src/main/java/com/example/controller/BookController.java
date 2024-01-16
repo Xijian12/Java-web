@@ -1,11 +1,15 @@
 package com.example.controller;
 
+import com.example.entity.Result;
 import com.example.entity.dto.Account;
 import com.example.entity.vo.request.*;
+import com.example.entity.vo.request.user.BookCollectRecord;
 import com.example.entity.vo.request.user.DownloadBook;
-import com.example.entity.vo.request.user.DownloadBookRequest;
-import com.example.mapper.AccountMapper;
+import com.example.entity.vo.request.user.BookRequest;
+import com.example.entity.vo.request.user.MaterialPage;
 import com.example.service.AccountService;
+import com.example.service.BookCollectRecordService;
+import com.example.service.BookDownloadRecordService;
 import com.example.service.impl.BookService;
 import com.example.utils.AliOSSUtils;
 import com.example.utils.Constants;
@@ -13,7 +17,6 @@ import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.service.annotation.PutExchange;
 
 import java.io.IOException;
 import java.util.List;
@@ -29,6 +32,10 @@ public class BookController {
     private AliOSSUtils aliOSSUtils;
     @Resource
     AccountService accountService;
+    @Autowired
+    BookDownloadRecordService bookDownloadRecordService;
+    @Autowired
+    BookCollectRecordService bookCollectRecordService;
 
 
     public BookController(BookService bookService) {
@@ -85,7 +92,7 @@ public class BookController {
         return ResponseEntity.ok(new Response(200, "操作成功", null));
     }
     @PostMapping("/download")
-public ResponseEntity<?> downloadBook(@RequestBody DownloadBookRequest book) throws IOException {
+    public ResponseEntity<?> downloadBook(@RequestBody BookRequest book) throws IOException {
         DownloadBook test = new DownloadBook();
         test = bookService.downloadBook(book.getUserEmail(), book.getBookId());
         Book bookobj = bookService.getBookById(book.getBookId());
@@ -102,6 +109,8 @@ public ResponseEntity<?> downloadBook(@RequestBody DownloadBookRequest book) thr
             if(account != null){
                 String newUserInfo = accountService.updateUserInfo(account.getUsername(),null,null,account.getPoints()+(int)(Constants.pointRate * bookobj.getBookPoints()));
             }
+            //将下载记录加入到表中
+            bookDownloadRecordService.addBookDownloadRecord(book);
             return ResponseEntity.ok(new Response(200, "操作成功", aliOSSUtils.GetFileDownloadUrl(test.getUrl(), newFileName)));
         } else {
             return ResponseEntity.ok(new Response(200, "操作失败，积分不够", null));
@@ -158,5 +167,43 @@ public ResponseEntity<?> downloadBook(@RequestBody DownloadBookRequest book) thr
         } else {
             return ResponseEntity.ok(new Response(0, "操作失败，不能删除别人的图书！", null));
         }
+    }
+
+    //获取用户下载记录
+    @GetMapping("/downloadRecord")
+    public Result getDownloadRecordById(String userEmail,
+                                        @RequestParam(defaultValue = "1") Integer page,
+                                        @RequestParam(defaultValue = "10") Integer pageSize){
+        MaterialPage materialPage = bookDownloadRecordService.queryBookDownloadRecord(userEmail,page,pageSize);
+        return Result.success(materialPage);
+    }
+    //删除用户下载记录
+    @DeleteMapping ("/downloadRecord")
+    public Result deleteDownloadRecordById(Integer downloadId){
+        bookDownloadRecordService.deleteBookDownloadRecord(downloadId);
+        return Result.success();
+    }
+
+    //添加用户收藏记录
+    @PostMapping("/collectRecord")
+    public Result addCollectRecordById(@RequestBody BookCollectRecord bookCollectRecord){
+        if(bookCollectRecordService.addBookCollectRecord(bookCollectRecord)){
+            return Result.success();
+        }
+        return Result.error("用户或图书不存在");
+    }
+    //获取用户收藏记录
+    @GetMapping("/collectRecord")
+    public Result getCollectRecordById(String userEmail,
+                                        @RequestParam(defaultValue = "1") Integer page,
+                                        @RequestParam(defaultValue = "10") Integer pageSize){
+        MaterialPage materialPage = bookCollectRecordService.queryBookCollectRecord(userEmail,page,pageSize);
+        return Result.success(materialPage);
+    }
+    //删除用户收藏记录
+    @DeleteMapping ("/collectRecord")
+    public Result deleteCollectRecordById(Integer collectId){
+        bookCollectRecordService.deleteBookCollectRecord(collectId);
+        return Result.success();
     }
 }

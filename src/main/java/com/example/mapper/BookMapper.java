@@ -99,5 +99,5 @@ public interface BookMapper {
     void updateBookFile(int bookId, String bookFileUUID);
 
     @Select("select * from book where book_uploader = #{userEmail}")
-   List<Book> getBookObject(String userEmail);
+    List<Book> getBookObject(String userEmail);
 }
