@@ -56,6 +56,10 @@ public class BookCollectRecordServiceImpl implements BookCollectRecordService {
 
     @Override
     public MaterialPage queryBookCollectRecord(String userEmail, Integer page, Integer pageSize){
+        Account account = accountService.findAccountByNameOrEmail(userEmail);
+        if(account == null){
+            return null;
+        }
         //设置分页参数
         log.info("userEmail:{}",userEmail);
         PageHelper.startPage(page,pageSize);
@@ -75,12 +79,18 @@ public class BookCollectRecordServiceImpl implements BookCollectRecordService {
         bookCollectRecordMappper.deleteBookCollectRecord(collectId);
     }
     @Override
-    public boolean addBookCollectRecord(BookCollectRecord bookCollectRecord){
+    public String addBookCollectRecord(BookCollectRecord bookCollectRecord){
         Book book = bookMapper.selectBookById(bookCollectRecord.getBookId());
+        BookCollectRecord repeatBookCollectRecord = bookCollectRecordMappper.isRepeatCollectRecord(bookCollectRecord.getUserEmail(),bookCollectRecord.getBookId());
         Account account = accountService.findAccountByNameOrEmail(bookCollectRecord.getUserEmail());
+        if(repeatBookCollectRecord != null){
+            return "图书已经收藏过了";
+        }
         if(account != null){
             bookCollectRecord.setUserId(account.getId());
             bookCollectRecord.setUsername(account.getUsername());
+        }else{
+            return "用户不存在";
         }
         if(book != null){
             bookCollectRecord.setBookAuthor(book.getBookAuthor());
@@ -90,8 +100,9 @@ public class BookCollectRecordServiceImpl implements BookCollectRecordService {
             bookCollectRecord.setCreateTime(LocalDateTime.now());
             bookCollectRecord.setUpdateTime(LocalDateTime.now());
             bookCollectRecordMappper.insertBookCollectRecord(bookCollectRecord);
-            return true;
+            return null;
+        }else{
+            return "图书不存在";
         }
-        return false;
     }
 }

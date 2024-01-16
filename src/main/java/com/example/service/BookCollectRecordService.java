@@ -8,5 +8,5 @@ public interface BookCollectRecordService {
     void addBookCollectRecord(BookRequest bookRequest);
     MaterialPage queryBookCollectRecord(String userEmail, Integer page, Integer pageSize);
     void deleteBookCollectRecord(Integer collectId);
-    boolean addBookCollectRecord(BookCollectRecord bookCollectRecord);
+    String addBookCollectRecord(BookCollectRecord bookCollectRecord);
 }

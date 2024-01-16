@@ -187,10 +187,11 @@ public class BookController {
     //添加用户收藏记录
     @PostMapping("/collectRecord")
     public Result addCollectRecordById(@RequestBody BookCollectRecord bookCollectRecord){
-        if(bookCollectRecordService.addBookCollectRecord(bookCollectRecord)){
+        String isError = bookCollectRecordService.addBookCollectRecord(bookCollectRecord);
+        if(isError == null){
             return Result.success();
         }
-        return Result.error("用户或图书不存在");
+        return Result.error(isError);
     }
     //获取用户收藏记录
     @GetMapping("/collectRecord")
@@ -198,6 +199,9 @@ public class BookController {
                                         @RequestParam(defaultValue = "1") Integer page,
                                         @RequestParam(defaultValue = "10") Integer pageSize){
         MaterialPage materialPage = bookCollectRecordService.queryBookCollectRecord(userEmail,page,pageSize);
+        if(materialPage == null){
+            return Result.error("用户不存在");
+        }
         return Result.success(materialPage);
     }
     //删除用户收藏记录

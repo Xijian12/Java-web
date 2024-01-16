@@ -23,4 +23,7 @@ public interface BookCollectRecordMappper {
 
     @Delete("delete  from userbookcollect where collect_id = #{collectId}")
     void deleteBookCollectRecord(Integer collectId);
+
+    @Select("select * from userbookcollect where user_email = #{userEmail} and book_id =#{bookId}")
+    BookCollectRecord isRepeatCollectRecord(String userEmail,Integer bookId);
 }
