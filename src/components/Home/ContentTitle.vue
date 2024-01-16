@@ -7,11 +7,13 @@
       </a>
     </div>
     <div class="title_search">
+      <form @submit.prevent="SearchDisplayVue()">
       <i class="iconfont icon-sousuo sousuo"></i>
       <input v-model="keyword" class="title_seacrh_input"  type="search" placeholder="搜索资料" >
+      </form>
       <div class="title_seacrh_wenzi">
         <span class="title_wenzi_state">热搜：</span>
-        <a class="title_wenzi">电子书</a>
+        <a  href="/SearchDisplay/电子书" class="title_wenzi">电子书</a>
       </div>
     </div>
     <el-button @click="clickme()" style="width: 100px; height: 80px;" type="danger" plain>今日签到</el-button>
@@ -21,13 +23,17 @@
 <script setup>
 import { ref, watch, onMounted } from 'vue';
 import {useStore} from 'vuex';
+import router from "@/router";
 const store = useStore();
 const keyword = ref("");
 
 function clickme(){
       store.commit('addUserPic',100);
     }
-  
+function SearchDisplayVue(){
+      const path = keyword.value
+      router.push({name:"SearchDisplay", params: {id: path}})
+} 
 </script>
 
 <style scoped>

@@ -52,7 +52,9 @@
   import {ElMessage, ElMessageBox} from "element-plus";
   import type { UploadInstance } from 'element-plus'
   import axios from "axios";
-  const usereamil = ref("2323223@qq.com")
+  import {useStore} from 'vuex';
+  const store = useStore();
+  const usereamil = ref(store.state.personalID[0].email)
   const uploadRef = ref<UploadInstance>()
   const uploadBookRef = ref<UploadInstance>()
   const categoryList = ref([{

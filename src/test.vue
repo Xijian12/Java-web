@@ -10,7 +10,16 @@ import router from "@/router"
 
 <style scoped>
 
-
+/* router.beforeEach((to, from, next) => {
+    const isUnauthorized = unauthorized()
+    if(to.name.startsWith('welcome') && !isUnauthorized) {
+        next('/index')
+    } else if(to.fullPath.startsWith('/index') && isUnauthorized) {
+        next('/')
+    } else {
+        next()
+    }
+}) */
 
 
 

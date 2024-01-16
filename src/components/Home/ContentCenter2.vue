@@ -10,6 +10,20 @@
     <div class="bd bd1" v-show="activeTab === 'recommend'">
       <ul class="newdoclist">
         <!-- 推荐文档列表内容 -->
+        <el-row>
+        <el-col :span="12"> 
+        <div v-for="book in books" class="ranking_num1" >
+        <span @click="searchMaterial(book.materialId)"><el-icon><Folder /></el-icon>{{ book.school }}{{ book.major }}{{ book.subject }}资料</span>
+        <span>{{formatDate(book.updateTime)  }}</span>
+        </div>
+        </el-col>
+        <el-col :span="12"> 
+        <div v-for="book in books" class="ranking_num2">
+        <span @click="searchMaterial(book.materialId)"><el-icon><Folder /></el-icon>{{ book.school }}{{ book.major }}{{ book.subject }}资料</span>
+        <span>{{formatDate(book.updateTime)  }}</span>
+        </div>
+        </el-col>
+        </el-row>
       </ul>
     </div>
     <div class="bd bd2" v-show="activeTab === 'latest'">
@@ -29,10 +43,42 @@
 
 <script setup>
 import {ref, reactive, onMounted} from 'vue';
-const activeTab = ref('');
+import axios from "axios";
+import router from "@/router"
+const activeTab = ref('recommend');
 function changeTab(select){
   activeTab.value = select;
 }
+const books = ref()
+// 初始化页面数据
+function initData() {
+  // 发起简单的 GET 请求
+  axios.get("/material")
+  .then(response => {
+    // 处理成功的响应
+    books.value = response.data.data.items
+    console.log('成功：', books.value);
+  })
+  .catch(error => {
+    // 处理请求错误
+    console.error('请求失败：', error);
+  });    
+}
+// 跳转资料细节
+function searchMaterial(id){
+  router.push({name: 'BookDetail', params: {id: id}});
+}
+// 格式化日期
+function formatDate(time){
+      let date = new Date(time);
+      let year = date.getFullYear();
+      let month = date.getMonth()+1;
+      let day = date.getDate();
+      return year+"-"+month+"-"+day;
+}
+onMounted(() => {
+  initData();
+});
 </script>
 
 <style scoped>
@@ -49,7 +95,7 @@ function changeTab(select){
   margin-top: 20px;
 }
 .bodybox{background:#fff;margin-top:0;padding:0}
-.newleft{width:75%;float:left;box-sizing:border-box}
+.newleft{width:80%;float:left;box-sizing:border-box}
 .newleft .hd,.right_userlist .hd{margin-bottom:20px;overflow:hidden;padding-bottom:15px;position:relative;padding-left:20px}
 .newleft .hd{position:relative;padding-left:0}
 .newleft .hd:after{top:42px;width:100%;height:1px;position:absolute;right:20px;background-color:#eee;content:''}
@@ -64,14 +110,22 @@ function changeTab(select){
 .newleft .bd ul li span{float:right;color:#999;margin:0 20px}
 .newleft .bd ul li a{font-size:14px;color:#000;white-space:nowrap;font-weight:400;overflow:hidden;text-overflow:ellipsis}
 .newleft .bd .keke_iconfont{font-size:16px;margin-right:7px}
-.right_userlist{width:25%;float:right;box-sizing:border-box;padding-left:25px;position:relative}
+.right_userlist{width:20%;float:right;box-sizing:border-box;padding-left:25px;position:relative}
 .right_userlist:before{top:78px;width:1px;height:228px;position:absolute;left:2px;background-color:#f3f3f3;content:''}
 .right_userlist .hd .titCell{float:right;margin-top:13px}
 .right_userlist .hd .titCell li{font-size:0;display:inline-block;margin:0 3px;border-radius:50%;width:7px;height:7px;text-align:center;background:#ccc;cursor:pointer}
 .right_userlist .hd .titCell li.on{background:red;color:#fff;width:15px;border-radius:5px}
 .right_userlist .bd{height:260px;overflow:hidden}
-.newdoclist .ranking_num{margin-right:15px;float:left;font-size:18px}
+.newdoclist .ranking_num1{flex-direction: row; flex:1; margin-right:15px;font-size:18px;cursor: pointer; }
+.newdoclist .ranking_num2{flex-direction: row; flex:1; margin-right:15px;font-size:18px;cursor: pointer;}
+.ranking_num1:hover {
+  transform: translateY(-5px); /* 鼠标悬停时向上浮动5像素，你可以根据需要调整浮动的距离 */
+  text-decoration: underline; 
+}
+.ranking_num2:hover {
+  text-decoration: underline;
+  transform: translateY(-5px); /* 鼠标悬停时向上浮动5像素，你可以根据需要调整浮动的距离 */
+}
 .newdoclist li a img{width:23px;height:23px;border-radius:30px;display:inline-block;vertical-align:top;margin:5px 10px 0 0}
-.newdoclist li{overflow:hidden;line-height:37px;height:37px}
-
+.newdoclist li{overflow:hidden;line-height:37px;height:37px;display: flex;}
 </style>

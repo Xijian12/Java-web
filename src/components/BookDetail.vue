@@ -142,7 +142,7 @@
           </el-tab-pane>
           <el-tab-pane name="comment">
             <span slot="label"><el-icon><Comment /></el-icon> 商品评论</span>
-            <el-rate style="margin-left: 50px;" v-model="book.bookPoints " :colors="colors" :max="5" show-score disabled></el-rate>
+            <el-rate style="margin-left: 50px;" v-model="book.bookGrade " :colors="colors" :max="5" show-score disabled></el-rate>
             <div v-if="commentData.length>0" class="comment-content">
               <el-table :data="commentData"  style="width: 100%">
                 <el-table-column width="200">

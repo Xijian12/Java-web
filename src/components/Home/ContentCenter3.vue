@@ -159,10 +159,10 @@ function decimals(value) {
     // 初始化页面数据
 function initData() {
   // 发起简单的 GET 请求
-  axios.get("/book")
+  axios.get(`/book/highest/8`)
   .then(response => {
     // 处理成功的响应
-    books.value = response.data.data
+    books.value = response.data
     console.log('成功：', books);
   })
   .catch(error => {
