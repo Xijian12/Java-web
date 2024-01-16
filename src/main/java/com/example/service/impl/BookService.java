@@ -26,7 +26,7 @@ public class BookService {
 public void updateBookGrade() {
        bookMapper.updateBookGrade();
         System.out.println("定时任务执行中...");
-        // 在这里调用你的方法
+
     }
     public List<Book >GetBookObject(String userEmail){
         return bookMapper.getBookObject(userEmail);
