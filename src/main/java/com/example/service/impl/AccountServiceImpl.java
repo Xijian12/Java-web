@@ -1,5 +1,6 @@
 package com.example.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -364,7 +365,13 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
         if (material != null) {
             materialMapper.updateUploaderByEmail(material.getMaterialUploader(), adminEmail);
         }
+    }
 
+    @Override
+    public List<Account> findTopNAccounts(int n) {
+        QueryWrapper<Account> queryWrapper = new QueryWrapper<>();
+        queryWrapper.orderByDesc("points").last("LIMIT " + n);
+        return list(queryWrapper);
     }
 
 }

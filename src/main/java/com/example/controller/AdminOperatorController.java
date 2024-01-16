@@ -86,6 +86,14 @@ public class AdminOperatorController {
         String result = accountService.deleteUserAndRelatedInfo(email);
         return result == null ? RestBean.success("用户删除成功") : RestBean.failure(400, result);
     }
+
+    //查看所有积分前10的用户
+    @GetMapping("/showTopNAccounts")
+    @Operation(summary = "展示积分最高的10个用户")
+    public Result showTopNAccounts(){
+        List<Account> topAccounts = accountService.findTopNAccounts(10);
+        return Result.success(topAccounts);
+    }
     /**
      * 针对于返回值为String作为错误信息的方法进行统一处理
      * @param action 具体操作

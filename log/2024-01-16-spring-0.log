@@ -1,0 +1,251 @@
+2024-01-16 17:57:48.400  INFO 1712 --- [main] (system) c.example.MyProjectBackendApplication    : Starting MyProjectBackendApplication using Java 17.0.9 with PID 1712 (C:\Users\85131\Desktop\doucment\java\bookmanage\target\classes started by 85131 in C:\Users\85131\Desktop\doucment\java\bookmanage)
+2024-01-16 17:57:48.403  INFO 1712 --- [main] (system) c.example.MyProjectBackendApplication    : The following 1 profile is active: "dev"
+2024-01-16 17:57:49.226  INFO 1712 --- [main] (system) .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-01-16 17:57:49.229  INFO 1712 --- [main] (system) .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-01-16 17:57:49.258  INFO 1712 --- [main] (system) .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 13 ms. Found 0 Redis repository interfaces.
+2024-01-16 17:57:49.715 ERROR 1712 --- [main] (system) o.a.catalina.core.AprLifecycleListener   : An incompatible version [1.2.23] of the Apache Tomcat Native library is installed, while Tomcat requires version [1.2.34]
+2024-01-16 17:57:49.889  INFO 1712 --- [main] (system) o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2024-01-16 17:57:49.897  INFO 1712 --- [main] (system) o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-01-16 17:57:49.897  INFO 1712 --- [main] (system) o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.11]
+2024-01-16 17:57:50.016  INFO 1712 --- [main] (system) o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-01-16 17:57:50.018  INFO 1712 --- [main] (system) w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1577 ms
+2024-01-16 17:57:51.253  INFO 1712 --- [main] (system) o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@687f62a5, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@7857cb1d, org.springframework.security.web.context.SecurityContextHolderFilter@349996a6, org.springframework.security.web.header.HeaderWriterFilter@7526bb18, org.springframework.security.web.authentication.logout.LogoutFilter@7e451790, com.example.filter.JwtAuthenticationFilter@63262071, com.example.filter.RequestLogFilter@63dc3420, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@3ef396c9, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@67292fc7, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@320e179f, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@7646c9f5, org.springframework.security.web.session.SessionManagementFilter@30bf881e, org.springframework.security.web.access.ExceptionTranslationFilter@38af386e, org.springframework.security.web.access.intercept.AuthorizationFilter@4ca907af]
+2024-01-16 17:57:51.591  WARN 1712 --- [main] (system) ocalVariableTableParameterNameDiscoverer : Using deprecated '-debug' fallback for parameter name resolution. Compile the affected code with '-parameters' instead or avoid its introspection: org.springframework.amqp.rabbit.core.RabbitAdmin
+2024-01-16 17:57:51.641  INFO 1712 --- [main] (system) o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2024-01-16 17:57:51.644  INFO 1712 --- [main] (system) o.s.a.r.c.CachingConnectionFactory       : Attempting to connect to: [localhost:5672]
+2024-01-16 17:57:51.688  INFO 1712 --- [main] (system) o.s.a.r.c.CachingConnectionFactory       : Created new connection: rabbitConnectionFactory#6231f77a:0/SimpleConnection@48cbe1c9 [delegate=amqp://guest@127.0.0.1:5672/, localPort=8336]
+2024-01-16 17:57:51.727  INFO 1712 --- [main] (system) c.example.MyProjectBackendApplication    : Started MyProjectBackendApplication in 3.909 seconds (process running for 4.891)
+2024-01-16 17:57:51.740  INFO 1712 --- [scheduling-1] (system) com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-01-16 17:57:51.979  INFO 1712 --- [scheduling-1] (system) com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@2b96d6c
+2024-01-16 17:57:51.981  INFO 1712 --- [scheduling-1] (system) com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-01-16 17:57:52.061 ERROR 1712 --- [scheduling-1] (system) o.s.s.s.TaskUtils$LoggingErrorHandler    : Unexpected error occurred in scheduled task
+
+org.springframework.jdbc.BadSqlGrammarException: 
+### Error updating database.  Cause: java.sql.SQLSyntaxErrorException: Table 'test.commentforbook' doesn't exist
+### The error may exist in com/example/mapper/BookMapper.java (best guess)
+### The error may involve defaultParameterMap
+### The error occurred while setting parameters
+### SQL: UPDATE book SET book_grade = ( SELECT AVG(user_grade) FROM commentforbook WHERE commentforbook.book_id = book.book_id)
+### Cause: java.sql.SQLSyntaxErrorException: Table 'test.commentforbook' doesn't exist
+; bad SQL grammar []
+	at org.springframework.jdbc.support.SQLErrorCodeSQLExceptionTranslator.doTranslate(SQLErrorCodeSQLExceptionTranslator.java:243)
+	at org.springframework.jdbc.support.AbstractFallbackSQLExceptionTranslator.translate(AbstractFallbackSQLExceptionTranslator.java:70)
+	at org.mybatis.spring.MyBatisExceptionTranslator.translateExceptionIfPossible(MyBatisExceptionTranslator.java:91)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:441)
+	at jdk.proxy2/jdk.proxy2.$Proxy97.update(Unknown Source)
+	at org.mybatis.spring.SqlSessionTemplate.update(SqlSessionTemplate.java:288)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperMethod.execute(MybatisMapperMethod.java:64)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy$PlainMethodInvoker.invoke(MybatisMapperProxy.java:148)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy.invoke(MybatisMapperProxy.java:89)
+	at jdk.proxy2/jdk.proxy2.$Proxy120.updateBookGrade(Unknown Source)
+	at com.example.service.impl.BookService.updateBookGrade(BookService.java:27)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539)
+	at java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:305)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:305)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+Caused by: java.sql.SQLSyntaxErrorException: Table 'test.commentforbook' doesn't exist
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:121)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeInternal(ClientPreparedStatement.java:916)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.execute(ClientPreparedStatement.java:354)
+	at com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.execute(HikariProxyPreparedStatement.java)
+	at org.apache.ibatis.executor.statement.PreparedStatementHandler.update(PreparedStatementHandler.java:47)
+	at org.apache.ibatis.executor.statement.RoutingStatementHandler.update(RoutingStatementHandler.java:74)
+	at org.apache.ibatis.executor.SimpleExecutor.doUpdate(SimpleExecutor.java:50)
+	at org.apache.ibatis.executor.BaseExecutor.update(BaseExecutor.java:117)
+	at org.apache.ibatis.executor.CachingExecutor.update(CachingExecutor.java:76)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.apache.ibatis.plugin.Plugin.invoke(Plugin.java:64)
+	at jdk.proxy2/jdk.proxy2.$Proxy136.update(Unknown Source)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.update(DefaultSqlSession.java:194)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:427)
+	... 19 common frames omitted
+
+2024-01-16 17:58:25.348  INFO 1712 --- [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-2] (system) o.s.a.r.l.SimpleMessageListenerContainer : Waiting for workers to finish.
+2024-01-16 17:58:26.021  INFO 1712 --- [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-2] (system) o.s.a.r.l.SimpleMessageListenerContainer : Successfully waited for workers to finish.
+2024-01-16 17:58:26.070  INFO 1712 --- [SpringApplicationShutdownHook] (system) com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-01-16 17:58:26.078  INFO 1712 --- [SpringApplicationShutdownHook] (system) com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-01-16 17:58:28.453  INFO 12764 --- [main] (system) c.example.MyProjectBackendApplication    : Starting MyProjectBackendApplication using Java 17.0.9 with PID 12764 (C:\Users\85131\Desktop\doucment\java\bookmanage\target\classes started by 85131 in C:\Users\85131\Desktop\doucment\java\bookmanage)
+2024-01-16 17:58:28.455  INFO 12764 --- [main] (system) c.example.MyProjectBackendApplication    : The following 1 profile is active: "dev"
+2024-01-16 17:58:29.106  INFO 12764 --- [main] (system) .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-01-16 17:58:29.108  INFO 12764 --- [main] (system) .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-01-16 17:58:29.131  INFO 12764 --- [main] (system) .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 12 ms. Found 0 Redis repository interfaces.
+2024-01-16 17:58:29.498 ERROR 12764 --- [main] (system) o.a.catalina.core.AprLifecycleListener   : An incompatible version [1.2.23] of the Apache Tomcat Native library is installed, while Tomcat requires version [1.2.34]
+2024-01-16 17:58:29.645  INFO 12764 --- [main] (system) o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2024-01-16 17:58:29.652  INFO 12764 --- [main] (system) o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-01-16 17:58:29.652  INFO 12764 --- [main] (system) o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.11]
+2024-01-16 17:58:29.761  INFO 12764 --- [main] (system) o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-01-16 17:58:29.763  INFO 12764 --- [main] (system) w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1274 ms
+2024-01-16 17:58:30.736  INFO 12764 --- [main] (system) o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@3aa1c45, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@6d45dd4, org.springframework.security.web.context.SecurityContextHolderFilter@73dd0f23, org.springframework.security.web.header.HeaderWriterFilter@36b761e3, org.springframework.security.web.authentication.logout.LogoutFilter@7646c9f5, com.example.filter.JwtAuthenticationFilter@145a821d, com.example.filter.RequestLogFilter@1f0e2bdc, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@3921e96f, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@579ce2e9, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2a8e30e3, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@1614499b, org.springframework.security.web.session.SessionManagementFilter@285c63cf, org.springframework.security.web.access.ExceptionTranslationFilter@486dd616, org.springframework.security.web.access.intercept.AuthorizationFilter@1fa58a48]
+2024-01-16 17:58:31.008  WARN 12764 --- [main] (system) ocalVariableTableParameterNameDiscoverer : Using deprecated '-debug' fallback for parameter name resolution. Compile the affected code with '-parameters' instead or avoid its introspection: org.springframework.amqp.rabbit.core.RabbitAdmin
+2024-01-16 17:58:31.052  INFO 12764 --- [main] (system) o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2024-01-16 17:58:31.054  INFO 12764 --- [main] (system) o.s.a.r.c.CachingConnectionFactory       : Attempting to connect to: [localhost:5672]
+2024-01-16 17:58:31.098  INFO 12764 --- [main] (system) o.s.a.r.c.CachingConnectionFactory       : Created new connection: rabbitConnectionFactory#ce2eaa7:0/SimpleConnection@5655278d [delegate=amqp://guest@127.0.0.1:5672/, localPort=8414]
+2024-01-16 17:58:31.135  INFO 12764 --- [main] (system) c.example.MyProjectBackendApplication    : Started MyProjectBackendApplication in 3.084 seconds (process running for 3.776)
+2024-01-16 17:58:31.147  INFO 12764 --- [scheduling-1] (system) com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-01-16 17:58:31.316  INFO 12764 --- [scheduling-1] (system) com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@43af45e6
+2024-01-16 17:58:31.317  INFO 12764 --- [scheduling-1] (system) com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-01-16 17:58:31.365 ERROR 12764 --- [scheduling-1] (system) o.s.s.s.TaskUtils$LoggingErrorHandler    : Unexpected error occurred in scheduled task
+
+org.springframework.jdbc.BadSqlGrammarException: 
+### Error updating database.  Cause: java.sql.SQLSyntaxErrorException: Table 'test.commentforbook' doesn't exist
+### The error may exist in com/example/mapper/BookMapper.java (best guess)
+### The error may involve defaultParameterMap
+### The error occurred while setting parameters
+### SQL: UPDATE book SET book_grade = ( SELECT AVG(user_grade) FROM commentforbook WHERE commentforbook.book_id = book.book_id)
+### Cause: java.sql.SQLSyntaxErrorException: Table 'test.commentforbook' doesn't exist
+; bad SQL grammar []
+	at org.springframework.jdbc.support.SQLErrorCodeSQLExceptionTranslator.doTranslate(SQLErrorCodeSQLExceptionTranslator.java:243)
+	at org.springframework.jdbc.support.AbstractFallbackSQLExceptionTranslator.translate(AbstractFallbackSQLExceptionTranslator.java:70)
+	at org.mybatis.spring.MyBatisExceptionTranslator.translateExceptionIfPossible(MyBatisExceptionTranslator.java:91)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:441)
+	at jdk.proxy2/jdk.proxy2.$Proxy97.update(Unknown Source)
+	at org.mybatis.spring.SqlSessionTemplate.update(SqlSessionTemplate.java:288)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperMethod.execute(MybatisMapperMethod.java:64)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy$PlainMethodInvoker.invoke(MybatisMapperProxy.java:148)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy.invoke(MybatisMapperProxy.java:89)
+	at jdk.proxy2/jdk.proxy2.$Proxy120.updateBookGrade(Unknown Source)
+	at com.example.service.impl.BookService.updateBookGrade(BookService.java:27)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:84)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539)
+	at java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:305)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:305)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+Caused by: java.sql.SQLSyntaxErrorException: Table 'test.commentforbook' doesn't exist
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:121)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeInternal(ClientPreparedStatement.java:916)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.execute(ClientPreparedStatement.java:354)
+	at com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.execute(HikariProxyPreparedStatement.java)
+	at org.apache.ibatis.executor.statement.PreparedStatementHandler.update(PreparedStatementHandler.java:47)
+	at org.apache.ibatis.executor.statement.RoutingStatementHandler.update(RoutingStatementHandler.java:74)
+	at org.apache.ibatis.executor.SimpleExecutor.doUpdate(SimpleExecutor.java:50)
+	at org.apache.ibatis.executor.BaseExecutor.update(BaseExecutor.java:117)
+	at org.apache.ibatis.executor.CachingExecutor.update(CachingExecutor.java:76)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.apache.ibatis.plugin.Plugin.invoke(Plugin.java:64)
+	at jdk.proxy2/jdk.proxy2.$Proxy136.update(Unknown Source)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.update(DefaultSqlSession.java:194)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:427)
+	... 19 common frames omitted
+
+2024-01-16 18:06:19.736  INFO 12764 --- [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-2] (system) o.s.a.r.l.SimpleMessageListenerContainer : Waiting for workers to finish.
+2024-01-16 18:06:19.876  INFO 12764 --- [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-2] (system) o.s.a.r.l.SimpleMessageListenerContainer : Successfully waited for workers to finish.
+2024-01-16 18:06:19.920  INFO 12764 --- [SpringApplicationShutdownHook] (system) com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-01-16 18:06:19.928  INFO 12764 --- [SpringApplicationShutdownHook] (system) com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-01-16 18:06:24.034  INFO 27804 --- [main] (system) c.example.MyProjectBackendApplication    : Starting MyProjectBackendApplication using Java 17.0.9 with PID 27804 (C:\Users\85131\Desktop\doucment\java\bookmanage\target\classes started by 85131 in C:\Users\85131\Desktop\doucment\java\bookmanage)
+2024-01-16 18:06:24.036  INFO 27804 --- [main] (system) c.example.MyProjectBackendApplication    : The following 1 profile is active: "dev"
+2024-01-16 18:06:24.737  INFO 27804 --- [main] (system) .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-01-16 18:06:24.740  INFO 27804 --- [main] (system) .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-01-16 18:06:24.765  INFO 27804 --- [main] (system) .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 14 ms. Found 0 Redis repository interfaces.
+2024-01-16 18:06:25.163 ERROR 27804 --- [main] (system) o.a.catalina.core.AprLifecycleListener   : An incompatible version [1.2.23] of the Apache Tomcat Native library is installed, while Tomcat requires version [1.2.34]
+2024-01-16 18:06:25.332  INFO 27804 --- [main] (system) o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2024-01-16 18:06:25.339  INFO 27804 --- [main] (system) o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-01-16 18:06:25.339  INFO 27804 --- [main] (system) o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.11]
+2024-01-16 18:06:25.460  INFO 27804 --- [main] (system) o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-01-16 18:06:25.462  INFO 27804 --- [main] (system) w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1390 ms
+2024-01-16 18:06:26.535  INFO 27804 --- [main] (system) o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@3f6d36eb, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3f5ac587, org.springframework.security.web.context.SecurityContextHolderFilter@486dd616, org.springframework.security.web.header.HeaderWriterFilter@34cfdd84, org.springframework.security.web.authentication.logout.LogoutFilter@4ca907af, com.example.filter.JwtAuthenticationFilter@77ff14ce, com.example.filter.RequestLogFilter@74fc3fc7, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@2e64ae1a, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@36b761e3, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@4301fa39, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@1fa58a48, org.springframework.security.web.session.SessionManagementFilter@320e179f, org.springframework.security.web.access.ExceptionTranslationFilter@67292fc7, org.springframework.security.web.access.intercept.AuthorizationFilter@682d9f21]
+2024-01-16 18:06:26.836  WARN 27804 --- [main] (system) ocalVariableTableParameterNameDiscoverer : Using deprecated '-debug' fallback for parameter name resolution. Compile the affected code with '-parameters' instead or avoid its introspection: org.springframework.amqp.rabbit.core.RabbitAdmin
+2024-01-16 18:06:26.883  INFO 27804 --- [main] (system) o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2024-01-16 18:06:26.885  INFO 27804 --- [main] (system) o.s.a.r.c.CachingConnectionFactory       : Attempting to connect to: [localhost:5672]
+2024-01-16 18:06:26.920  INFO 27804 --- [main] (system) o.s.a.r.c.CachingConnectionFactory       : Created new connection: rabbitConnectionFactory#25464154:0/SimpleConnection@46610fc9 [delegate=amqp://guest@127.0.0.1:5672/, localPort=2616]
+2024-01-16 18:06:26.956  INFO 27804 --- [main] (system) c.example.MyProjectBackendApplication    : Started MyProjectBackendApplication in 3.33 seconds (process running for 3.956)
+2024-01-16 18:06:26.968  INFO 27804 --- [scheduling-1] (system) com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-01-16 18:06:27.166  INFO 27804 --- [scheduling-1] (system) com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@5b0844f3
+2024-01-16 18:06:27.167  INFO 27804 --- [scheduling-1] (system) com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-01-16 18:06:38.180  INFO 27804 --- [http-nio-8080-exec-7] (system) o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-01-16 18:06:38.180  INFO 27804 --- [http-nio-8080-exec-7] (system) o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-01-16 18:06:38.181  INFO 27804 --- [http-nio-8080-exec-7] (system) o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2024-01-16 18:06:38.658  INFO 27804 --- [http-nio-8080-exec-7] (60027572129501184) com.example.filter.RequestLogFilter      : 请求URL: "/admin/showTopNAccounts" (GET) | 远程IP地址: 0:0:0:0:0:0:0:1 │ 身份: 未验证 | 请求参数列表: {}
+2024-01-16 18:06:38.813  INFO 27804 --- [http-nio-8080-exec-7] (60027572129501184) com.example.filter.RequestLogFilter      : 请求处理耗时: 157ms | 响应结果: {"code":401,"data":null,"id":60027572129501184,"message":"Full authentication is required to access this resource"}
+2024-01-16 18:09:27.435  INFO 27804 --- [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-2] (system) o.s.a.r.l.SimpleMessageListenerContainer : Waiting for workers to finish.
+2024-01-16 18:09:27.475  INFO 27804 --- [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-2] (system) o.s.a.r.l.SimpleMessageListenerContainer : Successfully waited for workers to finish.
+2024-01-16 18:09:27.506  INFO 27804 --- [SpringApplicationShutdownHook] (system) com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-01-16 18:09:27.512  INFO 27804 --- [SpringApplicationShutdownHook] (system) com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-01-16 18:09:33.505  INFO 20948 --- [main] (system) c.example.MyProjectBackendApplication    : Starting MyProjectBackendApplication using Java 17.0.9 with PID 20948 (C:\Users\85131\Desktop\doucment\java\bookmanage\target\classes started by 85131 in C:\Users\85131\Desktop\doucment\java\bookmanage)
+2024-01-16 18:09:33.507  INFO 20948 --- [main] (system) c.example.MyProjectBackendApplication    : The following 1 profile is active: "dev"
+2024-01-16 18:09:34.158  INFO 20948 --- [main] (system) .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-01-16 18:09:34.160  INFO 20948 --- [main] (system) .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-01-16 18:09:34.185  INFO 20948 --- [main] (system) .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 13 ms. Found 0 Redis repository interfaces.
+2024-01-16 18:09:34.561 ERROR 20948 --- [main] (system) o.a.catalina.core.AprLifecycleListener   : An incompatible version [1.2.23] of the Apache Tomcat Native library is installed, while Tomcat requires version [1.2.34]
+2024-01-16 18:09:34.731  INFO 20948 --- [main] (system) o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2024-01-16 18:09:34.738  INFO 20948 --- [main] (system) o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-01-16 18:09:34.738  INFO 20948 --- [main] (system) o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.11]
+2024-01-16 18:09:34.861  INFO 20948 --- [main] (system) o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-01-16 18:09:34.862  INFO 20948 --- [main] (system) w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1325 ms
+2024-01-16 18:09:35.865  INFO 20948 --- [main] (system) o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@7646c9f5, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@7b54a0a4, org.springframework.security.web.context.SecurityContextHolderFilter@67292fc7, org.springframework.security.web.header.HeaderWriterFilter@30bf881e, org.springframework.security.web.authentication.logout.LogoutFilter@3f71ae7f, com.example.filter.JwtAuthenticationFilter@2d4f67e, com.example.filter.RequestLogFilter@525b8922, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@4e0802e0, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@34cfdd84, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@6e1ad658, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@682d9f21, org.springframework.security.web.session.SessionManagementFilter@507f7cd1, org.springframework.security.web.access.ExceptionTranslationFilter@7526bb18, org.springframework.security.web.access.intercept.AuthorizationFilter@5a99543b]
+2024-01-16 18:09:36.164  WARN 20948 --- [main] (system) ocalVariableTableParameterNameDiscoverer : Using deprecated '-debug' fallback for parameter name resolution. Compile the affected code with '-parameters' instead or avoid its introspection: org.springframework.amqp.rabbit.core.RabbitAdmin
+2024-01-16 18:09:36.208  INFO 20948 --- [main] (system) o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2024-01-16 18:09:36.210  INFO 20948 --- [main] (system) o.s.a.r.c.CachingConnectionFactory       : Attempting to connect to: [localhost:5672]
+2024-01-16 18:09:36.245  INFO 20948 --- [main] (system) o.s.a.r.c.CachingConnectionFactory       : Created new connection: rabbitConnectionFactory#4b336cc8:0/SimpleConnection@578c99ac [delegate=amqp://guest@127.0.0.1:5672/, localPort=2911]
+2024-01-16 18:09:36.279  INFO 20948 --- [main] (system) c.example.MyProjectBackendApplication    : Started MyProjectBackendApplication in 3.182 seconds (process running for 3.854)
+2024-01-16 18:09:36.292  INFO 20948 --- [scheduling-1] (system) com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-01-16 18:09:36.468  INFO 20948 --- [scheduling-1] (system) com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@7c281e2d
+2024-01-16 18:09:36.469  INFO 20948 --- [scheduling-1] (system) com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-01-16 18:09:56.214  INFO 20948 --- [http-nio-8080-exec-8] (system) o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-01-16 18:09:56.214  INFO 20948 --- [http-nio-8080-exec-8] (system) o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-01-16 18:09:56.215  INFO 20948 --- [http-nio-8080-exec-8] (system) o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2024-01-16 18:09:56.606  INFO 20948 --- [http-nio-8080-exec-8] (60028402383589376) com.example.filter.RequestLogFilter      : 请求URL: "/admin/showTopNAccounts" (GET) | 远程IP地址: 0:0:0:0:0:0:0:1 │ 身份: 未验证 | 请求参数列表: {}
+2024-01-16 18:09:56.724  INFO 20948 --- [http-nio-8080-exec-8] (60028402383589376) com.example.filter.RequestLogFilter      : 请求处理耗时: 120ms | 响应结果: {"code":401,"data":null,"id":60028402383589376,"message":"Full authentication is required to access this resource"}
+2024-01-16 18:09:58.646  INFO 20948 --- [http-nio-8080-exec-3] (60028410948358144) com.example.filter.RequestLogFilter      : 请求URL: "/admin/showTopNAccounts" (GET) | 远程IP地址: 0:0:0:0:0:0:0:1 │ 身份: 未验证 | 请求参数列表: {}
+2024-01-16 18:09:58.649  INFO 20948 --- [http-nio-8080-exec-3] (60028410948358144) com.example.filter.RequestLogFilter      : 请求处理耗时: 3ms | 响应结果: {"code":401,"data":null,"id":60028410948358144,"message":"Full authentication is required to access this resource"}
+2024-01-16 18:10:28.986  INFO 20948 --- [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-2] (system) o.s.a.r.l.SimpleMessageListenerContainer : Waiting for workers to finish.
+2024-01-16 18:10:29.731  INFO 20948 --- [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-2] (system) o.s.a.r.l.SimpleMessageListenerContainer : Successfully waited for workers to finish.
+2024-01-16 18:10:29.758  INFO 20948 --- [SpringApplicationShutdownHook] (system) com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-01-16 18:10:29.764  INFO 20948 --- [SpringApplicationShutdownHook] (system) com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-01-16 18:10:34.110  INFO 27688 --- [main] (system) c.example.MyProjectBackendApplication    : Starting MyProjectBackendApplication using Java 17.0.9 with PID 27688 (C:\Users\85131\Desktop\doucment\java\bookmanage\target\classes started by 85131 in C:\Users\85131\Desktop\doucment\java\bookmanage)
+2024-01-16 18:10:34.112  INFO 27688 --- [main] (system) c.example.MyProjectBackendApplication    : The following 1 profile is active: "dev"
+2024-01-16 18:10:34.772  INFO 27688 --- [main] (system) .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2024-01-16 18:10:34.774  INFO 27688 --- [main] (system) .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-01-16 18:10:34.799  INFO 27688 --- [main] (system) .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 13 ms. Found 0 Redis repository interfaces.
+2024-01-16 18:10:35.163 ERROR 27688 --- [main] (system) o.a.catalina.core.AprLifecycleListener   : An incompatible version [1.2.23] of the Apache Tomcat Native library is installed, while Tomcat requires version [1.2.34]
+2024-01-16 18:10:35.308  INFO 27688 --- [main] (system) o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2024-01-16 18:10:35.315  INFO 27688 --- [main] (system) o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-01-16 18:10:35.315  INFO 27688 --- [main] (system) o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.11]
+2024-01-16 18:10:35.436  INFO 27688 --- [main] (system) o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-01-16 18:10:35.438  INFO 27688 --- [main] (system) w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1293 ms
+2024-01-16 18:10:36.426  INFO 27688 --- [main] (system) o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@3f6d36eb, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3f5ac587, org.springframework.security.web.context.SecurityContextHolderFilter@486dd616, org.springframework.security.web.header.HeaderWriterFilter@34cfdd84, org.springframework.security.web.authentication.logout.LogoutFilter@4ca907af, com.example.filter.JwtAuthenticationFilter@5d2e6f62, com.example.filter.RequestLogFilter@58e02359, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@2e64ae1a, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@36b761e3, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@4301fa39, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@1fa58a48, org.springframework.security.web.session.SessionManagementFilter@320e179f, org.springframework.security.web.access.ExceptionTranslationFilter@67292fc7, org.springframework.security.web.access.intercept.AuthorizationFilter@682d9f21]
+2024-01-16 18:10:36.710  WARN 27688 --- [main] (system) ocalVariableTableParameterNameDiscoverer : Using deprecated '-debug' fallback for parameter name resolution. Compile the affected code with '-parameters' instead or avoid its introspection: org.springframework.amqp.rabbit.core.RabbitAdmin
+2024-01-16 18:10:36.755  INFO 27688 --- [main] (system) o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2024-01-16 18:10:36.758  INFO 27688 --- [main] (system) o.s.a.r.c.CachingConnectionFactory       : Attempting to connect to: [localhost:5672]
+2024-01-16 18:10:36.794  INFO 27688 --- [main] (system) o.s.a.r.c.CachingConnectionFactory       : Created new connection: rabbitConnectionFactory#25464154:0/SimpleConnection@46610fc9 [delegate=amqp://guest@127.0.0.1:5672/, localPort=3023]
+2024-01-16 18:10:36.829  INFO 27688 --- [main] (system) c.example.MyProjectBackendApplication    : Started MyProjectBackendApplication in 3.115 seconds (process running for 3.836)
+2024-01-16 18:10:36.842  INFO 27688 --- [scheduling-1] (system) com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-01-16 18:10:37.018  INFO 27688 --- [scheduling-1] (system) com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@5eb6f208
+2024-01-16 18:10:37.020  INFO 27688 --- [scheduling-1] (system) com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-01-16 18:10:41.331  INFO 27688 --- [http-nio-8080-exec-2] (system) o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-01-16 18:10:41.331  INFO 27688 --- [http-nio-8080-exec-2] (system) o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-01-16 18:10:41.332  INFO 27688 --- [http-nio-8080-exec-2] (system) o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2024-01-16 18:10:41.690  INFO 27688 --- [http-nio-8080-exec-2] (60028591479590912) com.example.filter.RequestLogFilter      : 请求URL: "/admin/showTopNAccounts" (GET) | 远程IP地址: 0:0:0:0:0:0:0:1 │ 身份: 未验证 | 请求参数列表: {}
+2024-01-16 18:10:41.993  INFO 27688 --- [http-nio-8080-exec-2] (60028591479590912) com.example.filter.RequestLogFilter      : 请求处理耗时: 305ms | 响应结果: {"code":0,"msg":"success","data":[{"id":3,"username":"马英九","password":"$2a$10$i5ewuX7nBYQV3KHSyxZ5d.N4WSqPemLu9SArXVeWvjMFmfKt0oBG6","email":"2031282938@qq.com","role":"user","registerTime":"2024-01-04T02:20:04.000+00:00","points":100,"avatarUrl":null,"avatarUuid":null},{"id":20,"username":"王二","password":"$2a$10$123456789012345678901V5y13Q1/uDNWh0qkiPsjE5LrWfb.MoyG","email":"wang.er@gmail.com","role":"admin","registerTime":"2024-01-16T08:40:00.000+00:00","points":30,"avatarUrl":"https://example.com/avatar3.jpg","avatarUuid":"123abc"},{"id":27,"username":"郑十五","password":"$2a$10$123456789012345678901L1v2MbC2Kp6eBj4q8DTpm3Ow67T.QrO","email":"zhengshiwu@gmail.com","role":"admin","registerTime":"2024-01-16T10:25:00.000+00:00","points":30,"avatarUrl":"https://example.com/avatar15.jpg","avatarUuid":"xyzabc"},{"id":24,"username":"吴九","password":"$2a$10$123456789012345678901L1v2MbC2Kp6eBj4q8DTpm3Ow67T.QrO","email":"wuj@gmail.com","role":"user","registerTime":"2024-01-16T09:15:00.000+00:00","points":28,"avatarUrl":"https://example.com/avatar7.jpg","avatarUuid":"ghi456"},{"id":21,"username":"赵六","password":"$2a$10$123456789012345678901V5y13Q1/uDNWh0qkiPsjE5LrWfb.MoyG","email":"zhaoliu@gmail.com","role":"user","registerTime":"2024-01-16T09:00:00.000+00:00","points":25,"avatarUrl":"https://example.com/avatar4.jpg","avatarUuid":"456xyz"},{"id":28,"username":"陈十","password":"$2a$10$123456789012345678901L1v2MbC2Kp6eBj4q8DTpm3Ow67T.QrO","email":"chenshi@gmail.com","role":"admin","registerTime":"2024-01-16T10:00:00.000+00:00","points":22,"avatarUrl":"https://example.com/avatar10.jpg","avatarUuid":"xyz789"},{"id":26,"username":"董十二","password":"$2a$10$123456789012345678901L1v2MbC2Kp6eBj4q8DTpm3Ow67T.QrO","email":"dongshier@gmail.com","role":"user","registerTime":"2024-01-16T10:10:00.000+00:00","points":21,"avatarUrl":"https://example.com/avatar12.jpg","avatarUuid":"def789"},{"id":18,"username":"张三","password":"$2a$10$123456789012345678901u3fQ7EDEeG2JYpEqSTmq2A5t3dOZAmB","email":"zhangsan@gmail.com","role":"user","registerTime":"2024-01-16T08:30:00.000+00:00","points":20,"avatarUrl":"https://example.com/avatar1.jpg","avatarUuid":"abc123"},{"id":22,"username":"刘七","password":"$2a$10$123456789012345678901L1v2MbC2Kp6eBj4q8DTpm3Ow67T.QrO","email":"liuqi@gmail.com","role":"user","registerTime":"2024-01-16T09:05:00.000+00:00","points":18,"avatarUrl":"https://example.com/avatar5.jpg","avatarUuid":"789abc"},{"id":25,"username":"朱十一","password":"$2a$10$123456789012345678901L1v2MbC2Kp6eBj4q8DTpm3Ow67T.QrO","email":"zhushiyi@gmail.com","role":"user","registerTime":"2024-01-16T10:05:00.000+00:00","points":17,"avatarUrl":"https://example.com/avatar11.jpg","avatarUuid":"abc456"}]}
