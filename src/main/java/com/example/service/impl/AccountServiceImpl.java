@@ -1,5 +1,6 @@
 package com.example.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -26,13 +27,12 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.xml.transform.Source;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
 
 /**
  * 账户信息处理相关服务
@@ -364,7 +364,42 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
         if (material != null) {
             materialMapper.updateUploaderByEmail(material.getMaterialUploader(), adminEmail);
         }
-
     }
+
+    @Override
+    public List<Account> findTopNAccounts(int n) {
+        QueryWrapper<Account> queryWrapper = new QueryWrapper<>();
+        queryWrapper.orderByDesc("points").last("LIMIT " + n);
+        return list(queryWrapper);
+    }
+
+    @Override
+    public String signIn(String username) {
+        // 查找用户
+        Account account = this.findAccountByNameOrEmail(username);
+        if (account == null) return "用户不存在";
+        // 检查用户今天是否已经签到
+        LocalDate lastSignIn = account.getLastSignInDate();
+        LocalDate today = LocalDate.now();
+        if (lastSignIn != null && lastSignIn.isEqual(today)) {
+            return "签到失败，用户今日已经签到";
+        }
+        // 更新积分和最后签到日期
+        int newPoints = account.getPoints() + 100; // 增加100积分
+        account.setLastSignInDate(today);
+        // 保存更新
+        this.updateSignInInfo(account.getEmail(), newPoints, java.sql.Date.valueOf(today));
+        return "今日签到成功";
+    }
+
+
+    private void updateSignInInfo(String email, int newPoints, Date newSignInDate) {
+        this.lambdaUpdate()
+                .eq(Account::getEmail, email)
+                .set(Account::getPoints, newPoints)
+                .set(Account::getLastSignInDate, newSignInDate)
+                .update();
+    }
+
 
 }

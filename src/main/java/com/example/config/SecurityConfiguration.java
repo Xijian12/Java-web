@@ -64,6 +64,8 @@ public class SecurityConfiguration {
                         .requestMatchers("/admin/updateUserInfo").permitAll() // 添加这一行
                         .requestMatchers("/admin/updateAvatar").permitAll() // 添加这一行
                         .requestMatchers("/admin/showAllAccounts").permitAll() // 添加这一行
+                        .requestMatchers("/admin/signIn").permitAll() // 添加这一行
+                        .requestMatchers("/admin/showTopNAccounts").permitAll() // 添加这一行
                         .requestMatchers("/upload/updateAvatar").permitAll() // 添加这一行
                         .requestMatchers("/upload/uploadAvatar").permitAll() // 添加这一行
                         .requestMatchers("/upload/uploadBookcover").permitAll() // 添加这一行
