@@ -1,6 +1,6 @@
 package com.example.entity.vo.request.user;
 
-public class DownloadBookRequest {
+public class BookRequest {
     private int bookId;
     private String userEmail;
 

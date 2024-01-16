@@ -11,8 +11,6 @@ import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-
-
 public class Book {
     private Integer bookId;
     private String bookName;
