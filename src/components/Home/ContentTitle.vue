@@ -32,7 +32,7 @@ function clickme(){
   let obj= {
     username: username.value,
   }
-  axios.post("/admin/signln", obj)
+  axios.post("/admin/signIn", obj)
             .then((resp) => {
               if (resp.data.code === 200) {
                 ElMessage({
