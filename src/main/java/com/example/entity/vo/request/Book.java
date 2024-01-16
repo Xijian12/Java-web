@@ -3,13 +3,14 @@ package com.example.entity.vo.request;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.time.LocalDate;
 
+
+
 @Data
 @NoArgsConstructor
-@RequestMapping
+@AllArgsConstructor
 
 
 public class Book {
