@@ -10,6 +10,7 @@ import com.example.service.AccountService;
 import com.example.utils.Constants;
 import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -21,7 +22,12 @@ public class BookService {
     private final BookMapper bookMapper;
     @Resource
     AccountService accountService;
-
+    @Scheduled(fixedRate = 4320)
+public void updateBookGrade() {
+       bookMapper.updateBookGrade();
+        System.out.println("定时任务执行中...");
+        // 在这里调用你的方法
+    }
     public List<Book >GetBookObject(String userEmail){
         return bookMapper.getBookObject(userEmail);
     }
