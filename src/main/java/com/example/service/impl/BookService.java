@@ -22,7 +22,7 @@ public class BookService {
     private final BookMapper bookMapper;
     @Resource
     AccountService accountService;
-    @Scheduled(fixedRate = 4320)
+    @Scheduled(fixedRate = 43200000)
 public void updateBookGrade() {
        bookMapper.updateBookGrade();
         System.out.println("定时任务执行中...");
