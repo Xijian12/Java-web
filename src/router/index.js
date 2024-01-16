@@ -4,6 +4,8 @@ import { unauthorized } from "@/net";
 import Home from '@/components/Home.vue'
 import BookDetail from '@/components/BookDetail.vue'
 import BookDetailPage from "@/components/BookDetailPage.vue"
+import MaterialDetail from '@/components/MaterialDetail.vue'
+import MaterialDetailPage from "@/components/MaterialDetailPage.vue"
 import SearchDisplay from '@/components/Search/SearchDisplay.vue'
 import SearchDisplayPage from "@/components/SearchDisplayPage.vue"
 import Personal from '@/components/Personal.vue'
@@ -85,6 +87,22 @@ const router = createRouter({
                 }
             ]
         },
+        // 资料详情页容器
+        {
+          path: "/MaterialDetailPage",
+          name: "MaterialDetailPage",
+          meta: { show: false },
+          component: MaterialDetailPage,
+          children: [
+              {
+                  // 图书详情页
+                  path: "/MaterialDetail/:id",
+                  name: "MaterialDetail",
+                  meta: { show: false },
+                  component: MaterialDetail,
+              }
+          ]
+      },
         //个人中心
         {
             name:"personal",
@@ -194,7 +212,7 @@ const router = createRouter({
               {
                 path: "/about",
                 name: "关于",
-                meta: { show: true },
+                meta: { show: false },
                 components: { about: AboutView },
               }
             ],

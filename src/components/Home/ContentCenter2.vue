@@ -2,7 +2,7 @@
   <div class="contentcenter">
     <div class="newleft toplist">
     <div class="hd">
-      <a href="pdf-class.html" class="mydoc"><i class="keke_iconfont"></i>全部文档</a>
+      <a href="/SearchDisplay/1" class="mydoc"><i class="keke_iconfont"></i>全部文档</a>
       <h2 :class="{ 'active': activeTab === 'recommend' }" @click="changeTab('recommend')">推荐文档</h2>
       <h2 :class="{ 'active': activeTab === 'latest' }" @click="changeTab('latest')">最新上传</h2>
       <span class="active-line" :style="{ transform: `translateX(${activeTab === 'recommend' ? '0' : '120'}px)`, width: '40px' }"></span>
@@ -29,14 +29,28 @@
     <div class="bd bd2" v-show="activeTab === 'latest'">
       <ul class="newdoclist">
         <!-- 最新上传文档列表内容 -->
+        <el-row>
+        <el-col :span="12"> 
+        <div v-if="books2 && books.length > 0" v-for="(book, index) in books2.slice(0,6)" :key="index" class="ranking_num1" >
+        <span @click="searchMaterial(book.materialId)"><el-icon><Folder /></el-icon>{{ book.school }}{{ book.major }}{{ book.subject }}</span>
+        <span>{{formatDate2(book.updateTime)  }}</span>
+        </div>
+        </el-col>
+        <el-col :span="12"> 
+        <div v-if="books2 && books.length > 0" v-for="(book, index) in books2.slice(6,12)" :key="index" class="ranking_num2">
+        <span @click="searchMaterial(book.materialId)"><el-icon><Folder /></el-icon>{{ book.school }}{{ book.major }}{{ book.subject }}</span>
+        <span>{{formatDate2(book.updateTime)  }}</span>
+        </div>
+        </el-col>
+        </el-row>
       </ul>
     </div>
   </div>
   <div class="right_userlist">
     <div class="hd">
       <h2>用户排行</h2>
-      <div class="ranking_num3" v-for="User in Users">
-        <el-row>
+      <div class="ranking_num3"  v-if="Users && Users.length > 0" v-for="(User, index) in Users.slice(0,7)">
+        <el-row style="margin-top: 15px;">
           <el-col :span="4"> 
             <img :src="User.avatarUrl" class="rounded-avatar" />
           </el-col> 
@@ -44,7 +58,7 @@
           <span  style="margin-left: 10px;">{{ User.username}}</span>
          </el-col>
          <el-col :span="12"> 
-        <span style="text-align: right; margin-right: 20px;">积分：{{ User.points}}</span>
+        <span style="text-align: right; margin-right: 20px;">¥{{ User.points}}</span>
         </el-col>
         </el-row>
         </div>
@@ -76,6 +90,21 @@ function initData() {
     console.error('请求失败：', error);
   });    
 }
+const books2 = ref()
+// 初始化页面数据
+function initData3() {
+  // 发起简单的 GET 请求
+  axios.get("/material?page=1&pageSize=12")
+  .then(response => {
+    // 处理成功的响应
+    books2.value = response.data.data.items
+    console.log('成功：', books2.value);
+  })
+  .catch(error => {
+    // 处理请求错误
+    console.error('请求失败：', error);
+  });    
+}
 const Users = ref()
 function initData2() {
   // 发起简单的 GET 请求
@@ -92,7 +121,7 @@ function initData2() {
 }
 // 跳转资料细节
 function searchMaterial(id){
-  router.push({name: 'BookDetail', params: {id: id}});
+  router.push({name: 'MaterialDetail', params: {id: id}});
 }
 // 格式化日期
 function formatDate(time){
@@ -102,9 +131,18 @@ function formatDate(time){
       let day = date.getDate();
       return year+"-"+month;
 }
+// 格式化日期
+function formatDate2(time){
+      let date = new Date(time);
+      let year = date.getFullYear();
+      let month = date.getMonth()+1;
+      let day = date.getDate();
+      return year+"-"+month+"-"+day;
+}
 onMounted(() => {
   initData();
   initData2();
+  initData3();
 });
 </script>
 

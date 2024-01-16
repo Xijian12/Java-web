@@ -2,7 +2,7 @@
   <div class="web-module">
         <ul class="keke_doc_clearfix">  
            <div class="module_subbox">
-              <a href="https://www.pdfdz.com/pdf-class.html" target="_blank" class="keke_doc_clearfix">                    
+              <a href="/SearchDisplay/1" target="_blank" class="keke_doc_clearfix">                    
                 <div class="lefticon">
                 <img src="src/assets/images/181200ix6weosezwysgwvw.png" /></div>
                 <div class="web-module-right">
@@ -31,7 +31,7 @@
               </a>                
             </div>
             <div class="module_subbox">
-              <a href="pdf-account-mydoc.html" target="_blank" class="keke_doc_clearfix">                    
+              <a href="/personal/publishRecord" target="_blank" class="keke_doc_clearfix">                    
                 <div class="lefticon">
                 <img src="src/assets/images/182122wipvnkjvjqjk1zf7.png" /></div>
                   <div class="web-module-right">
@@ -41,7 +41,7 @@
                </a>                
               </div>
               <div class="module_subbox">
-                <a href="plugin.php?id=keke_doc&ac=account&op=favorites" target="_blank" class="keke_doc_clearfix">                    
+                <a href="/personal/favorite" target="_blank" class="keke_doc_clearfix">                    
                   <div class="lefticon">
                   <img src="src/assets/images/182300pogbsbsg6el1pexe.png" /></div>
                     <div class="web-module-right">

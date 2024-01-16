@@ -38,13 +38,14 @@
 import {ref, onMounted} from 'vue';
 import {useStore} from 'vuex';
 import {ElMessage} from "element-plus";
+import axios from "axios";
 const pageNum = ref(1);
 const pageSize = ref(10);
 const total = ref();
 const store = useStore();
 const email = ref(store.state.personalID[0].email)
 const favoritesList = ref([])
-import axios from "axios";
+
 function getFavoritesList() {
     axios.get("/book/collectRecord",{params:{
         page:pageNum.value,

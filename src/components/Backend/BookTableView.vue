@@ -21,11 +21,12 @@
             </el-select>
           </el-col>
     
-          <el-col :span="4" class="add-button-pane">
+          <el-col :span="6" class="add-button-pane">
             <el-button
               type="success"
               :icon="Plus"
               class="add-button"
+
               @click="addFromButton(addBookFormRef)"
             >
               添加公共图书分类

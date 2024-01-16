@@ -24,10 +24,29 @@
 import { ref, watch, onMounted } from 'vue';
 import {useStore} from 'vuex';
 import router from "@/router";
+import axios from "axios";
 const store = useStore();
 const keyword = ref("");
-
+const username = ref(store.state.personalID[0].username)
 function clickme(){
+  let obj= {
+    username: username.value,
+  }
+  axios.post("/admin/signln", obj)
+            .then((resp) => {
+              if (resp.data.code === 200) {
+                ElMessage({
+                  showClose: true, type: 'success',
+                  message: resp.data.data
+                });
+              } else {
+                ElMessage({
+                  showClose: true, type: 'error',
+                  message: resp.data.message
+                });
+              }
+            });
+ 
       store.commit('addUserPic',100);
     }
 function SearchDisplayVue(){

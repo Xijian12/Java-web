@@ -22,7 +22,7 @@
         <div class="footer-main">
           <h4>Github</h4>
           <a href="https://github.com" target="_blank" class="footer-main-link">Github社区</a>
-          <a href="https://github.com/Dtmmm?tab=repositories" target="_blank"
+          <a href="https://github.com/Xijian12/Java-web" target="_blank"
              class="footer-main-link">在Github上查看项目源码</a>
         </div>
       </div>

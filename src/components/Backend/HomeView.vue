@@ -7,8 +7,8 @@
           ><div>
             <el-icon><Reading /></el-icon>
             <div class="message">
-              <p class="title">图书馆书本数量</p>
-              <p class="sub-title">{{ bookCount }}</p>
+              <p class="title">网站收藏图书数量</p>
+              <p class="sub-title">{{ 500 }}</p>
             </div>
           </div></el-col
         >
@@ -16,8 +16,8 @@
           ><div>
             <el-icon><Failed /></el-icon>
             <div class="message">
-              <p class="title">超时归还数量</p>
-              <p class="sub-title">{{ overtimeCount }}</p>
+              <p class="title">图书下载量</p>
+              <p class="sub-title">{{300 }}</p>
             </div>
           </div></el-col
         >
@@ -25,8 +25,8 @@
           ><div>
             <el-icon><List /></el-icon>
             <div class="message">
-              <p class="title">借出书本数量</p>
-              <p class="sub-title">{{ borrowCount }}</p>
+              <p class="title">图书总点击量</p>
+              <p class="sub-title">{{ 700 }}</p>
             </div>
           </div></el-col
         >
@@ -43,17 +43,10 @@
       <!--      介绍卡片-->
       <el-card class="introduce">
         <template #header> 开源信息 </template>
-        <p>作者信息：KSaMar</p>
-        <p>该项目模拟学校图书馆的图书管理系统</p>
-        <p>
-          码云下载地址：<a
-            href="https://github.com/baobaoJK/Vue-Element-Plus-SpringBoot-Library"
-            >Gitee</a
-          >
-        </p>
+        <p>该项目模拟图书资料分享平台</p>
         <p>
           GitHub下载地址：<a
-            href="https://gitee.com/baobao_JK/Vue-Element-Plus-SpringBoot-Library"
+            href="https://github.com/Xijian12/Java-web"
             >GitHub</a
           >
         </p>

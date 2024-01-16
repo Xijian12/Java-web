@@ -338,7 +338,7 @@
       <el-pagination
           background
           layout="prev, pager, next"
-          :page-size="8"
+          :page-size="12"
           :total="total"
           @current-change="pagechange">
       </el-pagination>
@@ -348,7 +348,7 @@
     <div style="margin-top: 10px">
       <el-row :gutter="24">
         <el-col :span="6" v-for="(book, index) in materials" :key="index">
-          <div id="card-container" @click="BookDetail(book.bookId)" style="cursor: pointer">
+          <div id="card-container" @click="MaterialDetail(book.materialId)" style="cursor: pointer">
             <el-card :body-style="{ padding: '0px'}" shadow="hover">
               <div id="img">
                 <img :src="book.materialCoverUrl">
@@ -374,12 +374,11 @@
                   </el-popover>
                 </div>
                 <div id="price">
-                  <span class="discountPrice"><span style="font-size: 15px">¥ </span>{{decimals(book.bookPoints*1)}}</span><br>
-                  <span v-if="book.discount<1" class="price">定价: ¥{{ book.bookPoints }}</span>
+                  <span class="discountPrice"><span style="font-size: 15px">¥ </span>{{decimals(book.anotherMaterialPoints+book.teachingPlanPoints+book.elecBookPoints+book.calendarVolumePoints+book.classPptPoints)}}</span><br>
                 </div>
               </div>
               <div id="bottom-btn" >
-                <el-button @click.stop="BookDetail(book.bookId)" size="medium" type="primary" plain>查看详情</el-button>
+                <el-button @click.stop="MaterialDetail(book.materialId)" size="medium" type="primary" plain>查看详情</el-button>
                 <el-button-group style="margin-left: 10px">
                   <el-button @click.stop="addToCart(index)" size="mini" :icon="ShoppingCart"></el-button>
                   <el-button @click.stop="addToCollection(index)" size="mini" :icon="Star"></el-button>
@@ -393,14 +392,14 @@
     </div>
 
     <!--数据为空时显示-->
-    <div v-show="total===0" v-cloak>
+    <!-- <div v-show="total===0" v-cloak>
       <el-empty :image-size="200"></el-empty>
-    </div>
+    </div> -->
     <div id="pageBtn">
       <el-pagination
           background
           layout="prev, pager, next"
-          :page-size="8"
+          :page-size="12"
           :total="total"
           @current-change="pagechange">
       </el-pagination>
@@ -444,11 +443,28 @@ function BookDetail(id) {
       router.push({name: 'BookDetail', params: {id: id}});
 }
 let pageNum = ref(1);
-let pageSize = ref(10);
+let pageSize = ref(12);
 // 页面初始化时执行，查询同类
 const initDataCategory = async (categoryName) => {
-  try {
-    const response = await axios.get('/category/detail', {
+  if (categoryName == 1){
+    try {
+      const response = await axios.get('/book/find', {
+      params: {
+        page: pageNum.value,
+        pageSize: pageSize.value
+      }
+    });
+    books.value = response.data
+    total.value = response.data.data.total
+    // 处理成功的响应
+    console.log('成功：', books.value);
+  } catch (error) {
+    // 处理请求错误
+    console.error('请求失败：', error);
+  }
+  }else{
+    try {
+      const response = await axios.get('/category/detail', {
       params: {
         categoryName: categoryName,
         page: pageNum.value,
@@ -463,6 +479,8 @@ const initDataCategory = async (categoryName) => {
     // 处理请求错误
     console.error('请求失败：', error);
   }
+  }
+
 };
  // 返回首页
 function goBack() {
@@ -519,6 +537,9 @@ function searchMaterial(){
 function jump(path) {
   router.push({name: 'SearchDisplay', params: {id: path}});
 }
+function MaterialDetail(id){
+  router.push({name: 'MaterialDetail', params: {id: id}});
+}
 // 搜索
 const searchData = ref("")
 function SearchDisplayVue(){
@@ -534,7 +555,12 @@ onMounted(async () => {
   router.afterEach((to, from, next) => {
         window.scrollTo(0, 0)
     })
-  searchSchool();
+  if(category=="电子书"){
+    state.value = false;
+    searchMaterial();
+  }else{
+    searchSchool();
+  }
   await initDataCategory(category);
 });
 // 使用 watch 监听路由变化

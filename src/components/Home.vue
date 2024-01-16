@@ -8,7 +8,7 @@
     <ContentCenter3></ContentCenter3>
     <Footer></Footer>
     <div class="comeToHeader">
-      <div class="active"><span>精选推荐</span></div>
+      <div class="active" @click="toSearch()" ><span >精选推荐</span></div>
       <div class="active"><span>反馈</span></div>
       <div class="active"><span>客服帮助</span></div>
       <div class="active" @click="toTop()"><span>顶部</span></div>
@@ -24,6 +24,7 @@ import ContentCenter1_1 from "@/components/Home/ContentCenter1_1.vue";
 import ContentCenter2 from "@/components/Home/ContentCenter2.vue";
 import ContentCenter3 from "@/components/Home/ContentCenter3.vue";
 import Footer from "@/components/Home/Footer.vue";
+import router from "@/router"
 function toTop() {
       //    document.documentElement.scrollTop = 0;
       let timer = setInterval(() => {
@@ -37,6 +38,9 @@ function toTop() {
         }
       }, 16);
     }
+function toSearch() {
+  router.push({name:"SearchDisplay", params: {id: 1}})
+}
 </script>
 
 <style scoped>
