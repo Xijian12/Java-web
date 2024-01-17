@@ -3,10 +3,7 @@ package com.example.controller;
 import com.example.entity.Result;
 import com.example.entity.dto.Account;
 import com.example.entity.vo.request.*;
-import com.example.entity.vo.request.user.BookCollectRecord;
-import com.example.entity.vo.request.user.DownloadBook;
-import com.example.entity.vo.request.user.BookRequest;
-import com.example.entity.vo.request.user.MaterialPage;
+import com.example.entity.vo.request.user.*;
 import com.example.service.AccountService;
 import com.example.service.BookCollectRecordService;
 import com.example.service.BookDownloadRecordService;
@@ -131,8 +128,12 @@ public class BookController {
         }
     }
     @GetMapping("/highest/{n}")
-    public List<Book> getTopNBooks(@PathVariable int n) {
-        return bookService.findTopNBooks(n);
+    public ResponseEntity<Response> getTopNBooks(@PathVariable int n) {
+        BookTop books=new BookTop();
+        books.setBooks(bookService.findTopNBooks(n));
+        books.setTotal(bookService.findTopNBooks(n).size());
+
+        return ResponseEntity.ok(new Response(200, "操作成功",books)) ;
     }
     @GetMapping("/test")
     public ResponseEntity<?> selectBooksById(@RequestBody BookDeletionRequest request) throws Exception {   List<Book> books=bookService.selectBooksByIds(request.getBookIds());
