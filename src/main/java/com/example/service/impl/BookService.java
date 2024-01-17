@@ -2,6 +2,7 @@ package com.example.service.impl;
 
 import com.example.entity.dto.Account;
 import com.example.entity.vo.request.Page;
+import com.example.entity.vo.request.user.BookTop;
 import com.example.entity.vo.request.user.DownloadBook;
 import com.example.mapper.BookMapper;
 import com.example.entity.vo.request.Book;
@@ -86,11 +87,13 @@ public DownloadBook downloadBook(String userEmail,int bookId){
     public List<Book> getAllBooks() {
         return bookMapper.selectAllBooks();
     }
-    public List<Book> findBooks(String bookName, String bookAuthor, Integer bookPointsFloor, Integer bookPointsUpper,Double bookGradeFloor, Double bookGradeUpper,int page,int pageSize){
+    public BookTop findBooks(String bookName, String bookAuthor, Integer bookPointsFloor, Integer bookPointsUpper, Double bookGradeFloor, Double bookGradeUpper, int page, int pageSize){
         Integer offset = (page - 1) * pageSize;
         Integer limit=pageSize;
-
-        return bookMapper.findBooks(bookName, bookAuthor, bookPointsFloor, bookPointsUpper, bookGradeFloor, bookGradeUpper, offset, pageSize);
+        BookTop books=new BookTop();
+        books.setTotal(bookMapper.countBooks(bookName, bookAuthor, bookPointsFloor, bookPointsUpper, bookGradeFloor, bookGradeUpper));
+        books.setBooks(bookMapper.findBooks(bookName, bookAuthor, bookPointsFloor, bookPointsUpper, bookGradeFloor, bookGradeUpper, offset, pageSize));
+        return books;
 
     }
 

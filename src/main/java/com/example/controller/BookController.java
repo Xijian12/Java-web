@@ -67,9 +67,8 @@ public class BookController {
                 @RequestParam(defaultValue = "1") int page,
                 @RequestParam(defaultValue = "10") int pageSize) {
             BookTop bookstop=new BookTop();
-            List<Book> books = bookService.findBooks(bookName, bookAuthor, bookPointsFloor, bookPointsUpper, bookGradeFloor, bookGradeUpper, page, pageSize);
-            bookstop.setBooks(books);
-            bookstop.setTotal(books.size());
+             bookstop = bookService.findBooks(bookName, bookAuthor, bookPointsFloor, bookPointsUpper, bookGradeFloor, bookGradeUpper, page, pageSize);
+
             return ResponseEntity.ok(bookstop);
         }
    @GetMapping
