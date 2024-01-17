@@ -66,9 +66,11 @@ public class BookController {
                 @RequestParam(required = false) Double bookGradeUpper,
                 @RequestParam(defaultValue = "1") int page,
                 @RequestParam(defaultValue = "10") int pageSize) {
-
+            BookTop bookstop=new BookTop();
             List<Book> books = bookService.findBooks(bookName, bookAuthor, bookPointsFloor, bookPointsUpper, bookGradeFloor, bookGradeUpper, page, pageSize);
-            return ResponseEntity.ok(books);
+            bookstop.setBooks(books);
+            bookstop.setTotal(books.size());
+            return ResponseEntity.ok(bookstop);
         }
    @GetMapping
     public ResponseEntity<?> getAllBooks() {
@@ -128,12 +130,8 @@ public class BookController {
         }
     }
     @GetMapping("/highest/{n}")
-    public ResponseEntity<Response> getTopNBooks(@PathVariable int n) {
-        BookTop books=new BookTop();
-        books.setBooks(bookService.findTopNBooks(n));
-        books.setTotal(bookService.findTopNBooks(n).size());
-
-        return ResponseEntity.ok(new Response(200, "操作成功",books)) ;
+    public List<Book> getTopNBooks(@PathVariable int n) {
+        return bookService.findTopNBooks(n);
     }
     @GetMapping("/test")
     public ResponseEntity<?> selectBooksById(@RequestBody BookDeletionRequest request) throws Exception {   List<Book> books=bookService.selectBooksByIds(request.getBookIds());
