@@ -19,6 +19,7 @@ public class MaterialComment {
     private double materialGrade;
     private String userNickname;
     private String userEmail;
+    private String userAvatarUrl;
     private Integer type;
     private Integer userId;
     private String role;

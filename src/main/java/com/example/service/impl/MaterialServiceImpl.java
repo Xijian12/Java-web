@@ -181,8 +181,10 @@ public class MaterialServiceImpl implements MaterialService {
     @Override
     public String downloadMaterial(DonwloadMaterialVO donwloadMaterialVO) throws IOException {
         Account account = accountService.findAccountByNameOrEmail(donwloadMaterialVO.getUserEmail());
-        if(account == null) return null;
+        if(account == null) return "用户不存在";
         Material material = materialMapper.selectMaterialById(donwloadMaterialVO.getMaterialId());
+        if(donwloadMaterialVO.getType() > 5 || donwloadMaterialVO.getType() < 1) return "下载类型出错";
+        if(material == null) return "资料ID不正确";
         Integer points = null;
         String fileUuid = null;
         String materialname = null;
@@ -236,11 +238,12 @@ public class MaterialServiceImpl implements MaterialService {
                 String newUserInfo = accountService.updateUserInfo(account.getUsername(), account.getUsername(),
                         account.getPassword(), account.getPoints() + (int)(Constants.pointRate * points));
 
-                return aliOSSUtils.GetFileDownloadUrl(fileUuid,newFileName);
+                donwloadMaterialVO.setDownloadUrl(aliOSSUtils.GetFileDownloadUrl(fileUuid,newFileName));
+                return null;
             }
-            return null;
+            return "下载的资料不存在";
         }
-        else return null;
+        else return "用户积分不足";
     }
 
     //用户给资料添加评论
@@ -383,13 +386,19 @@ public class MaterialServiceImpl implements MaterialService {
 
     @Override
     public MaterialPage queryMaterialCommentById(Integer materialId, Integer page, Integer pageSize){
-        //只能吧查询语句放上面
+        //只能吧查询语句放上
         Material material = materialMapper.selectMaterialById(materialId);
         //设置分页参数
         PageHelper.startPage(page,pageSize);
 
         //查询结果
         List<MaterialComment> materialComments = materialCommentMapper.getMaterialCommentBySMS(material.getSchool(),material.getMajor(),material.getSubject());
+        for (int i=0;i<materialComments.size();i++){
+            Account account = accountService.findAccountByNameOrEmail(materialComments.get(i).getUserEmail());
+            if(account != null){
+                materialComments.get(i).setUserAvatarUrl(account.getAvatarUrl());
+            }
+        }
         log.info("materialComments:{}",materialComments);
         //用PageHelper自带的Page类型对查询结果进行强制转型
         Page<MaterialComment> p = (Page<MaterialComment>) materialComments;
