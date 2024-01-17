@@ -8,7 +8,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DonwloadMaterialVO {
-    Integer materialId;
-    String userEmail;
-    Integer type;
+    private Integer materialId;
+    private String userEmail;
+    private Integer type;
+    private String downloadUrl;
 }

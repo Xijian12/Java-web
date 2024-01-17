@@ -102,10 +102,10 @@ public class MaterialController {
         log.info("type：{}",donwloadMaterialVO.getType());
         String downloadUrl = materialService.downloadMaterial(donwloadMaterialVO);
 
-        if(downloadUrl == null){
-            return Result.error("用户积分不足");
+        if(downloadUrl != null){
+            return Result.error(downloadUrl);
         }
-        return Result.success(downloadUrl);
+        return Result.success(donwloadMaterialVO.getDownloadUrl());
     }
 
     //用户给资料评论
