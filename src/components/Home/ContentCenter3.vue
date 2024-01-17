@@ -12,7 +12,7 @@
     <div id="wrap">
     <div style="margin-top: 10px">
       <el-row :gutter="24">
-        <el-col :span="6" v-for="(book, index) in books.slice(0, 8)" :key="index">
+        <el-col :span="6" v-for="(book, index) in books" :key="index">
           <div id="card-container" @click="BookDetail(book.bookId)" style="cursor: pointer">
             <el-card :body-style="{ padding: '0px'}" shadow="hover">
               <div id="img">
@@ -156,8 +156,8 @@ function initData() {
   axios.get(`/book/highest/8`)
   .then(response => {
     // 处理成功的响应
-    books.value = response.data
-    console.log('成功：', books);
+    books.value = response.data.data.books
+    console.log('成功：', books.value);
   })
   .catch(error => {
     // 处理请求错误

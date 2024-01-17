@@ -145,7 +145,7 @@
                 <el-table-column width="200">
                   <template #default="scope">
                     <div class="userInfo">
-                      <img :src="scope.row.avatarUrl " >
+                      <img :src="scope.row.userAvatarUrl " >
                       <p>{{ scope.row.userNickname }}</p>
                     </div>
                   </template>
@@ -160,7 +160,7 @@
                 </el-table-column>
                 <el-table-column fixed="right" label="操作" >
                 <template #default="scope" >
-                  <el-button v-if="scope.row.userEmail==store.state.personalID[0].email" @click="deletematerialDialog(scope.row)" type="text"
+                  <el-button v-if="scope.row.userEmail==store.state.personalID[0].email" @click="deletematerialDialog(scope.row.commentId)" type="text"
                     >删除</el-button
                   >
                 </template>
@@ -386,7 +386,7 @@ function sendCommit(){
 // 删除评论
 function deletematerialDialog(row){
   let obj = {
-    commentId:row.id,
+    commentId: row,
     userEmail:store.state.personalID[0].email,
   }
   axios.delete("/material/comment/user", { data: obj }).then((resp) => {
