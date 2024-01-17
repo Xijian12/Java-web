@@ -156,7 +156,7 @@ function initData() {
   axios.get(`/book/highest/8`)
   .then(response => {
     // 处理成功的响应
-    books.value = response.data.data.books
+    books.value = response.data
     console.log('成功：', books.value);
   })
   .catch(error => {

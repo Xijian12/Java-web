@@ -454,8 +454,8 @@ const initDataCategory = async (categoryName) => {
         pageSize: pageSize.value
       }
     });
-    books.value = response.data
-    total.value = response.data.data.total
+    books.value = response.data.books
+    total.value = response.data.total
     // 处理成功的响应
     console.log('成功：', books.value);
   } catch (error) {
