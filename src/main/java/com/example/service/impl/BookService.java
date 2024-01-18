@@ -1,5 +1,6 @@
 package com.example.service.impl;
 
+import com.example.entity.Result;
 import com.example.entity.dto.Account;
 import com.example.entity.vo.request.Page;
 import com.example.entity.vo.request.user.BookTop;
@@ -10,6 +11,7 @@ import com.example.entity.vo.request.BookDeletionRequest;
 import com.example.service.AccountService;
 import com.example.utils.Constants;
 import jakarta.annotation.Resource;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -17,6 +19,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.List;
 
+@Slf4j
 @Service
 public class BookService {
     @Autowired
@@ -111,8 +114,29 @@ public DownloadBook downloadBook(String userEmail,int bookId){
         return true;
     }
 
-public List<Book> findTopNBooks(int n)
+    public List<Book> findTopNBooks(int n)
 {
   return  bookMapper.findTopNBooks(n);
 }
+
+    //返回图书的点击总量
+    public Long  getBookTotalClickNum() {
+        return bookMapper.selectBookTotalClickNum();
+    }
+
+    //返回图书的下载总量
+    public Long  getBookTotalDownloadNum() {
+        return bookMapper.selectBookTotalDownloadNum();
+    }
+
+    //更新某本图书的点击量
+    public void addBookClickNum(Integer newBookClickNum,Integer bookId){
+        log.info("newBookClickNum:{}",newBookClickNum);
+        bookMapper.updateBookClickNum(newBookClickNum,bookId);
+    }
+
+    //更新某本图书下载量
+    public void addBookDownloadNum(Integer newBookDownloadNum,Integer bookId){
+        bookMapper.updateBookDownloadNum(newBookDownloadNum,bookId);
+    }
 }

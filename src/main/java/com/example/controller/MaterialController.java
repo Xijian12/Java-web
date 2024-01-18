@@ -12,6 +12,7 @@ import com.example.entity.vo.request.user.UserDeleteCommentVO;
 import com.example.entity.vo.response.MaterialUploadVO;
 import com.example.service.MaterialService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -221,4 +222,17 @@ public class MaterialController {
 
         return Result.success(schools);
     }
+
+    //获取所有资料的点击量总和
+    @GetMapping("clickNum")
+    public Result getMaterialTotalClickNum(){
+        return Result.success(materialService.getMaterialTotalClickNum());
+    }
+
+    //获取所有资料的下载量总和
+    @GetMapping("downloadNum")
+    public Result getMaterialTotalDownloadNum(){
+        return Result.success(materialService.getMaterialTotalDownloadNum());
+    }
+
 }

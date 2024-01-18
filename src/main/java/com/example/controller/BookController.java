@@ -11,6 +11,7 @@ import com.example.service.impl.BookService;
 import com.example.utils.AliOSSUtils;
 import com.example.utils.Constants;
 import jakarta.annotation.Resource;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -49,6 +50,7 @@ public class BookController {
     @GetMapping("/{bookId}")
     public ResponseEntity<?> getBookById(@PathVariable int bookId) {
         Book book = bookService.getBookById(bookId);
+        bookService.addBookClickNum(book.getBookClickNum() + 1,bookId);
         return ResponseEntity.ok(new Response(200, "操作成功", book));
     }
     @GetMapping("/userUpload/{userEmail}")
@@ -109,6 +111,7 @@ public class BookController {
             }
             //将下载记录加入到表中
             bookDownloadRecordService.addBookDownloadRecord(book);
+            bookService.addBookDownloadNum(bookobj.getBookDownloadNum() + 1,book.getBookId());
             return ResponseEntity.ok(new Response(200, "操作成功", aliOSSUtils.GetFileDownloadUrl(test.getUrl(), newFileName)));
         } else {
             return ResponseEntity.ok(new Response(200, "操作失败，积分不够", null));
@@ -216,4 +219,17 @@ public class BookController {
         bookCollectRecordService.deleteBookCollectRecord(collectId);
         return Result.success();
     }
+
+    //获取所有图书的点击量总和
+    @GetMapping("clickNum")
+    public Result getBookTotalClickNum(){
+        return Result.success(bookService.getBookTotalClickNum());
+    }
+
+    //获取所有图书的下载量总和
+    @GetMapping("downloadNum")
+    public Result getBookTotalDownloadNum(){
+        return Result.success(bookService.getBookTotalDownloadNum());
+    }
+
 }

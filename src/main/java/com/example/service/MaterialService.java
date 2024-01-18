@@ -67,4 +67,12 @@ public interface MaterialService {
     List<String> getMajorBySchool(String school);
 
     List<String> getSubjectBySchoolAndMajor(String school,String major);
+
+    Long getMaterialTotalDownloadNum();
+    Long getMaterialTotalClickNum();
+
+    void addMaterialClickNum(Integer newMaterialClickNum,Integer materialId);
+
+    //给对应资料增加下载量
+    void addMaterialDownloadNum(Integer newMaterialDownloadNum, Integer materialId);
 }

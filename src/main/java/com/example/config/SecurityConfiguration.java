@@ -109,6 +109,10 @@ public class SecurityConfiguration {
                         .requestMatchers("/material/school/major/subject").permitAll() // 查询学校和专业下面的所有学科
                         .requestMatchers("/book/downloadRecord").permitAll()
                         .requestMatchers("/book/collectRecord").permitAll()
+                        .requestMatchers("/book/clickNum").permitAll()
+                        .requestMatchers("/book/downloadNum").permitAll()
+                        .requestMatchers("/material/clickNum").permitAll()
+                        .requestMatchers("/material/downloadNum").permitAll()
                 .anyRequest().hasAnyRole(Const.ROLE_DEFAULT)
                 )
                 .formLogin(conf -> conf

@@ -20,6 +20,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -57,8 +58,10 @@ public class MaterialServiceImpl implements MaterialService {
     }
 
     @Override
-    public Material GetMaterialData(Integer materId) {
-        return materialMapper.selectMaterialById(materId);
+    public Material GetMaterialData(Integer materialId) {
+        Material material = materialMapper.selectMaterialById(materialId);
+        materialMapper.updateMaterialClickNum(material.getMaterialClickNum() + 1,materialId);
+        return material;
     }
 
     @Override
@@ -245,6 +248,7 @@ public class MaterialServiceImpl implements MaterialService {
                            null, uploaderAccount.getPoints() + (int)(Constants.pointRate * points));
                 }
                 donwloadMaterialVO.setDownloadUrl(aliOSSUtils.GetFileDownloadUrl(fileUuid,newFileName));
+                materialMapper.updateMaterialDownloadNum(material.getMaterialDownloadNum() + 1,donwloadMaterialVO.getMaterialId());
                 return null;
             }
             return "下载的资料不存在";
@@ -426,5 +430,26 @@ public class MaterialServiceImpl implements MaterialService {
     @Override
     public List<String> getSubjectBySchoolAndMajor(String school,String major){
         return materialMapper.selectSubjectBySchoolAndMajorl(school,major);
+    }
+
+    //返回资料下载总量
+    @Override
+    public Long getMaterialTotalDownloadNum(){
+        return materialMapper.selectMaterialTotalDownloadNum();
+    }
+
+    //返回资料点击总量
+    @Override
+    public Long getMaterialTotalClickNum(){
+        return materialMapper.selectMaterialTotalClickNum();
+    }
+
+    public void addMaterialClickNum(Integer newMaterialClickNum,Integer materialId){
+        materialMapper.updateMaterialClickNum(newMaterialClickNum,materialId);
+    }
+
+    //给对应资料增加下载量
+    public void addMaterialDownloadNum(Integer newMaterialDownloadNum, Integer materialId){
+        materialMapper.updateMaterialDownloadNum(newMaterialDownloadNum,materialId);
     }
 }

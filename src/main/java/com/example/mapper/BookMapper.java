@@ -1,5 +1,6 @@
 package com.example.mapper;
 
+import com.example.entity.Result;
 import com.example.entity.vo.request.Book;
 import org.apache.ibatis.annotations.*;
 
@@ -119,4 +120,18 @@ public interface BookMapper {
 
     @Select("select * from book where book_uploader = #{userEmail}")
     List<Book> getBookObject(String userEmail);
+
+    @Select("select sum(book_click_num) from book")
+    Long selectBookTotalClickNum();
+
+    @Select("select sum(book_download_num) from book")
+    Long selectBookTotalDownloadNum();
+
+    //给对应图书增加点击点击量
+    @Update("update book set book_click_num = #{newBookClickNum} where book_id = #{bookId}")
+    void updateBookClickNum(Integer newBookClickNum,Integer bookId);
+
+    //给对应图书增加下载量
+    @Update("update book set book_download_num = #{newBookDownloadNum} where book_id = #{bookId}")
+    void updateBookDownloadNum(Integer newBookDownloadNum, Integer bookId);
 }

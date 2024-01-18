@@ -83,4 +83,18 @@ public interface MaterialMapper {
 
     @Select("select distinct(subject) from materials where school = #{school} and major = #{major}")
     List<String> selectSubjectBySchoolAndMajorl(String school,String major);
+
+    @Select("select sum(material_download_num) from materials")
+    Long selectMaterialTotalDownloadNum();
+
+    @Select("select sum(material_click_num) from materials")
+    Long selectMaterialTotalClickNum();
+
+    //给对应资料增加点击点击量
+    @Update("update materials set material_click_num = #{newMaterialClickNum} where material_id = #{materialId}")
+    void updateMaterialClickNum(Integer newMaterialClickNum,Integer materialId);
+
+    //给对应资料增加下载量
+    @Update("update materials set material_download_num = #{newMaterialDownloadNum} where material_id = #{materialId}")
+    void updateMaterialDownloadNum(Integer newMaterialDownloadNum, Integer materialId);
 }
