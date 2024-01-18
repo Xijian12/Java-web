@@ -27,7 +27,7 @@ public class BookCategoryController {
     public BookCategory getCategoryById(@PathVariable int categoryId) {
         return bookCategoryService.getCategoryById(categoryId);
     }
-
+//获取所有分类，带分页
     @GetMapping
     public List<BookCategory> getAllCategories(@RequestParam("page") int page,
                                                @RequestParam ("pageSize")int pageSize) {
@@ -46,6 +46,7 @@ public class BookCategoryController {
         bookCategoryService.deleteCategories(categoryIds);
         ;return ResponseEntity.ok(new Response(0, "操作成功"));
     }
+    //根据分类返回图书
     @GetMapping("/detail")
     public ResponseEntity<Response> getBooksByCategoryName(
             @RequestParam("categoryName") String categoryName,
@@ -65,6 +66,6 @@ public class BookCategoryController {
         return ResponseEntity.ok(response);
     }
 
-    // 其他请求映射...
+
 }
 

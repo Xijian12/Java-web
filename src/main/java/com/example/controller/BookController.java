@@ -51,6 +51,7 @@ public class BookController {
         Book book = bookService.getBookById(bookId);
         return ResponseEntity.ok(new Response(200, "操作成功", book));
     }
+    //查询某个用户上传的图书
     @GetMapping("/userUpload/{userEmail}")
     public ResponseEntity<?> getBookByEmail(@PathVariable String userEmail){
         List<Book> book = bookService.getBookByEmail(userEmail);
@@ -83,12 +84,14 @@ public class BookController {
         bookService.updateBook(book);
         return ResponseEntity.ok(new Response(200, "操作成功", null));
     }
+    //管理员更新图书信息
     @PutMapping("/admin")
     public ResponseEntity<?> updateBookAdmin(@RequestBody Book book) {
 
         bookService.updateBook(book);
         return ResponseEntity.ok(new Response(200, "操作成功", null));
     }
+    //下载图书
     @PostMapping("/download")
     public ResponseEntity<?> downloadBook(@RequestBody BookRequest book) throws IOException {
         DownloadBook test = new DownloadBook();
@@ -114,6 +117,7 @@ public class BookController {
             return ResponseEntity.ok(new Response(200, "操作失败，积分不够", null));
         }
     }
+    //管理员删除图书
     @DeleteMapping("/admin")
     public ResponseEntity<?> deleteBooks(@RequestBody BookDeletionRequest request) throws Exception {
         List<Book> books = bookService.selectBooksByIds(request.getBookIds());
@@ -133,6 +137,7 @@ public class BookController {
             return ResponseEntity.ok(new Response(0, "操作失败，该账户不是管理员！", null));
         }
     }
+    //获取评分最高的前N本图书
     @GetMapping("/highest/{n}")
     public List<Book> getTopNBooks(@PathVariable int n) {
         return bookService.findTopNBooks(n);
@@ -147,6 +152,7 @@ public class BookController {
         return ResponseEntity.ok(new Response(200, "操作成功",books ));
 
     }
+    //根据版号更新点击量与下载量
   @PutMapping ("/downClicks/{bookVersion}")
   public ResponseEntity<?> updateByVersion(@RequestParam(required = false) String bookVersion,
                               @RequestParam(required = false) int bookDownloadNum,
@@ -154,6 +160,7 @@ public class BookController {
   {      bookService.updateClickByVersion(bookVersion,bookDownloadNum,bookClickNum);
       return ResponseEntity.ok(new Response(200, "操作成功", null));
   }
+  //用户删除图书
 
     @DeleteMapping("/user")
     public ResponseEntity<?> deleteBooksUser(@RequestBody BookDeletionRequest request) throws Exception {
