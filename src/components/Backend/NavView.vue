@@ -17,6 +17,7 @@
             >
               <template #title>
                 <el-icon v-if="item.name === '图书'"><Reading /></el-icon>
+                <el-icon v-if="item.name === '资料'"><DocumentCopy /></el-icon>
                 <el-icon v-if="item.name === '其他'"><Setting /></el-icon>
                 <el-icon v-if="item.name === '用户'"><User /></el-icon>
                 <p>{{ item.name }}</p>
@@ -79,7 +80,7 @@
 
 <script lang="ts" setup>
 import { ref } from "vue";
-import { House, Reading, User, Setting, Back } from "@element-plus/icons-vue";
+import { House, Reading, User, Setting, Back, DocumentCopy } from "@element-plus/icons-vue";
 import router from "@/router";
 import { ElMessageBox } from "element-plus";
 import { useStore } from 'vuex';

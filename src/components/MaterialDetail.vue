@@ -12,10 +12,12 @@
           <img :src="material.materialCoverUrl">
         </div>
         <div id="descriptions">
-          <el-descriptions :title="material.school+material.major+material.subject" :column="3" :colon="false" style="font-size: 16px">
-            <el-descriptions-item label="学科 :" :contentStyle="{'color':'#409EFF'}">{{ material.materialAuthor }}
+          <el-descriptions :title="material.school+material.major+material.subject" :column="3" :colon="false" style="font-size: 20px">
+            <el-descriptions-item label="学校 :" :contentStyle="{'color':'#409EFF'}">{{ material.school  }}
             </el-descriptions-item>
-            <el-descriptions-item label="专业 :" :contentStyle="{'color':'#409EFF'}">{{ material.major }}
+            <el-descriptions-item label="专业 :" :contentStyle="{'color':'#409EFF'}">{{ material.major  }}
+            </el-descriptions-item>
+            <el-descriptions-item label="学科 :" :contentStyle="{'color':'#409EFF'}">{{ material.subject }}
             </el-descriptions-item>
             <el-descriptions-item label="上传时间 :" :contentStyle="{'color':'#409EFF'}">{{ formatDate(material.createTime) }}
             </el-descriptions-item>
@@ -25,10 +27,115 @@
             </el-descriptions-item>
           </el-descriptions>
           <div>
-            <span style="font-size: 18px;color: #ff1f1f">¥ </span><span
-              class="discountPrice">{{ decimals(material.anotherMaterialPoints+material.teachingPlanPoints+material.elecBookPoints+material.calendarVolumePoints+material.classPptPoints) }}</span>
-            <span class="price">定价: ¥ {{ decimals(material.anotherMaterialPoints+material.teachingPlanPoints+material.elecBookPoints+material.calendarVolumePoints+material.classPptPoints)}}</span>
-            <el-button style="margin-left: 300px;" @click="searchInfo()" type="primary" plain :icon="ShoppingCart">立即购买</el-button>
+            <span style="width: 100px;font-size: 18px">课程电子书</span>
+            <span style="margin-left:85px;font-size: 18px;color: #ff1f1f">¥ </span><span
+              class="discountPrice">{{ material.elecBookPoints}}</span>
+            <span class="price">定价: ¥ {{ material.elecBookPoints}}</span>
+            <el-button style="margin-left: 150px;" @click="searchInfo(1)" type="primary" plain :icon="ShoppingCart">立即购买</el-button>
+            <el-popover
+                placement="bottom"
+                title="收藏"
+                :width="150"
+                trigger="hover"
+                content="添加该商品到收藏夹"
+                style="margin-left: 180px;margin-right: 10px">
+                <template #reference>
+                  <el-button @click="addToCollection(material.materialId)"  type="warning" :icon="Star" circle></el-button>
+                </template> 
+            </el-popover>
+            <el-popover
+                placement="bottom"
+                title="分享"
+                :width="150"
+                trigger="hover"
+                content="复制商品链接以分享">
+                <template #reference><el-button stype="success" :icon="Link" circle ></el-button></template>
+            </el-popover>
+          </div>
+          <div>
+            <span style="width: 100px;font-size: 18px">教学计划</span>
+            <span style="margin-left:102px;font-size: 18px;color: #ff1f1f">¥ </span><span
+              class="discountPrice">{{ material.teachingPlanPoints }}</span>
+            <span class="price">定价: ¥ {{ material.teachingPlanPoints}}</span>
+            <el-button style="margin-left: 150px;" @click="searchInfo(2)" type="primary" plain :icon="ShoppingCart">立即购买</el-button>
+            <el-popover
+                placement="bottom"
+                title="收藏"
+                :width="150"
+                trigger="hover"
+                content="添加该商品到收藏夹"
+                style="margin-left: 180px;margin-right: 10px">
+                <template #reference>
+                  <el-button @click="addToCollection(material.materialId)"  type="warning" :icon="Star" circle></el-button>
+                </template> 
+            </el-popover>
+            <el-popover
+                placement="bottom"
+                title="分享"
+                :width="150"
+                trigger="hover"
+                content="复制商品链接以分享">
+                <template #reference><el-button stype="success" :icon="Link" circle ></el-button></template>
+            </el-popover>
+          </div>
+          <div>
+            <span style="width: 100px;;font-size: 18px">课程PPT</span>
+            <span style="margin-left:106px;font-size: 18px;color: #ff1f1f">¥ </span><span
+              class="discountPrice">{{material.classPptPoints }}</span>
+            <span class="price">定价: ¥ {{ material.classPptPoints}}</span>
+            <el-button style="margin-left: 150px;" @click="searchInfo(3)" type="primary" plain :icon="ShoppingCart">立即购买</el-button>
+            <el-popover
+                placement="bottom"
+                title="收藏"
+                :width="150"
+                trigger="hover"
+                content="添加该商品到收藏夹"
+                style="margin-left: 180px;margin-right: 10px">
+                <template #reference>
+                  <el-button @click="addToCollection(material.materialId)"  type="warning" :icon="Star" circle></el-button>
+                </template> 
+            </el-popover>
+            <el-popover
+                placement="bottom"
+                title="分享"
+                :width="150"
+                trigger="hover"
+                content="复制商品链接以分享">
+                <template #reference><el-button stype="success" :icon="Link" circle ></el-button></template>
+            </el-popover>
+          </div>
+          <div>
+            <span style="width: 100px;font-size: 18px">历年卷</span>
+            <span style="margin-left:120px; font-size: 18px;color: #ff1f1f">¥ </span><span
+              class="discountPrice">{{material.calendarVolumePoints }}</span>
+            <span class="price">定价: ¥ {{ material.calendarVolumePoints}}</span>
+            <el-button style="margin-left: 150px;" @click="searchInfo(4)" type="primary" plain :icon="ShoppingCart">立即购买</el-button>
+            <el-popover
+                placement="bottom"
+                title="收藏"
+                :width="150"
+                trigger="hover"
+                content="添加该商品到收藏夹"
+                style="margin-left: 180px;margin-right: 10px">
+                <template #reference>
+                  <el-button @click="addToCollection(material.materialId)"  type="warning" :icon="Star" circle></el-button>
+                </template> 
+            </el-popover>
+            <el-popover
+                placement="bottom"
+                title="分享"
+                :width="150"
+                trigger="hover"
+                content="复制商品链接以分享">
+                <template #reference><el-button stype="success" :icon="Link" circle ></el-button></template>
+            </el-popover>
+          </div>
+          <div>
+            <span style="width: 100px;;font-size: 18px">其它资料</span>
+            <span style="margin-left:102px;font-size: 18px;color: #ff1f1f">¥ </span><span
+              class="discountPrice">{{ material.anotherMaterialPoints}}</span>
+            <span class="price">定价: ¥ {{ material.anotherMaterialPoints}}</span>
+            <el-button style="margin-left: 150px;" @click="searchInfo(5)" type="primary" plain :icon="ShoppingCart">立即购买</el-button>
             <el-popover
                 placement="bottom"
                 title="收藏"
@@ -56,15 +163,6 @@
             <span slot="label"><el-icon><Shop /></el-icon> 商品详情</span>
             <div class="detail-content" style="padding: 10px">
               <span style="font-size: 18px;">{{ material.materialProfile }}</span>
-              <!-- <el-skeleton animated>
-                <template slot="template">
-                  <el-skeleton :rows="6"/>
-                  <el-skeleton-item variant="image" style="width: 1170px; height: 250px;margin-top: 20px"/>
-                  <el-skeleton-item variant="image"
-                                    style="width: 1170px; height: 250px;margin-top: 10px;margin-bottom: 20px"/>
-                  <el-skeleton :rows="12"/>
-                </template>
-              </el-skeleton> -->
             </div>
           </div>
           
@@ -81,7 +179,7 @@
             </template>
           </el-table-column>
           <el-table-column prop="materialName" label="资料：">{{material.school+material.major+material.subject}}</el-table-column>
-          <el-table-column prop="materialPoints" label="单价(元)">{{ decimals(material.anotherMaterialPoints+material.teachingPlanPoints+material.elecBookPoints+material.calendarVolumePoints+material.classPptPoints)}}</el-table-column>
+          <el-table-column prop="materialPoints" label="单价(元)">{{ vauleMaterial}}</el-table-column>
         </el-table>
         <el-descriptions size="small" title="订单信息"
                          style="margin-top: 30px;margin-left: 40px;margin-bottom: 10px">
@@ -150,12 +248,17 @@
                     </div>
                   </template>
                 </el-table-column>
-                <el-table-column width="970">
+                <el-table-column width="700">
                   <template #default="scope">
                     <div class="materialGrade">
                       <el-rate v-model=" scope.row.materialGrade "  :colors="colors" :max="5" show-score disabled></el-rate>
                     </div>
                     <div class="materialComment">{{ scope.row.materialComment }}</div>
+                  </template>
+                </el-table-column>
+                <el-table-column width="100px">
+                  <template #default="scope">
+                    <div class="createTime">{{ formatDate(scope.row.createTime) }}</div>
                   </template>
                 </el-table-column>
                 <el-table-column fixed="right" label="操作" >
@@ -319,8 +422,26 @@ function addToCollection(materialId){
               }
             });
 }
+const typeMaterial = ref(0);
+const vauleMaterial = ref(0);
 // 立即购买信息
-function searchInfo() {
+function searchInfo(type) {
+    typeMaterial.value = type
+    if(type === 1){
+      vauleMaterial.value = material.value.elecBookPoints
+    }
+    if(type ===2){
+      vauleMaterial.value = material.value.teachingPlanPoints
+    }
+    if(type ===3){
+      vauleMaterial.value = material.value.classPptPoints
+    }
+    if(type ===4){
+      vauleMaterial.value = material.value.calendarVolumePoints
+    }
+    if(type ===5){
+      vauleMaterial.value = material.value.anotherMaterialPoints
+    }   
     checkTable.value = true
     axios.get('/user/userInfo',{params: {username: username.value,}}).then(response => {
     // 处理成功的响应
@@ -333,7 +454,7 @@ function buyNow() {
   let obj = {
     materialId: router.params.id,
     userEmail: store.state.personalID[0].email,
-    type: 1
+    type: typeMaterial.value
   }
   axios.post("/material/download", obj).then( async (resp) => {
     const code = resp.data.code;
@@ -489,7 +610,7 @@ watch(() => router.params.id,
 }
 
 #btn-group {
-  margin: 40px auto 0;
+  margin-top:5px;
 }
 
 #recommendation .image {

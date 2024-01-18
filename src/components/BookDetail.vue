@@ -142,7 +142,7 @@
             <el-rate style="margin-left: 20px;" v-model="book.bookGrade " :colors="colors" :max="5" show-score disabled></el-rate>
             <div v-if="commentData.length>0" class="comment-content">
               <el-table :data="commentData"  style="width: 100%">
-                <el-table-column width="200">
+                <el-table-column width="200px">
                   <template #default="scope">
                     <div class="userInfo">
                       <img :src="scope.row.avatarUrl " >
@@ -150,12 +150,18 @@
                     </div>
                   </template>
                 </el-table-column>
-                <el-table-column width="970">
+                <el-table-column width="700px">
                   <template #default="scope">
                     <div class="userGrade">
                       <el-rate v-model=" scope.row.userGrade "  :colors="colors" :max="5" show-score disabled></el-rate>
                     </div>
                     <div class="userComment">{{ scope.row.userComment }}</div>
+                    
+                  </template>
+                </el-table-column>
+                <el-table-column width="100px">
+                  <template #default="scope">
+                    <div class="createTime">{{ formatDate(scope.row.createTime) }}</div>
                   </template>
                 </el-table-column>
                 <el-table-column fixed="right" label="操作" >
@@ -531,11 +537,14 @@ watch(() => router.params.id,
 
 #detail-comment .comment-content .userGrade {
   margin: 0 auto 10px;
-  width: 250px;
+  width: 140px;
+}
+#detail-comment .comment-content .createTime{
+  margin-left: 0px;
 }
 
 #detail-comment .comment-content .userComment {
-  height: 90px;
+  height: 80px;
   display: -webkit-box;
   overflow: hidden;
   -webkit-box-orient: vertical;

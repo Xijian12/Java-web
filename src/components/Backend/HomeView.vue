@@ -7,8 +7,8 @@
           ><div>
             <el-icon><Reading /></el-icon>
             <div class="message">
-              <p class="title">网站收藏图书数量</p>
-              <p class="sub-title">{{ 500 }}</p>
+              <p class="title">网站收藏图书资料数量</p>
+              <p class="sub-title">{{ sum }}</p>
             </div>
           </div></el-col
         >
@@ -16,8 +16,8 @@
           ><div>
             <el-icon><Failed /></el-icon>
             <div class="message">
-              <p class="title">图书下载量</p>
-              <p class="sub-title">{{300 }}</p>
+              <p class="title">图书资料总下载量</p>
+              <p class="sub-title">{{Download }}</p>
             </div>
           </div></el-col
         >
@@ -25,8 +25,8 @@
           ><div>
             <el-icon><List /></el-icon>
             <div class="message">
-              <p class="title">图书总点击量</p>
-              <p class="sub-title">{{ 700 }}</p>
+              <p class="title">图书资料总点击量</p>
+              <p class="sub-title">{{ Click }}</p>
             </div>
           </div></el-col
         >
@@ -83,9 +83,6 @@ import { Reading, Failed, List, Timer } from "@element-plus/icons-vue";
 import axios from "axios";
 
 // 仪表盘数据
-let bookCount = ref(0);
-let overtimeCount = ref(0);
-let borrowCount = ref(0);
 let times = ref("");
 
 //系统时间
@@ -125,17 +122,48 @@ setInterval(function () {
     ":" +
     s;
 }, 1);
-
-// 获取仪表盘数据
-const getDashboard = () => {
-  axios.get("http://localhost:8888/book/dashboard/").then((resp) => {
-    bookCount.value = resp.data.bookCount;
-    overtimeCount.value = resp.data.overtimeCount;
-    borrowCount.value = resp.data.borrowCount;
+let bookClick = ref(0);
+let bookDownload = ref(0);
+const Click = ref(0);
+const Download = ref(0);
+// 获取资料点击数据
+const getBookClick = () => {
+  axios.get("/book/clickNum").then((resp) => {
+    bookClick.value = resp.data.data;
+    axios.get("/material/clickNum").then((resp) => {
+    materialClick.value = resp.data.data;
+    Click.value = bookClick.value+ materialClick.value;
+  });
   });
 };
-getDashboard();
-
+getBookClick();
+let materialClick = ref(0);
+let materialDownload = ref(0);
+// 获取资料点击数据
+const getMaterialClick = () => {
+  axios.get("/material/downloadNum").then((resp) => {
+    materialDownload.value = resp.data.data;
+    axios.get("/book/downloadNum").then((resp) => {
+    bookDownload.value = resp.data.data;  
+  Download.value = materialDownload.value + bookDownload.value;
+  });
+  });
+};
+getMaterialClick();
+//获得图书和资料总数
+let sum =ref(0);
+let book = ref(0);
+let material = ref(0);
+const getSum= () => {
+  axios.get("/book/find").then((resp) => {
+    book.value = resp.data.total;
+    axios.get("/material").then((resp) => {
+      material.value = resp.data.data.total;  
+      sum.value = book.value + material.value;
+  });
+  });
+};
+getSum();
 // 获取日志数据
 let logs = ref();
 const getLogs = () => {

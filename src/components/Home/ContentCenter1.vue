@@ -22,16 +22,14 @@
               </div>
             </div>
           </div>
-          <div class="contentCenter_Left_menu_title3">
+          <div class="contentCenter_Left_menu_title3" @mouseenter="yiru3" @mouseleave="yichu3">
             <div class="left_item">
-              <a href="pdf-account.html" onclick="showWindow('login', 'member.php?mod=logging&action=login&fromkeke=1');">
                 <div class="navTitleBox">
                 <img src="src/assets/images/category-ask.png" alt="">
                 <div class="navTitle">资料搜索</div>
                 <div class="navDescribe">更多资料在这里</div>
                 <i class="keke_iconfont"></i>
                 </div>
-              </a>
             </div>
           </div>
         </div>
@@ -114,10 +112,10 @@
         <div v-show="guanbi2" class="fugai" @mouseenter="yiru2" @mouseleave="yichu2">
           <div class="fugai_left">
             <div class="popup">
-        <h1 class="searchtitle">文档搜索</h1>
+        <h1 class="searchtitle">图书搜索</h1>
           <div class="search_bar">
             <form @submit.prevent="SearchDisplayVue()">
-              <input v-model="searchData" type="text" name="keyword" class="tx" autocomplete="off" placeholder="请输入您要搜索的文档关键字...">
+              <input v-model="searchData" type="text" name="keyword" class="tx" autocomplete="off" placeholder="请输入您要搜索的图书类别...">
               <el-button type="submit" @click="SearchDisplayVue()">搜索</el-button>
             </form>
           </div>
@@ -196,6 +194,31 @@
             </div>
           </div>
         </div>   
+        <div v-show="guanbi3" class="fugai" @mouseenter="yiru3" @mouseleave="yichu3">
+          <div class="fugai_left">
+            <div class="popup">
+        <h1 class="searchtitle">资料搜索</h1>
+          <div class="search_bar">
+            <form @submit.prevent="SearchDisplayMaterialVue()">
+              <input v-model="searchDataMaterial" type="text" name="keyword" class="tx" autocomplete="off" placeholder="请输入您要搜索资料的学校...">
+              <el-button type="submit" @click="SearchDisplayMaterialVue()">搜索</el-button>
+            </form>
+          </div>
+          <div class="hotkeyword" style="margin-top: 40px;">
+          热门搜索：
+
+          <el-button
+            v-for="button in buttons3"
+            :key="button.text"
+            text
+            bg
+            class="custom-button2"
+            @click="searchMaterial(button.text)"
+            >{{ button.text }}</el-button>
+        </div>
+            </div>
+          </div>
+        </div>  
         <div v-show="!guanbi" class="contentCenter_Left_item_content">
             <div class="huandengpian">
               <el-carousel trigger="click" class="el-carousel" indicator-position="none">
@@ -237,10 +260,10 @@ import {ref} from 'vue'
 import {useStore} from 'vuex'
 import router from "@/router"
 const store = useStore();
-const arr = ref(store.state.personalID[0])
 const guanbi = ref(false)
 const guanbi1 = ref(false)
 const guanbi2 = ref(false)
+const guanbi3 = ref(false)
 const carouselData = ref([
   { id: 1, imageUrl: 'src/assets/images/dragon.png', number: 1 },
   { id: 2, imageUrl: 'src/assets/images/background.jpeg', number: 2 },
@@ -260,6 +283,13 @@ const buttons2 = [
   { type: 'info', text: '自然科学' },
   { type: 'warning', text: '电子' },
 ]
+const buttons3 = [
+  { type: '', text: '深圳最繁荣大学' },
+  { type: 'primary', text: '杭州最宜居大学  ' },
+  // { type: 'success', text: '武汉最古老大学' },
+  // { type: 'info', text: '南京最牛大学' },
+  { type: 'warning', text: '上海最菜大学' },
+]
 const yiru = () =>  {
       guanbi.value = !guanbi.value
       guanbi1.value = !guanbi1.value
@@ -276,17 +306,33 @@ const  yichu2 = () =>  {
    guanbi.value = !guanbi.value
    guanbi2.value = !guanbi2.value
     }
+const yiru3 = () =>  {
+      guanbi.value = !guanbi.value
+      guanbi3.value = !guanbi3.value
+    }
+const  yichu3 = () =>  {
+   guanbi.value = !guanbi.value
+   guanbi3.value = !guanbi3.value
+    }
 const searchData = ref("")
 function SearchDisplayVue(){
       const path = searchData.value
       router.push({name:"SearchDisplay", params: {id: path}})
-    }
+}
+const searchDataMaterial = ref()
+function SearchDisplayMaterialVue(){
+      const path = searchDataMaterial.value
+      router.push({name:"SearchDisplayMaterial", params: {id: path}})
+}
 // 上传文档跳转
 function tipNoPer(){
   router.push({name:"publish"})
 }
 function searchBook(path){
   router.push({name:"SearchDisplay", params: {id: path}})
+}
+function searchMaterial(path){
+  router.push({name:"SearchDisplayMaterial", params: {id: path}})
 }
 </script>
 
@@ -509,6 +555,9 @@ function searchBook(path){
 /* 设置按钮宽度 */
 .custom-button {
   width: 100px; /* 替换为你想要的宽度值 */
+}
+.custom-button2 {
+  width: 150px; /* 替换为你想要的宽度值 */
 }
 
 </style>

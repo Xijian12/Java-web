@@ -25,6 +25,18 @@
                             <el-menu-item index="/personal/publish"><el-icon><Sell /></el-icon>发布图书</el-menu-item>
                         </el-menu-item-group>
                     </el-sub-menu>
+                    <el-sub-menu index="/personal/material">         
+                        <template #title>
+                            <el-icon><Expand/></el-icon>
+                            <span>资料管理</span>
+                        </template>
+                        <el-menu-item-group >
+                            <template #title></template>
+                            <!-- <el-menu-item index="/personal/favorite"><el-icon><StarFilled/></el-icon>我的收藏</el-menu-item>
+                            <el-menu-item index="/personal/publishRecord"><el-icon><Collection /></el-icon>下载记录</el-menu-item> -->
+                            <el-menu-item index="/personal/publishMaterial"><el-icon><Sell /></el-icon>发布资料</el-menu-item>
+                        </el-menu-item-group>
+                    </el-sub-menu>
                     <!-- <el-sub-menu index="/personal/order">
                         <template #title>
                             <el-icon><ShoppingCart/></el-icon>

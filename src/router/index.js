@@ -8,6 +8,8 @@ import MaterialDetail from '@/components/MaterialDetail.vue'
 import MaterialDetailPage from "@/components/MaterialDetailPage.vue"
 import SearchDisplay from '@/components/Search/SearchDisplay.vue'
 import SearchDisplayPage from "@/components/SearchDisplayPage.vue"
+import SearchDisplayMaterial from '@/components/Search/SearchDisplayMaterial.vue'
+import SearchDisplayMaterialPage from "@/components/SearchDisplayMaterialPage.vue"
 import Personal from '@/components/Personal.vue'
 
 // 后台
@@ -16,6 +18,7 @@ import NavView from "@/components/Backend/NavView.vue";
 import HomeView from "@/components/Backend/HomeView.vue";
 import BookTableView from "@/components/Backend/BookTableView.vue";
 import BookView from "@/components/Backend/BookView.vue";
+import MaterialView from "@/components/Backend/MaterialView.vue";
 import UserView from "@/components/Backend/UserView.vue";
 import SystemView from "@/components/Backend/SystemView.vue";
 
@@ -55,7 +58,7 @@ const router = createRouter({
             component: Home,
             meta:{isAuth:true, show: false}
         },
-        // 搜索展示页容器
+        // 搜索图书展示页容器
         {
             path: "/SearchDisplayPage",
             name: "SearchDisplayPage",
@@ -71,6 +74,22 @@ const router = createRouter({
             }
             ]   
         },
+         // 搜索资料展示页容器
+         {
+          path: "/SearchDisplayMaterialPage",
+          name: "SearchDisplayMaterialPage",
+          meta: { show: false },
+          component: SearchDisplayMaterialPage,
+          children: [
+          // 搜索展示页
+          {
+              path: "/SearchDisplayMaterial/:id",
+              name: "SearchDisplayMaterial",
+              meta: { show: false },
+              component: SearchDisplayMaterial,
+          }
+          ]   
+      },
         // 图书详情页容器
         {
             path: "/BookDetailPage",
@@ -128,6 +147,12 @@ const router = createRouter({
                     component: () => import("@/components/Personal/main/bookManage/PublishBook.vue")
                 },
                 {
+                  path: "publishMaterial",
+                  name: 'publishMaterial',
+                  meta: { show: false },
+                  component: () => import("@/components/Personal/main/bookManage/PublishMaterial.vue")
+              },
+                {
                     path: "publishrecord",
                     name: 'publishrecord',
                     meta: { show: false },
@@ -180,6 +205,20 @@ const router = createRouter({
                 name: "图书信息管理",
                 meta: { show: true },
                 components: { book: BookView },
+              },
+            ],
+          },
+          {
+            path: "/nav",
+            name: "资料",
+            component: NavView,
+            meta: { show: true },
+            children: [
+              {
+                path: "/material",
+                name: "资料信息管理",
+                meta: { show: true },
+                components: { material: MaterialView },
               },
             ],
           },

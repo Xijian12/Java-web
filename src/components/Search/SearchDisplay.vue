@@ -9,7 +9,7 @@
         <el-button type="submit" @click="SearchDisplayVue()">搜索</el-button>
     </form>
   </div>
-  <div id="Select" style="display: flex; align-items: center;">
+  <!-- <div id="Select" style="display: flex; align-items: center;">
     <span style="font-size:15px">学校分类</span>
     <el-collapse style="margin-left: 60px;" v-model="collapseVisible">
       <el-collapse-item title="展开更多">
@@ -44,7 +44,7 @@
         </el-checkbox-group>
       </el-collapse-item>
     </el-collapse>
-  </div>
+  </div> -->
   <div  id="NavigationBarContainer">
     <el-menu router class="el-menu-demo" mode="horizontal" :default-active="activeIndex" @select="handleSelect">
       <el-menu-item index="0" style="pointer-events: none;">图书分类</el-menu-item>
