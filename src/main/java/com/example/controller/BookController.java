@@ -116,8 +116,9 @@ public class BookController {
     }
     @DeleteMapping("/admin")
     public ResponseEntity<?> deleteBooks(@RequestBody BookDeletionRequest request) throws Exception {
+        List<Book> books=bookService.selectBooksByIds(request.getBookIds());
         if (bookService.deleteBooksIfAdmin(request)) {
-            List<Book> books=bookService.selectBooksByIds(request.getBookIds());
+
             if(books!=null){
                 for (Book book : books) {
                     aliOSSUtils.DeleteFile(book.getBookFileUuid());
@@ -152,9 +153,9 @@ public class BookController {
 
     @DeleteMapping("/user")
     public ResponseEntity<?> deleteBooksUser(@RequestBody BookDeletionRequest request) throws Exception {
-
+        List<Book> books=bookService.selectBooksByIds(request.getBookIds());
         if (bookService.deleteBooksIfUser(request)) {
-            List<Book> books=bookService.selectBooksByIds(request.getBookIds());
+
             if(books!=null){
                 for (Book book : books) {
                     aliOSSUtils.DeleteFile(book.getBookFileUuid());
