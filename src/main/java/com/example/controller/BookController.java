@@ -116,11 +116,14 @@ public class BookController {
     }
     @DeleteMapping("/admin")
     public ResponseEntity<?> deleteBooks(@RequestBody BookDeletionRequest request) throws Exception {
-        List<Book> books=bookService.selectBooksByIds(request.getBookIds());
         if (bookService.deleteBooksIfAdmin(request)) {
-
+            List<Book> books = bookService.selectBooksByIds(request.getBookIds());
             if(books!=null){
                 for (Book book : books) {
+                    //如果图书封面不是默认封面，则可以删除该封面
+                    if (!book.getBookCoverUrl().equals(Constants.defaultBookCoverUrl)) {
+                        aliOSSUtils.DeleteFile(book.getBookCoverUuid());
+                    }
                     aliOSSUtils.DeleteFile(book.getBookFileUuid());
                 }
             }
@@ -153,11 +156,15 @@ public class BookController {
 
     @DeleteMapping("/user")
     public ResponseEntity<?> deleteBooksUser(@RequestBody BookDeletionRequest request) throws Exception {
-        List<Book> books=bookService.selectBooksByIds(request.getBookIds());
-        if (bookService.deleteBooksIfUser(request)) {
 
+        if (bookService.deleteBooksIfUser(request)) {
+            List<Book> books = bookService.selectBooksByIds(request.getBookIds());
             if(books!=null){
                 for (Book book : books) {
+                    //如果图书封面不是默认封面，则可以删除该封面
+                    if (!book.getBookCoverUrl().equals(Constants.defaultBookCoverUrl)) {
+                        aliOSSUtils.DeleteFile(book.getBookCoverUuid());
+                    }
                     aliOSSUtils.DeleteFile(book.getBookFileUuid());
                 }
             }

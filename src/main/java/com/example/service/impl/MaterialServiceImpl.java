@@ -46,11 +46,12 @@ public class MaterialServiceImpl implements MaterialService {
         material.setMaterialDownloadNum(0);
         material.setCreateTime(LocalDateTime.now());
         material.setUpdateTime(LocalDateTime.now());
+        material.setMaterialCoverUrl(Constants.defaultMaterialCoverUrl);
         Account account = accountService.findAccountByNameOrEmail(material.getMaterialUploader());
         log.info("account:{}",account);
         if(account != null){
-            String newUserInfo = accountService.updateUserInfo(account.getUsername(), account.getUsername(),
-                    account.getPassword(), account.getPoints() + Constants.uploadPointBonus);
+            String newUserInfo = accountService.updateUserInfo(account.getUsername(), null,
+                    null, account.getPoints() + Constants.uploadPointBonus);
         }
         materialMapper.insertMaterial(material);
     }
@@ -90,8 +91,8 @@ public class MaterialServiceImpl implements MaterialService {
 
     //通过类型和用户或管理员账号来删除资料
     @Override
-    public boolean deleteMaterialByType(DeleteMaterialRequest deleteMaterialRequest) throws Exception {
-        boolean FALG = true;
+    public String deleteMaterialByType(DeleteMaterialRequest deleteMaterialRequest) throws Exception {
+        String returnError = null;
         Account ISADMIN = accountService.findAccountByNameOrEmail(deleteMaterialRequest.getAdminAccount());
         log.info("AdminAccount:{}",ISADMIN);
         List<Integer> materialIds = deleteMaterialRequest.getMaterialIds();
@@ -100,7 +101,7 @@ public class MaterialServiceImpl implements MaterialService {
         log.info("materialId：{}",materialIds);
         log.info("userEmail：{}",userEmail);
         log.info("type：{}",type);
-        if(materialIds == null) return false;
+        if(materialIds == null) return "传入的资料ID为空";
         for (int i = 0; i < materialIds.size(); i++) {
             Material material = materialMapper.selectMaterialById(materialIds.get(i));
             //删除对应的资料和资料在云存储的地址
@@ -118,6 +119,9 @@ public class MaterialServiceImpl implements MaterialService {
                                 aliOSSUtils.DeleteFile(material.getCalendarVolumeUuid());
                             if (material.getAnotherMaterialUuid() != null)
                                 aliOSSUtils.DeleteFile(material.getAnotherMaterialUuid());
+                            //如果这本资料的封面不是默认封面，这删除该封面
+                            if(!material.getMaterialCoverUrl().equals(Constants.defaultMaterialCoverUrl))
+                                aliOSSUtils.DeleteFile(material.getMaterialCoverUuid());
                             materialMapper.delelteMaterialById(material.getMaterialId());
                             break;
                         }
@@ -168,13 +172,13 @@ public class MaterialServiceImpl implements MaterialService {
                         }
                     }
                 }
-                else FALG = false;
+                else returnError = "不能删除别人上传的资料，且你不是管理员";
                 materialCommentMapper.deleteMaterialCommentBySMST(material.getSchool()
                 ,material.getMajor(),material.getSubject(),type);
             }
-            else FALG = false;
+            else returnError = "有一本资料不存在";
         }
-        return FALG;
+        return null;
     }
 
     //下载某个类型的图书资料
@@ -235,9 +239,11 @@ public class MaterialServiceImpl implements MaterialService {
                 String newFileName = material.getSchool()+"_"+material.getMajor()+"_"+material.getSubject()+"_"+materialname+ '.' + fileExtension;
                 //String newFileName = material.
                 //如果下载成功，则给上传者积分奖励
-                String newUserInfo = accountService.updateUserInfo(account.getUsername(), account.getUsername(),
-                        account.getPassword(), account.getPoints() + (int)(Constants.pointRate * points));
-
+                Account uploaderAccount = accountService.findAccountByNameOrEmail(material.getMaterialUploader());
+                if(uploaderAccount != null){
+                    String newUserInfo = accountService.updateUserInfo(uploaderAccount.getUsername(),null,
+                           null, uploaderAccount.getPoints() + (int)(Constants.pointRate * points));
+                }
                 donwloadMaterialVO.setDownloadUrl(aliOSSUtils.GetFileDownloadUrl(fileUuid,newFileName));
                 return null;
             }

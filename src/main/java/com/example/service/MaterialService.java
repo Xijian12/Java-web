@@ -23,7 +23,7 @@ public interface MaterialService {
     void updateMaterial(Material material);
 
     //通过类型和ID俩删除资料
-    boolean deleteMaterialByType(DeleteMaterialRequest deleteMaterialRequest) throws Exception;
+    String deleteMaterialByType(DeleteMaterialRequest deleteMaterialRequest) throws Exception;
 
     //通过资料ID来删除资料
     boolean deleteMaterialById(Integer materialId) throws Exception;

@@ -64,8 +64,8 @@ public void updateBookGrade() {
                     account.getPassword(), account.getPoints() + Constants.uploadPointBonus);
         }
         if(book.getBookCoverUrl() == null){
-            book.setBookCoverUrl(Constants.defaultBookcoverUrl);
-            book.setBookCoverUuid(Constants.defaultBookcoverUuid);
+            book.setBookCoverUrl(Constants.defaultBookCoverUrl);
+            book.setBookCoverUuid(Constants.defaultBookCoverUuid);
         }
         book.setUpdateTime(LocalDate.now());
         book.setCreateTime(LocalDate.now());

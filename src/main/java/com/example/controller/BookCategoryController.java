@@ -35,10 +35,6 @@ public class BookCategoryController {
         return bookCategoryService.getAllCategories(page,pageSize);
     }
 
-
-
-
-
     @PutMapping
     public  ResponseEntity<?>updateCategory(@RequestBody BookCategory category) {
         bookCategoryService.updateCategory(category);

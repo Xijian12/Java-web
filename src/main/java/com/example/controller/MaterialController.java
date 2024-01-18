@@ -76,22 +76,23 @@ public class MaterialController {
     //用户删除资料信息
     @DeleteMapping("/user")
     public Result deleteMaterialByUser(@RequestBody DeleteMaterialRequest deleteMaterialRequest) throws Exception {
-        boolean FALG = materialService.deleteMaterialByType(deleteMaterialRequest);
+        String returnData = materialService.deleteMaterialByType(deleteMaterialRequest);
 
-        if(FALG == false){
-            return Result.error("删除失败，无法删除别人上传的资料");
+        if(returnData == null){
+            return Result.success();
+
         }
-        return Result.success();
+        return Result.error(returnData);
     }
     //管理员删除资料信息
     @DeleteMapping("admin")
     public Result deleteMaterialByAdmin(@RequestBody DeleteMaterialRequest deleteMaterialRequest) throws Exception {
-        boolean FALG = materialService.deleteMaterialByType(deleteMaterialRequest);
+        String returnData = materialService.deleteMaterialByType(deleteMaterialRequest);
 
-        if(FALG == false){
-            return Result.error("删除失败，管理员账号无效");
+        if(returnData == null){
+            return Result.success();
         }
-        return Result.success();
+        return Result.error(returnData);
     }
 
     //下载图书，用户的管理员均可以下载
