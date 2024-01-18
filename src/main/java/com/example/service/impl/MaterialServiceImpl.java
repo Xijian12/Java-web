@@ -50,8 +50,8 @@ public class MaterialServiceImpl implements MaterialService {
         Account account = accountService.findAccountByNameOrEmail(material.getMaterialUploader());
         log.info("account:{}",account);
         if(account != null){
-            String newUserInfo = accountService.updateUserInfo(account.getUsername(), account.getUsername(),
-                    account.getPassword(), account.getPoints() + Constants.uploadPointBonus);
+            String newUserInfo = accountService.updateUserInfo(account.getUsername(), null,
+                    null, account.getPoints() + Constants.uploadPointBonus);
         }
         materialMapper.insertMaterial(material);
     }
