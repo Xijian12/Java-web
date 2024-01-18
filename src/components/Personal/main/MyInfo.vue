@@ -100,27 +100,6 @@ function initData() {
 };
 
   
-function getUserInfo(get) {
-            this.$http({
-                method: 'get',
-                url: '/getuser',
-                params: {
-                    userId: this.userId
-                }
-            })
-                .then(res => {
-                    if (get == 'editForm') {
-                        this.editForm = res.data.result;
-                        console.log(this.editForm);
-  
-                    } else {
-                        this.userInfo = res.data.result;
-                        console.log(this.userInfo);
-                    }
-                })
-        }
-  
-  
         //保存修改后的表单信息
  function editUserInfo() {
             this.$refs.editFormRef.validate(async valid => {

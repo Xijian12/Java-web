@@ -3,9 +3,10 @@
     <span class="Header_content_left">欢迎！
       <span style="color:red;">{{arr.username}}</span>
       <!-- <img class="Header_content_left_image" :src="arr" alt=""> -->
-    </span>
-    <!-- <span v-if="arr">我的积分：￥<span style="color:red;font-size:20px;">{{arr.points}}</span></span> -->
-    <span class="Header_content_right" @click="toPersonal">个人中心</span>
+    
+    <span style="margin-left: 200px;" v-if="arr">我的积分：￥<span style="ma;color:red;font-size:18px;">{{arr.points}}</span></span>
+    <span style="margin-left: 200px;" @click="toPersonal">{{"个人中心"}}</span>
+  </span>
     <div>
     <el-button @click="userLogout" style="width: 100px" type="success" plain>退出登录</el-button>
     </div>

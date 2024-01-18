@@ -11,7 +11,7 @@ const store = createStore({
       role:'',
       token:'',
       username:"admin",
-      userPic:0,
+      points:0,
     }],
   },
   mutations: {
@@ -20,7 +20,7 @@ const store = createStore({
       state.personalID.push(value);
     },
     addUserPic(state, value){
-      state.personalID[0].userPic=value;
+      state.personalID[0].points=value;
     }
   },
   actions: {
@@ -29,6 +29,9 @@ const store = createStore({
     },
     addID(context, value) {
       context.commit("addID", value);
+    },
+    addUserPic(context, value) {
+      context.commit("addUserPic", value);
     }
   },
   getters: {

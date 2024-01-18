@@ -22,7 +22,7 @@
               </a>                
             </div>
             <div class="module_subbox">
-              <a href="https://www.pdfdz.com/pdf-class-0-0-0-o-1-p-1.html" target="_blank" class="keke_doc_clearfix">                    
+              <a href="/SearchDisplay/1" target="_blank" class="keke_doc_clearfix">                    
                 <div class="lefticon">
                 <img src="src/assets/images/181710yrarppyvdy4dpuc8.png" /></div>
                 <div class="web-module-right">

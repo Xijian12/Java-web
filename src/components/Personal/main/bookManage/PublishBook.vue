@@ -103,8 +103,8 @@ function uploadFile(param) {
           // 处理错误
           console.error(error);
         });
-          }
-  function uploadFileBook(param) {
+}
+function uploadFileBook(param) {
     const uploadForm2 = new FormData();
     uploadForm2.append('bookFile', param.file);
     // 发送上传请求
@@ -117,11 +117,11 @@ function uploadFile(param) {
           // 处理错误
           console.error(error);
         });
-          }
-  function exceed(files, fileList) {
+}
+function exceed(files, fileList) {
     return ElMessage.error("最多上传4张图片！");
-          }
-  function imgPreview(file, fileList) {
+}
+function imgPreview(file, fileList) {
               let fileName = file.name;
               let regex = /(.jpg|.jpeg|.png)$/;
               if (regex.test(fileName.toLowerCase())) {
@@ -132,8 +132,8 @@ function uploadFile(param) {
                   fileList.pop();
                   ElMessage.error('请注意图片格式！');
               }
-          }
-  function beforeAvatarUpload(file) { 
+}
+function beforeAvatarUpload(file) { 
               const isLt2M = file.size / 1024 / 1024 < 4;
               if (!isLt2M) {
                 ElMessage({
@@ -142,9 +142,9 @@ function uploadFile(param) {
                   });
               }
               return isLt2M
-          }
+}
   //提交方法
-  function onSubmit() {    
+function onSubmit() {    
     console.log("上传", bookForm)
     // 发送上传请求
     axios.post("/book", bookForm)
@@ -169,8 +169,8 @@ function uploadFile(param) {
           console.error(error);
         });
 
-          } 
-  function initData() {
+} 
+function initData() {
   // 发起简单的 GET 请求
  axios.get("/category",{
       params:{

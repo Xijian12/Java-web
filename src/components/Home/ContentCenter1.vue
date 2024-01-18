@@ -16,7 +16,7 @@
             <div class="left_item">
               <div class="navTitleBox">
         <img src="src/assets/images/category-specialty.png" alt="">
-      <div class="navTitle">文档搜索</div>
+      <div class="navTitle">图书搜索</div>
       <div class="navDescribe">精确搜索，直达所需</div>
       <i class="keke_iconfont"></i>
               </div>
@@ -27,8 +27,8 @@
               <a href="pdf-account.html" onclick="showWindow('login', 'member.php?mod=logging&action=login&fromkeke=1');">
                 <div class="navTitleBox">
                 <img src="src/assets/images/category-ask.png" alt="">
-                <div class="navTitle">我的文库</div>
-                <div class="navDescribe">我收藏的文档在这里</div>
+                <div class="navTitle">资料搜索</div>
+                <div class="navDescribe">更多资料在这里</div>
                 <i class="keke_iconfont"></i>
                 </div>
               </a>

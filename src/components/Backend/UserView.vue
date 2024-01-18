@@ -105,49 +105,60 @@
           width="500px"
           :close-on-click-modal="false"
         >
-          <el-form
-            :model="addUserForm"
-            :rules="userRules"
-            ref="addUserFormRef"
-            class="add-user-form"
-            ><el-form-item
-              label="邮箱"
-              :label-width="formLabelWidth"
-              prop="username"
-            >
-              <el-input
-                v-model="addUserForm.username"
-                autocomplete="off"
-              ></el-input>
-            </el-form-item>
-            <el-form-item
-              label="密码"
-              :label-width="formLabelWidth"
-              prop="password"
-            >
-              <el-input
-                v-model="addUserForm.password"
-                type="password"
-                autocomplete="off"
-              ></el-input>
-            </el-form-item>
-            <el-form-item
-              label="手机号"
-              :label-width="formLabelWidth"
-              prop="phone"
-            >
-              <el-input
-                v-model.number="addUserForm.phone"
-                autocomplete="off"
-                maxlength="11"
-              ></el-input>
-            </el-form-item>
-          </el-form>
+          <div style="margin-top: 50px">
+            <el-form :model="addUserForm" :rules="rules" @validate="onValidate"  ref="addUserFormRef">
+                <el-form-item prop="username">
+                    <el-input v-model="addUserForm.username" :maxlength="8" type="text" placeholder="用户名">
+                        <template #prefix>
+                            <el-icon><User /></el-icon>
+                        </template>
+                    </el-input>
+                </el-form-item>
+                <el-form-item prop="password">
+                    <el-input v-model="addUserForm.password" :maxlength="16" type="password" placeholder="密码">
+                        <template #prefix>
+                            <el-icon><Lock /></el-icon>
+                        </template>
+                    </el-input>
+                </el-form-item>
+                <el-form-item prop="password_repeat">
+                    <el-input v-model="addUserForm.password_repeat" :maxlength="16" type="password" placeholder="重复密码">
+                        <template #prefix>
+                            <el-icon><Lock /></el-icon>
+                        </template>
+                    </el-input>
+                </el-form-item>
+                <el-form-item prop="email">
+                    <el-input v-model="addUserForm.email" type="email" placeholder="电子邮件地址">
+                        <template #prefix>
+                            <el-icon><Message /></el-icon>
+                        </template>
+                    </el-input>
+                </el-form-item>
+                <el-form-item prop="code">
+                    <el-row :gutter="10" style="width: 100%">
+                        <el-col :span="17">
+                            <el-input v-model="addUserForm.code" :maxlength="6" type="text" placeholder="请输入验证码">
+                                <template #prefix>
+                                    <el-icon><EditPen /></el-icon>
+                                </template>
+                            </el-input>
+                        </el-col>
+                        <el-col :span="5">
+                            <el-button type="success" @click="validateEmail"
+                                       :disabled="!isEmailValid || coldTime > 0">
+                                {{coldTime > 0 ? '请稍后 ' + coldTime + ' 秒' : '获取验证码'}}
+                            </el-button>
+                        </el-col>
+                    </el-row>
+                </el-form-item>
+            </el-form>
+        </div>
           <template #footer>
             <span class="dialog-footer">
               <el-button @click="addUserFormVisible = false">取消</el-button>
               <el-button type="primary" @click="addUserButton(addUserFormRef)">
-                添加
+                立即注册
               </el-button>
             </span>
           </template>
@@ -248,8 +259,8 @@ import { reactive, ref } from "vue";
 import type { FormInstance, FormRules } from "element-plus";
 import { Plus, Search } from "@element-plus/icons-vue";
 import axios from "axios";
-import { ElMessageBox } from "element-plus";
-
+import { ElMessageBox, ElMessage  } from "element-plus";
+import {get, post} from "@/net";
 // 标签长度
 let formLabelWidth = 120;
 // 显示数据数量选项
@@ -301,19 +312,6 @@ const searchUser = () => {
       });
 };
 
-// 选项框属性
-const UserType = ref([
-  {
-    typeId: 1,
-    typeName: "admin",
-    label: "管理员",
-  },
-  {
-    typeId: 2,
-    typeName: "user",
-    label: "用户",
-  },
-]);
 // 添加用户对话框显示
 let addUserFormVisible = ref(false);
 // 添加用户表单按钮
@@ -324,68 +322,96 @@ const addFromButton = (formEl: FormInstance | undefined) => {
 };
 
 // 添加用户表单
+const validateUsername = (rule, value, callback) => {
+    if (value === '') {
+        callback(new Error('请输入用户名'))
+    } else if(!/^[a-zA-Z0-9\u4e00-\u9fa5]+$/.test(value)){
+        callback(new Error('用户名不能包含特殊字符，只能是中文/英文'))
+    } else {
+        callback()
+    }
+}
+const validatePassword = (rule, value, callback) => {
+    if (value === '') {
+        callback(new Error('请再次输入密码'))
+    } else if (value !== addUserForm.password) {
+        callback(new Error("两次输入的密码不一致"))
+    } else {
+        callback()
+    }
+}
+const rules = {
+    username: [
+        { validator: validateUsername, trigger: ['blur', 'change'] },
+        { min: 2, max: 8, message: '用户名的长度必须在2-8个字符之间', trigger: ['blur', 'change'] },
+    ],
+    password: [
+        { required: true, message: '请输入密码', trigger: 'blur' },
+        { min: 6, max: 16, message: '密码的长度必须在6-16个字符之间', trigger: ['blur', 'change'] }
+    ],
+    password_repeat: [
+        { validator: validatePassword, trigger: ['blur', 'change'] },
+    ],
+    email: [
+        { required: true, message: '请输入邮件地址', trigger: 'blur' },
+        {type: 'email', message: '请输入合法的电子邮件地址', trigger: ['blur', 'change']}
+    ],
+    code: [
+        { required: true, message: '请输入获取的验证码', trigger: 'blur' },
+    ]
+}
+const onValidate = (prop, isValid) => {
+    if(prop === 'email')
+        isEmailValid.value = isValid
+}
 const addUserFormRef = ref<FormInstance>();
 let addUserForm = reactive({
-  groups: "",
+  password_repeat: "",
   username: "",
   password: "",
   name: "",
   gender: "",
-  idCard: "",
-  phone: "",
-  identity: "",
+  email: "",
+  code: "",
 });
 
 // 添加用户按钮
 const addUserButton = (formEl: FormInstance | undefined) => {
   if (!formEl) return;
   formEl.validate((valid) => {
-    if (valid) {
-      axios
-        .post("http://localhost:8888/user/save", addUserForm)
-        .then((resp) => {
-          const code = resp.data.code;
-
-          // 添加失败
-          if (code == 0) {
-            ElMessageBox.alert("添加用户失败，请重试", "信息", {
-              confirmButtonText: "确认",
-            });
-          }
-          // 添加成功
-          if (code == 1) {
-            ElMessageBox.alert("添加成功", "信息", {
-              confirmButtonText: "确认",
-              callback: () => {
+        if(valid) {
+            post('/api/auth/register', {
+                username: addUserForm.username,
+                password: addUserForm.password,
+                email: addUserForm.email,
+                code: addUserForm.code
+            }, () => {
+                ElMessage.success('注册成功，欢迎加入我们')
                 addUserFormVisible.value = false;
-              },
-            });
-          }
-          // 用户名存在
-          if (code == 2) {
-            ElMessageBox.alert("添加失败，此用户名已存在", "信息", {
-              confirmButtonText: "确认",
-            });
-          }
-          // 借书卡存在
-          if (code == 3) {
-            ElMessageBox.alert("添加失败，此借书卡已存在", "信息", {
-              confirmButtonText: "确认",
-            });
-          }
-          // 手机号存在
-          if (code == 4) {
-            ElMessageBox.alert("添加失败，此手机号已存在", "信息", {
-              confirmButtonText: "确认",
-            });
-          }
-        });
-    } else {
-      return false;
-    }
-  });
+            })
+        } else {
+            ElMessage.warning('请完整填写注册表单内容！')
+        }
+    })
 };
-
+const isEmailValid = ref(false)
+const coldTime = ref(0)
+// 邮箱验证
+const validateEmail = () => {
+    coldTime.value = 60
+    get(`/api/auth/ask-code?email=${addUserForm.email}&type=register`, () => {
+        ElMessage.success(`验证码已发送到邮箱: ${addUserForm.email}，请注意查收`)
+        const handle = setInterval(() => {
+          coldTime.value--
+          if(coldTime.value === 0) {
+            clearInterval(handle)
+          }
+        }, 1000)
+    }, undefined, (message) => {
+        ElMessage.warning(message)
+        coldTime.value = 0
+    })
+}
 // 编辑用户对话框
 let editUserFormVisible = ref(false);
 const editFromButton = (formEl: FormInstance | undefined, row: number) => {
@@ -439,42 +465,35 @@ const editUserButton = (formEl: FormInstance | undefined) => {
 
 // 删除用户
 let deleteName = ref("");
-let deleteId = ref(0);
+let deleteEmail = ref("");
 let deleteUserDialogVisible = ref(false);
 const deleteUserDialog = (row: any) => {
-  deleteId.value = row.id;
+  deleteEmail.value = row.email;
   deleteName.value = row.username;
   deleteUserDialogVisible.value = true;
 };
 
 // 删除用户按钮
 const deleteUser = () => {
-  if (deleteId.value) {
-    axios
-      .post("http://localhost:8888/user/delete/" + deleteId.value)
+  if (deleteEmail.value) {
+    axios.get("admin/deleteUser?email=" + deleteEmail.value)
       .then((resp) => {
         const code = resp.data.code;
-
         // 删除失败
-        if (code == 0) {
+        if (code == 400) {
           ElMessageBox.alert("删除用户失败，请重试", "信息", {
             confirmButtonText: "确认",
           });
         }
         // 删除成功
-        if (code == 1) {
+        if (code == 200) {
           ElMessageBox.alert("删除成功", "信息", {
             confirmButtonText: "确认",
             callback: () => {
               deleteUserDialogVisible.value = false;
             },
           });
-        }
-        // Id 不存在
-        if (code == 2) {
-          ElMessageBox.alert("删除失败，此 Id 不存在", "信息", {
-            confirmButtonText: "确认",
-          });
+          searchUser();
         }
       });
   }

@@ -46,8 +46,10 @@ function clickme(){
                 });
               }
             });
- 
-      store.commit('addUserPic',100);
+  axios.get('/user/userInfo',{params: {username: username.value,}}).then(response => {
+    // 处理成功的响应
+    store.commit('addUserPic',response.data.data.points);
+  })   
     }
 function SearchDisplayVue(){
       const path = keyword.value

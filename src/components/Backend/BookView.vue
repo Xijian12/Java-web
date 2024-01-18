@@ -73,7 +73,7 @@
         <el-row class="book-table">
           <el-col>
             <el-table :data="books" height="100%" empty-text="没有数据">
-              <el-table-column prop="bookId" label="图书ID" />
+              <el-table-column type="index" :index="Nindex" label="序号" width="70px"/>
               <el-table-column prop="bookCoverUrl" label="图书封面">
                 <template #default="scope">
                   <el-image
@@ -123,50 +123,53 @@
           width="500px"
           :close-on-click-modal="false"
         >
-          <el-form
-            :model="addBookForm"
-            :rules="bookRules"
+        <el-form   :model="addBookForm"
+            :rules="rules"
             ref="addBookFormRef"
-            class="add-book-form"
-          >
-            <el-form-item
-              label="ISBN号码"
-              :label-width="formLabelWidth"
-              prop="ISBN"
-            >
-              <el-input
-                v-model.number="addBookForm.ISBN"
-                autocomplete="off"
-              ></el-input>
-            </el-form-item>
-            <el-form-item
-              label="存放位置"
-              :label-width="formLabelWidth"
-              prop="location"
-            >
-              <el-input
-                v-model="addBookForm.location"
-                autocomplete="off"
-              ></el-input>
-            </el-form-item>
-            <el-form-item
-              label="经办人"
-              :label-width="formLabelWidth"
-              prop="manager_id"
-            >
-              <el-input
-                v-model="addBookForm.manager_id"
-                autocomplete="off"
-              ></el-input>
-            </el-form-item>
-            <el-form-item label="册数" :label-width="formLabelWidth" prop="num">
-              <el-input v-model="addBookForm.num" autocomplete="off"></el-input>
-            </el-form-item>
-          </el-form>
+            class="add-book-form">
+        <el-form-item label="图书名" style="width:350px" prop="bookName">
+         <el-input v-model="addBookForm.bookName"></el-input>
+      </el-form-item>
+      <el-form-item label="图书作者" style="width:350px" prop="bookAuthor">
+         <el-input v-model="addBookForm.bookAuthor"></el-input>
+      </el-form-item>
+      <el-form-item label="图书版号" style="width:350px" prop="bookVersion">
+         <el-input v-model="addBookForm.bookVersion"></el-input>
+      </el-form-item>
+      <el-form-item label="图书出版社" style="width:350px" prop="bookPublishHouse">
+         <el-input v-model="addBookForm.bookPublishHouse"></el-input>
+      </el-form-item>
+      <el-form-item label="下载所需积分" style="width:350px" prop="downloadPoints">
+         <el-input v-model="addBookForm.downloadPoints"></el-input>
+      </el-form-item>
+      <el-form-item label="图书类别" prop="categoryName" >
+        <el-select v-model="addBookForm.categoryName"  placeholder="请选择图书分类">
+          <el-option v-for="item in categoryList" :key="item.categoryName" :label="item.categoryName"
+            :value="item.categoryName"></el-option>
+          </el-select>
+      </el-form-item>
+      <el-form-item label="图书简介" prop="bookProfile">
+        <el-input type="textarea" v-model="addBookForm.bookProfile"></el-input>
+      </el-form-item>
+      <el-form-item label="图书封面上传" prop="pictures">
+        <el-upload class="box_upload"  action="/upload/uploadBookcover" name="bookCover" :http-request="uploadFile"
+          accept="" list-type="picture" :limit="4" :on-exceed="exceed" ref="uploadRef" 
+          :show-file-list="true" :on-change="imgPreview" :before-upload="beforeAvatarUpload" multiple>
+        <el-button size="small" type="primary">点击上传</el-button>
+        </el-upload>
+      </el-form-item>
+      <el-form-item label="图书文件上传" prop="files">
+        <el-upload class="box_upload"  action="/upload/uploadBook" name="bookFile" :http-request="uploadFileBook"
+          accept="" list-type="pdf" :limit="4" :on-exceed="exceed" ref="uploadBookRef" 
+          :show-file-list="true" multiple>
+        <el-button size="small" type="primary">点击上传</el-button>
+        </el-upload>
+      </el-form-item>
+        </el-form>
           <template #footer>
             <span class="dialog-footer">
               <el-button @click="addBookFormVisible = false">取消</el-button>
-              <el-button type="primary" @click="addBookButton(addBookFormRef)">
+              <el-button type="primary" @click="onSubmit()">
                 添加
               </el-button>
             </span>
@@ -181,73 +184,49 @@
           width="500px"
           :close-on-click-modal="false"
         >
-          <el-form
-            :model="editBookForm"
-            :rules="bookRules"
+        <el-form   :model="editBookForm"
+            :rules="rules"
             ref="editBookFormRef"
-            class="edit-book-form"
-          >
-            <el-form-item
-              label="书名"
-              :label-width="formLabelWidth"
-              prop="name"
-            >
-              <el-input
-                v-model="editBookForm.name"
-                autocomplete="off"
-              ></el-input>
-            </el-form-item>
-            <el-form-item
-              label="作者"
-              :label-width="formLabelWidth"
-              prop="author"
-            >
-              <el-input
-                v-model="editBookForm.author"
-                autocomplete="off"
-              ></el-input>
-            </el-form-item>
-            <el-form-item
-              label="出版社"
-              :label-width="formLabelWidth"
-              prop="publish"
-            >
-              <el-input
-                v-model="editBookForm.publish"
-                autocomplete="off"
-              ></el-input>
-            </el-form-item>
-            <el-form-item
-              label="存放位置"
-              :label-width="formLabelWidth"
-              prop="location"
-            >
-              <el-input
-                v-model="editBookForm.location"
-                autocomplete="off"
-              ></el-input>
-            </el-form-item>
-            <el-form-item
-              label="状态"
-              :label-width="formLabelWidth"
-              prop="status"
-            >
-              <el-input
-                v-model.number="editBookForm.status"
-                autocomplete="off"
-              ></el-input>
-            </el-form-item>
-            <el-form-item
-              label="ISBN号码"
-              :label-width="formLabelWidth"
-              prop="ISBN"
-            >
-              <el-input
-                v-model.number="editBookForm.ISBN"
-                autocomplete="off"
-              ></el-input>
-            </el-form-item>
-          </el-form>
+            class="add-book-form">
+        <el-form-item label="图书名" style="width:350px" prop="bookName">
+         <el-input v-model="editBookForm.bookName"></el-input>
+      </el-form-item>
+      <el-form-item label="图书作者" style="width:350px" prop="bookAuthor">
+         <el-input v-model="editBookForm.bookAuthor"></el-input>
+      </el-form-item>
+      <el-form-item label="图书版号" style="width:350px" prop="bookVersion">
+         <el-input v-model="editBookForm.bookVersion"></el-input>
+      </el-form-item>
+      <el-form-item label="图书出版社" style="width:350px" prop="bookPublishHouse">
+         <el-input v-model="editBookForm.bookPublishHouse"></el-input>
+      </el-form-item>
+      <el-form-item label="下载所需积分" style="width:350px" prop="bookPoints">
+         <el-input v-model="editBookForm.bookPoints"></el-input>
+      </el-form-item>
+      <el-form-item label="图书类别" prop="categoryName" >
+        <el-select v-model="editBookForm.categoryName"  placeholder="请选择图书分类">
+          <el-option v-for="item in categoryList" :key="item.categoryName" :label="item.categoryName"
+            :value="item.categoryName"></el-option>
+          </el-select>
+      </el-form-item>
+      <el-form-item label="图书简介" prop="bookProfile">
+        <el-input type="textarea" v-model="editBookForm.bookProfile"></el-input>
+      </el-form-item>
+      <el-form-item label="图书封面上传" prop="pictures">
+        <el-upload class="box_upload"  action="/upload/uploadBookcover" name="bookCover" :http-request="uploadFile"
+          accept="" list-type="picture" :limit="4" :on-exceed="exceed" ref="uploadRef" 
+          :show-file-list="true" :on-change="imgPreview" :before-upload="beforeAvatarUpload" multiple>
+        <el-button size="small" type="primary">点击上传</el-button>
+        </el-upload>
+      </el-form-item>
+      <el-form-item label="图书文件上传" prop="files">
+        <el-upload class="box_upload"  action="/upload/uploadBook" name="bookFile" :http-request="uploadFileBook"
+          accept="" list-type="pdf" :limit="4" :on-exceed="exceed" ref="uploadBookRef" 
+          :show-file-list="true" multiple>
+        <el-button size="small" type="primary">点击上传</el-button>
+        </el-upload>
+      </el-form-item>
+        </el-form>
           <template #footer>
             <span class="dialog-footer">
               <el-button @click="editBookFormVisible = false">取消</el-button>
@@ -288,8 +267,13 @@ import type { FormInstance, FormRules } from "element-plus";
 import { Plus, Search } from "@element-plus/icons-vue";
 import axios from "axios";
 import { ElMessageBox, ElMessage } from "element-plus";
-import router from "@/router";
-
+import {useStore} from 'vuex';
+const store = useStore();
+const usereamil = ref(store.state.personalID[0].email)
+const categoryList = ref([{
+    categoryId:"",
+    categoryName:"",
+  }]);
 // 标签长度
 let formLabelWidth = 120;
 
@@ -300,13 +284,18 @@ let searchObj = reactive({});
 
 // 显示数据数量选项
 let pageNum = ref(1);
-let pageSize = ref(10);
+let pageSize = ref(6);
 let pageTotal = ref(0);
 const pageChange = (val: number) => {
   pageNum.value = val;
   searchBook();
 };
-
+const Nindex = (index: number) => {
+      // 当前页数 - 1 * 每页数据条数 + 1
+      const page = pageNum.value // 当前页码
+      const pagesize = pageSize.value // 每页条数
+      return index + 1 + (page - 1) * pagesize
+};
 // 数据显示框
 let sizeOptions = [
   {
@@ -321,6 +310,10 @@ let sizeOptions = [
     value: 100,
     label: "100条数据/页",
   },
+  {
+    value: 6,
+    label: "6条数据/页",
+  }
 ];
 // 修改显示数据量
 const changeSize = (value: number) => {
@@ -341,7 +334,7 @@ const changeSearch = (value: string) => {
 };
 
 // 搜索框数据
-const searchInput = ref();
+const searchInput = ref("");
 // 搜索框按钮
 const searchButton = () => {
   pageNum.value = 1;
@@ -349,7 +342,17 @@ const searchButton = () => {
 };
 // 搜索图书
 const searchBook = () => {
-  if (searchInput.value != "") {
+  if (searchInput.value == "") {
+  axios.get('/book/find', {
+      params: {
+        page: pageNum.value,
+        pageSize: pageSize.value
+      }
+    }).then((resp)=>{
+      books.value = resp.data.books
+      pageTotal.value = resp.data.total
+    }) 
+  }else{
     let params = {
     categoryName: searchInput.value,
     page: pageNum.value,
@@ -381,35 +384,22 @@ const searchBook = () => {
         });
       }
     });
-  }
+  }  
 };
-
-// 图书表单判断
-const checkISBN = (rule: any, value: any, callback: any) => {
-  if (!value) {
-    return callback(new Error("请输入ISBN号码"));
-  } else {
-    if (!Number.isInteger(value)) {
-      callback(new Error("请输入正确的ISBN号码"));
-    } else {
-      let isbnReg = /^[1-9]\d{12}$/;
-      if (!isbnReg.test(value)) {
-        callback(new Error("请输入13位ISBN号码"));
-      } else {
-        callback();
-      }
-    }
-  }
-};
-// 图书表单规则
-const bookRules = reactive<FormRules>({
-  location: [{ required: true, message: "请输入存放位置", trigger: "blur" }],
-  ISBN: [{ required: true, message: "请输入ISBN", trigger: "blur" }],
-  manager_id: [{ required: true, message: "请输入经办人", trigger: "blur" }],
-  num: [{ required: true, message: "请输入经办人", trigger: "blur" }],
-});
 
 // 添加图书对话框显示
+const rules = ref(
+  {
+    bookName: [{ required: true, message: '请输入图书名！', trigger: 'blur' },],
+    bookAuthor: [{ required: true, message: '请输入图书名！', trigger: 'blur' },],
+    bookVersion: [{ required: true, message: '请输入图书名！', trigger: 'blur' },],
+    bookPublishHouse: [{ required: true, message: '请输入图书名！', trigger: 'blur' },],
+    downloadPoints: [{ required: true, message: '请输入图书名！', trigger: 'blur' },],
+    bookProfile: [{ required: true, message: '请输入图书名！', trigger: 'blur' },],
+    categoryName: [{ required: true, message: '请输入图书名！', trigger: 'blur' },],
+    // files: [{ required: true, message: '请输入图书名！', trigger: 'blur' },],
+    // pictures: [{ required: true, message: '请输入图书名！', trigger: 'blur' },],
+  })
 let addBookFormVisible = ref(false);
 // 添加表单按钮
 const addFromButton = (formEl: FormInstance | undefined) => {
@@ -420,73 +410,140 @@ const addFromButton = (formEl: FormInstance | undefined) => {
 
 // 添加图书表单
 const addBookFormRef = ref<FormInstance>();
-let addBookForm = reactive({
-  location: "",
-  ISBN: "",
-  manager_id: "",
-  num: "",
-});
+const addBookForm = reactive<any>(
+    {
+      pictures: [],
+      files: [],
+      bookName: "",
+      bookAuthor: "",
+      bookVersion: "",
+      bookPublishHouse: "",
+      bookCoverUrl: "",
+      downloadPoints: "",
+      bookProfile: "",
+      categoryName: "",
+      bookUploader: usereamil.value,
+      bookCoverUuid: "",
+      bookFileUuid: "",
+})
 
-// 添加图书按钮
-const addBookButton = (formEl: FormInstance | undefined) => {
-  if (!formEl) return;
-  formEl.validate((valid) => {
-    if (valid) {
-      axios.post("/api/manager/addbook/", addBookForm).then((resp) => {
-        const code = resp.data.code;
-        const message = resp.data.message;
+function uploadFile(param) {
+    const uploadForm1 = new FormData();
+    uploadForm1.append('bookCover', param.file);
+    // 发送上传请求
+    axios.post("/upload/uploadBookcover", uploadForm1)
+        .then(response => {
+          // 处理成功响应
+          addBookForm.bookCoverUrl = response.data.data[0]
+          addBookForm.bookCoverUuid = response.data.data[1]
+        })
+        .catch(error => {
+          // 处理错误
+          console.error(error);
+        });
+}
+function uploadFileBook(param) {
+    const uploadForm2 = new FormData();
+    uploadForm2.append('bookFile', param.file);
+    // 发送上传请求
+    axios.post("/upload/uploadBook", uploadForm2)
+        .then(response => {
+          // 处理成功响应
+          addBookForm.bookFileUuid = response.data.data
+        })
+        .catch(error => {
+          // 处理错误
+          console.error(error);
+        });
+}
+function exceed(files, fileList) {
+    return ElMessage.error("最多上传4张图片！");
+}
+function imgPreview(file, fileList) {
+              let fileName = file.name;
+              let regex = /(.jpg|.jpeg|.png)$/;
+              if (regex.test(fileName.toLowerCase())) {
+                  let picUrl = URL.createObjectURL(file.raw);
+                  addBookForm.files = fileList;
+              } else {
+                  //移除最后一个元素
+                  fileList.pop();
+                  ElMessage.error('请注意图片格式！');
+              }
+}
+function beforeAvatarUpload(file) { 
+              const isLt2M = file.size / 1024 / 1024 < 4;
+              if (!isLt2M) {
+                ElMessage({
+                      message: '上传文件大小不能超过 4MB!',
+                      type: 'warning'
+                  });
+              }
+              return isLt2M
+}
+//提交方法
+function onSubmit() {    
+    // 发送上传请求
+    axios.post("/book",addBookForm)
+        .then(response => {
+          const code = response.data.code
+          const message = response.data.message
+           // 添加失败
+          if (code == 400) {
+            ElMessageBox.alert(message, {
+              confirmButtonText: "确认",
+            });
+          }
+          // 添加成功
+          if (code == 200) {
+            ElMessageBox.alert(message, {
+              confirmButtonText: "确认",
 
-        // 添加失败
-        if (code == 400) {
-          ElMessageBox.alert(message, {
-            confirmButtonText: "确认",
-          });
+          })
+          addBookFormVisible.value = false;
         }
-        // 添加成功
-        if (code == 200) {
-          ElMessageBox.alert(message, {
-            confirmButtonText: "确认",
-            callback: () => {
-              addBookFormVisible.value = false;
-            },
-          });
-        }
-      });
-    } else {
-      return false;
-    }
-  });
-};
+      }).catch(error => {
+          // 处理错误
+          console.error(error);
+        });
+
+} 
 
 // 编辑图书对话框
 let editBookFormVisible = ref(false);
 const editFromButton = (formEl: FormInstance | undefined, row: any) => {
   editBookFormVisible.value = true;
   editBookForm = reactive(JSON.parse(JSON.stringify(row)));
-  editBookForm.ISBN = row.ISBN;
+  editBookForm.downloadPoints = row.bookPoints;
   if (!formEl) return;
   formEl.resetFields();
 };
 
 // 编辑图书表单
 const editBookFormRef = ref<FormInstance>();
-let editBookForm = reactive({
-  groups: "",
-  name: "",
-  author: "",
-  publish: "",
-  location: "",
-  version: "",
-  ISBN: "",
-});
+let editBookForm = reactive<any>(
+    {
+      pictures: [],
+      files: [],
+      bookName: "",
+      bookAuthor: "",
+      bookVersion: "",
+      bookPublishHouse: "",
+      bookCoverUrl: "",
+      downloadPoints: "",
+      bookProfile: "",
+      categoryName: "",
+      bookUploader: usereamil.value,
+      bookCoverUuid: "",
+      bookFileUuid: "",
+})
 
 // 编辑图书按钮
 const editBookButton = (formEl: FormInstance | undefined) => {
   if (!formEl) return;
   formEl.validate((valid) => {
     if (valid) {
-      axios
-        .post("http://localhost:8888/book/update", editBookForm)
+      axios.put("/book/admin", editBookForm)
         .then((resp) => {
           const code = resp.data.code;
           const message = resp.data.message;
@@ -505,6 +562,7 @@ const editBookButton = (formEl: FormInstance | undefined) => {
                 editBookFormVisible.value = false;
               },
             });
+            searchBook();
           }
         });
     } else {
@@ -551,15 +609,38 @@ const deleteBook = () => {
     });
   }
 };
+function initData() {
+  // 发起简单的 GET 请求
+ axios.get("/category",{
+      params:{
+      page: 1,
+      pageSize: 200}
+    })
+  .then(response => {
+    // 处理成功的响应
+    categoryList.value = response.data
+  })
+  .catch(error => {
+    // 处理请求错误
+    console.error('请求失败：', error);
+  });
+     
+    }
 
 // 初始化
 const init = () => {
   // 获取图书
-  //searchBook();
+  initData();
+  searchBook();
 };
 init();
 </script>
 
 <style lang="scss">
 @import "@/assets/css/book";
+.add-book-form{
+      width: 50%;
+      margin-left: 10%;
+      padding: 30px;
+}
 </style>
