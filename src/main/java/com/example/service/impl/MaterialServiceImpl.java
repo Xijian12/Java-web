@@ -239,9 +239,11 @@ public class MaterialServiceImpl implements MaterialService {
                 String newFileName = material.getSchool()+"_"+material.getMajor()+"_"+material.getSubject()+"_"+materialname+ '.' + fileExtension;
                 //String newFileName = material.
                 //如果下载成功，则给上传者积分奖励
-                String newUserInfo = accountService.updateUserInfo(account.getUsername(), account.getUsername(),
-                        account.getPassword(), account.getPoints() + (int)(Constants.pointRate * points));
-
+                Account uploaderAccount = accountService.findAccountByNameOrEmail(material.getMaterialUploader());
+                if(uploaderAccount != null){
+                    String newUserInfo = accountService.updateUserInfo(uploaderAccount.getUsername(),null,
+                           null, uploaderAccount.getPoints() + (int)(Constants.pointRate * points));
+                }
                 donwloadMaterialVO.setDownloadUrl(aliOSSUtils.GetFileDownloadUrl(fileUuid,newFileName));
                 return null;
             }
