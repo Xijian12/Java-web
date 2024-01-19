@@ -14,7 +14,7 @@ public class BookReview {
     private int id;
     private String bookVersion;
     private String userComment;
-    private int userGrade; // 评分为1到5
+    private int userGrade; // 评分为1到10
     private String userNickname;
     private String userEmail;
     private int bookId;

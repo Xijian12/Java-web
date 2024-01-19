@@ -21,6 +21,7 @@ import com.github.pagehelper.PageHelper;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.jdbc.Null;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -47,7 +48,8 @@ public class MaterialServiceImpl implements MaterialService {
         material.setMaterialDownloadNum(0);
         material.setCreateTime(LocalDateTime.now());
         material.setUpdateTime(LocalDateTime.now());
-        material.setMaterialCoverUrl(Constants.defaultMaterialCoverUrl);
+        if(material.getMaterialCoverUrl()==null){//如果没有地址，则采用默认封面
+            material.setMaterialCoverUrl(Constants.defaultMaterialCoverUrl);}
         Account account = accountService.findAccountByNameOrEmail(material.getMaterialUploader());
         log.info("account:{}",account);
         if(account != null){
