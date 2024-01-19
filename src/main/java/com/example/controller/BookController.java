@@ -109,7 +109,7 @@ public class BookController {
         if (test.getTotal() >= 1) {
             //如果下载成功，则给上传者积分奖励
             Account account = accountService.findAccountByNameOrEmail(bookobj.getBookUploader());
-            if(account != null){
+            if(account != null && !account.getEmail().equals(bookobj.getBookUploader())){
                 String newUserInfo = accountService.updateUserInfo(account.getUsername(),null,null,account.getPoints()+(int)(Constants.pointRate * bookobj.getBookPoints()));
             }
             //将下载记录加入到表中

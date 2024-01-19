@@ -82,11 +82,18 @@ public void updateBookGrade() {
 
         return bookMapper.getBookObject(userEmail);
     }
-public DownloadBook downloadBook(String userEmail,int bookId){
-    DownloadBook download=new DownloadBook(bookMapper.downloadBook(userEmail,bookId),bookMapper.updateUserPoints(userEmail,bookId));
+    public DownloadBook downloadBook(String userEmail,int bookId){
+        Book book = bookMapper.selectBookById(bookId);
+        DownloadBook download = null;
+        //如果下载的是自己的资料，则不扣积分
+        if(book != null && userEmail.equals(book.getBookUploader())){
+            download = new DownloadBook(bookMapper.downloadBook(userEmail,bookId), 1);
+        }else{
+            download = new DownloadBook(bookMapper.downloadBook(userEmail,bookId),bookMapper.updateUserPoints(userEmail,bookId));
+        }
 
         return download;
-}
+    }
     public List<Book> getAllBooks() {
         return bookMapper.selectAllBooks();
     }

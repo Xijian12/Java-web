@@ -227,9 +227,9 @@ public class MaterialServiceImpl implements MaterialService {
                 break;
             }
         }
-        if(account.getPoints() > points || account.getRole().equals("admin")){
-            if(!account.getRole().equals("admin")){
-                account.setPoints(account.getPoints() - material.getElecBookPoints());
+        if(account.getPoints() > points || account.getRole().equals("admin") || account.getEmail().equals(material.getMaterialUploader())){
+            if(!account.getRole().equals("admin") && !account.getEmail().equals(material.getMaterialUploader())){
+                account.setPoints(account.getPoints() - points);
                 accountService.updateUserInfo(account.getUsername(),account.getUsername(),account.getPassword(),account.getPoints());
             }
             if(fileUuid != null){
@@ -243,7 +243,7 @@ public class MaterialServiceImpl implements MaterialService {
                 //String newFileName = material.
                 //如果下载成功，则给上传者积分奖励
                 Account uploaderAccount = accountService.findAccountByNameOrEmail(material.getMaterialUploader());
-                if(uploaderAccount != null){
+                if(uploaderAccount != null && !account.getEmail().equals(material.getMaterialUploader())){
                     String newUserInfo = accountService.updateUserInfo(uploaderAccount.getUsername(),null,
                            null, uploaderAccount.getPoints() + (int)(Constants.pointRate * points));
                 }
