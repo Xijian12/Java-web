@@ -9,8 +9,15 @@
                   ></el-image>
                 </template>
               </el-table-column>
-        <el-table-column label="书名" prop="bookName">
-        </el-table-column>
+              <el-table-column prop="bookName" label="图书名称" >
+              <template v-slot="{ row }">
+                  <router-link
+                    :to="`/BookDetail/${row.bookId}`"
+                  >
+                    {{ row.bookName }}
+                  </router-link>
+              </template>
+              </el-table-column>
         <el-table-column label="上传者" prop="username">
         </el-table-column>
         <el-table-column label="操作">

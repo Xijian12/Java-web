@@ -15,9 +15,8 @@
               <template v-slot="{ row }">
                   <router-link
                     :to="`/BookDetail/${row.bookId}`"
-                    @click="handleClick(row.bookId)"
                   >
-                    {{ row.name }}
+                    {{ row.bookName }}
                   </router-link>
               </template>
               </el-table-column>

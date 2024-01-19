@@ -113,10 +113,11 @@ import type { FormInstance } from "element-plus";
 import { ElMessageBox, ElMessage } from "element-plus";
 const store = useStore();
 const username = ref(store.state.personalID[0].username)
+const email = ref(store.state.personalID[0].email)
 const userInfo = ref([]);
 let formLabelWidth = 120;
 function initData() {
-    axios.get('/user/userInfo',{params: {username: username.value,}}).then(response => {
+    axios.get('/admin/adminInfoByEmail',{params: {email: email.value,}}).then(response => {
     // 处理成功的响应
     userInfo.value = response.data.data; 
     console.log('成功：', userInfo.value);
@@ -169,10 +170,18 @@ const editUserButton = (formEl: FormInstance | undefined) => {
               },
             });
             initData();
+            initData2(); 
           }
         })
       }
     })
+};
+function initData2() {
+    axios.get('/admin/adminInfoByEmail',{params: {email: email.value,}}).then(response => {
+      store.commit('addUserPic',response.data.data.points);
+      store.commit('addUserName',response.data.data.username);
+  })
+   
 };
 const touxiang =reactive<any>({
     bookCoverUrl:"",

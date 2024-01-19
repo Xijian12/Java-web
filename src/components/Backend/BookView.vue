@@ -82,7 +82,15 @@
                   ></el-image>
                 </template>
               </el-table-column>
-              <el-table-column prop="bookName" label="图书名称" />
+              <el-table-column prop="bookName" label="图书名称" >
+              <template v-slot="{ row }">
+                  <router-link
+                    :to="`/BookDetail/${row.bookId}`"
+                  >
+                    {{ row.bookName }}
+                  </router-link>
+              </template>
+              </el-table-column>
               <el-table-column prop="bookAuthor" label="图书作者"/> 
               <el-table-column prop="bookPublishHouse" label="出版社" />
               <el-table-column prop="bookUploader" label="上传者" />

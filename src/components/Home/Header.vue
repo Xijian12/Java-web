@@ -21,7 +21,7 @@ import {useStore} from 'vuex';
 import axios from "axios";
 const store = useStore();
 const arr = ref(store.state.personalID[0])
-const username = ref(store.state.personalID[0].username)
+const email = ref(store.state.personalID[0].email)
 function userLogout(){
   logout(() => router.push("/"))
 }
@@ -29,7 +29,7 @@ function toPersonal(){
   router.push("/personal/personalMyinfo")
 }
 function initData() {
-    axios.get('/user/userInfo',{params: {username: username.value,}}).then(response => {
+    axios.get('/admin/adminInfoByEmail',{params: {email: email.value,}}).then(response => {
       store.commit('addUserPic',response.data.data.points);
       store.commit('addUserName',response.data.data.username);
   })

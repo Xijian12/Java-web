@@ -84,7 +84,15 @@
               </el-table-column>
               <el-table-column prop="school" label="学校" />
               <el-table-column prop="major" label="专业"/> 
-              <el-table-column prop="subject" label="学科" />
+              <el-table-column prop="subject" label="学科" >
+                <template v-slot="{ row }">
+                  <router-link
+                    :to="`/MaterialDetail/${row.materialId}`"
+                    >
+                    {{ row.subject }}
+                  </router-link>
+                </template>
+              </el-table-column>
               <el-table-column prop="materialUploader" label="上传者" />
               <el-table-column prop="materialDownloadNum" label="下载量" />
               <el-table-column prop="materialClickNum" label="点击量" />
