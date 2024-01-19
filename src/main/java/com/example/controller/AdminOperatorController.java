@@ -53,6 +53,13 @@ public class AdminOperatorController {
         return RestBean.success(adminVo);
     }
 
+    @GetMapping("/adminInfoByEmail")
+    @Operation(summary = "查看管理员信息")
+    public RestBean<DisplayAccountByAdminVO> getAdminInfoByEmail(@RequestParam String email){
+        DisplayAccountByAdminVO adminVo = accountService.adminInfoByEmail(email);
+        return RestBean.success(adminVo);
+    }
+
     @PostMapping("/updateUserInfo")
     @Operation(summary = "修改用户信息")
     public RestBean<String> updateUserInfo(@RequestBody UpdateUserInfoVO request){

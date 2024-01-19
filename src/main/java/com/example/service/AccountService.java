@@ -24,6 +24,8 @@ public interface AccountService extends IService<Account>, UserDetailsService {
 
     DisplayAccountByAdminVO adminInfo(String username) throws UsernameNotFoundException;
 
+    DisplayAccountByAdminVO adminInfoByEmail(String email) throws UsernameNotFoundException;
+
     String userInfoByName(String name);
 
     String updateUserInfo(String username, String newPassword, String password, Integer points);

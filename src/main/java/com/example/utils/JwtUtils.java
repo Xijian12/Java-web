@@ -101,6 +101,7 @@ public class JwtUtils {
      * @param headerToken 请求头中携带的令牌
      * @return DecodedJWT
      */
+    //解析JWT令牌
     public DecodedJWT resolveJwt(String headerToken){
         String token = this.convertToken(headerToken);
         if(token == null) return null;

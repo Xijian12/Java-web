@@ -61,6 +61,7 @@ public class SecurityConfiguration {
                         .requestMatchers("/user/deleteUser").permitAll() // 用户注销
                         .requestMatchers("/admin/deleteUser").permitAll() // 管理员删除用户
                         .requestMatchers("/admin/adminInfo").permitAll() // 添加这一行
+                        .requestMatchers("/admin/adminInfoByEmail").permitAll() // 添加这一行
                         .requestMatchers("/admin/updateUserInfo").permitAll() // 添加这一行
                         .requestMatchers("/admin/updateAvatar").permitAll() // 添加这一行
                         .requestMatchers("/admin/showAllAccounts").permitAll() // 添加这一行

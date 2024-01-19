@@ -80,13 +80,7 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
                 .build();
     }
 
-    /**
-     * 生成注册验证码存入Redis中，并将邮件发送请求提交到消息队列等待发送
-     * @param type 类型
-     * @param email 邮件地址
-     * @param address 请求IP地址
-     * @return 操作结果，null表示正常，否则为错误原因
-     */
+   // 生成注册验证码存入Redis中，并将邮件发送请求提交到消息队列等待发送
     @Override
     public String registerEmailVerifyCode(String type, String email, String address){
         synchronized (address.intern()) {
@@ -177,6 +171,13 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
         return new DisplayAccountByAdminVO(account);
     }
 
+    @Override
+    public DisplayAccountByAdminVO adminInfoByEmail(String email) throws UsernameNotFoundException {
+        Account account = this.findAccountByNameOrEmail(email);
+        if(account == null){
+            throw new UsernameNotFoundException("用户名或密码错误");}
+        return new DisplayAccountByAdminVO(account);
+    }
 
     @Override
     public String userInfoByName(String username) {
@@ -201,6 +202,7 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
         // 根据传入的参数动态设置更新字段
         boolean updateNeeded = false;
         if (newUserName != null && !newUserName.isEmpty() && !newUserName.equals(oldUserName)) {
+            //MyBatis简化CRUD
             updateWrapper.set("username", newUserName);
             updateNeeded = true;
         }
@@ -212,7 +214,6 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
             updateWrapper.set("points", points);
             updateNeeded = true;
         }
-
         // 执行更新操作
         if (updateNeeded) {
             int result = accountMapper.update(null, updateWrapper);
@@ -254,30 +255,17 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
         return false;
     }
 
-    /**
-     * 移除Redis中存储的邮件验证码
-     * @param email 电邮
-     */
+    //移除Redis中存储的邮件验证码
     private void deleteEmailVerifyCode(String email){
         String key = Const.VERIFY_EMAIL_DATA + email;
         stringRedisTemplate.delete(key);
     }
-
-    /**
-     * 获取Redis中存储的邮件验证码
-     * @param email 电邮
-     * @return 验证码
-     */
+    //获取Redis中存储的邮件验证码
     private String getEmailVerifyCode(String email){
         String key = Const.VERIFY_EMAIL_DATA + email;
         return stringRedisTemplate.opsForValue().get(key);
     }
-
-    /**
-     * 针对IP地址进行邮件验证码获取限流
-     * @param address 地址
-     * @return 是否通过验证
-     */
+    //针对IP地址进行邮件验证码获取限流
     private boolean verifyLimit(String address) {
         String key = Const.VERIFY_EMAIL_LIMIT + address;
         return flow.limitOnceCheck(key, verifyLimit);
