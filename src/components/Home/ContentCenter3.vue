@@ -48,7 +48,7 @@
                 <el-button-group style="margin-left: 10px">
                   <el-button @click.stop="addToCart(index)" size="mini" :icon="ShoppingCart"></el-button>
                   <el-button @click.stop="addToCollection(book.bookId)" size="mini" :icon="Star"></el-button>
-                  <el-button @click.stop="" size="mini" :icon="More"></el-button>
+                  <el-button @click.stop="copyPageUrl" size="mini" :icon="More"></el-button>
                 </el-button-group>
               </div>
             </el-card>
@@ -167,7 +167,27 @@ function initData() {
     }
 
 const heightT = ref(748)
+//分享
+const copyPageUrl = ()=> {
+ // 获取当前网页的URL
+ const currentPageUrl = window.location.href;
+  // 创建一个临时textarea元素
+  const textarea = document.createElement('textarea');
+  textarea.value = currentPageUrl;
+  document.body.appendChild(textarea);
 
+  // 选中并复制文本
+  textarea.select();
+  document.execCommand('copy');
+
+  // 移除临时元素
+  document.body.removeChild(textarea);
+  // 这里你可以添加一些反馈，比如提示用户复制成功
+  ElMessage({
+          message: "复制成功",
+          type: "success",
+        });
+}
 
 onMounted(() => {
   initData();

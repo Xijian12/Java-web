@@ -49,7 +49,7 @@
                 :width="150"
                 trigger="hover"
                 content="复制商品链接以分享">
-                <template #reference><el-button stype="success" :icon="Link" circle ></el-button></template>
+                <template #reference><el-button stype="success" :icon="Link" circle @click="copyPageUrl"></el-button></template>
             </el-popover>
           </div>
           <div>
@@ -75,7 +75,7 @@
                 :width="150"
                 trigger="hover"
                 content="复制商品链接以分享">
-                <template #reference><el-button stype="success" :icon="Link" circle ></el-button></template>
+                <template #reference><el-button stype="success" :icon="Link" circle @click="copyPageUrl" ></el-button></template>
             </el-popover>
           </div>
           <div>
@@ -101,7 +101,7 @@
                 :width="150"
                 trigger="hover"
                 content="复制商品链接以分享">
-                <template #reference><el-button stype="success" :icon="Link" circle ></el-button></template>
+                <template #reference><el-button stype="success" :icon="Link" circle @click="copyPageUrl"></el-button></template>
             </el-popover>
           </div>
           <div>
@@ -127,7 +127,7 @@
                 :width="150"
                 trigger="hover"
                 content="复制商品链接以分享">
-                <template #reference><el-button stype="success" :icon="Link" circle ></el-button></template>
+                <template #reference><el-button stype="success" :icon="Link" circle @click="copyPageUrl" ></el-button></template>
             </el-popover>
           </div>
           <div>
@@ -153,7 +153,7 @@
                 :width="150"
                 trigger="hover"
                 content="复制商品链接以分享">
-                <template #reference><el-button stype="success" :icon="Link" circle ></el-button></template>
+                <template #reference><el-button stype="success" :icon="Link" circle @click="copyPageUrl"></el-button></template>
             </el-popover>
           </div>
 
@@ -528,6 +528,27 @@ function deletematerialDialog(row){
     }
 });
 } 
+//分享
+const copyPageUrl = ()=> {
+ // 获取当前网页的URL
+ const currentPageUrl = window.location.href;
+  // 创建一个临时textarea元素
+  const textarea = document.createElement('textarea');
+  textarea.value = currentPageUrl;
+  document.body.appendChild(textarea);
+
+  // 选中并复制文本
+  textarea.select();
+  document.execCommand('copy');
+
+  // 移除临时元素
+  document.body.removeChild(textarea);
+  // 这里你可以添加一些反馈，比如提示用户复制成功
+  ElMessage({
+          message: "复制成功",
+          type: "success",
+        });
+}
 // 格式化日期
 function formatDate(time){
       let date = new Date(time);
