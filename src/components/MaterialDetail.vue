@@ -351,7 +351,7 @@ const initData = async (materialId) => {
     const response = await axios.get(`/material/${materialId}`);
     // 处理成功的响应
     material.value = response.data.data;
-    material.value.materialGrade = material.value.materialGrade / 2;
+    material.value.materialGrade = decimals(material.value.materialGrade / 2);
     checkData[0] = response.data.data;
     category.value = response.data.data.categoryName;
     await initDataCategory(category.value); 
@@ -481,7 +481,7 @@ function handleClick(tab) {
 }
 // 发表评论
 const textarea = ref("")
-const textGrade = ref("")
+const textGrade = ref(1.0)
 function sendCommit(){
   let obj = {
     materialId: router.params.id,

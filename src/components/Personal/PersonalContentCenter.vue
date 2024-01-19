@@ -32,8 +32,8 @@
                         </template>
                         <el-menu-item-group >
                             <template #title></template>
-                            <!-- <el-menu-item index="/personal/favorite"><el-icon><StarFilled/></el-icon>我的收藏</el-menu-item>
-                            <el-menu-item index="/personal/publishRecord"><el-icon><Collection /></el-icon>下载记录</el-menu-item> -->
+                             <el-menu-item index="/personal/favoriteMaterial"><el-icon><StarFilled/></el-icon>我的收藏</el-menu-item>
+                            <el-menu-item index="/personal/publishRecordMaterial"><el-icon><Collection /></el-icon>下载记录</el-menu-item> 
                             <el-menu-item index="/personal/publishMaterial"><el-icon><Sell /></el-icon>发布资料</el-menu-item>
                         </el-menu-item-group>
                     </el-sub-menu>

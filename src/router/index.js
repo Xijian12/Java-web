@@ -140,6 +140,7 @@ const router = createRouter({
                     meta: { show: false },
                     component: () => import('@/components/Personal/main/bookManage/FavoriteBook.vue')
                 },
+                
                 {
                     path: "publish",
                     name: 'publish',
@@ -157,7 +158,7 @@ const router = createRouter({
                     name: 'publishrecord',
                     meta: { show: false },
                     component: () => import("@/components/Personal/main/bookManage/PublishRecord.vue")
-                },
+                }, 
                 {
                     path: "buyrecord",
                     name: 'buyrecord',
@@ -170,6 +171,18 @@ const router = createRouter({
                     meta: { show: false },
                     component: () => import("@/components/Personal/main/orderManage/sellRecords.vue")
                 },
+                {
+                  path: "publishrecordMaterial",
+                  name: 'publishrecordMaterial',
+                  meta: { show: false },
+                  component: () => import("@/components/Personal/main/bookManage/PublishRecordMaterial.vue")
+              },
+                {
+                  name: 'favoriteMaterial',
+                  path: 'favoriteMaterial',
+                  meta: { show: false },
+                  component: () => import('@/components/Personal/main/bookManage/FavoriteMaterial.vue')
+              },
             ]
         },
         //后台

@@ -4,7 +4,7 @@
       <span style="color:red;">{{arr.username}}</span>
       <!-- <img class="Header_content_left_image" :src="arr" alt=""> -->
     
-    <span style="margin-left: 200px;" v-if="arr">我的积分：￥<span style="ma;color:red;font-size:18px;">{{arr.points}}</span></span>
+    <span style="margin-left: 200px;" v-if="arr">我的积分：￥<span style="color:red;font-size:18px;">{{arr.points}}</span></span>
     <span style="margin-left: 200px;" @click="toPersonal">{{"个人中心"}}</span>
   </span>
     <div>
@@ -14,19 +14,30 @@
 </template>
 
 <script setup>
-import {ref} from 'vue'
+import {ref,onMounted} from 'vue'
 import {logout} from "@/net"
 import router from "@/router"
 import {useStore} from 'vuex';
-
+import axios from "axios";
 const store = useStore();
 const arr = ref(store.state.personalID[0])
+const username = ref(store.state.personalID[0].username)
 function userLogout(){
   logout(() => router.push("/"))
 }
 function toPersonal(){
   router.push("/personal/personalMyinfo")
 }
+function initData() {
+    axios.get('/user/userInfo',{params: {username: username.value,}}).then(response => {
+      store.commit('addUserPic',response.data.data.points);
+      store.commit('addUserName',response.data.data.username);
+  })
+   
+};
+onMounted(() => {
+  initData();
+});
 
 </script>
 

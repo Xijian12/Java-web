@@ -139,7 +139,7 @@
       <div id="detail-comment">
             <span slot="label"><el-icon><Comment /></el-icon> 商品评论</span>
             <span style="margin-left: 380px;"> 商品总分：</span>
-            <el-rate style="margin-left: 20px;" v-model="book.bookGrade " :colors="colors" :max="5" show-score disabled></el-rate>
+            <el-rate style="margin-left: 20px;" v-model="book.bookGrade" :colors="colors" :max="5" show-score disabled></el-rate>
             <div v-if="commentData.length>0" class="comment-content">
               <el-table :data="commentData"  style="width: 100%">
                 <el-table-column width="200px">
@@ -254,7 +254,7 @@ const initData = async (bookId) => {
     const response = await axios.get(`/book/${bookId}`);
     // 处理成功的响应
     book.value = response.data.data;
-    book.value.bookGrade = book.value.bookGrade / 2;
+    book.value.bookGrade = decimals(book.value.bookGrade / 2);
     checkData[0] = response.data.data;
     category.value = response.data.data.categoryName;
     await initDataCategory(category.value); 
@@ -370,7 +370,7 @@ function handleClick(tab) {
 }
 // 发表评论
 const textarea = ref("")
-const textGrade = ref("")
+const textGrade = ref(1.0)
 function sendCommit(){
   let obj = {
     bookId: router.params.id,
@@ -451,7 +451,6 @@ watch(() => router.params.id,
         window.location.reload()
       }
 );
-
 </script>
 <style>
 #wrap {

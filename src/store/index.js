@@ -21,6 +21,9 @@ const store = createStore({
     },
     addUserPic(state, value){
       state.personalID[0].points=value;
+    },
+    addUserName(state, value){
+      state.personalID[0].username=value;
     }
   },
   actions: {
@@ -32,6 +35,9 @@ const store = createStore({
     },
     addUserPic(context, value) {
       context.commit("addUserPic", value);
+    },
+    addUserName(context, value) {
+      context.commit("addUserName", value);
     }
   },
   getters: {

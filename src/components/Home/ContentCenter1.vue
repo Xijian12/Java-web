@@ -40,70 +40,70 @@
               <div class="cate_list_box">
                 <li>
                   <div class="firstcatename">
-                    <a href="/SearchDisplay/经济管理" title="经济管理" target="_blank">经济管理</a>
+                    <a href="/SearchDisplay/经济管理" title="经济管理"   >经济管理</a>
                   </div>
                   <span class="catelist">
-                  <a href="/SearchDisplay/管理学" title="" target="_blank">管理学</a>
-                  <a href="/SearchDisplay/金融投资" title="" target="_blank">金融投资</a>
-                  <a href="/SearchDisplay/市场营销" title="" target="_blank">市场营销</a>
-                  <a href="/SearchDisplay/保险" title="" target="_blank">保险</a>
-                  <a href="/SearchDisplay性格情绪" title="" target="_blank">性格情绪</a>
-                  <a href="/SearchDisplay/财会专业" title="" target="_blank">财会专业</a></span>
+                  <a href="/SearchDisplay/管理学" title=""   >管理学</a>
+                  <a href="/SearchDisplay/金融投资" title=""   >金融投资</a>
+                  <a href="/SearchDisplay/市场营销" title=""   >市场营销</a>
+                  <a href="/SearchDisplay/保险" title=""   >保险</a>
+                  <a href="/SearchDisplay性格情绪" title=""   >性格情绪</a>
+                  <a href="/SearchDisplay/财会专业" title=""   >财会专业</a></span>
                 </li>
         <li>
           <div class="firstcatename">
-            <a href="pdf-class-2-0-0.html" title="成功励志" target="_blank">成功励志</a>
+            <a href="pdf-class-2-0-0.html" title="成功励志"   >成功励志</a>
           </div>
           <span class="catelist ">
-            <a href="/SearchDisplay/成功学" title="" target="_blank">成功学</a>
-            <a href="/SearchDisplay/职场" title="" target="_blank">职场</a>
-            <a href="/SearchDisplay/演讲口才" title="" target="_blank">演讲口才</a>
-            <a href="/SearchDisplay/人际交往" title="" target="_blank">人际交往</a>
-            <a href="/SearchDisplay/个人修养" title="" target="_blank">个人修养</a> 
-            <a href="/SearchDisplay/励志书籍" title="" target="_blank">励志书籍</a></span>
+            <a href="/SearchDisplay/成功学" title=""   >成功学</a>
+            <a href="/SearchDisplay/职场" title=""   >职场</a>
+            <a href="/SearchDisplay/演讲口才" title=""   >演讲口才</a>
+            <a href="/SearchDisplay/人际交往" title=""   >人际交往</a>
+            <a href="/SearchDisplay/个人修养" title=""   >个人修养</a> 
+            <a href="/SearchDisplay/励志书籍" title=""   >励志书籍</a></span>
         </li>
         <li>
           <div class="firstcatename">
-            <a href="/SearchDisplay人物传记" title="人物传记" target="_blank">人物传记</a>
+            <a href="/SearchDisplay人物传记" title="人物传记"   >人物传记</a>
           </div>
           <span class="catelist ">
-            <a href="/SearchDisplay/人物传记" title="" target="_blank">人物传记</a>
-            <a href="/SearchDisplay/世界各国史" title="" target="_blank">世界各国史</a>
-            <a href="/SearchDisplay/世界各国史" title="" target="_blank">中国文人史</a>
-            <a href="/SearchDisplay/中国史" title="" target="_blank">中国史</a></span>
+            <a href="/SearchDisplay/人物传记" title=""   >人物传记</a>
+            <a href="/SearchDisplay/世界各国史" title=""   >世界各国史</a>
+            <a href="/SearchDisplay/世界各国史" title=""   >中国文人史</a>
+            <a href="/SearchDisplay/中国史" title=""   >中国史</a></span>
         </li>
         <li>
           <div class="firstcatename">
-            <a href="/SearchDisplay/计算机书籍" title="计算机书籍" target="_blank">计算机书籍</a>
+            <a href="/SearchDisplay/计算机书籍" title="计算机书籍"   >计算机书籍</a>
           </div>
           <span class="catelist ">
-            <a href="/SearchDisplay/操作系统" title="" target="_blank">操作系统</a>
-            <a href="/SearchDisplay/数据库<" title="" target="_blank">数据库</a>
-            <a href="/SearchDisplay/信息安全" title="" target="_blank">信息安全</a>
-            <a href="/SearchDisplay/程序设计" title="" target="_blank">程序设计</a>
-            <a href="/SearchDisplay/软件开发" title="" target="_blank">软件开发</a>
-            <a href="/SearchDisplay/人工智能" title="" target="_blank">人工智能</a>
-            <a href="/SearchDisplay/面设计" title="" target="_blank">平面设计</a>
-            <a href="/SearchDisplay/网络通信" title="" target="_blank">网络通信</a>
-            <a href="/SearchDisplay/家庭办公" title="" target="_blank">家庭办公</a>
-            <a href="/SearchDisplay/计算机语言" title="" target="_blank">计算机语言</a></span>
+            <a href="/SearchDisplay/操作系统" title=""   >操作系统</a>
+            <a href="/SearchDisplay/数据库<" title=""   >数据库</a>
+            <a href="/SearchDisplay/信息安全" title=""   >信息安全</a>
+            <a href="/SearchDisplay/程序设计" title=""   >程序设计</a>
+            <a href="/SearchDisplay/软件开发" title=""   >软件开发</a>
+            <a href="/SearchDisplay/人工智能" title=""   >人工智能</a>
+            <a href="/SearchDisplay/面设计" title=""   >平面设计</a>
+            <a href="/SearchDisplay/网络通信" title=""   >网络通信</a>
+            <a href="/SearchDisplay/家庭办公" title=""   >家庭办公</a>
+            <a href="/SearchDisplay/计算机语言" title=""   >计算机语言</a></span>
         </li>
         <li>
           <div class="firstcatename">
-            <a href="/SearchDisplay/人文社科类<" title="人文社科类" target="_blank">人文社科类</a>
+            <a href="/SearchDisplay/人文社科类<" title="人文社科类"   >人文社科类</a>
           </div>
           <span class="catelist keke_doc_clearfix">
-            <a href="/SearchDisplay/社会科学" title="" target="_blank">社会科学</a>
-            <a href="/SearchDisplay/心理学" title="" target="_blank">心理学</a>
-            <a href="/SearchDisplay/宗教" title="" target="_blank">宗教</a>
-            <a href="/SearchDisplay/法律" title="" target="_blank">法律</a>
-            <a href="/SearchDisplay/政治军事" title="" target="_blank">政治军事</a>
-            <a href="/SearchDisplay/文化" title="" target="_blank">文化</a>
-            <a href="/SearchDisplay/教育考试" title="" target="_blank">教育考试</a>
-            <a href="/SearchDisplay/古籍<" title="" target="_blank">古籍</a></span>
+            <a href="/SearchDisplay/社会科学" title=""   >社会科学</a>
+            <a href="/SearchDisplay/心理学" title=""   >心理学</a>
+            <a href="/SearchDisplay/宗教" title=""   >宗教</a>
+            <a href="/SearchDisplay/法律" title=""   >法律</a>
+            <a href="/SearchDisplay/政治军事" title=""   >政治军事</a>
+            <a href="/SearchDisplay/文化" title=""   >文化</a>
+            <a href="/SearchDisplay/教育考试" title=""   >教育考试</a>
+            <a href="/SearchDisplay/古籍<" title=""   >古籍</a></span>
         </li>
         <div class="openmore">
-          <a href="/SearchDisplay/1" target="_blank">查看全部文档</a>
+          <a href="/SearchDisplay/1"   >查看全部文档</a>
         </div>
               </div>
             </div>
@@ -124,72 +124,22 @@
 
           <el-button
             v-for="button in buttons"
-            :key="button.text"
+            :key="button.categoryName"
             text
             bg
             class="custom-button"
-            @click="searchBook(button.text)"
-            >{{ button.text }}</el-button>
+            @click="searchBook(button.categoryName)"
+            >{{ button.categoryName }}</el-button>
             <div style="margin-top: 20px;margin-left: 85px;">
               <el-button
             v-for="button in buttons2"
-            :key="button.text"
+            :key="button.categoryName"
             text
             bg
             class="custom-button"
-            @click="searchBook(button.text)"
-            >{{ button.text }}</el-button>
+            @click="searchBook(button.categoryName)"
+            >{{ button.categoryName }}</el-button>
             </div>
-            
-
-          <!-- <a href="/SearchDisplay/程序设计" target="_blank">程序设计</a>
-          <a href="/SearchDisplay/古籍" target="_blank">古籍</a>
-          <a href="/SearchDisplay/编程" target="_blank">编程</a>
-          <a href="/SearchDisplay/教程" target="_blank">教程</a>
-          <a href="/SearchDisplay/家庭" target="_blank">家庭</a>
-          <a href="/SearchDisplay/百科" target="_blank">百科</a>
-          <a href="/SearchDisplay/金融" target="_blank">金融</a>
-          <a href="/SearchDisplay/设计" target="_blank">设计</a>
-          <a href="/SearchDisplay/Python" target="_blank">Python</a>
-          <a href="/SearchDisplay/文化" target="_blank">文学</a>
-          <a href="/SearchDisplay/科技" target="_blank">科技</a>
-          <a href="/SearchDisplay/社会" target="_blank">社会</a>
-          <a href="/SearchDisplay/网络" target="_blank">网络</a>
-          <a href="/SearchDisplay/计算机" target="_blank">计算机</a> -->
-          <!-- <a href="/SearchDisplay/管理" target="_blank">管理</a>
-          <a href="/SearchDisplay/科学" target="_blank">科学</a>
-          <a href="/SearchDisplay/文学" target="_blank">文学</a>
-          <a href="/SearchDisplay/财经" target="_blank">财经</a>
-          <a href="/SearchDisplay/设计" target="_blank">设计</a>
-          <a href="/SearchDisplay/教育" target="_blank">教育</a>
-          <a href="/SearchDisplay/成功" target="_blank">成功</a>
-          <a href="/SearchDisplay/励志" target="_blank">励志</a>
-          <a href="/SearchDisplay/技术" target="_blank">技术</a>
-          <a href="/SearchDisplay/投资" target="_blank">投资</a>
-          <a href="/SearchDisplay/哲学" target="_blank">哲学</a>
-          <a href="/SearchDisplay/军事" target="_blank">军事</a>
-          <a href="/SearchDisplay/社会科学" target="_blank">社会科学</a>
-          <a href="/SearchDisplay/程序设计" target="_blank">程序设计</a>
-          <a href="/SearchDisplay/个人理财" target="_blank">个人理财</a>
-          <a href="/SearchDisplay/数据" target="_blank">数据</a>
-          <a href="/SearchDisplay/小说" target="_blank">小说</a>
-          <a href="/SearchDisplay/家居" target="_blank">家居</a>
-          <a href="/SearchDisplay/电子" target="_blank">电子</a>
-          <a href="/SearchDisplay/科普" target="_blank">科普</a>
-          <a href="/SearchDisplay/摄影" target="_blank">摄影</a>
-          <a href="/SearchDisplay/传记" target="_blank">传记</a>
-          <a href="/SearchDisplay/佛教" target="_blank">佛教</a>
-          <a href="/SearchDisplay/娱乐" target="_blank">娱乐</a>
-          <a href="/SearchDisplay/少儿" target="_blank">少儿</a>
-          <a href="/SearchDisplay/学习" target="_blank">学习</a>
-          <a href="/SearchDisplay/经济学" target="_blank">经济学</a>
-          <a href="/SearchDisplay/编程" target="_blank">编程</a>
-          <a href="/SearchDisplay/互联网" target="_blank">互联网</a>
-          <a href="/SearchDisplay/旅游" target="_blank">旅游</a>
-          <a href="/SearchDisplay/中国史" target="_blank">中国史</a>
-          <a href="/SearchDisplay/散文" target="_blank">散文</a>
-          <a href="/SearchDisplay/自然科学" target="_blank">自然科学</a>
-          <a href="/SearchDisplay/中国古代史" target="_blank">中国古代史</a>                  -->
         </div>
             </div>
           </div>
@@ -256,10 +206,13 @@
 </template>
 
 <script setup>
-import {ref} from 'vue'
-import {useStore} from 'vuex'
+import {ref, onMounted} from 'vue'
 import router from "@/router"
+import axios from "axios";
+import {useStore} from 'vuex';
+const userInfo = ref([]);
 const store = useStore();
+const username = ref(store.state.personalID[0].username)
 const guanbi = ref(false)
 const guanbi1 = ref(false)
 const guanbi2 = ref(false)
@@ -269,20 +222,8 @@ const carouselData = ref([
   { id: 2, imageUrl: 'src/assets/images/background.jpeg', number: 2 },
   { id: 3, imageUrl: 'src/assets/images/jinxuan.jpg', number: 3 },
 ]);
-const buttons = [
-  { type: '', text: '程序设计' },
-  { type: 'primary', text: '计算机' },
-  { type: 'success', text: '互联网' },
-  { type: 'info', text: '百科' },
-  { type: 'warning', text: '经济学' },
-]
-const buttons2 = [
-  { type: '', text: '文学' },
-  { type: 'primary', text: '社会科学' },
-  { type: 'success', text: '中国史' },
-  { type: 'info', text: '自然科学' },
-  { type: 'warning', text: '电子' },
-]
+const buttons = ref();
+const buttons2 = ref();
 const buttons3 = [
   { type: '', text: '深圳最繁荣大学' },
   { type: 'primary', text: '杭州最宜居大学  ' },
@@ -290,6 +231,25 @@ const buttons3 = [
   // { type: 'info', text: '南京最牛大学' },
   { type: 'warning', text: '上海最菜大学' },
 ]
+
+// 搜索图书类别
+function searchBookCategory() {
+  axios.get("/category",{
+      params:{
+      page: 1,
+      pageSize: 5}
+    }).then((resp) => {
+      buttons.value = resp.data;
+    });
+  axios.get("/category",{
+      params:{
+      page: 2,
+      pageSize: 5}
+    }).then((resp) => {
+      buttons2.value = resp.data;
+    });
+};
+searchBookCategory();
 const yiru = () =>  {
       guanbi.value = !guanbi.value
       guanbi1.value = !guanbi1.value
@@ -334,6 +294,16 @@ function searchBook(path){
 function searchMaterial(path){
   router.push({name:"SearchDisplayMaterial", params: {id: path}})
 }
+function initData() {
+    axios.get('/user/userInfo',{params: {username: username.value,}}).then(response => {
+    // 处理成功的响应
+    userInfo.value = response.data.data; 
+  })
+   
+};
+onMounted(() => {
+  initData();
+});
 </script>
 
 <style scoped>

@@ -6,7 +6,7 @@
             </div>      
             <el-descriptions class="margin-top" title="我的信息" :column="1" size="medium" border>
                 <template #extra>
-                    <el-button type="primary" @click="editDialogVisible=true">修改信息</el-button>
+                    <el-button type="primary" @click="editFromButton(editUserFormRef)">修改信息</el-button>
                 </template>
                 <el-descriptions-item>
                     <template #label>
@@ -35,62 +35,87 @@
   
         <!-- 弹窗表单区域 -->
         <div>
-            <el-dialog title="修改信息" v-model="editDialogVisible" width="500px">
-                <el-form :model="editForm" :rules="editFormRules" ref="editFormRef" label-width="80px">
-                    <el-form-item label="用户名" prop="userName">
-                        <el-input v-model="editForm.userName" disabled></el-input>
-                    </el-form-item>
-                    <el-form-item label="手机号" prop="userPhone">
-                        <el-input v-model="editForm.userPhone"></el-input>
-                    </el-form-item>
-                    <el-form-item label="邮箱" prop="userEmail">
-                        <el-input v-model="editForm.userEmail"></el-input>
-                    </el-form-item>
-                    <el-form-item label="收货地址" prop="userAddress">
-                        <el-input v-model="editForm.userAddress" type="textarea"
-                            :autosize="{ minRows: 2, maxRows: 4 }"></el-input>
-                    </el-form-item>
-                </el-form>
-                <span slot="footer" class="dialog_footer">
-                    <el-button @click="editDialogVisible = false">取消</el-button>
-                    <el-button type="primary" @click="editUserInfo">保存</el-button>
-                </span>
-            </el-dialog>
+            <el-dialog
+          v-model="editUserFormVisible"
+          title="编辑用户"
+          class="edit-user-dialog"
+          width="500px"
+          :close-on-click-modal="false"
+        >
+          <el-form
+            :model="editUserForm"
+            ref="editUserFormRef"
+            class="edit-user-form"
+          >
+            <el-form-item
+              label="用户名"
+              :label-width="formLabelWidth"
+              prop="username"
+            >
+              <el-input
+                v-model="editUserForm.username"
+                autocomplete="off"
+                disabled
+              ></el-input>
+            </el-form-item>
+            <el-form-item
+              label="新用户名"
+              :label-width="formLabelWidth"
+              prop="newUserName"
+            >
+              <el-input
+                v-model="editUserForm.newUserName"
+                autocomplete="off"
+              ></el-input>
+            </el-form-item>
+            <el-form-item
+              label="密码"
+              :label-width="formLabelWidth"
+              prop="password"
+            >
+              <el-input
+                v-model="editUserForm.newPassword"
+                type="password"
+                autocomplete="off"
+              ></el-input>
+            </el-form-item>
+            <el-form-item style="margin-left: 70px;" label="头像上传" prop="pictures">
+            <el-upload class="box_upload"  :auto-upload="false" action="/upload/uploadBookcover" name="bookCover" :http-request="uploadFile"
+            accept="" list-type="picture" :limit="4" :on-exceed="exceed" ref="uploadRef" 
+            :show-file-list="true" :on-change="imgPreview" :before-upload="beforeAvatarUpload" multiple>
+            <el-button size="small" type="primary">点击上传</el-button>
+            </el-upload>
+            </el-form-item>
+          </el-form>
+          <template #footer>
+            <span class="dialog-footer">
+              <el-button @click="editUserFormVisible = false">取消</el-button>
+              <el-button
+                type="primary"
+                @click="editUserButton(editUserFormRef)"
+              >
+                编辑
+              </el-button>
+            </span>
+          </template>
+        </el-dialog>
         </div>
     </div>
   
     <!-- 弹窗表单区域 -->
 </template>
     
-<script setup>  
-import {ref, onMounted} from 'vue'
+<script lang="ts" setup>  
+import {ref,reactive, onMounted} from 'vue'
 import axios from "axios";
 import {useStore} from 'vuex';
+import type { FormInstance } from "element-plus";
+import { ElMessageBox, ElMessage } from "element-plus";
 const store = useStore();
 const username = ref(store.state.personalID[0].username)
 const userInfo = ref([]);
-const editDialogVisible = ref(false);
-const editForm = ref({
-                userName: "",
-                userEmail: "",
-                userPhone: "",
-                userAddress: "",
-            });
-const editFormRules = ref({
-                userEmail: [
-                    { required: true, message: "请输入正确的邮箱！", trigger: 'blur', pattern: /^([a-zA-Z0-9]+[-_\.]?)+@[a-zA-Z0-9]+\.[a-z]+$/ }
-                ],
-                userPhone: [
-                    { required: true, message: "请输入正确的手机号！", trigger: 'blur', pattern: /^((0\d{2,3}-\d{7,8})|(1[34578]\d{9}))$/ }
-                ],
-                userAddress: [
-                    { required: true, message: "请输入正确的地址！", trigger: 'blur', pattern: /^[\u0391-\uFFE5A-Za-z]+$/ }
-                ]
-            }
-  );
-
+let formLabelWidth = 120;
 function initData() {
-    console.log("cacac",username.value)
     axios.get('/user/userInfo',{params: {username: username.value,}}).then(response => {
     // 处理成功的响应
     userInfo.value = response.data.data; 
@@ -98,23 +123,102 @@ function initData() {
   })
    
 };
+// 编辑用户对话框
+let editUserFormVisible = ref(false);
+const editFromButton = (formEl: FormInstance) => {
+  editUserFormVisible.value = true;
+  editUserForm = reactive(JSON.parse(JSON.stringify(userInfo.value)));
+  if (!formEl) return;
+  formEl.resetFields();
+};
 
-  
-        //保存修改后的表单信息
- function editUserInfo() {
-            this.$refs.editFormRef.validate(async valid => {
-                if (!valid) return;
-                //发起修改请求
-              const { data: res } = await this.$http.put("updateuser", this.editForm);
-                if (res.errcode != "0") {
-                    return this.$message.error("修改失败！");
-                } else {
-                    this.$message.success("修改成功！");
-                    this.editDialogVisible = false;
-                    this.userInfo = res.result;
-                }
-            })
-        }
+// 编辑用户表单
+const editUserFormRef = ref<FormInstance>();
+let editUserForm = reactive({
+  username: "",
+  newUserName: "",
+  newPassword: "",
+  points: "",
+});
+const uploadRef = ref()
+// 编辑用户按钮
+const editUserButton = (formEl: FormInstance | undefined) => {
+  if (!formEl) return;
+  formEl.validate((valid) => {
+    if (valid) {
+      let obj = {
+        oldUserName: editUserForm.username,
+        newUserName: editUserForm.newUserName,
+        newPassword: editUserForm.newPassword,
+      }
+      uploadRef.value.submit();
+      axios.post("/admin/updateUserInfo", obj).then((resp) => {
+          const code = resp.data.code;
+          // 编辑失败
+          if (code == 400) {
+            ElMessageBox.alert("编辑用户失败，请重试", "信息", {
+              confirmButtonText: "确认",
+            });
+          }
+          // 编辑成功
+          if (code == 200) {
+            ElMessageBox.alert("编辑成功", "信息", {
+              confirmButtonText: "确认",
+              callback: () => {
+                editUserFormVisible.value = false;
+              },
+            });
+            initData();
+          }
+        })
+      }
+    })
+};
+const touxiang =reactive<any>({
+    bookCoverUrl:"",
+    bookFileUuid:"",
+});
+function uploadFile(param) {
+    const uploadForm1 = new FormData();
+    uploadForm1.append('avatar', param.file );
+    uploadForm1.append('username', username.value );   
+    // 发送上传请求
+    axios.post("/upload/updateAvatar", uploadForm1)
+        .then(response => {
+          // 处理成功响应
+          touxiang.bookCoverUrl = response.data.data[0]
+          touxiang.bookFileUuid = response.data.data[1]
+        })
+        .catch(error => {
+          // 处理错误
+          console.error(error);
+        });
+}
+function exceed(files, fileList) {
+    return ElMessage.error("最多上传4张图片！");
+}
+function imgPreview(file, fileList) {
+              let fileName = file.name;
+              let regex = /(.jpg|.jpeg|.png)$/;
+              if (regex.test(fileName.toLowerCase())) {
+                  let picUrl = URL.createObjectURL(file.raw);
+                  touxiang.files = fileList;
+              } else {
+                  //移除最后一个元素
+                  fileList.pop();
+                  ElMessage.error('请注意图片格式！');
+              }
+}
+function beforeAvatarUpload(file) { 
+              const isLt2M = file.size / 1024 / 1024 < 4;
+              if (!isLt2M) {
+                ElMessage({
+                      message: '上传文件大小不能超过 4MB!',
+                      type: 'warning'
+                  });
+              }
+              return isLt2M
+}
 onMounted(() => {
   initData();
 });
