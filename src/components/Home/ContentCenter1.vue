@@ -154,17 +154,29 @@
               <el-button type="submit" @click="SearchDisplayMaterialVue()">搜索</el-button>
             </form>
           </div>
-          <div class="hotkeyword" style="margin-top: 40px;">
+          <div class="hotkeyword" >
           热门搜索：
 
           <el-button
-            v-for="button in buttons3"
-            :key="button.text"
+            v-if="buttons3 && buttons3.length > 0" 
+            v-for="(button, index) in buttons3.slice(0,3)" 
+            :key="index"
             text
             bg
             class="custom-button2"
-            @click="searchMaterial(button.text)"
-            >{{ button.text }}</el-button>
+            @click="searchMaterial(button.school)"
+            >{{ button.school }}</el-button>
+            <div style="margin-top: 20px;margin-left: 85px;">
+          <el-button
+            v-if="buttons3 && buttons3.length > 0"
+            v-for="(button, index) in buttons3.slice(3,6)" 
+            :key="index"
+            text
+            bg
+            class="custom-button2"
+            @click="searchMaterial(button.school)"
+            >{{ button.school }}</el-button>
+          </div>
         </div>
             </div>
           </div>
@@ -224,13 +236,7 @@ const carouselData = ref([
 ]);
 const buttons = ref();
 const buttons2 = ref();
-const buttons3 = [
-  { type: '', text: '深圳最繁荣大学' },
-  { type: 'primary', text: '杭州最宜居大学  ' },
-  // { type: 'success', text: '武汉最古老大学' },
-  // { type: 'info', text: '南京最牛大学' },
-  { type: 'warning', text: '上海最菜大学' },
-]
+const buttons3 = ref();
 
 // 搜索图书类别
 function searchBookCategory() {
@@ -247,6 +253,10 @@ function searchBookCategory() {
       pageSize: 5}
     }).then((resp) => {
       buttons2.value = resp.data;
+    });
+  axios.get("/material/highest/6"
+      ).then((resp) => {
+      buttons3.value = resp.data.data;
     });
 };
 searchBookCategory();
@@ -527,7 +537,7 @@ onMounted(() => {
   width: 100px; /* 替换为你想要的宽度值 */
 }
 .custom-button2 {
-  width: 150px; /* 替换为你想要的宽度值 */
+  width: 160px; /* 替换为你想要的宽度值 */
 }
 
 </style>
