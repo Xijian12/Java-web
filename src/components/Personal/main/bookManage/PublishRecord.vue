@@ -75,7 +75,6 @@ function initData() {
           message: message,
           type: "success",
         });
-      initDataCommit(router.params.id);
     }
     if (code == 400) {
         ElMessage({
@@ -124,6 +123,10 @@ function deleteBookDialog(downloadId) {
 onMounted(() => {
   initData();
 });
+function pagechange(val) {
+  pageNum.value = val;
+  initData();
+}
 </script>
     
 <style lang="less" scoped>

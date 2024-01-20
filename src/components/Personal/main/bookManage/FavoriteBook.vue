@@ -71,7 +71,6 @@ function getFavoritesList() {
           message: message,
           type: "success",
         });
-      initDataCommit(router.params.id);
     }
     if (code == 400) {
         ElMessage({
@@ -111,7 +110,7 @@ onMounted( () => {
 // 翻页功能
 function pagechange(val) {
   pageNum.value = val;
-  initDataCommit(router.params.id);
+  getFavoritesList();
 }
 
   </script>

@@ -97,7 +97,8 @@
       <el-pagination
           background
           layout="prev, pager, next"
-          :page-size="12"
+          v-model:current-page="pageNum"
+          v-model:page-size="pageSize"
           :total="total"
           @current-change="pagechange">
       </el-pagination>
@@ -118,7 +119,7 @@ const total = ref(1);
     // 翻页功能
 function pagechange(val) {
   pageNum.value = val;
-  initDataCategory(router.params.id);
+  initDataCategory(route.params.id);
 }
     // 保留一位小数
 function decimals(value) {

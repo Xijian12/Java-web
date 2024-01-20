@@ -320,7 +320,7 @@
                 <el-button @click.stop="BookDetail(book.bookId)" size="medium" type="primary" plain>查看详情</el-button>
                 <el-button-group style="margin-left: 10px">
                   <el-button @click.stop="addToCart(index)" size="mini" :icon="ShoppingCart"></el-button>
-                  <el-button @click.stop="addToCollection(index)" size="mini" :icon="Star"></el-button>
+                  <el-button @click.stop="addToCollection(book.bookId)" size="mini" :icon="Star"></el-button>
                   <el-button @click.stop="" size="mini" :icon="More"></el-button>
                 </el-button-group>
               </div>
@@ -338,7 +338,8 @@
       <el-pagination
           background
           layout="prev, pager, next"
-          :page-size="12"
+          v-model:current-page="pageNum"
+          v-model:page-size="pageSize"
           :total="total"
           @current-change="pagechange">
       </el-pagination>
@@ -381,7 +382,7 @@
                 <el-button @click.stop="MaterialDetail(book.materialId)" size="medium" type="primary" plain>查看详情</el-button>
                 <el-button-group style="margin-left: 10px">
                   <el-button @click.stop="addToCart(index)" size="mini" :icon="ShoppingCart"></el-button>
-                  <el-button @click.stop="addToCollection(index)" size="mini" :icon="Star"></el-button>
+                  <el-button @click.stop="addToCollection(book.bookId)" size="mini" :icon="Star"></el-button>
                   <el-button @click.stop="" size="mini" :icon="More"></el-button>
                 </el-button-group>
               </div>
@@ -399,9 +400,10 @@
       <el-pagination
           background
           layout="prev, pager, next"
-          :page-size="12"
+          v-model:current-page="pageNum"
+          v-model:page-size="pageSize"
           :total="total"
-          @current-change="pagechange">
+          @current-change="pagechange(page)">
       </el-pagination>
     </div>
   </div>
@@ -413,9 +415,12 @@ import Header from "@/components/Home/Header.vue";
 import { ref, onMounted, watch } from 'vue';
 import axios from "axios";
 import { useRoute, useRouter } from 'vue-router';
+import {useStore} from 'vuex';
 // 控制图书和资料
 const state = ref(true)
 const route = useRoute();
+const store = useStore();
+const email = ref(store.state.personalID[0].email)
 const router = useRouter();
 const total = ref(1);
 const books = ref({
@@ -432,7 +437,7 @@ const books = ref({
     // 翻页功能
 function pagechange(val) {
   pageNum.value = val;
-  initDataCategory(router.params.id);
+  initDataCategory(route.params.id);
 }
     // 保留一位小数
 function decimals(value) {
@@ -486,7 +491,27 @@ const initDataCategory = async (categoryName) => {
 function goBack() {
   router.push("/home");
 }
- 
+ // 加入收藏
+function addToCollection(bookId){
+      let obj ={
+        userEmail:email.value,
+        bookId: bookId,
+      }
+      axios.post("/book/collectRecord", obj)
+            .then((resp) => {
+              if (resp.data.code === 0) {
+                ElMessage({
+                  showClose: true, type: 'success',
+                  message: '添加成功！'
+                });
+              } else {
+                ElMessage({
+                  showClose: true, type: 'error',
+                  message: resp.data.msg
+                });
+              }
+            });
+}
 // 图书资料查询
 const collapseVisible = ref(true)
 const selectedOptionsRef = ref([])
