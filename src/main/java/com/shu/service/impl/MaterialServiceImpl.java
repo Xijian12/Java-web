@@ -449,12 +449,30 @@ public class MaterialServiceImpl implements MaterialService {
     }
 
     //给对应资料增加下载量
+    @Override
     public void addMaterialDownloadNum(Integer newMaterialDownloadNum, Integer materialId){
         materialMapper.updateMaterialDownloadNum(newMaterialDownloadNum,materialId);
     }
 
     //修该资料评论表的用户名
+    @Override
     public void updateUsername(String oldUserName, String newUserName){
         materialMapper.updateUsername(oldUserName,newUserName);
+    }
+
+    //根据学校、专业、学科三者模糊查询
+    @Override
+    public MaterialPage queryMaterialBySchMajorSub(String schMajorSub, Integer page, Integer pageSize){
+        //设置分页参数
+        PageHelper.startPage(page,pageSize);
+
+        //查询结果
+        List<Material> materialList = materialMapper.selectMaterialBySMS(schMajorSub);
+        log.info("materialList:{}",materialList);
+        //用PageHelper自带的Page类型对查询结果进行强制转型
+        Page<Material> p = (Page<Material>) materialList;
+
+        //对查询结果进行封装
+        return new MaterialPage(p.getTotal(),p.getResult());
     }
 }

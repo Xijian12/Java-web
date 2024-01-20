@@ -38,6 +38,15 @@ public class MaterialController {
         return Result.success(materialPage);
     }
 
+    //根据学校、专业、学科三者模糊查询
+    @GetMapping("/SMS")
+    public Result queryMaterialBySchMajorSub(String schMajorSub,
+                                           @RequestParam(defaultValue = "1") Integer page,
+                                           @RequestParam(defaultValue = "10") Integer pageSize){
+        MaterialPage materialPage = materialService.queryMaterialBySchMajorSub(schMajorSub,page,pageSize);
+        return Result.success(materialPage);
+    }
+
     //根据资料ID分页查询该资料的所有评论
     @GetMapping("/comment")
     public Result queryMaterialComment(Integer materialId,

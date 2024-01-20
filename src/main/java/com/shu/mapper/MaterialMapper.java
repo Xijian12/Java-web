@@ -52,8 +52,6 @@ public interface MaterialMapper {
     @Select("SELECT sum(material_download_num) AS downloadNum, sum(material_click_num) AS clickNum FROM materials where major= #{major}")
     Map<String, Integer> countDownloadClickNumByCategory(String major);
 
-
-
     // 查询最高的前n类资料
     @Select("SELECT * FROM materials ORDER BY (material_grade * #{weight1} + material_click_num * #{weight2} + material_download_num * #{weight3}) DESC LIMIT #{n}")
     List<Material> selectTopNMaterials(@Param("weight1") double weight1, @Param("weight2") double weight2, @Param("weight3") double weight3, @Param("n") int n);
@@ -100,4 +98,7 @@ public interface MaterialMapper {
 
     @Update("update commentformaterial set user_nickname =#{newUserName} where user_nickname=#{oldUserName}")
     void updateUsername(String oldUserName, String newUserName);
+
+
+    List<Material> selectMaterialBySMS(String schMajorSub);
 }

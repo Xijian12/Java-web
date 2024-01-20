@@ -114,6 +114,7 @@ public class SecurityConfiguration {
                         .requestMatchers("/book/downloadNum").permitAll()
                         .requestMatchers("/material/clickNum").permitAll()
                         .requestMatchers("/material/downloadNum").permitAll()
+                        .requestMatchers("/material/SMS").permitAll()
                 .anyRequest().hasAnyRole(Const.ROLE_DEFAULT)
                 )
                 .formLogin(conf -> conf

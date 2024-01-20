@@ -64,4 +64,20 @@
         </where>
         order by material_download_num desc
     </select>
+    <select id="selectMaterialBySMS" resultType="com.shu.entity.vo.request.Material">
+        select *
+        from materials
+        <where>
+            <if test="schMajorSub != null and schMajorSub != '' ">
+                school like concat('%',#{schMajorSub},'%')
+            </if>
+            <if test="schMajorSub != null and schMajorSub != '' ">
+                or major like concat('%',#{schMajorSub},'%')
+            </if>
+            <if test="schMajorSub != null and schMajorSub != '' ">
+                or subject like concat('%',#{schMajorSub},'%')
+            </if>
+        </where>
+        order by material_download_num desc
+    </select>
 </mapper>
