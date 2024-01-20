@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shu.mapper.MaterialCommentMapper">
+    <select id="getMaterialCommentBySMS" resultType="com.shu.entity.vo.request.MaterialComment">
+        select *
+        from commentformaterial
+        <where>
+            <if test="school != null and school != '' ">
+                school like concat('%',#{school},'%')
+            </if>
+            <if test="major != null and major != '' ">
+                and major like concat('%',#{major},'%')
+            </if>
+            <if test="subject != null and subject != '' ">
+                and subject like concat('%',#{subject},'%')
+            </if>
+        </where>
+        order by material_grade desc
+    </select>
+</mapper>
