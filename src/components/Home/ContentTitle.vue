@@ -13,7 +13,7 @@
       </form>
       <div class="title_seacrh_wenzi">
         <span class="title_wenzi_state">热搜：</span>
-        <a  href="/SearchDisplay/电子书" class="title_wenzi">电子书</a>
+        <a  href="/SearchDisplayMaterial/上海" class="title_wenzi">电子书资料</a>
       </div>
     </div>
     <el-button @click="clickme()" style="width: 100px; height: 80px;" type="danger" plain>今日签到</el-button>
