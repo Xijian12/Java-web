@@ -73,13 +73,13 @@ public interface MaterialMapper {
     @Delete("DELETE FROM commentformaterial WHERE user_email = #{email}")
     void deleteByUserEmail(@Param("email") String email);
 
-    @Select("select distinct(school) from materials")
+    @Select("select school, sum(material_click_num) as total_clicks from materials group by school order by total_clicks desc")
     List<String> selectAllSchool();
 
-    @Select("select distinct(major) from materials where school = #{school}")
+    @Select("select distinct(major),sum(material_click_num) as total_clicks from materials where school = #{school} group by major order by total_clicks desc")
     List<String> selectMajorBySchool(String school);
 
-    @Select("select distinct(subject) from materials where school = #{school} and major = #{major}")
+    @Select("select distinct(subject),sum(material_click_num) as total_clicks from materials where school = #{school} and major = #{major} group by subject order by total_clicks desc")
     List<String> selectSubjectBySchoolAndMajorl(String school,String major);
 
     @Select("select sum(material_download_num) from materials")
