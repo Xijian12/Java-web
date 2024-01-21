@@ -58,11 +58,40 @@
         </el-main>
     </el-container>
   </div>
+  <el-dialog
+        v-model="FormVisible">
+        您未进行登录请前往登录页面！
+        <template #footer>
+            <span class="dialog-footer">
+              <el-button
+                type="primary"
+                @click="routerToLogin()"
+              >
+                确定
+              </el-button>
+            </span>
+          </template>
+
+        </el-dialog>
 </template>
 
 <script setup>
 import router from "@/router"
-
+import {useStore} from 'vuex';
+import {ref, watch} from 'vue';
+const store = useStore();
+const email = ref(store.state.personalID[0].email)
+// 登录跳转
+function routerToLogin(){
+  router.push("/")
+}
+const FormVisible = ref(false);
+function init(){
+    if (email.value == "session"){
+      FormVisible.value = true;
+    }
+}
+init();
 </script>
 
 <style  lang="less" scoped>

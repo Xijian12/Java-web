@@ -58,6 +58,21 @@
     </div>
     </div>
   </div>
+  <el-dialog
+        v-model="FormVisible">
+        您未进行登录请前往登录页面！
+        <template #footer>
+            <span class="dialog-footer">
+              <el-button
+                type="primary"
+                @click="routerToLogin()"
+              >
+                确定
+              </el-button>
+            </span>
+          </template>
+
+        </el-dialog>
 </template>
 
 <script setup>
@@ -67,7 +82,11 @@ import {ElMessage} from "element-plus";
 import router from "@/router"
 import axios from "axios";
 import {useStore} from 'vuex';
-
+// 登录跳转
+function routerToLogin(){
+  router.push("/")
+}
+const FormVisible = ref(false);
 const store = useStore();
 const email = ref(store.state.personalID[0].email)
 const total = ref(0)
@@ -131,6 +150,9 @@ function decimals(value) {
     }
 // 加入收藏
 function addToCollection(bookId){
+  if (email.value == "session"){
+      FormVisible.value = true;
+    }else{
       let obj ={
         userEmail:email.value,
         bookId: bookId,
@@ -149,6 +171,7 @@ function addToCollection(bookId){
                 });
               }
             });
+            }
 }
     // 初始化页面数据
 function initData() {

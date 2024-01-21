@@ -3,7 +3,7 @@ import { createApp } from 'vue';
 import { createStore } from 'vuex';
 import {useStorage} from '@vueuse/core';
 const sessionStorageDate = useStorage("user", "session")
-const sessionStorageDateName = useStorage("username", "session")
+const sessionStorageDateName = useStorage("username", "游客")
 // 创建 store 实例
 const store = createStore({
   state: {

@@ -202,6 +202,21 @@
       </div>
     </div>
   </div>
+  <el-dialog
+        v-model="FormVisible">
+        您未进行登录请前往登录页面！
+        <template #footer>
+            <span class="dialog-footer">
+              <el-button
+                type="primary"
+                @click="routerToLogin()"
+              >
+                确定
+              </el-button>
+            </span>
+          </template>
+
+        </el-dialog>
 </template>
 <script setup>
 import Header from "@/components/Home/Header.vue";
@@ -212,7 +227,12 @@ import axios from "axios";
 import { useRoute, useRouter } from 'vue-router';
 import {useStore} from 'vuex';
 import {useStorage} from '@vueuse/core';
-const sessionStorageDateName = useStorage("username", "session")
+// 登录跳转
+function routerToLogin(){
+  userouter.push("/")
+}
+const FormVisible = ref(false);
+const sessionStorageDateName = useStorage("username", "游客")
 const store = useStore();
 const username = ref(sessionStorageDateName.value)
 const email = ref(store.state.personalID[0].email)
@@ -309,6 +329,9 @@ const initDataCategory = async (categoryName) => {
 };
 // 加入收藏
 function addToCollection(bookId){
+  if (email.value == "session"){
+      FormVisible.value = true;
+    }else{
       let obj ={
         userEmail:email.value,
         bookId: bookId,
@@ -327,14 +350,19 @@ function addToCollection(bookId){
                 });
               }
             });
+            }
 }
 // 查询用户信息
 function searchInfo() {
+  if (email.value == "session"){
+      FormVisible.value = true;
+    }else{
     checkTable.value = true
     axios.get('/user/userInfo',{params: {username: username.value,}}).then(response => {
     // 处理成功的响应
     userInfo.value = response.data.data; 
   })
+  }
    
 };
     // 结算立即购买
@@ -374,6 +402,9 @@ function handleClick(tab) {
 const textarea = ref("")
 const textGrade = ref(1.0)
 function sendCommit(){
+  if (email.value == "session"){
+      FormVisible.value = true;
+    }else{
   let obj = {
     bookId: router.params.id,
     userNickname: store.state.personalID[0].username,
@@ -394,6 +425,7 @@ function sendCommit(){
         });
     }
 });
+}
 }
 // 删除评论
 function deleteBookDialog(row){

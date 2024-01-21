@@ -82,7 +82,7 @@ function userLogin() {
         router.push("/home")     
         // 将数据存储到 sessionStorage
         const sessionStorageDate = useStorage("user", "session")
-        const sessionStorageDateName = useStorage("username", "session")
+        const sessionStorageDateName = useStorage("username", "游客")
         sessionStorageDate.value  = res.email;
         sessionStorageDateName.value = res.username;
       })

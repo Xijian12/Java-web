@@ -299,6 +299,21 @@
       </div>
     </div>
   </div>
+  <el-dialog
+        v-model="FormVisible">
+        您未进行登录请前往登录页面！
+        <template #footer>
+            <span class="dialog-footer">
+              <el-button
+                type="primary"
+                @click="routerToLogin()"
+              >
+                确定
+              </el-button>
+            </span>
+          </template>
+
+        </el-dialog>
 </template>
 <script setup>
 import Header from "@/components/Home/Header.vue";
@@ -308,6 +323,11 @@ import {ref, reactive, onMounted, watch} from 'vue';
 import axios from "axios";
 import { useRoute, useRouter } from 'vue-router';
 import {useStore} from 'vuex';
+// 登录跳转
+function routerToLogin(){
+  userouter.push("/")
+}
+const FormVisible = ref(false);
 const store = useStore();
 const username = ref(store.state.personalID[0].username)
 const email = ref(store.state.personalID[0].email)
@@ -426,6 +446,10 @@ const typeMaterial = ref(0);
 const vauleMaterial = ref(0);
 // 立即购买信息
 function searchInfo(type) {
+  if (email.value == "session"){
+      FormVisible.value = true;
+    }else{
+
     typeMaterial.value = type
     if(type === 1){
       vauleMaterial.value = material.value.elecBookPoints
@@ -447,6 +471,7 @@ function searchInfo(type) {
     // 处理成功的响应
     userInfo.value = response.data.data; 
   })
+  }
    
 };
     // 结算立即购买
@@ -483,6 +508,9 @@ function handleClick(tab) {
 const textarea = ref("")
 const textGrade = ref(1.0)
 function sendCommit(){
+  if (email.value == "session"){
+      FormVisible.value = true;
+    }else{
   let obj = {
     materialId: router.params.id,
     userNickname: store.state.personalID[0].username,
@@ -503,6 +531,7 @@ function sendCommit(){
         });
     }
 });
+}
 }
 // 删除评论
 function deletematerialDialog(row){

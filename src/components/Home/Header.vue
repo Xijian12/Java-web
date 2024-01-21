@@ -21,7 +21,7 @@ import {useStore} from 'vuex';
 import axios from "axios";
 import {useStorage} from '@vueuse/core';
 const sessionStorageDate = useStorage("user", "session")
-const sessionStorageDateName = useStorage("username", "session")
+const sessionStorageDateName = useStorage("username", "游客")
 const store = useStore();
 const arr = ref(store.state.personalID[0])
 const email = ref(store.state.personalID[0].email)

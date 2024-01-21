@@ -111,18 +111,19 @@ import axios from "axios";
 import {useStore} from 'vuex';
 import type { FormInstance } from "element-plus";
 import { ElMessageBox, ElMessage } from "element-plus";
+import router from "@/router"
 const store = useStore();
 const username = ref(store.state.personalID[0].username)
 const email = ref(store.state.personalID[0].email)
 const userInfo = ref([]);
 let formLabelWidth = 120;
 function initData() {
-    axios.get('/admin/adminInfoByEmail',{params: {email: email.value,}}).then(response => {
+  console.log(email.value)
+      axios.get('/admin/adminInfoByEmail',{params: {email: email.value,}}).then(response => {
     // 处理成功的响应
     userInfo.value = response.data.data; 
     console.log('成功：', userInfo.value);
   })
-   
 };
 // 编辑用户对话框
 let editUserFormVisible = ref(false);
