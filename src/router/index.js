@@ -8,8 +8,10 @@ import MaterialDetail from '@/components/MaterialDetail.vue'
 import MaterialDetailPage from "@/components/MaterialDetailPage.vue"
 import SearchDisplay from '@/components/Search/SearchDisplay.vue'
 import SearchDisplayPage from "@/components/SearchDisplayPage.vue"
-import SearchDisplayMaterial from '@/components/Search/SearchDisplayMaterial.vue'
-import SearchDisplayMaterialPage from "@/components/SearchDisplayMaterialPage.vue"
+import SearchDisplayBookName from '@/components/Search/SearchDisplayBookName.vue'
+import SearchDisplayPageBookName from "@/components/SearchDisplayPageBookName.vue"
+import SearchDisplayMaterialSMS from '@/components/Search/SearchDisplayMaterialSMS.vue'
+import SearchDisplayMaterialPageSMS from "@/components/SearchDisplayMaterialPageSMS.vue"
 import Personal from '@/components/Personal.vue'
 
 // 后台
@@ -74,22 +76,38 @@ const router = createRouter({
             }
             ]   
         },
-         // 搜索资料展示页容器
+         // 搜索图书名称展示页容器
          {
-          path: "/SearchDisplayMaterialPage",
-          name: "SearchDisplayMaterialPage",
+          path: "/SearchDisplayPageBookName",
+          name: "SearchDisplayPageBookName",
           meta: { show: false },
-          component: SearchDisplayMaterialPage,
+          component: SearchDisplayPageBookName,
           children: [
           // 搜索展示页
           {
-              path: "/SearchDisplayMaterial/:id",
-              name: "SearchDisplayMaterial",
+              path: "/SearchDisplayBookName/:id",
+              name: "SearchDisplayBookName",
               meta: { show: false },
-              component: SearchDisplayMaterial,
+              component: SearchDisplayBookName,
           }
           ]   
       },
+        // 搜索资料SMS展示页容器
+        {
+          path: "/SearchDisplayMaterialPageSMS",
+          name: "SearchDisplayMaterialPageSMS",
+          meta: { show: false },
+          component: SearchDisplayMaterialPageSMS,
+          children: [
+          // 搜索展示页
+          {
+              path: "/SearchDisplayMaterialSMS/:id",
+              name: "SearchDisplayMaterialSMS",
+              meta: { show: false },
+              component: SearchDisplayMaterialSMS,
+          }
+          ]   
+        },
         // 图书详情页容器
         {
             path: "/BookDetailPage",
@@ -121,7 +139,7 @@ const router = createRouter({
                   component: MaterialDetail,
               }
           ]
-      },
+        },
         //个人中心
         {
             name:"personal",

@@ -179,9 +179,9 @@ function searchMaterial(){
       });
 }
 function initDataCategory(category){
-  axios.get("/material", {
+  axios.get("/material/SMS", {
     params:{
-      school: category,
+      schMajorSub: category,
       page: pageNum.value,
       pageSize: pageSize.value,
     }}).then((resp) => {
@@ -200,18 +200,14 @@ function SearchDisplayVue(){
       selectedmajorOptionsRef.value = []
       selectedsubjectOptionsRef.value = []
       const path = searchData.value
-      router.push({name:"SearchDisplayMaterial", params: {id: path}})
+      router.push({name:"SearchDisplayMaterialSMS", params: {id: path}})
 }
 onMounted(async () => {
   const category = route.params.id;
   router.afterEach((to, from, next) => {
         window.scrollTo(0, 0)
     })
-  if(category=="电子书"){
-    searchMaterial();
-  }else{
-    searchSchool();
-  }
+  searchSchool();
   await initDataCategory(category);
 });
 // 使用 watch 监听路由变化

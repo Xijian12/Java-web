@@ -150,7 +150,7 @@
         <h1 class="searchtitle">资料搜索</h1>
           <div class="search_bar">
             <form @submit.prevent="SearchDisplayMaterialVue()">
-              <input v-model="searchDataMaterial" type="text" name="keyword" class="tx" autocomplete="off" placeholder="请输入您要搜索资料的学校...">
+              <input v-model="searchDataMaterial" type="text" name="keyword" class="tx" autocomplete="off" placeholder="请输入您要搜索资料的相关信息...">
               <el-button type="submit" @click="SearchDisplayMaterialVue()">搜索</el-button>
             </form>
           </div>
@@ -164,8 +164,8 @@
             text
             bg
             class="custom-button2"
-            @click="searchMaterial(button.school)"
-            >{{ button.school }}</el-button>
+            @click="searchMaterial(button)"
+            >{{ button }}</el-button>
             <div style="margin-top: 20px;margin-left: 85px;">
           <el-button
             v-if="buttons3 && buttons3.length > 0"
@@ -174,8 +174,8 @@
             text
             bg
             class="custom-button2"
-            @click="searchMaterial(button.school)"
-            >{{ button.school }}</el-button>
+            @click="searchMaterial(button)"
+            >{{ button }}</el-button>
           </div>
         </div>
             </div>
@@ -254,9 +254,8 @@ function searchBookCategory() {
     }).then((resp) => {
       buttons2.value = resp.data;
     });
-  axios.get("/material/highest/6"
-      ).then((resp) => {
-      buttons3.value = resp.data.data;
+  axios.get("/material/school").then((resp) => {
+    buttons3.value = resp.data.data;      
     });
 };
 searchBookCategory();
@@ -292,7 +291,7 @@ function SearchDisplayVue(){
 const searchDataMaterial = ref()
 function SearchDisplayMaterialVue(){
       const path = searchDataMaterial.value
-      router.push({name:"SearchDisplayMaterial", params: {id: path}})
+      router.push({name:"SearchDisplayMaterialSMS", params: {id: path}})
 }
 // 上传文档跳转
 function tipNoPer(){
@@ -302,7 +301,7 @@ function searchBook(path){
   router.push({name:"SearchDisplay", params: {id: path}})
 }
 function searchMaterial(path){
-  router.push({name:"SearchDisplayMaterial", params: {id: path}})
+  router.push({name:"SearchDisplayMaterialSMS", params: {id: path}})
 }
 function initData() {
     axios.get('/user/userInfo',{params: {username: username.value,}}).then(response => {

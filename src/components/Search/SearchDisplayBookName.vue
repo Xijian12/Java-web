@@ -293,6 +293,7 @@
         </el-col>
       </el-row>
     </div>
+
     <!--数据为空时显示-->
     <div v-show="total===0" v-cloak>
       <el-empty :image-size="200"></el-empty>
@@ -368,15 +369,15 @@ const initDataCategory = async (categoryName) => {
   }
   }else{
     try {
-      const response = await axios.get('/category/detail', {
+      const response = await axios.get('/book/find', {
       params: {
-        categoryName: categoryName,
+        bookName: categoryName,
         page: pageNum.value,
         pageSize: pageSize.value
       }
     });
-    books.value = response.data.data.items
-    total.value = response.data.data.total
+    books.value = response.data.books
+    total.value = response.data.total
     // 处理成功的响应
     console.log('成功：', books.value);
   } catch (error) {

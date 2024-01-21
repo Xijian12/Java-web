@@ -9,11 +9,11 @@
     <div class="title_search">
       <form @submit.prevent="SearchDisplayVue()">
       <i class="iconfont icon-sousuo sousuo"></i>
-      <input v-model="keyword" class="title_seacrh_input"  type="search" placeholder="搜索资料" >
+      <input v-model="keyword" class="title_seacrh_input"  type="search" placeholder="搜索图书名称" >
       </form>
       <div class="title_seacrh_wenzi">
         <span class="title_wenzi_state">热搜：</span>
-        <a  href="/SearchDisplayMaterial/上海" class="title_wenzi">电子书资料</a>
+        <a  href="/SearchDisplayMaterialSMS/上海" class="title_wenzi">电子书资料</a>
       </div>
     </div>
     <el-button @click="clickme()" style="width: 100px; height: 80px;" type="danger" plain>今日签到</el-button>
@@ -53,7 +53,7 @@ function clickme(){
     }
 function SearchDisplayVue(){
       const path = keyword.value
-      router.push({name:"SearchDisplay", params: {id: path}})
+      router.push({name:"SearchDisplayBookName", params: {id: path}})
 } 
 </script>
 
