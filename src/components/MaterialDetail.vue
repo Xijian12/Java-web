@@ -200,7 +200,7 @@
             </el-radio-group>
           </el-descriptions-item> -->
         </el-descriptions>
-        <el-button :loading="loadingBtn" @click="buyNow()" style="margin-left: 600px" type="primary" round>支付
+        <el-button @click="buyNow()" style="margin-left: 600px" type="primary" round>支付
         </el-button>
       </el-dialog>
 

@@ -2,7 +2,7 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 import axios from "axios";
-import store from "./store"
+import store from "./store";
 import './assets/iconfont/iconfont.css'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
@@ -40,6 +40,4 @@ app.use(Viewer, {
   });
 app.use(router)
 app.use(store)
-
-
 app.mount('#app')

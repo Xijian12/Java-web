@@ -19,11 +19,17 @@ import {logout} from "@/net"
 import router from "@/router"
 import {useStore} from 'vuex';
 import axios from "axios";
+import {useStorage} from '@vueuse/core';
+const sessionStorageDate = useStorage("user", "session")
+const sessionStorageDateName = useStorage("username", "session")
 const store = useStore();
 const arr = ref(store.state.personalID[0])
 const email = ref(store.state.personalID[0].email)
 function userLogout(){
+  sessionStorageDate.value = null;
+  sessionStorageDateName.value = null;
   logout(() => router.push("/"))
+
 }
 function toPersonal(){
   router.push("/personal/personalMyinfo")
@@ -38,6 +44,7 @@ function initData() {
 onMounted(() => {
   initData();
 });
+
 
 </script>
 

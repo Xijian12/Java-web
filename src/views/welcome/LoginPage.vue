@@ -54,6 +54,7 @@ import {useStore} from 'vuex';
 import router from "@/router";
 import {reactive, ref} from "vue";
 import {login} from '@/net';
+import {useStorage} from '@vueuse/core';
 
 const store = useStore();
 const formRef = ref()
@@ -79,6 +80,11 @@ function userLogin() {
         store.dispatch('addID',res)
         console.log("cacac",store.state)
         router.push("/home")     
+        // 将数据存储到 sessionStorage
+        const sessionStorageDate = useStorage("user", "session")
+        const sessionStorageDateName = useStorage("username", "session")
+        sessionStorageDate.value  = res.email;
+        sessionStorageDateName.value = res.username;
       })
     }
   });

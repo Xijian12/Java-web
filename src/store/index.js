@@ -1,16 +1,18 @@
 // 引入 createApp 和 createStore 函数
 import { createApp } from 'vue';
 import { createStore } from 'vuex';
-
+import {useStorage} from '@vueuse/core';
+const sessionStorageDate = useStorage("user", "session")
+const sessionStorageDateName = useStorage("username", "session")
 // 创建 store 实例
 const store = createStore({
   state: {
     personalID:[{
-      email:'524535336@qq.com',
+      email:sessionStorageDate.value,
       expire:'',
       role:'',
       token:'',
-      username:"admin",
+      username:sessionStorageDateName.value,
       points:0,
     }],
   },
@@ -27,9 +29,6 @@ const store = createStore({
     }
   },
   actions: {
-    addToCart(context, value) {
-      context.commit("addToCart", value);
-    },
     addID(context, value) {
       context.commit("addID", value);
     },

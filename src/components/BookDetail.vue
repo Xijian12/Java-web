@@ -102,7 +102,7 @@
             </el-radio-group>
           </el-descriptions-item> -->
         </el-descriptions>
-        <el-button :loading="loadingBtn" @click="buyNow()" style="margin-left: 600px" type="primary" round>支付
+        <el-button  @click="buyNow()" style="margin-left: 600px" type="primary" round>支付
         </el-button>
       </el-dialog>
 
@@ -211,9 +211,10 @@ import {ref, reactive, onMounted, watch} from 'vue';
 import axios from "axios";
 import { useRoute, useRouter } from 'vue-router';
 import {useStore} from 'vuex';
-import Clipboard from 'clipboard';
+import {useStorage} from '@vueuse/core';
+const sessionStorageDateName = useStorage("username", "session")
 const store = useStore();
-const username = ref(store.state.personalID[0].username)
+const username = ref(sessionStorageDateName.value)
 const email = ref(store.state.personalID[0].email)
 const router = useRoute();
 const userouter = useRouter();
