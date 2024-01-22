@@ -51,8 +51,7 @@ public class MaterialServiceImpl implements MaterialService {
         Account account = accountService.findAccountByNameOrEmail(material.getMaterialUploader());
         log.info("account:{}",account);
         if(account != null){
-            String newUserInfo = accountService.updateUserInfo(account.getUsername(), null,
-                    null, account.getPoints() + Constants.uploadPointBonus);
+            String newUserInfo = accountService.updateUserPoints(account.getEmail(),account.getPoints() + Constants.uploadPointBonus);
         }
         materialMapper.insertMaterial(material);
     }
@@ -244,8 +243,7 @@ public class MaterialServiceImpl implements MaterialService {
                 //如果下载成功，则给上传者积分奖励
                 Account uploaderAccount = accountService.findAccountByNameOrEmail(material.getMaterialUploader());
                 if(uploaderAccount != null && !account.getEmail().equals(material.getMaterialUploader())){
-                    String newUserInfo = accountService.updateUserInfo(uploaderAccount.getUsername(),null,
-                           null, uploaderAccount.getPoints() + (int)(Constants.pointRate * points));
+                    String newUserInfo = accountService.updateUserPoints(uploaderAccount.getEmail(),uploaderAccount.getPoints() + (int)(Constants.pointRate * points));
                 }
                 donwloadMaterialVO.setDownloadUrl(aliOSSUtils.GetFileDownloadUrl(fileUuid,newFileName));
                 materialMapper.updateMaterialDownloadNum(material.getMaterialDownloadNum() + 1,donwloadMaterialVO.getMaterialId());

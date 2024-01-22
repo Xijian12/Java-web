@@ -65,8 +65,7 @@ public void updateBookGrade() {
         log.info("book:{}",book);
         Account account = accountService.findAccountByNameOrEmail(book.getBookUploader());
         if(account != null){
-            String newUserInfo = accountService.updateUserInfo(account.getUsername(), account.getUsername(),
-                    account.getPassword(), account.getPoints() + Constants.uploadPointBonus);
+            String newUserInfo = accountService.updateUserPoints(account.getEmail(),account.getPoints() + Constants.uploadPointBonus);
         }
         if(book.getBookCoverUrl() == null || book.getBookCoverUrl().equals("")){
             book.setBookCoverUrl(Constants.defaultBookCoverUrl);
