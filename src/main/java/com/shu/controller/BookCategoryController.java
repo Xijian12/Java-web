@@ -21,7 +21,7 @@ public class BookCategoryController {
     @PostMapping
     public ResponseEntity<?> addCategory(@RequestBody CategoryRequest request) {
         bookCategoryService.addCategory(request.getCategoryName(), request.getCategoryAlias());
-        return ResponseEntity.ok(new Response(0, "操作成功"));
+        return ResponseEntity.ok(new Response(200, "操作成功"));
     }
     @GetMapping("/get/{categoryId}")
     public BookCategory getCategoryById(@PathVariable int categoryId) {
@@ -38,13 +38,13 @@ public class BookCategoryController {
     @PutMapping
     public  ResponseEntity<?>updateCategory(@RequestBody BookCategory category) {
         bookCategoryService.updateCategory(category);
-         return ResponseEntity.ok(new Response(0, "操作成功"));
+         return ResponseEntity.ok(new Response(200, "操作成功"));
     }
 
     @DeleteMapping("/{categoryIds}")
     public ResponseEntity<?> deleteCategories(@PathVariable List<Integer> categoryIds) {
         bookCategoryService.deleteCategories(categoryIds);
-        ;return ResponseEntity.ok(new Response(0, "操作成功"));
+        ;return ResponseEntity.ok(new Response(200, "操作成功"));
     }
     //根据分类返回图书
     @GetMapping("/detail")
