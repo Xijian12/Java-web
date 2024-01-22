@@ -55,16 +55,17 @@ public void updateBookGrade() {
     public BookService(BookMapper bookMapper) {
         this.bookMapper = bookMapper;
     }
- public List<Book> selectBooksByIds(List<Integer> BookIds){
+    public List<Book> selectBooksByIds(List<Integer> BookIds){
         return bookMapper.selectBooksByIds(BookIds);
  }
     public void createBook(Book book) {
+        log.info("book:{}",book);
         Account account = accountService.findAccountByNameOrEmail(book.getBookUploader());
         if(account != null){
             String newUserInfo = accountService.updateUserInfo(account.getUsername(), account.getUsername(),
                     account.getPassword(), account.getPoints() + Constants.uploadPointBonus);
         }
-        if(book.getBookCoverUrl() == null){
+        if(book.getBookCoverUrl() == null || book.getBookCoverUrl().equals("")){
             book.setBookCoverUrl(Constants.defaultBookCoverUrl);
             book.setBookCoverUuid(Constants.defaultBookCoverUuid);
         }

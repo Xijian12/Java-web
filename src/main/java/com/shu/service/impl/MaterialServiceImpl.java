@@ -46,7 +46,7 @@ public class MaterialServiceImpl implements MaterialService {
         material.setMaterialDownloadNum(0);
         material.setCreateTime(LocalDateTime.now());
         material.setUpdateTime(LocalDateTime.now());
-        if(material.getMaterialCoverUrl()==null){//如果没有地址，则采用默认封面
+        if(material.getMaterialCoverUrl()==null || material.getMaterialCoverUrl().equals("")){//如果没有地址，则采用默认封面
             material.setMaterialCoverUrl(Constants.defaultMaterialCoverUrl);}
         Account account = accountService.findAccountByNameOrEmail(material.getMaterialUploader());
         log.info("account:{}",account);
