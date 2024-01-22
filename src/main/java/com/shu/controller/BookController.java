@@ -134,7 +134,9 @@ public class BookController {
                     if (!book.getBookCoverUrl().equals(Constants.defaultBookCoverUrl)) {
                         aliOSSUtils.DeleteFile(book.getBookCoverUuid());
                     }
-                    aliOSSUtils.DeleteFile(book.getBookFileUuid());
+                   if(book.getBookFileUuid()!=null) {
+                       aliOSSUtils.DeleteFile(book.getBookFileUuid());
+                   }
                 }
             }
             return ResponseEntity.ok(new Response(200, "操作成功", null));
@@ -178,8 +180,9 @@ public class BookController {
                     if (!book.getBookCoverUrl().equals(Constants.defaultBookCoverUrl)) {
                         aliOSSUtils.DeleteFile(book.getBookCoverUuid());
                     }
-                    aliOSSUtils.DeleteFile(book.getBookFileUuid());
-                }
+                   if(book.getBookFileUuid()!=null) {
+                       aliOSSUtils.DeleteFile(book.getBookFileUuid());
+                   }}
             }
 
             return ResponseEntity.ok(new Response(200, "操作成功", null));
