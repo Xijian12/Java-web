@@ -42,7 +42,9 @@ public void updateBookGrade() {
         if (!bookMapper.isAdmin(request.getAdminAccount())){
             return false;
         }
-
+        //删除图书评论
+        for(int i=0;i<request.getBookIds().size();i++){
+            bookMapper.deleteBookCommentByIds(request.getBookIds().get(i));}
         // 删除图书
         bookMapper.deleteBooksByIds(request.getBookIds());
 
@@ -109,10 +111,13 @@ public void updateBookGrade() {
         return bookMapper.updateBook(book);
     }
     public boolean deleteBooksIfUser(BookDeletionRequest request) {
-        // 检查是否为管理员
+
         if (!bookMapper.isUser(request.getUserEmail())) {
             return false;
         }
+        //删除图书评论
+        for(int i=0;i<request.getBookIds().size();i++){
+        bookMapper.deleteBookCommentByIds(request.getBookIds().get(i));}
 
         // 删除图书
         bookMapper.deleteBooksByIds(request.getBookIds());
