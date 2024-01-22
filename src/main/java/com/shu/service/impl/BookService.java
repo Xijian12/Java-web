@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 
 @Slf4j
 @Service
@@ -113,7 +114,15 @@ public void updateBookGrade() {
     public boolean deleteBooksIfUser(BookDeletionRequest request) {
 
         if (!bookMapper.isUser(request.getUserEmail())) {
+            return false;//检查是否为用户
+        }
+        //检查是否是用户上传的图书
+        for(int j=0;j<request.getBookIds().size();j++){
+        if(!Objects.equals(request.getUserEmail(), bookMapper.selectBookById(request.getBookIds().get(j)).getBookUploader()))
+        {
             return false;
+        }
+
         }
         //删除图书评论
         for(int i=0;i<request.getBookIds().size();i++){

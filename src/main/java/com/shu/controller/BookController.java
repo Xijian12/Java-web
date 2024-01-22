@@ -119,7 +119,7 @@ public class BookController {
             bookService.addBookDownloadNum(bookobj.getBookDownloadNum() + 1,book.getBookId());
             return ResponseEntity.ok(new Response(200, "操作成功", aliOSSUtils.GetFileDownloadUrl(test.getUrl(), newFileName)));
         } else {
-            return ResponseEntity.ok(new Response(200, "操作失败，积分不够", null));
+            return ResponseEntity.ok(new Response(400, "操作失败，积分不够", null));
         }
     }
     //管理员删除图书
@@ -128,7 +128,7 @@ public class BookController {
         List<Book> books = bookService.selectBooksByIds(request.getBookIds());
         if (bookService.deleteBooksIfAdmin(request)) {
 
-            if(books!=null){
+            if(!books.isEmpty()){
                 for (Book book : books) {
                     //如果图书封面不是默认封面，则可以删除该封面
                     if (!book.getBookCoverUrl().equals(Constants.defaultBookCoverUrl)) {
@@ -139,7 +139,7 @@ public class BookController {
             }
             return ResponseEntity.ok(new Response(200, "操作成功", null));
         } else {
-            return ResponseEntity.ok(new Response(0, "操作失败，该账户不是管理员！", null));
+            return ResponseEntity.ok(new Response(400, "操作失败，该账户不是管理员！", null));
         }
     }
     //获取评分最高的前N本图书
@@ -184,7 +184,7 @@ public class BookController {
 
             return ResponseEntity.ok(new Response(200, "操作成功", null));
         } else {
-            return ResponseEntity.ok(new Response(0, "操作失败，不能删除别人的图书！", null));
+            return ResponseEntity.ok(new Response(400, "操作失败，不能删除别人的图书！", null));
         }
     }
 
