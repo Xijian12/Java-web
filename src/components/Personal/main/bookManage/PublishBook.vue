@@ -14,8 +14,8 @@
       <el-form-item label="图书出版社" style="width:350px" prop="bookPublishHouse">
          <el-input v-model="bookForm.bookPublishHouse"></el-input>
       </el-form-item>
-      <el-form-item label="下载所需积分" style="width:350px" prop="downloadPoints">
-         <el-input v-model="bookForm.downloadPoints"></el-input>
+      <el-form-item label="下载所需积分" style="width:350px" prop="bookPoints">
+         <el-input v-model="bookForm.bookPoints"></el-input>
       </el-form-item>
       <el-form-item label="图书类别" prop="categoryName" >
         <el-select v-model="bookForm.categoryName"  placeholder="请选择图书分类">
@@ -70,7 +70,7 @@
       bookVersion: "",
       bookPublishHouse: "",
       bookCoverUrl: "",
-      downloadPoints: "",
+      bookPoints: "",
       bookProfile: "",
       categoryName: "",
       bookUploader: usereamil.value,
@@ -83,7 +83,7 @@ const rules = ref(
     bookAuthor: [{ required: true, message: '请输入图书名！', trigger: 'blur' },],
     bookVersion: [{ required: true, message: '请输入图书名！', trigger: 'blur' },],
     bookPublishHouse: [{ required: true, message: '请输入图书名！', trigger: 'blur' },],
-    downloadPoints: [{ required: true, message: '请输入图书名！', trigger: 'blur' },],
+    bookPoints: [{ required: true, message: '请输入图书名！', trigger: 'blur' },],
     bookProfile: [{ required: true, message: '请输入图书名！', trigger: 'blur' },],
     categoryName: [{ required: true, message: '请输入图书名！', trigger: 'blur' },],
     files: [{ required: true, message: '请输入图书名！', trigger: 'blur' },],

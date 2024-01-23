@@ -11,15 +11,11 @@ import zhCn from "element-plus/es/locale/lang/zh-cn";
 import Viewer from 'v-viewer'
 import 'viewerjs/dist/viewer.css'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
-
-
 axios.defaults.baseURL = 'http://localhost:8080'
-
 const app = createApp(App)
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
     app.component(key, component)
   }
-app.use(ElementPlus, { locale: zhCn });
 app.use(Viewer, {
     defaultOptions: {
       inline: false,  //默认值：false。启用内联模式。
@@ -38,6 +34,7 @@ app.use(Viewer, {
       // url: 'src',  //默认值：'src'。定义获取原始图像URL以供查看的位置。
     },
   });
+app.use(ElementPlus, { locale: zhCn });
 app.use(router)
 app.use(store)
 app.mount('#app')

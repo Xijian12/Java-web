@@ -23,6 +23,7 @@
                             <el-menu-item index="/personal/favorite"><el-icon><StarFilled/></el-icon>我的收藏</el-menu-item>
                             <el-menu-item index="/personal/publishRecord"><el-icon><Collection /></el-icon>下载记录</el-menu-item>
                             <el-menu-item index="/personal/publish"><el-icon><Sell /></el-icon>发布图书</el-menu-item>
+                            <el-menu-item index="/personal/bookViewPersonal"><el-icon><Sell /></el-icon>我的图书</el-menu-item>
                         </el-menu-item-group>
                     </el-sub-menu>
                     <el-sub-menu index="/personal/material">         
@@ -35,6 +36,7 @@
                              <el-menu-item index="/personal/favoriteMaterial"><el-icon><StarFilled/></el-icon>我的收藏</el-menu-item>
                             <el-menu-item index="/personal/publishRecordMaterial"><el-icon><Collection /></el-icon>下载记录</el-menu-item> 
                             <el-menu-item index="/personal/publishMaterial"><el-icon><Sell /></el-icon>发布资料</el-menu-item>
+                            <el-menu-item index="/personal/materialViewPersonal"><el-icon><Sell /></el-icon>我的资料</el-menu-item>
                         </el-menu-item-group>
                     </el-sub-menu>
                     <!-- <el-sub-menu index="/personal/order">
@@ -78,7 +80,7 @@
 <script setup>
 import router from "@/router"
 import {useStore} from 'vuex';
-import {ref, watch} from 'vue';
+import {ref, onMounted} from 'vue';
 const store = useStore();
 const email = ref(store.state.personalID[0].email)
 // 登录跳转
@@ -89,8 +91,15 @@ const FormVisible = ref(false);
 function init(){
     if (email.value == "session"){
       FormVisible.value = true;
-    }
+    } 
 }
+onMounted(() => {
+    router.afterEach((to, from, next) => {
+        window.scrollTo(0, 800)
+    })
+
+
+});
 init();
 </script>
 

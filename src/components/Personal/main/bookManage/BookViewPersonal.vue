@@ -21,7 +21,7 @@
             </el-select>
           </el-col>
           <el-col :span="16" class="search-input-pane">
-            <el-row>
+            <!-- <el-row>
               <el-col :span="4">
                 <el-select
                   v-model="searchModel"
@@ -56,7 +56,7 @@
                   搜索
                 </el-button>
               </el-col>
-            </el-row>
+            </el-row> -->
           </el-col>
           <el-col :span="4" class="add-button-pane">
             <el-button
@@ -65,7 +65,7 @@
               class="add-button"
               @click="addFromButton(addBookFormRef)"
             >
-              添加图书
+              上传图书
             </el-button>
           </el-col>
         </el-row>
@@ -98,7 +98,7 @@
               <el-table-column prop="bookClickNum" label="点击量" />
               <el-table-column prop="categoryName" label="分类名称" />
               <el-table-column prop="categoryAlias" label="分类别名" />
-              <el-table-column fixed="right" label="操作">
+              <el-table-column fixed="right" label="操作" width="100">
                 <template #default="books">
                   <el-button
                     @click="editFromButton(editBookFormRef, books.row)"
@@ -278,21 +278,17 @@ import { ElMessageBox, ElMessage } from "element-plus";
 import {useStore} from 'vuex';
 const store = useStore();
 const usereamil = ref(store.state.personalID[0].email)
-const username = ref(store.state.personalID[0].username)
 const categoryList = ref([{
     categoryId:"",
     categoryName:"",
   }]);
 
-
 // 获取图书数据
 let books = ref();
-// 查询条件数据
-let searchObj = reactive({});
 
 // 显示数据数量选项
 let pageNum = ref(1);
-let pageSize = ref(6);
+let pageSize = ref(10);
 let pageTotal = ref(0);
 const pageChange = (val: number) => {
   pageNum.value = val;
@@ -318,10 +314,6 @@ let sizeOptions = [
     value: 100,
     label: "100条数据/页",
   },
-  {
-    value: 6,
-    label: "6条数据/页",
-  }
 ];
 // 修改显示数据量
 const changeSize = (value: number) => {
@@ -350,49 +342,15 @@ const searchButton = () => {
 };
 // 搜索图书
 const searchBook = () => {
-  if (searchInput.value == "") {
-  axios.get('/book/find', {
-      params: {
-        page: pageNum.value,
-        pageSize: pageSize.value
-      }
-    }).then((resp)=>{
-      books.value = resp.data.books
-      pageTotal.value = resp.data.total
-    }) 
-  }else{
-    let params = {
-    categoryName: searchInput.value,
-    page: pageNum.value,
-    pageSize: pageSize.value
-  }
-    console.log(params)
-    axios.get("/category/detail",{
+  axios.get("/book/userUpload",{
       params:{
-      categoryName: searchInput.value,
+      userEmail: usereamil.value,
       page: pageNum.value,
       pageSize: pageSize.value}
-    }).then((resp) => {
-      books.value = resp.data.data.items;
-      pageTotal.value = resp.data.data.total;
-      const code = resp.data.code;
-      const message = resp.data.message;
-      // 查询失败
-      if (code == 400) {
-        ElMessage({
-          message: message,
-          type: "error",
-        });
-      }
-      // 查询成功
-      if (code == 0) {
-        ElMessage({
-          message: message,
-          type: "success",
-        });
-      }
-    });
-  }  
+    }).then((resp)=>{
+      books.value = resp.data.data.content
+      pageTotal.value = resp.data.data.totalElements
+    }) 
 };
 
 // 添加图书对话框显示
@@ -402,7 +360,7 @@ const rules = ref(
     bookAuthor: [{ required: true, message: '请输入图书名！', trigger: 'blur' },],
     bookVersion: [{ required: true, message: '请输入图书名！', trigger: 'blur' },],
     bookPublishHouse: [{ required: true, message: '请输入图书名！', trigger: 'blur' },],
-    bookPoints: [{ required: true, message: '请输入图书名！', trigger: 'blur' },],
+    downloadPoints: [{ required: true, message: '请输入图书名！', trigger: 'blur' },],
     bookProfile: [{ required: true, message: '请输入图书名！', trigger: 'blur' },],
     categoryName: [{ required: true, message: '请输入图书名！', trigger: 'blur' },],
     // files: [{ required: true, message: '请输入图书名！', trigger: 'blur' },],
@@ -595,11 +553,9 @@ const deleteBookDialog = (row: any) => {
 // 删除图书按钮
 const deleteBook = () => {
   if (deleteId.book_id != "") {
-    let obj ={
-    adminAccount:username.value,
-    bookIds:[deleteId.book_id],
-    }
-    axios.delete("book/admin",{ data: obj }).then((resp) => {
+    axios.delete("/book/user", {data:{
+      userEmail:usereamil.value,
+      bookIds:[deleteId.book_id]}}).then((resp) => {
       const code = resp.data.code;
       const message = resp.data.message;
 

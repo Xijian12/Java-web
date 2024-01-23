@@ -590,7 +590,7 @@ watch(() => router.params.id,
 
 #detail-comment .comment-content .userGrade {
   margin: 0 auto 10px;
-  width: 140px;
+  width: 145px;
 }
 #detail-comment .comment-content .createTime{
   margin-left: 0px;

@@ -60,7 +60,7 @@
               v-model:current-page="pageNum"
               v-model:page-size="pageSize"
               layout="prev, pager, next"
-              :total="pageTotal"
+              :total=pageTotal
               @current-change="page"
             >
             </el-pagination>
@@ -126,7 +126,7 @@
             ref="editBookFormRef"
             class="edit-book-form"
           >
-          <el-form-item
+          <!-- <el-form-item
               label="图书分类ID"
               :label-width="formLabelWidth"
               prop="categoryId"
@@ -135,7 +135,7 @@
                 v-model="editBookForm.categoryId"
                 autocomplete="off"
               ></el-input>
-            </el-form-item>
+            </el-form-item> -->
           <el-form-item
               label="分类名称"
               :label-width="formLabelWidth"
@@ -209,7 +209,7 @@ let books = ref();
 let searchObj = reactive({});
 // 显示数据数量选项
 let pageNum = ref(1);
-let pageSize = ref(10);
+let pageSize = ref(20);
 let pageTotal = ref(0);
 const page = (val: number) => {
   pageNum.value = val;
@@ -219,8 +219,8 @@ const page = (val: number) => {
 // 数据显示框
 let sizeOptions = [
   {
-    value: 10,
-    label: "10条数据/页",
+    value: 20,
+    label: "20条数据/页",
   },
   {
     value: 50,
@@ -305,7 +305,7 @@ const addBookButton = (formEl: FormInstance | undefined) => {
           //   });
           // }
           // 添加成功
-          if (code == 0) {
+          if (code == 200) {
             ElMessageBox.alert("添加图书种类成功", "信息", {
               confirmButtonText: "确认",
               callback: () => {
@@ -351,7 +351,7 @@ const editBookButton = (formEl: FormInstance | undefined) => {
         //   });
         // }
         // 编辑成功
-        if (code == 0) {
+        if (code == 200) {
           ElMessageBox.alert(message, {
             confirmButtonText: "确认",
             callback: () => {
@@ -386,7 +386,7 @@ const deleteBook = () => {
       const code = resp.data.code;
       const message = resp.data.message;
       // 删除成功
-      if (code == 0) {
+      if (code == 200) {
         ElMessageBox.alert(message, {
           confirmButtonText: "确认",
           callback: () => {

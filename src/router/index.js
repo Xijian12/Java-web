@@ -166,6 +166,12 @@ const router = createRouter({
                     component: () => import("@/components/Personal/main/bookManage/PublishBook.vue")
                 },
                 {
+                  name: 'bookViewPersonal',
+                  path: 'bookViewPersonal',
+                  meta: { show: false },
+                  component: () => import('@/components/Personal/main/bookManage/BookViewPersonal.vue')
+              },
+                {
                   path: "publishMaterial",
                   name: 'publishMaterial',
                   meta: { show: false },
@@ -201,6 +207,12 @@ const router = createRouter({
                   meta: { show: false },
                   component: () => import('@/components/Personal/main/bookManage/FavoriteMaterial.vue')
               },
+              {
+                name: 'materialViewPersonal',
+                path: 'materialViewPersonal',
+                meta: { show: false },
+                component: () => import('@/components/Personal/main/bookManage/MaterialViewPersonal.vue')
+            },
             ]
         },
         //后台

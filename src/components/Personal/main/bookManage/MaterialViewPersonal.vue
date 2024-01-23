@@ -21,7 +21,7 @@
             </el-select>
           </el-col>
           <el-col :span="16" class="search-input-pane">
-            <el-row>
+            <!-- <el-row>
               <el-col :span="4">
                 <el-select
                   v-model="searchModel"
@@ -56,7 +56,7 @@
                   搜索
                 </el-button>
               </el-col>
-            </el-row>
+            </el-row> -->
           </el-col>
           <el-col :span="4" class="add-button-pane">
             <el-button
@@ -65,7 +65,7 @@
               class="add-button"
               @click="addFromButton(addBookFormRef)"
             >
-              添加资料
+              上传资料
             </el-button>
           </el-col>
         </el-row>
@@ -360,7 +360,7 @@ const uploadBookRef = ref<UploadInstance>()
 let materials = ref();
 // 显示数据数量选项
 let pageNum = ref(1);
-let pageSize = ref(6);
+let pageSize = ref(10);
 let pageTotal = ref(0);
 const pageChange = (val: number) => {
   pageNum.value = val;
@@ -386,10 +386,6 @@ let sizeOptions = [
     value: 100,
     label: "100条数据/页",
   },
-  {
-    value: 6,
-    label: "6条数据/页",
-  }
 ];
 // 修改显示数据量
 const changeSize = (value: number) => {
@@ -424,10 +420,9 @@ const searchButton = () => {
 };
 // 搜索资料
 function searchBook(){
-  if(searchModel.value ==="学校"){
-    axios.get('/material', {
+    axios.get('/material/userUpload', {
       params: {
-        school:searchInput.value,
+        userEmail:usereamil.value,
         page: pageNum.value,
         pageSize: pageSize.value
       }
@@ -435,31 +430,7 @@ function searchBook(){
       materials.value = resp.data.data.items
       pageTotal.value = resp.data.data.total
     }) 
-  }
-  if(searchModel.value ==="专业"){
-    axios.get('/material', {
-      params: {
-        major:searchInput.value,
-        page: pageNum.value,
-        pageSize: pageSize.value
-      }
-    }).then((resp)=>{
-      materials.value = resp.data.data.items
-      pageTotal.value = resp.data.data.total
-    }) 
-  }
-  if(searchModel.value ==="学科"){
-    axios.get('/material', {
-      params: {
-        subject:searchInput.value,
-        page: pageNum.value,
-        pageSize: pageSize.value
-      }
-    }).then((resp)=>{
-      materials.value = resp.data.data.items
-      pageTotal.value = resp.data.data.total
-    }) 
-  }  
+
 };
 // 添加资料
 let addBookFormVisible = ref(false);
@@ -603,9 +574,8 @@ function onSubmit() {
           if (code == 0) {
             ElMessageBox.alert(message, {
               confirmButtonText: "确认",
+
           })
-          searchBook();
-          addBookFormVisible.value = false
         }
       }).catch(error => {
           // 处理错误
