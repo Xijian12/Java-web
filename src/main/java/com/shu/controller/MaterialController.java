@@ -203,12 +203,11 @@ public class MaterialController {
 
     //查询某个用户上传的所有资料
     @GetMapping("/userUpload")
-    public Result getMaterialsByUserEmail(@RequestParam String userEmail) {
-        List<Material> materials = materialService.getMaterialsByUserEmail(userEmail);
-        MaterialUploadVO response = new MaterialUploadVO();
-        response.setSize(materials.size());
-        response.setMaterials(materials);
-        return Result.success(response);
+    public Result getMaterialsByUserEmail(@RequestParam String userEmail,
+                                           @RequestParam(defaultValue = "1") Integer page,
+                                          @RequestParam(defaultValue = "10") Integer pageSize) {
+        MaterialPage materialPage = materialService.queryMaterialByUserEmail(userEmail,page,pageSize);
+        return Result.success(materialPage);
     }
 
 

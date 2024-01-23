@@ -81,4 +81,6 @@ public interface MaterialService {
 
     //根据学校、专业、学科三者模糊查询
     MaterialPage queryMaterialBySchMajorSub(String schMajorSub, Integer page, Integer pageSize);
+
+    MaterialPage queryMaterialByUserEmail(String userEmail, Integer page, Integer pageSize);
 }

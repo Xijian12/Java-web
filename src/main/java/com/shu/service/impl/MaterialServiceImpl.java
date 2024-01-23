@@ -475,4 +475,19 @@ public class MaterialServiceImpl implements MaterialService {
         //对查询结果进行封装
         return new MaterialPage(p.getTotal(),p.getResult());
     }
+
+    @Override
+    public MaterialPage queryMaterialByUserEmail(String userEmail, Integer page, Integer pageSize){
+        //设置分页参数
+        PageHelper.startPage(page,pageSize);
+
+        //查询结果
+        List<Material> materialList = materialMapper.selectMaterialsByUserEmail(userEmail);
+        log.info("materialList:{}",materialList);
+        //用PageHelper自带的Page类型对查询结果进行强制转型
+        Page<Material> p = (Page<Material>) materialList;
+
+        //对查询结果进行封装
+        return new MaterialPage(p.getTotal(),p.getResult());
+    }
 }
