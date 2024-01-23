@@ -63,7 +63,8 @@ public interface BookMapper {
                          @Param("bookGradeUpper") Double bookGradeUpper,
                          @Param("offset") Integer offset,
                          @Param("limit") Integer limit);
-
+@Select("SELECT COUNT(*)FROM test.book where book_uploader=#{userEmail}")
+    int countBooksById(String userEmail);
    @Select({
            "<script>",
            "SELECT COUNT(*) FROM test.book",
@@ -118,8 +119,8 @@ public interface BookMapper {
     @Update("UPDATE book SET book_file_uuid = #{bookFileUUID} WHERE book_id = #{bookId}")
     void updateBookFile(int bookId, String bookFileUUID);
 
-    @Select("select * from book where book_uploader = #{userEmail}")
-    List<Book> getBookObject(String userEmail);
+    @Select("select * from book where book_uploader = #{userEmail} LIMIT #{size} OFFSET #{offset}")
+    List<Book> getBookObject(String userEmail,int offset,int size);
 
     @Select("select sum(book_click_num) from book")
     Long selectBookTotalClickNum();
