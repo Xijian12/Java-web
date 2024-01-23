@@ -1,6 +1,7 @@
 package com.shu.service.impl;
 
 import com.shu.entity.dto.Account;
+import com.shu.entity.vo.request.Page;
 import com.shu.entity.vo.request.user.BookTop;
 import com.shu.entity.vo.request.user.DownloadBook;
 import com.shu.mapper.BookMapper;
@@ -31,8 +32,8 @@ public void updateBookGrade() {
         System.out.println("定时任务执行中...");
 
     }
-    public List<Book >GetBookObject(String userEmail){
-        return bookMapper.getBookObject(userEmail);
+    public List<Book >GetBookObject(String userEmail,Integer offset,Integer size ){
+        return bookMapper.getBookObject(userEmail,offset,size);
     }
 
  public void updateClickByVersion(String bookVersion,int bookDownloadNum,int bookClickNum){
@@ -79,9 +80,14 @@ public void updateBookGrade() {
     public Book getBookById(int id) {
         return bookMapper.selectBookById(id);
     }
-    public List<Book> getBookByEmail(String userEmail){
-
-        return bookMapper.getBookObject(userEmail);
+    public Page<Book> getBookByEmail(String userEmail,int page,int size){
+       int offset=(page-1)*size;
+       Page<Book> book=new Page<Book>();
+       book.setContent(bookMapper.getBookObject(userEmail, offset, size));
+       book.setTotalElements(bookMapper.countBooksById(userEmail));
+       book.setPage(page);
+       book.setSize(size);
+        return book;
     }
     public DownloadBook downloadBook(String userEmail,int bookId){
         Book book = bookMapper.selectBookById(bookId);

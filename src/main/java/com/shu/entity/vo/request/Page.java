@@ -1,6 +1,14 @@
 package com.shu.entity.vo.request;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 import java.util.List;
+@Getter
+@Data
+@NoArgsConstructor
 
 public class Page<T> {
     private List<T> content;
@@ -18,32 +26,16 @@ public class Page<T> {
 
     // Getters and setters
 
-    public List<T> getContent() {
-        return content;
-    }
-
     public void setContent(List<T> content) {
         this.content = content;
-    }
-
-    public int getTotalElements() {
-        return totalElements;
     }
 
     public void setTotalElements(int totalElements) {
         this.totalElements = totalElements;
     }
 
-    public int getPage() {
-        return page;
-    }
-
     public void setPage(int page) {
         this.page = page;
-    }
-
-    public int getSize() {
-        return size;
     }
 
     public void setSize(int size) {

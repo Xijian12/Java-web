@@ -55,9 +55,12 @@ public class BookController {
         return ResponseEntity.ok(new Response(200, "操作成功", book));
     }
     //查询某个用户上传的图书
-    @GetMapping("/userUpload/{userEmail}")
-    public ResponseEntity<?> getBookByEmail(@PathVariable String userEmail){
-        List<Book> book = bookService.getBookByEmail(userEmail);
+    @GetMapping("/userUpload")
+    public ResponseEntity<?> getBookByEmail(@RequestParam(required = false) String userEmail,
+                                            @RequestParam(defaultValue = "1") int page,
+                                            @RequestParam(defaultValue = "10") int pageSize){
+        Page<Book> book=bookService.getBookByEmail(userEmail,page,pageSize);
+
         return ResponseEntity.ok(new Response(200, "操作成功", book));
     }
     @GetMapping("/find")
