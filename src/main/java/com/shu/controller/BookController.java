@@ -127,7 +127,6 @@ public class BookController {
     public ResponseEntity<?> deleteBooks(@RequestBody BookDeletionRequest request) throws Exception {
         List<Book> books = bookService.selectBooksByIds(request.getBookIds());
         if (bookService.deleteBooksIfAdmin(request)) {
-
             if(!books.isEmpty()){
                 for (Book book : books) {
                     //如果图书封面不是默认封面，则可以删除该封面

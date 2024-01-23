@@ -39,10 +39,10 @@ public void updateBookGrade() {
         bookMapper.updateClickByversion(bookVersion,bookDownloadNum,bookClickNum);
  }
     public boolean deleteBooksIfAdmin(BookDeletionRequest request) {
-        // 检查是否为管理员
-        if (!bookMapper.isAdmin(request.getAdminAccount())){
-            return false;
-        }
+//        // 检查是否为管理员
+//        if (!bookMapper.isAdmin(request.getAdminAccount())){
+//            return false;
+//        }
         //删除图书评论
         for(int i=0;i<request.getBookIds().size();i++){
             bookMapper.deleteBookCommentByIds(request.getBookIds().get(i));}
