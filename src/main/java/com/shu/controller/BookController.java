@@ -136,7 +136,7 @@ public class BookController {
                     if (!book.getBookCoverUrl().equals(Constants.defaultBookCoverUrl) && !book.getBookCoverUrl().equals("") ) {
                         aliOSSUtils.DeleteFile(book.getBookCoverUuid());
                     }
-                   if(book.getBookFileUuid()!=null && book.getBookFileUuid().equals("")) {
+                   if(book.getBookFileUuid()!=null && !book.getBookFileUuid().equals("")) {
                        aliOSSUtils.DeleteFile(book.getBookFileUuid());
                    }
                 }
@@ -182,7 +182,7 @@ public class BookController {
                     if (!book.getBookCoverUrl().equals(Constants.defaultBookCoverUrl) && !book.getBookCoverUrl().equals("") ) {
                         aliOSSUtils.DeleteFile(book.getBookCoverUuid());
                     }
-                    if(book.getBookFileUuid()!=null && book.getBookFileUuid().equals("")) {
+                    if(book.getBookFileUuid()!=null && !book.getBookFileUuid().equals("")) {
                         aliOSSUtils.DeleteFile(book.getBookFileUuid());
                     }
                 }

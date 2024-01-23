@@ -124,7 +124,7 @@ public class MaterialServiceImpl implements MaterialService {
                             if (material.getAnotherMaterialUuid() != null && !material.getAnotherMaterialUuid().equals(""))
                                 aliOSSUtils.DeleteFile(material.getAnotherMaterialUuid());
                             //如果这本资料的封面不是默认封面，这删除该封面
-                            if(!material.getMaterialCoverUrl().equals(Constants.defaultMaterialCoverUrl))
+                            if(!material.getMaterialCoverUrl().equals(Constants.defaultMaterialCoverUrl) &&!material.getMaterialCoverUrl().equals(""))
                                 aliOSSUtils.DeleteFile(material.getMaterialCoverUuid());
                             materialMapper.delelteMaterialById(material.getMaterialId());
                             break;
