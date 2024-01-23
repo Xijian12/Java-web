@@ -111,15 +111,17 @@ public class MaterialServiceImpl implements MaterialService {
                 if (material.getMaterialUploader().equals(userEmail) || ISADMIN != null) {
                     switch (type) {
                         case 0: {
-                            if (material.getMaterialCoverUuid() != null)
+                            if (material.getMaterialCoverUuid() != null &&!material.getMaterialCoverUuid().equals(""))
                                 aliOSSUtils.DeleteFile(material.getMaterialCoverUuid());
-                            if (material.getElecBookUuid() != null) aliOSSUtils.DeleteFile(material.getElecBookUuid());
-                            if (material.getTeachingPlanUuid() != null)
+                            if (material.getElecBookUuid() != null &&!material.getElecBookUuid().equals(""))
+                                aliOSSUtils.DeleteFile(material.getElecBookUuid());
+                            if (material.getTeachingPlanUuid() != null && !material.getTeachingPlanUuid().equals(""))
                                 aliOSSUtils.DeleteFile(material.getTeachingPlanUuid());
-                            if (material.getClassPptUuid() != null) aliOSSUtils.DeleteFile(material.getClassPptUuid());
-                            if (material.getCalendarVolumeUuid() != null)
+                            if (material.getClassPptUuid() != null && !material.getClassPptUuid().equals(""))
+                                aliOSSUtils.DeleteFile(material.getClassPptUuid());
+                            if (material.getCalendarVolumeUuid() != null && !material.getCalendarVolumeUuid().equals(""))
                                 aliOSSUtils.DeleteFile(material.getCalendarVolumeUuid());
-                            if (material.getAnotherMaterialUuid() != null)
+                            if (material.getAnotherMaterialUuid() != null && !material.getAnotherMaterialUuid().equals(""))
                                 aliOSSUtils.DeleteFile(material.getAnotherMaterialUuid());
                             //如果这本资料的封面不是默认封面，这删除该封面
                             if(!material.getMaterialCoverUrl().equals(Constants.defaultMaterialCoverUrl))
@@ -128,7 +130,7 @@ public class MaterialServiceImpl implements MaterialService {
                             break;
                         }
                         case 1: {
-                            if (material.getElecBookUuid() != null)
+                            if (material.getElecBookUuid() != null &&!material.getElecBookUuid().equals(""))
                                 aliOSSUtils.DeleteFile(material.getElecBookUuid());
                             material.setElecBookPoints(0);
                             material.setElecBookUuid(null);
@@ -137,7 +139,7 @@ public class MaterialServiceImpl implements MaterialService {
                             break;
                         }
                         case 2: {
-                            if (material.getTeachingPlanUuid() != null)
+                            if (material.getTeachingPlanUuid() != null && !material.getTeachingPlanUuid().equals(""))
                                 aliOSSUtils.DeleteFile(material.getTeachingPlanUuid());
                             material.setTeachingPlanPoints(0);
                             material.setTeachingPlanUuid(null);
@@ -146,7 +148,7 @@ public class MaterialServiceImpl implements MaterialService {
                             break;
                         }
                         case 3: {
-                            if (material.getClassPptUuid() != null)
+                            if (material.getClassPptUuid() != null && !material.getClassPptUuid().equals(""))
                                 aliOSSUtils.DeleteFile(material.getClassPptUuid());
                             material.setClassPptPoints(0);
                             material.setClassPptUuid(null);
@@ -155,7 +157,7 @@ public class MaterialServiceImpl implements MaterialService {
                             break;
                         }
                         case 4: {
-                            if (material.getCalendarVolumeUuid() != null)
+                            if (material.getCalendarVolumeUuid() != null&& !material.getCalendarVolumeUuid().equals(""))
                                 aliOSSUtils.DeleteFile(material.getCalendarVolumeUuid());
                             material.setCalendarVolumePoints(0);
                             material.setCalendarVolumeUuid(null);
@@ -164,7 +166,7 @@ public class MaterialServiceImpl implements MaterialService {
                             break;
                         }
                         case 5: {
-                            if (material.getAnotherMaterialUuid() != null)
+                            if (material.getAnotherMaterialUuid() != null && !material.getAnotherMaterialUuid().equals(""))
                                 aliOSSUtils.DeleteFile(material.getAnotherMaterialUuid());
                             material.setAnotherMaterialPoints(0);
                             material.setAnotherMaterialUuid(null);

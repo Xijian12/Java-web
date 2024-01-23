@@ -46,7 +46,8 @@ public void updateBookGrade() {
 //        }
         //删除图书评论
         for(int i=0;i<request.getBookIds().size();i++){
-            bookMapper.deleteBookCommentByIds(request.getBookIds().get(i));}
+            bookMapper.deleteBookCommentByIds(request.getBookIds().get(i));
+        }
         // 删除图书
         bookMapper.deleteBooksByIds(request.getBookIds());
 
