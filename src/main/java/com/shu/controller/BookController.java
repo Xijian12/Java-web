@@ -133,10 +133,10 @@ public class BookController {
             if(!books.isEmpty()){
                 for (Book book : books) {
                     //如果图书封面不是默认封面，则可以删除该封面
-                    if (!book.getBookCoverUrl().equals(Constants.defaultBookCoverUrl)) {
+                    if (!book.getBookCoverUrl().equals(Constants.defaultBookCoverUrl) && !book.getBookCoverUrl().equals("") ) {
                         aliOSSUtils.DeleteFile(book.getBookCoverUuid());
                     }
-                   if(book.getBookFileUuid()!=null) {
+                   if(book.getBookFileUuid()!=null && book.getBookFileUuid().equals("")) {
                        aliOSSUtils.DeleteFile(book.getBookFileUuid());
                    }
                 }
@@ -179,12 +179,13 @@ public class BookController {
             if(books!=null){
                 for (Book book : books) {
                     //如果图书封面不是默认封面，则可以删除该封面
-                    if (!book.getBookCoverUrl().equals(Constants.defaultBookCoverUrl)) {
+                    if (!book.getBookCoverUrl().equals(Constants.defaultBookCoverUrl) && !book.getBookCoverUrl().equals("") ) {
                         aliOSSUtils.DeleteFile(book.getBookCoverUuid());
                     }
-                   if(book.getBookFileUuid()!=null) {
-                       aliOSSUtils.DeleteFile(book.getBookFileUuid());
-                   }}
+                    if(book.getBookFileUuid()!=null && book.getBookFileUuid().equals("")) {
+                        aliOSSUtils.DeleteFile(book.getBookFileUuid());
+                    }
+                }
             }
 
             return ResponseEntity.ok(new Response(200, "操作成功", null));
