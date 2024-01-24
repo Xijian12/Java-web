@@ -177,7 +177,7 @@
           <template #footer>
             <span class="dialog-footer">
               <el-button @click="addBookFormVisible = false">取消</el-button>
-              <el-button type="primary" @click="onSubmit()">
+              <el-button :loading="isLoading"  type="primary" @click="onSubmit()">
                 添加
               </el-button>
             </span>
@@ -240,6 +240,7 @@
               <el-button @click="editBookFormVisible = false">取消</el-button>
               <el-button
                 type="primary"
+                :loading="isLoading" 
                 @click="editBookButton(editBookFormRef)"
               >
                 编辑
@@ -276,6 +277,7 @@ import { Plus, Search } from "@element-plus/icons-vue";
 import axios from "axios";
 import { ElMessageBox, ElMessage } from "element-plus";
 import {useStore} from 'vuex';
+const isLoading = ref(false);
 const store = useStore();
 const usereamil = ref(store.state.personalID[0].email)
 const username = ref(store.state.personalID[0].username)
@@ -287,9 +289,6 @@ const categoryList = ref([{
 
 // 获取图书数据
 let books = ref();
-// 查询条件数据
-let searchObj = reactive({});
-
 // 显示数据数量选项
 let pageNum = ref(1);
 let pageSize = ref(6);
@@ -436,6 +435,7 @@ const addBookForm = reactive<any>(
 })
 
 function uploadFile(param) {
+  isLoading.value = true;
     const uploadForm1 = new FormData();
     uploadForm1.append('bookCover', param.file);
     // 发送上传请求
@@ -444,6 +444,7 @@ function uploadFile(param) {
           // 处理成功响应
           addBookForm.bookCoverUrl = response.data.data[0]
           addBookForm.bookCoverUuid = response.data.data[1]
+          isLoading.value = false;
         })
         .catch(error => {
           // 处理错误
@@ -451,6 +452,7 @@ function uploadFile(param) {
         });
 }
 function uploadFileBook(param) {
+    isLoading.value = true;
     const uploadForm2 = new FormData();
     uploadForm2.append('bookFile', param.file);
     // 发送上传请求
@@ -458,6 +460,7 @@ function uploadFileBook(param) {
         .then(response => {
           // 处理成功响应
           addBookForm.bookFileUuid = response.data.data
+          isLoading.value = false;
         })
         .catch(error => {
           // 处理错误

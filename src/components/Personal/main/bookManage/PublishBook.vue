@@ -41,7 +41,7 @@
         </el-upload>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="onSubmit()" style="margin-left:185px">发布图书</el-button>
+        <el-button type="primary" :loading="isLoading"  @click="onSubmit()" style="margin-left:185px">发布图书</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -53,6 +53,7 @@
   import type { UploadInstance } from 'element-plus'
   import axios from "axios";
   import {useStore} from 'vuex';
+  const isLoading = ref(false);
   const store = useStore();
   const usereamil = ref(store.state.personalID[0].email)
   const uploadRef = ref<UploadInstance>()
@@ -90,11 +91,13 @@ const rules = ref(
     pictures: [{ required: true, message: '请输入图书名！', trigger: 'blur' },],
   })
 function uploadFile(param) {
+  isLoading.value = true;
     const uploadForm1 = new FormData();
     uploadForm1.append('bookCover', param.file);
     // 发送上传请求
     axios.post("/upload/uploadBookcover", uploadForm1)
         .then(response => {
+          isLoading.value = false;
           // 处理成功响应
           bookForm.bookCoverUrl = response.data.data[0]
           bookForm.bookCoverUuid = response.data.data[1]
@@ -105,11 +108,13 @@ function uploadFile(param) {
         });
 }
 function uploadFileBook(param) {
+  isLoading.value = true;
     const uploadForm2 = new FormData();
     uploadForm2.append('bookFile', param.file);
     // 发送上传请求
     axios.post("/upload/uploadBook", uploadForm2)
         .then(response => {
+          isLoading.value = false;
           // 处理成功响应
           bookForm.bookFileUuid = response.data.data
         })

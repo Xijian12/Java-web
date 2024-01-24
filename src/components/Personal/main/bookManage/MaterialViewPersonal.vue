@@ -208,7 +208,7 @@
           <template #footer>
             <span class="dialog-footer">
               <el-button @click="addBookFormVisible = false">取消</el-button>
-              <el-button type="primary" @click="onSubmit()">
+              <el-button type="primary"  :loading="isLoading"  @click="onSubmit()">
                 添加
               </el-button>
             </span>
@@ -298,6 +298,7 @@
             <span class="dialog-footer">
               <el-button @click="editBookFormVisible = false">取消</el-button>
               <el-button
+              :loading="isLoading" 
                 type="primary"
                 @click="editBookButton(editBookFormRef)"
               >
@@ -347,11 +348,12 @@
 <script lang="ts" setup>
 import { reactive, ref } from "vue";
 import type { FormInstance, FormRules, UploadInstance } from "element-plus";
-import { Plus, Search } from "@element-plus/icons-vue";
+import { Plus} from "@element-plus/icons-vue";
 import axios from "axios";
 import { ElMessageBox, ElMessage } from "element-plus";
 import {useStore} from 'vuex';
 const store = useStore();
+const isLoading = ref(false);
 const usereamil = ref(store.state.personalID[0].email)
 const username = ref(store.state.personalID[0].username)
 const uploadRef = ref<UploadInstance>()
@@ -467,12 +469,14 @@ const rules = ref(
      subject: [{ required: true, message: '请输入学科名！', trigger: 'blur' },],
   })
 function uploadFile(param) {
+  isLoading.value = true;
     const uploadForm1 = new FormData();
     uploadForm1.append('materialCover', param.file);
     // 发送上传请求
     axios.post("/upload/uploadMaterialcover", uploadForm1)
         .then(response => {
           // 处理成功响应
+          isLoading.value = false;
           materialForm.materialCoverUrl = response.data.data[0]
           materialForm.materialCoverUuid = response.data.data[1]
         })
@@ -482,52 +486,62 @@ function uploadFile(param) {
         });
 }
 function uploadElecBook(param) {
+  isLoading.value = true;
     const uploadForm2 = new FormData();
     uploadForm2.append('materialFile', param.file);
     // 发送上传请求
     axios.post("/upload/uploadMaterial", uploadForm2)
         .then(response => {
           // 处理成功响应
+          isLoading.value = false;
           materialForm.elecBookUuid = response.data.data
         })
 }
 function uploadTeachingPlan(param) {
+  isLoading.value = true;
     const uploadForm2 = new FormData();
     uploadForm2.append('materialFile', param.file);
     // 发送上传请求
     axios.post("/upload/uploadMaterial", uploadForm2)
         .then(response => {
           // 处理成功响应
+          isLoading.value = false;
           materialForm.teachingPlanUuid = response.data.data
         })
 }
 function uploadClassPpt(param) {
+  isLoading.value = true;
     const uploadForm2 = new FormData();
     uploadForm2.append('materialFile', param.file);
     // 发送上传请求
     axios.post("/upload/uploadMaterial", uploadForm2)
         .then(response => {
           // 处理成功响应
+          isLoading.value = false;
           materialForm.classPptUuid = response.data.data
         })
 }
 function uploadCalendarVolume(param) {
+  isLoading.value = true;
     const uploadForm2 = new FormData();
     uploadForm2.append('materialFile', param.file);
     // 发送上传请求
     axios.post("/upload/uploadMaterial", uploadForm2)
         .then(response => {
           // 处理成功响应
+          isLoading.value = false;
           materialForm.calendarVolumeUuid = response.data.data
         })
 }
 function uploadAnotherMaterial(param) {
+  isLoading.value = true;
     const uploadForm2 = new FormData();
     uploadForm2.append('materialFile', param.file);
     // 发送上传请求
     axios.post("/upload/uploadMaterial", uploadForm2)
         .then(response => {
           // 处理成功响应
+          isLoading.value = false;
           materialForm.anotherMaterialUuid = response.data.data
         })
 }
