@@ -15,7 +15,7 @@ import java.util.Map;
 
 
 public interface MaterialService {
-    void newAddMaterial(Material material);
+    String newAddMaterial(Material material);
 
     Material GetMaterialData(Integer materId);
 

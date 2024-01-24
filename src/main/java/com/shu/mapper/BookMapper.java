@@ -103,6 +103,8 @@ public interface BookMapper {
     boolean isUser(String userEmail);
     @Select("select * from test.book where book_id = #{bookId}")
     public Book selectBookById(int bookId);
+    @Select("select * from test.book where book_version = #{bookVerison}")
+    public Book selectBookByVersion(String bookVerison);
     @Select("SELECT book_file_uuid FROM test.book, test.db_account " +
             "WHERE db_account.points >= book.book_points " +
             "AND book_id = #{bookId} " +
@@ -135,4 +137,8 @@ public interface BookMapper {
     //给对应图书增加下载量
     @Update("update book set book_download_num = #{newBookDownloadNum} where book_id = #{bookId}")
     void updateBookDownloadNum(Integer newBookDownloadNum, Integer bookId);
+
+    //通过版号和上传者判断是否重复上传这本书
+    @Select("select * from book where book_version = #{bookVersion} and book_uploader = #{bookUploader}")
+    Book selectRepeatBook(String bookVersion,String bookUploader);
 }

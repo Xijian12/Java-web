@@ -8,6 +8,7 @@ import com.shu.mapper.BookMapper;
 import com.shu.entity.vo.request.Book;
 import com.shu.entity.vo.request.BookDeletionRequest;
 import com.shu.service.AccountService;
+import com.shu.utils.AliOSSUtils;
 import com.shu.utils.Constants;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
@@ -26,10 +27,12 @@ public class BookService {
     private final BookMapper bookMapper;
     @Resource
     AccountService accountService;
+    @Autowired
+    AliOSSUtils aliOSSUtils;
     @Scheduled(fixedRate = 43200000)
-public void updateBookGrade() {
+    public void updateBookGrade() {
        bookMapper.updateBookGrade();
-        System.out.println("定时任务执行中...");
+       log.info("定时任务执行中...");
 
     }
     public List<Book >GetBookObject(String userEmail,Integer offset,Integer size ){
@@ -63,8 +66,18 @@ public void updateBookGrade() {
     public List<Book> selectBooksByIds(List<Integer> BookIds){
         return bookMapper.selectBooksByIds(BookIds);
  }
-    public void createBook(Book book) {
+    public String createBook(Book book) throws Exception {
         log.info("book:{}",book);
+        if(bookMapper.selectRepeatBook(book.getBookVersion(),book.getBookUploader()) != null){
+            Book originBook = bookMapper.selectBookByVersion(book.getBookVersion());
+            if(book.getBookFileUuid() != null && !book.getBookFileUuid().equals("") && !book.getBookFileUuid().equals(originBook.getBookFileUuid())){
+                aliOSSUtils.DeleteFile(book.getBookFileUuid());
+            }
+            if(book.getBookCoverUuid() != null && !book.getBookCoverUuid().equals("") && !book.getBookCoverUuid().equals(originBook.getBookCoverUuid())){
+                aliOSSUtils.DeleteFile(book.getBookCoverUuid());
+            }
+            return "不能重复上传图书";
+        }
         Account account = accountService.findAccountByNameOrEmail(book.getBookUploader());
         if(account != null){
             String newUserInfo = accountService.updateUserPoints(account.getEmail(),account.getPoints() + Constants.uploadPointBonus);
@@ -73,9 +86,13 @@ public void updateBookGrade() {
             book.setBookCoverUrl(Constants.defaultBookCoverUrl);
             book.setBookCoverUuid(Constants.defaultBookCoverUuid);
         }
+        book.setBookClickNum(0);
+        book.setBookDownloadNum(0);
+        book.setBookGrade(null);
         book.setUpdateTime(LocalDate.now());
         book.setCreateTime(LocalDate.now());
         bookMapper.insertBook(book);
+        return null;
     }
 
     public Book getBookById(int id) {

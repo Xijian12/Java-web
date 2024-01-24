@@ -4,6 +4,7 @@ import com.shu.entity.Result;
 import com.shu.entity.vo.request.DeleteMaterialRequest;
 import com.shu.entity.vo.request.DonwloadMaterialVO;
 import com.shu.entity.vo.request.Material;
+import com.shu.entity.vo.request.Response;
 import com.shu.entity.vo.request.admin.AdminAddCommentVO;
 import com.shu.entity.vo.request.admin.AdminDeleteCommentVO;
 import com.shu.entity.vo.request.user.MaterialPage;
@@ -13,6 +14,7 @@ import com.shu.entity.vo.response.MaterialUploadVO;
 import com.shu.service.MaterialService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -58,10 +60,13 @@ public class MaterialController {
 
     //新增资料信息
     @PostMapping
-    public Result newAddMaterial(@RequestBody  Material material) {
-        materialService.newAddMaterial(material);
+    public ResponseEntity<?>  newAddMaterial(@RequestBody  Material material) {
+        String returnInfo =  materialService.newAddMaterial(material);
 
-        return Result.success();
+        if(returnInfo == null){
+            return  ResponseEntity.ok(new Response(200, "操作成功"));
+        }
+        return ResponseEntity.ok(new Response(400, returnInfo, null));
     }
 
     //用户更新资料信息

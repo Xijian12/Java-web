@@ -100,5 +100,9 @@ public interface MaterialMapper {
     void updateUsername(String oldUserName, String newUserName);
 
 
+
     List<Material> selectMaterialBySMS(String schMajorSub);
+
+    @Select("select * from materials where school = #{school} and major = #{major} and subject = #{subject} and material_uploader =#{materialUploader}")
+    Material selectRepeatMaterial(String school, String major, String subject,String materialUploader);
 }

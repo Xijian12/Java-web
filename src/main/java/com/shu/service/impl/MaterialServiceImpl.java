@@ -41,19 +41,37 @@ public class MaterialServiceImpl implements MaterialService {
     private MaterialCommentMapper materialCommentMapper;
 
     @Override
-    public void newAddMaterial(Material material) {
+    public String newAddMaterial(Material material) {
         material.setMaterialClickNum(0);
         material.setMaterialDownloadNum(0);
         material.setCreateTime(LocalDateTime.now());
         material.setUpdateTime(LocalDateTime.now());
+        if(material.getSchool() == null || material.getSchool().equals("")
+            ||material.getSubject() == null || material.getSubject().equals("")
+            ||material.getMajor() == null || material.getMajor().equals("")){
+            return "学校、学科、专业均不能为空";
+        }
+        Material originMaterial = materialMapper.selectRepeatMaterial(material.getSchool(),material.getMajor(),material.getSubject(),material.getMaterialUploader());
+        if(originMaterial != null){
+            return "不能重复上传资料";
+        }
+        if((material.getElecBookUuid()==null || material.getElecBookUuid().equals(""))
+            && (material.getTeachingPlanUuid()==null || material.getTeachingPlanUuid().equals(""))
+            && (material.getClassPptUuid()==null || material.getClassPptUuid().equals(""))
+            && (material.getCalendarVolumeUuid()==null || material.getCalendarVolumeUuid().equals(""))
+            && (material.getAnotherMaterialUuid()==null || material.getAnotherMaterialUuid().equals(""))){
+            return "请至少上传一种资料";
+        }
         if(material.getMaterialCoverUrl()==null || material.getMaterialCoverUrl().equals("")){//如果没有地址，则采用默认封面
-            material.setMaterialCoverUrl(Constants.defaultMaterialCoverUrl);}
+            material.setMaterialCoverUrl(Constants.defaultMaterialCoverUrl);
+        }
         Account account = accountService.findAccountByNameOrEmail(material.getMaterialUploader());
         log.info("account:{}",account);
         if(account != null){
             String newUserInfo = accountService.updateUserPoints(account.getEmail(),account.getPoints() + Constants.uploadPointBonus);
         }
         materialMapper.insertMaterial(material);
+        return null;
     }
 
     @Override

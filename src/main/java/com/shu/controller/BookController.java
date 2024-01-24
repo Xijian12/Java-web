@@ -43,9 +43,15 @@ public class BookController {
 
 
     @PostMapping
-    public ResponseEntity<?> createBook(@RequestBody Book book) {
-        bookService.createBook(book);
-        return  ResponseEntity.ok(new Response(200, "操作成功"));
+    public ResponseEntity<?> createBook(@RequestBody Book book) throws Exception {
+        if(book.getBookFileUuid() == null || book.getBookFileUuid().equals("")){
+            return ResponseEntity.ok(new Response(400, "请上传图书文件", null));
+        }
+        String returnInfo = bookService.createBook(book);
+        if(returnInfo == null){
+            return  ResponseEntity.ok(new Response(200, "操作成功"));
+        }
+        return ResponseEntity.ok(new Response(400, returnInfo, null));
     }
 
     @GetMapping("/{bookId}")
