@@ -49,7 +49,12 @@ function clickme(){
   axios.get('/user/userInfo',{params: {username: username.value,}}).then(response => {
     // 处理成功的响应
     store.commit('addUserPic',response.data.data.points);
+    setTimeout(function()  {
+ 
     window.location.reload()
+
+}, 1500);
+   
   })   
     }
 function SearchDisplayVue(){
