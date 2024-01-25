@@ -70,20 +70,19 @@ public class BookController {
         return ResponseEntity.ok(new Response(200, "操作成功", book));
     }
     @GetMapping("/find")
-        public ResponseEntity<?> getBooks(
-                @RequestParam(required = false) String bookName,
-                @RequestParam(required = false) String bookAuthor,
-                @RequestParam(required = false) Integer bookPointsFloor,
-                @RequestParam(required = false) Integer bookPointsUpper,
-                @RequestParam(required = false)  Double bookGradeFloor,
-                @RequestParam(required = false) Double bookGradeUpper,
-                @RequestParam(defaultValue = "1") int page,
-                @RequestParam(defaultValue = "10") int pageSize) {
-            BookTop bookstop=new BookTop();
-            bookstop = bookService.findBooks(bookName, bookAuthor, bookPointsFloor, bookPointsUpper, bookGradeFloor, bookGradeUpper, page, pageSize);
+    public ResponseEntity<?> getBooks(
+            @RequestParam(required = false) String bookName,
+            @RequestParam(required = false) String bookAuthor,
+            @RequestParam(required = false) Integer bookPointsFloor,
+            @RequestParam(required = false) Integer bookPointsUpper,
+            @RequestParam(required = false)  Double bookGradeFloor,
+            @RequestParam(required = false) Double bookGradeUpper,
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "10") int pageSize) {
+        MaterialPage  bookPage = bookService.findBooks(bookName, page, pageSize);
 
-            return ResponseEntity.ok(bookstop);
-        }
+        return ResponseEntity.ok(bookPage);
+    }
    @GetMapping
     public ResponseEntity<?> getAllBooks() {
         List<Book> books = bookService.getAllBooks();

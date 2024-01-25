@@ -1,9 +1,12 @@
 package com.shu.service.impl;
 
+import com.github.pagehelper.PageHelper;
 import com.shu.entity.dto.Account;
+import com.shu.entity.vo.request.Material;
 import com.shu.entity.vo.request.Page;
 import com.shu.entity.vo.request.user.BookTop;
 import com.shu.entity.vo.request.user.DownloadBook;
+import com.shu.entity.vo.request.user.MaterialPage;
 import com.shu.mapper.BookMapper;
 import com.shu.entity.vo.request.Book;
 import com.shu.entity.vo.request.BookDeletionRequest;
@@ -122,14 +125,24 @@ public class BookService {
     public List<Book> getAllBooks() {
         return bookMapper.selectAllBooks();
     }
-    public BookTop findBooks(String bookName, String bookAuthor, Integer bookPointsFloor, Integer bookPointsUpper, Double bookGradeFloor, Double bookGradeUpper, int page, int pageSize){
-        Integer offset = (page - 1) * pageSize;
-        Integer limit=pageSize;
-        BookTop books=new BookTop();
-        books.setTotal(bookMapper.countBooks(bookName, bookAuthor, bookPointsFloor, bookPointsUpper, bookGradeFloor, bookGradeUpper));
-        books.setBooks(bookMapper.findBooks(bookName, bookAuthor, bookPointsFloor, bookPointsUpper, bookGradeFloor, bookGradeUpper, offset, pageSize));
-        return books;
+    public MaterialPage findBooks(String bookName, int page, int pageSize){
+//        Integer offset = (page - 1) * pageSize;
+//        Integer limit=pageSize;
+//        BookTop books=new BookTop();
+//        books.setTotal(bookMapper.countBooks(bookName, bookAuthor, bookPointsFloor, bookPointsUpper, bookGradeFloor, bookGradeUpper));
+//        books.setBooks(bookMapper.findBooks(bookName, bookAuthor, bookPointsFloor, bookPointsUpper, bookGradeFloor, bookGradeUpper, offset, pageSize));
+//        return books;
+        //设置分页参数
+        PageHelper.startPage(page,pageSize);
 
+        //查询结果
+        List<Book> bookList = bookMapper.findBooks(bookName);
+        log.info("bookList:{}",bookList);
+        //用PageHelper自带的Page类型对查询结果进行强制转型
+        com.github.pagehelper.Page<Book> p = (com.github.pagehelper.Page<Book>) bookList;
+
+        //对查询结果进行封装
+        return new MaterialPage(p.getTotal(),p.getResult());
     }
 
     public int updateBook(Book book) {

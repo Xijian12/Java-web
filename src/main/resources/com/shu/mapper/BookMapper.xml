@@ -22,4 +22,24 @@
         </where>
         order by book_click_num desc
     </select>
+
+    <select id="countBooks" resultType="Integer">
+        select COUNT(*)
+        from book
+        <where>
+            <if test="bookName != null and bookName != '' ">
+                book_name like concat('%',#{bookName},'%')
+            </if>
+            <if test="bookName != null and bookName != '' ">
+                or book_author like concat('%',#{bookName},'%')
+            </if>
+            <if test="bookName != null and bookName != ''  ">
+                or book_version like concat('%',#{bookName},'%')
+            </if>
+            <if test="bookName != null and bookName != '' ">
+                or book_publish_house like concat('%',#{bookName},'%')
+            </if>
+        </where>
+        order by book_click_num desc
+    </select>
 </mapper>

@@ -44,9 +44,9 @@ public interface BookMapper {
 //            "SELECT * FROM test.book",
 //            "<where>",
 //            "<if test='bookName != null'>AND book_name LIKE CONCAT('%', #{bookName}, '%')</if>",
-//            "<if test='bookAuthor != null'>AND book_author LIKE CONCAT('%', #{bookAuthor}, '%')</if>",
-//            "<if test='bookPointsFloor != null'>AND book_points>=#{bookPointsFloor}</if>",
-//            "<if test='bookPointsUpper != null'>AND #{bookPointsUpper}>=book_points</if>",
+//            "<if test='bookAuthor != null'>OR book_author LIKE CONCAT('%', #{bookAuthor}, '%')</if>",
+//            "<if test='bookPointsFloor != null'>OR book_points>=#{bookPointsFloor}</if>",
+//            "<if test='bookPointsUpper != null'>OR #{bookPointsUpper}>=book_points</if>",
 //            "<if test='bookGradeUpper != null'>AND #{bookGradeUpper}>=book_grade</if>",
 //            "<if test='bookGradeFloor != null'>AND book_grade >= #{bookGradeFloor}</if>",
 //
@@ -55,29 +55,22 @@ public interface BookMapper {
 //            "</script>"
 //    })
 
-    List<Book> findBooks(@Param("bookName") String bookName,
-                         @Param("bookAuthor") String bookAuthor,
-                         @Param("bookPointsFloor") Integer bookPointsFloor,
-                         @Param("bookPointsUpper") Integer bookPointsUpper,
-                         @Param("bookGradeFloor") Double bookGradeFloor,
-                         @Param("bookGradeUpper") Double bookGradeUpper,
-                         @Param("offset") Integer offset,
-                         @Param("limit") Integer limit);
+    List<Book> findBooks(String bookName);
     @Select("SELECT COUNT(*)FROM test.book where book_uploader=#{userEmail}")
     int countBooksById(String userEmail);
-   @Select({
-           "<script>",
-           "SELECT COUNT(*) FROM test.book",
-           "<where>",
-           "<if test='bookName != null'>AND book_name LIKE CONCAT('%', #{bookName}, '%')</if>",
-           "<if test='bookAuthor != null'>AND book_author LIKE CONCAT('%', #{bookAuthor}, '%')</if>",
-           "<if test='bookPointsFloor != null'>AND book_points>=#{bookPointsFloor}</if>",
-           "<if test='bookPointsUpper != null'>AND #{bookPointsUpper}>=book_points</if>",
-           "<if test='bookGradeUpper != null'>AND #{bookGradeUpper}>=book_grade</if>",
-           "<if test='bookGradeFloor != null'>AND book_grade >= #{bookGradeFloor}</if>",
-           "</where>",
-           "</script>"
-   })
+//   @Select({
+//           "<script>",
+//           "SELECT COUNT(*) FROM test.book",
+//           "<where>",
+//           "<if test='bookName != null'>AND book_name LIKE CONCAT('%', #{bookName}, '%')</if>",
+//           "<if test='bookAuthor != null'>AND book_author LIKE CONCAT('%', #{bookAuthor}, '%')</if>",
+//           "<if test='bookPointsFloor != null'>AND book_points>=#{bookPointsFloor}</if>",
+//           "<if test='bookPointsUpper != null'>AND #{bookPointsUpper}>=book_points</if>",
+//           "<if test='bookGradeUpper != null'>AND #{bookGradeUpper}>=book_grade</if>",
+//           "<if test='bookGradeFloor != null'>AND book_grade >= #{bookGradeFloor}</if>",
+//           "</where>",
+//           "</script>"
+//   })
    int countBooks(@Param("bookName") String bookName,
                   @Param("bookAuthor") String bookAuthor,
                   @Param("bookPointsFloor") Integer bookPointsFloor,
