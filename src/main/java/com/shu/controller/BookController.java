@@ -80,7 +80,7 @@ public class BookController {
                 @RequestParam(defaultValue = "1") int page,
                 @RequestParam(defaultValue = "10") int pageSize) {
             BookTop bookstop=new BookTop();
-             bookstop = bookService.findBooks(bookName, bookAuthor, bookPointsFloor, bookPointsUpper, bookGradeFloor, bookGradeUpper, page, pageSize);
+            bookstop = bookService.findBooks(bookName, bookAuthor, bookPointsFloor, bookPointsUpper, bookGradeFloor, bookGradeUpper, page, pageSize);
 
             return ResponseEntity.ok(bookstop);
         }

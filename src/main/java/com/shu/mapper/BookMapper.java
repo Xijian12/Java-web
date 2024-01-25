@@ -39,21 +39,21 @@ public interface BookMapper {
     @Delete("delete  from test.commentforbook where book_id = #{bookId}")
     void deleteBookCommentByIds(int bookId);
 
-    @Select({
-            "<script>",
-            "SELECT * FROM test.book",
-            "<where>",
-            "<if test='bookName != null'>AND book_name LIKE CONCAT('%', #{bookName}, '%')</if>",
-            "<if test='bookAuthor != null'>AND book_author LIKE CONCAT('%', #{bookAuthor}, '%')</if>",
-            "<if test='bookPointsFloor != null'>AND book_points>=#{bookPointsFloor}</if>",
-            "<if test='bookPointsUpper != null'>AND #{bookPointsUpper}>=book_points</if>",
-            "<if test='bookGradeUpper != null'>AND #{bookGradeUpper}>=book_grade</if>",
-            "<if test='bookGradeFloor != null'>AND book_grade >= #{bookGradeFloor}</if>",
-
-           "</where>",
-            "LIMIT #{offset}, #{limit}",
-            "</script>"
-    })
+//    @Select({
+//            "<script>",
+//            "SELECT * FROM test.book",
+//            "<where>",
+//            "<if test='bookName != null'>AND book_name LIKE CONCAT('%', #{bookName}, '%')</if>",
+//            "<if test='bookAuthor != null'>AND book_author LIKE CONCAT('%', #{bookAuthor}, '%')</if>",
+//            "<if test='bookPointsFloor != null'>AND book_points>=#{bookPointsFloor}</if>",
+//            "<if test='bookPointsUpper != null'>AND #{bookPointsUpper}>=book_points</if>",
+//            "<if test='bookGradeUpper != null'>AND #{bookGradeUpper}>=book_grade</if>",
+//            "<if test='bookGradeFloor != null'>AND book_grade >= #{bookGradeFloor}</if>",
+//
+//           "</where>",
+//            "LIMIT #{offset}, #{limit}",
+//            "</script>"
+//    })
 
     List<Book> findBooks(@Param("bookName") String bookName,
                          @Param("bookAuthor") String bookAuthor,
@@ -63,7 +63,7 @@ public interface BookMapper {
                          @Param("bookGradeUpper") Double bookGradeUpper,
                          @Param("offset") Integer offset,
                          @Param("limit") Integer limit);
-@Select("SELECT COUNT(*)FROM test.book where book_uploader=#{userEmail}")
+    @Select("SELECT COUNT(*)FROM test.book where book_uploader=#{userEmail}")
     int countBooksById(String userEmail);
    @Select({
            "<script>",
