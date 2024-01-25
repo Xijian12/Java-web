@@ -359,7 +359,7 @@ const initDataCategory = async (categoryName) => {
         pageSize: pageSize.value
       }
     });
-    books.value = response.data.books
+    books.value = response.data.items
     total.value = response.data.total
     // 处理成功的响应
   } catch (error) {

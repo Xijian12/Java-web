@@ -1,7 +1,7 @@
 <template>
   <div class="contentTitle">
     <div class="image">
-      <img class="logo_img" src="src/assets/images/logo.jpg" alt="">
+      <img class="logo_img" src="@/assets/images/logo.jpg" alt="">
       <a class="wenzi" href="https://www.shu.edu.cn/" >
         上海大学
       </a>

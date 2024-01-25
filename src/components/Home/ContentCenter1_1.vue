@@ -4,7 +4,7 @@
            <div class="module_subbox">
               <a href="/SearchDisplay/1"   class="keke_doc_clearfix">                    
                 <div class="lefticon">
-                <img src="src/assets/images/181200ix6weosezwysgwvw.png" /></div>
+                <img src="@/assets/images/181200ix6weosezwysgwvw.png" /></div>
                 <div class="web-module-right">
                   <div class="righthd">全部图书</div>
                   <div class="rightbd">海量图书 供你查阅</div>
@@ -14,7 +14,7 @@
             <div class="module_subbox">
               <a href="https://www.pdfdz.com/plugin.php?id=keke_group"   class="keke_doc_clearfix">                    
                 <div class="lefticon">
-                <img src="src\assets\images\181821ze01cp13x4w4poc7.png" /></div>
+                <img src="@\assets\images\181821ze01cp13x4w4poc7.png" /></div>
                 <div class="web-module-right">
                   <div class="righthd">加入VIP</div>
                   <div class="rightbd">会员特权 畅快阅读</div>         
@@ -24,7 +24,7 @@
             <div class="module_subbox">
               <a href="/SearchDisplay/1"  class="keke_doc_clearfix">                    
                 <div class="lefticon">
-                <img src="src/assets/images/181710yrarppyvdy4dpuc8.png" /></div>
+                <img src="@/assets/images/181710yrarppyvdy4dpuc8.png" /></div>
                 <div class="web-module-right">
                   <div class="righthd">最新上架</div>
                 </div>
@@ -33,7 +33,7 @@
             <div class="module_subbox">
               <a href="/personal/publishRecord"  class="keke_doc_clearfix">                    
                 <div class="lefticon">
-                <img src="src/assets/images/182122wipvnkjvjqjk1zf7.png" /></div>
+                <img src="@/assets/images/182122wipvnkjvjqjk1zf7.png" /></div>
                   <div class="web-module-right">
                     <div class="righthd">我的下载</div>
                     <div class="rightbd">下载知识 就是力量</div>
@@ -43,7 +43,7 @@
               <div class="module_subbox">
                 <a href="/personal/favorite"   class="keke_doc_clearfix">                    
                   <div class="lefticon">
-                  <img src="src/assets/images/182300pogbsbsg6el1pexe.png" /></div>
+                  <img src="@/assets/images/182300pogbsbsg6el1pexe.png" /></div>
                     <div class="web-module-right">
                       <div class="righthd">我的收藏</div>
                       <div class="rightbd">收藏知识 收藏未来</div>

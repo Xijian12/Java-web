@@ -356,7 +356,7 @@ const searchBook = () => {
         pageSize: pageSize.value
       }
     }).then((resp)=>{
-      books.value = resp.data.books
+      books.value = resp.data.items
       pageTotal.value = resp.data.total
     }) 
   }else{

@@ -16,7 +16,7 @@
           </el-input>
         </el-form-item>
         <el-form-item prop="password">
-          <el-input v-model="form.password" type="password" maxlength="20" style="margin-top: 10px" placeholder="密码">
+          <el-input v-model="form.password" type="password" maxlength="30" style="margin-top: 10px" placeholder="密码">
             <template #prefix>
               <el-icon>
                 <Lock/>

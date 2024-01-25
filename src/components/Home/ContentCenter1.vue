@@ -5,7 +5,7 @@
           <div class="contentCenter_Left_menu_title1" @mouseenter="yiru" @mouseleave="yichu"> 
             <div class="left_item">
               <div class="navTitleBox">
-        <img src="src/assets/images/category-area.png" alt="">
+        <img src="@/assets/images/category-area.png" alt="">
         <div class="navTitle">按分类看</div>
         <div class="navDescribe">分门别类，找你所想</div>
         <i class="keke_iconfont"></i>
@@ -15,7 +15,7 @@
           <div class="contentCenter_Left_menu_title2" @mouseenter="yiru2" @mouseleave="yichu2">
             <div class="left_item">
               <div class="navTitleBox">
-        <img src="src/assets/images/category-specialty.png" alt="">
+        <img src="@/assets/images/category-specialty.png" alt="">
       <div class="navTitle">图书搜索</div>
       <div class="navDescribe">精确搜索，直达所需</div>
       <i class="keke_iconfont"></i>
@@ -25,7 +25,7 @@
           <div class="contentCenter_Left_menu_title3" @mouseenter="yiru3" @mouseleave="yichu3">
             <div class="left_item">
                 <div class="navTitleBox">
-                <img src="src/assets/images/category-ask.png" alt="">
+                <img src="@/assets/images/category-ask.png" alt="">
                 <div class="navTitle">资料搜索</div>
                 <div class="navDescribe">更多资料在这里</div>
                 <i class="keke_iconfont"></i>
@@ -202,13 +202,13 @@
                 <a href="javascript:" @click="tipNoPer"  class="updocbtn"><el-icon><UploadFilled /></el-icon>上传文档</a>
                 <ul class="advantage">
                     <li>
-                        <img src="src/assets/images/s-fast.png" alt="快审"><span>快审</span>
+                        <img src="@/assets/images/s-fast.png" alt="快审"><span>快审</span>
                     </li>
                     <li>
-                        <img src="src/assets/images/s-profession.png" alt="高佣">高佣
+                        <img src="@/assets/images/s-profession.png" alt="高佣">高佣
                     </li>
                     <li>
-                        <img src="src/assets/images/s-privacy.png" alt="开放">开放
+                        <img src="@/assets/images/s-privacy.png" alt="开放">开放
                     </li>
                 </ul>
             </div>
