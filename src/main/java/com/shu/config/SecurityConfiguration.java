@@ -181,22 +181,20 @@ public class SecurityConfiguration {
     }
 
     /**
-     * 退出登录处理，将对应的Jwt令牌列入黑名单不再使用
-     * @param request 请求
-     * @param response 响应
-     * @param authentication 验证实体
-     * @throws IOException 可能的异常
+     * 退出登录处理（无状态 JWT 方案）
+     * 说明：服务端不再维护 token 黑名单
+     * 退出登录由前端删除 JWT 完成
      */
     private void onLogoutSuccess(HttpServletRequest request,
                                  HttpServletResponse response,
                                  Authentication authentication) throws IOException {
+
         response.setContentType("application/json;charset=utf-8");
         PrintWriter writer = response.getWriter();
-        String authorization = request.getHeader("Authorization");
-        if(utils.invalidateJwt(authorization)) {
-            writer.write(RestBean.success("退出登录成功").asJsonString());
-            return;
-        }
-        writer.write(RestBean.failure(400, "退出登录失败").asJsonString());
+
+        // 不再处理 Authorization
+        // 不再校验 / 失效 JWT
+        // 直接返回成功
+        writer.write(RestBean.success("退出登录成功").asJsonString());
     }
 }

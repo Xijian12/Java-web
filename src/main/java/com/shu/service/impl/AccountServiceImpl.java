@@ -6,21 +6,22 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.shu.entity.dto.Account;
 import com.shu.entity.vo.request.*;
+import com.shu.entity.vo.request.user.EmailVerifyCodeVO;
 import com.shu.entity.vo.request.user.MaterialPage;
 import com.shu.entity.vo.response.DisplayAccountByAdminVO;
 import com.shu.entity.vo.response.DisplayAccountByUserVO;
 import com.shu.mapper.AccountMapper;
+import com.shu.mapper.EmailVerifyCodeMapper;
 import com.shu.mapper.MaterialMapper;
 import com.shu.service.AccountService;
+import com.shu.service.MailService;
 import com.shu.utils.Const;
 import com.shu.utils.FlowUtils;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import jakarta.annotation.Resource;
-import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -28,11 +29,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
 
 /**
  * 账户信息处理相关服务
@@ -43,12 +43,6 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
     //验证邮件发送冷却时间限制，秒为单位
     @Value("${spring.web.verify.mail-limit}")
     int verifyLimit;
-
-    @Resource
-    AmqpTemplate rabbitTemplate;
-
-    @Resource
-    StringRedisTemplate stringRedisTemplate;
 
     @Resource
     PasswordEncoder passwordEncoder;
@@ -62,8 +56,15 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
     @Autowired
     private MaterialMapper materialMapper;
 
+    @Resource
+    private EmailVerifyCodeMapper emailVerifyCodeMapper;
+
+    @Resource
+    private MailService mailService;
+
     /**
      * 从数据库中通过用户名或邮箱查找用户详细信息
+     *
      * @param username 用户名
      * @return 用户详细信息
      * @throws UsernameNotFoundException 如果用户未找到则抛出此异常
@@ -71,94 +72,134 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Account account = this.findAccountByNameOrEmail(username);
-        if(account == null)
-            throw new UsernameNotFoundException("用户名或密码错误");
-        return User
-                .withUsername(username)
-                .password(account.getPassword())
-                .roles(account.getRole())
-                .build();
+        if (account == null) throw new UsernameNotFoundException("用户名或密码错误");
+        return User.withUsername(username).password(account.getPassword()).roles(account.getRole()).build();
     }
 
-   // 生成注册验证码存入Redis中，并将邮件发送请求提交到消息队列等待发送
     @Override
-    public String registerEmailVerifyCode(String type, String email, String address){
+    // 生成注册验证码存数据库中，并将邮件发送请求提交到消息队列等待发送
+    public String registerEmailVerifyCode(String type, String email, String address) {
         synchronized (address.intern()) {
-            if(!this.verifyLimit(address))
-                return "请求频繁，请稍后再试";
-            Random random = new Random();
-            int code = random.nextInt(899999) + 100000;
-            Map<String, Object> data = Map.of("type",type,"email", email, "code", code);
-            rabbitTemplate.convertAndSend(Const.MQ_MAIL, data);
-            stringRedisTemplate.opsForValue()
-                    .set(Const.VERIFY_EMAIL_DATA + email, String.valueOf(code), 3, TimeUnit.MINUTES);
+            // 1. IP 限流（仍然可以保留）
+            if (!verifyLimit(address)) return "请求频繁，请稍后再试";
+            // 2. 生成验证码
+            int code = new Random().nextInt(900000) + 100000;
+            // 3. 计算过期时间（3 分钟）
+            LocalDateTime expireTime = LocalDateTime.now().plusMinutes(3);
+            // 4. upsert 到数据库
+            EmailVerifyCodeVO entity = new EmailVerifyCodeVO(email, String.valueOf(code), expireTime);
+
+            emailVerifyCodeMapper.insertOrUpdateVerifyCode(entity);
+
+            // 5. 投递 MQ 发邮件（逻辑不变）
+            mailService.sendMail(type, email, code);
+
             return null;
         }
     }
 
     /**
      * 邮件验证码注册账号操作，需要检查验证码是否正确以及邮箱、用户名是否存在重名
+     *
      * @param info 注册基本信息
      * @return 操作结果，null表示正常，否则为错误原因
      */
-    public String registerEmailAccount(EmailRegisterVO info){
-        String email = info.getEmail();
-        String code = this.getEmailVerifyCode(email);
-        if(code == null) return "请先获取验证码";
-        if(!code.equals(info.getCode())) return "验证码错误，请重新输入";
-        if(this.existsAccountByEmail(email)) return "该邮件地址已被注册";
-        String username = info.getUsername();
-        if(this.existsAccountByUsername(username)) return "该用户名已被他人使用，请重新更换";
-        String password = passwordEncoder.encode(info.getPassword());
-        Account account = new Account(null, info.getUsername(),
-                password, email, Const.ROLE_DEFAULT, new Date());
-        if(!this.save(account)) {
-            return "内部错误，注册失败";
-        } else {
-            this.deleteEmailVerifyCode(email);
-            return null;
+    @Override
+    public String registerEmailAccount(EmailRegisterVO info) {
+        EmailVerifyCodeVO verify = getVerifyCode(info.getEmail());
+        if (verify == null) return "请先获取验证码";
+
+        if (isExpired(verify)) {
+            deleteVerifyCode(info.getEmail());
+            return "验证码已过期";
         }
+
+        if (!verify.getCode().equals(info.getCode())) return "验证码错误，请重新输入";
+
+        if (existsAccountByEmail(info.getEmail())) return "该邮件地址已被注册";
+
+        if (existsAccountByUsername(info.getUsername())) return "该用户名已被他人使用";
+
+        Account account = new Account(null, info.getUsername(), passwordEncoder.encode(info.getPassword()), info.getEmail(), Const.ROLE_DEFAULT, new Date());
+
+        if (!this.save(account)) return "内部错误，注册失败";
+
+        deleteVerifyCode(info.getEmail());
+        return null;
     }
 
     /**
      * 邮件验证码重置密码操作，需要检查验证码是否正确
+     *
      * @param info 重置基本信息
      * @return 操作结果，null表示正常，否则为错误原因
      */
     @Override
     public String resetEmailAccountPassword(EmailResetVO info) {
-        String verify = resetConfirm(new ConfirmResetVO(info.getEmail(), info.getCode()));
-        if(verify != null) return verify;
-        String email = info.getEmail();
-        String password = passwordEncoder.encode(info.getPassword());
-        boolean update = this.update().eq("email", email).set("password", password).update();
-        if(update) {
-            this.deleteEmailVerifyCode(email);
-        }
-        return update ? null : "更新失败，请联系管理员";
-    }
+        EmailVerifyCodeVO verify = getVerifyCode(info.getEmail());
+        if (verify == null) return "请先获取验证码";
 
+        if (isExpired(verify)) {
+            deleteVerifyCode(info.getEmail());
+            return "验证码已过期";
+        }
+
+        if (!verify.getCode().equals(info.getCode()))
+            return "验证码错误";
+
+        boolean updated = this.update()
+                .eq("email", info.getEmail())
+                .set("password",
+                        passwordEncoder.encode(info.getPassword()))
+                .update();
+
+        if (updated)
+            deleteVerifyCode(info.getEmail());
+
+        return updated ? null : "更新失败，请联系管理员";
+    }
     /**
      * 重置密码确认操作，验证验证码是否正确
+     *
      * @param info 验证基本信息
      * @return 操作结果，null表示正常，否则为错误原因
      */
     @Override
     public String resetConfirm(ConfirmResetVO info) {
-        String email = info.getEmail();
-        String code = this.getEmailVerifyCode(email);
-        if(code == null) return "请先获取验证码";
-        if(!code.equals(info.getCode())) return "验证码错误，请重新输入";
+        EmailVerifyCodeVO verify = getVerifyCode(info.getEmail());
+        if (verify == null) return "请先获取验证码";
+
+        if (isExpired(verify)) {
+            deleteVerifyCode(info.getEmail());
+            return "验证码已过期";
+        }
+
+        if (!verify.getCode().equals(info.getCode())) return "验证码错误，请重新输入";
         return null;
     }
 
+    /* ======================== 验证码工具方法 ======================== */
+    private EmailVerifyCodeVO getVerifyCode(String email) {
+        return emailVerifyCodeMapper.selectVerifyCodeByEmail(email);
+    }
 
 
+    private void deleteVerifyCode(String email) {
+        emailVerifyCodeMapper.deleteVerifyCodeByEmail(email);
+    }
+
+
+    private boolean isExpired(EmailVerifyCodeVO code) {
+        return code.getExpireTime().isBefore(LocalDateTime.now());
+    }
+
+    /* ======================== 用户信息设置方法 ======================== */
     @Override
-    public DisplayAccountByUserVO userInfo(String username) throws UsernameNotFoundException  {
+    public DisplayAccountByUserVO userInfo(String username) throws UsernameNotFoundException {
         Account account = this.findAccountByNameOrEmail(username);
-        if(account == null){
-            throw new UsernameNotFoundException("用户名或密码错误");}
+        if (account == null) {
+            throw new UsernameNotFoundException("用户名或密码错误");
+        }
         // 创建 DisplayAccountByAdminVO 对象并返回
         return new DisplayAccountByUserVO(account);
     }
@@ -166,24 +207,25 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
     @Override
     public DisplayAccountByAdminVO adminInfo(String username) throws UsernameNotFoundException {
         Account account = this.findAccountByNameOrEmail(username);
-        if(account == null){
-            throw new UsernameNotFoundException("用户名或密码错误");}
+        if (account == null) {
+            throw new UsernameNotFoundException("用户名或密码错误");
+        }
         return new DisplayAccountByAdminVO(account);
     }
 
     @Override
     public DisplayAccountByAdminVO adminInfoByEmail(String email) throws UsernameNotFoundException {
         Account account = this.findAccountByNameOrEmail(email);
-        if(account == null){
-            throw new UsernameNotFoundException("用户名或密码错误");}
+        if (account == null) {
+            throw new UsernameNotFoundException("用户名或密码错误");
+        }
         return new DisplayAccountByAdminVO(account);
     }
 
     @Override
     public String userInfoByName(String username) {
         Account account = this.findAccountByNameOrEmail(username);
-        if(account == null)
-            throw new UsernameNotFoundException("用户名或密码错误");
+        if (account == null) throw new UsernameNotFoundException("用户名或密码错误");
         return "用户名或密码错误";
     }
 
@@ -228,9 +270,9 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
     }
 
 
-    public MaterialPage getAllAccounts(Integer page,Integer pageSize) {
+    public MaterialPage getAllAccounts(Integer page, Integer pageSize) {
         //设置分页参数
-        PageHelper.startPage(page,pageSize);
+        PageHelper.startPage(page, pageSize);
 
         //查询结果
         List<Account> accounts = accountMapper.selectList(null); // 检索所有账户
@@ -238,10 +280,10 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
         Page<Account> p = (Page<Account>) accounts;
 
         //对查询结果进行封装
-        return new MaterialPage(p.getTotal(),p.getResult());
+        return new MaterialPage(p.getTotal(), p.getResult());
     }
 
-    public boolean updateAvatar(String username, String newAvatarUrl,String newAvatarUuid) {
+    public boolean updateAvatar(String username, String newAvatarUrl, String newAvatarUuid) {
         // 查找用户，此处假设有一个方法来根据用户名获取用户实体
         Account account = this.findAccountByNameOrEmail(username);
         if (account != null) {
@@ -255,16 +297,6 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
         return false;
     }
 
-    //移除Redis中存储的邮件验证码
-    private void deleteEmailVerifyCode(String email){
-        String key = Const.VERIFY_EMAIL_DATA + email;
-        stringRedisTemplate.delete(key);
-    }
-    //获取Redis中存储的邮件验证码
-    private String getEmailVerifyCode(String email){
-        String key = Const.VERIFY_EMAIL_DATA + email;
-        return stringRedisTemplate.opsForValue().get(key);
-    }
     //针对IP地址进行邮件验证码获取限流
     private boolean verifyLimit(String address) {
         String key = Const.VERIFY_EMAIL_LIMIT + address;
@@ -273,32 +305,32 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
 
     /**
      * 通过用户名或邮件地址查找用户
+     *
      * @param text 用户名或邮件
      * @return 账户实体
      */
     @Override
-    public Account findAccountByNameOrEmail(String text){
-        return this.query()
-                .eq("username", text).or()
-                .eq("email", text)
-                .one();
+    public Account findAccountByNameOrEmail(String text) {
+        return this.query().eq("username", text).or().eq("email", text).one();
     }
 
     /**
      * 查询指定邮箱的用户是否已经存在
+     *
      * @param email 邮箱
      * @return 是否存在
      */
-    private boolean existsAccountByEmail(String email){
+    private boolean existsAccountByEmail(String email) {
         return this.baseMapper.exists(Wrappers.<Account>query().eq("email", email));
     }
 
     /**
      * 查询指定用户名的用户是否已经存在
+     *
      * @param username 用户名
      * @return 是否存在
      */
-    private boolean existsAccountByUsername(String username){
+    private boolean existsAccountByUsername(String username) {
         return this.baseMapper.exists(Wrappers.<Account>query().eq("username", username));
     }
 
@@ -332,7 +364,7 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
         List<Material> materials = this.getMaterialsByUploader(email);
         // 遍历材料并更新上传者为管理员
         for (Material material : materials) {
-            this.updateUploaderByEmail(material,adminEmail);
+            this.updateUploaderByEmail(material, adminEmail);
             material.setMaterialUploader(adminEmail);
         }
     }
@@ -348,7 +380,7 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
     }
 
     //更新资料上传者为管理员
-    private void updateUploaderByEmail(Material material,String adminEmail) {
+    private void updateUploaderByEmail(Material material, String adminEmail) {
         if (material != null) {
             materialMapper.updateUploaderByEmail(material.getMaterialUploader(), adminEmail);
         }
@@ -382,18 +414,14 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
 
 
     private void updateSignInInfo(String email, int newPoints, Date newSignInDate) {
-        this.lambdaUpdate()
-                .eq(Account::getEmail, email)
-                .set(Account::getPoints, newPoints)
-                .set(Account::getLastSignInDate, newSignInDate)
-                .update();
+        this.lambdaUpdate().eq(Account::getEmail, email).set(Account::getPoints, newPoints).set(Account::getLastSignInDate, newSignInDate).update();
     }
 
     @Override
-    public String updateUserPoints(String userEmail,Integer points){
+    public String updateUserPoints(String userEmail, Integer points) {
         Account account = this.findAccountByNameOrEmail(userEmail);
-        if(account == null) return "用户不存在";
-        accountMapper.updateUserPoints(userEmail,points);
+        if (account == null) return "用户不存在";
+        accountMapper.updateUserPoints(userEmail, points);
         return null;
     }
 

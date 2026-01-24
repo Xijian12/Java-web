@@ -2,7 +2,7 @@ package com.shu.filter;
 
 import com.shu.entity.RestBean;
 import com.shu.utils.Const;
-import com.shu.utils.FlowUtils;
+import com.shu.utils.MemoryRateLimiter;
 import jakarta.annotation.Resource;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -12,7 +12,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.annotation.Order;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -27,20 +26,15 @@ import java.io.PrintWriter;
 @Order(Const.ORDER_FLOW_LIMIT)
 public class FlowLimitingFilter extends HttpFilter {
 
-    @Resource
-    StringRedisTemplate template;
     //指定时间内最大请求次数限制
     @Value("${spring.web.flow.limit}")
     int limit;
     //计数时间周期
     @Value("${spring.web.flow.period}")
     int period;
-    //超出请求限制封禁时间
-    @Value("${spring.web.flow.block}")
-    int block;
 
     @Resource
-    FlowUtils utils;
+    MemoryRateLimiter limiter;
 
     @Override
     protected void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
@@ -57,13 +51,7 @@ public class FlowLimitingFilter extends HttpFilter {
      * @return 是否操作成功
      */
     private boolean tryCount(String address) {
-        synchronized (address.intern()) {
-            if(Boolean.TRUE.equals(template.hasKey(Const.FLOW_LIMIT_BLOCK + address)))
-                return false;
-            String counterKey = Const.FLOW_LIMIT_COUNTER + address;
-            String blockKey = Const.FLOW_LIMIT_BLOCK + address;
-            return utils.limitPeriodCheck(counterKey, blockKey, block, limit, period);
-        }
+        return limiter.allow(address, limit, period);
     }
 
     /**
